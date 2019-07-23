@@ -1,4 +1,7 @@
 # Steel Crypt
+
+## General
+
 A simple library of high-level API's and sugar for PointyCastle. This 
 library currently supports both hashing and two-way encryption:
 
@@ -17,7 +20,7 @@ library currently supports both hashing and two-way encryption:
 * Whirlpool ('Whirlpool)
 
 
-### Usage
+## Usage
 
 A simple usage example:
 
@@ -42,8 +45,12 @@ print(key);
 
 ```
 
-## Features and bugs
+## Notes
 
-Please file feature requests and bugs at the [issue tracker][tracker].
+* Use in production AT YOUR OWN RISK.
+* This is a work-in-progress, but will be actively maintained.
+* Please file feature requests and bugs at the [issue tracker][tracker].
 
-[tracker]: http://example.com/issues/replaceme
+[tracker]: https://github.com/AKushWarrior/steel_crypt/issues
+
+## TODO's
