@@ -67,3 +67,4 @@ main() {
 - [ ] Create a more complete password solution
 - [ ] Add more detailed example
 
+###### Licensed under the Mozilla Public License 2.0
