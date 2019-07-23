@@ -1,3 +1,9 @@
+## 0.3.1
+- Added RSA encryption
+- Added plaintext-hashtext checks
+- Updated example to correspond with prior two
+- Added Reading section to README
+
 ## 0.2.1+1
 - Updated README
 
