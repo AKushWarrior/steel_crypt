@@ -11,7 +11,7 @@ class Crypt {
   core.String key32;
   Encrypter encrypter;
 
-  CryptVault (core.String inkey32, {core.String intype = "AES"}) {
+  Crypt (core.String inkey32, {core.String intype = "AES"}) {
     type = intype;
     key32 = inkey32;
     if (type == 'AES') {
@@ -47,15 +47,16 @@ class CryptKey {
 class HashCrypt {
   core.String type;
   Digest hasher;
-  HashVault ({core.String inType = 'SHA-3'}) {
+  HashCrypt ({core.String inType = 'SHA-3'}) {
     type = inType;
     hasher = new Digest(inType);
   }
   core.String hash (core.String input) {
     var x = AsciiCodec();
     var list = x.encode(input);
-    hasher.process(list);
-    return x.decode(hasher.process(list));
+    var fin = x.decode(hasher.process(list));
+    hasher.reset();
+    return fin;
   }
 }
 
