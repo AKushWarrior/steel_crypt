@@ -1,6 +1,6 @@
 name: steel_crypt
 description: A collection of high-level API's exposing PointyCastle/encrypt to perform hashing and encrypting in popular/secure algorithms.
-version: 0.1.2
+version: 0.2.1
 homepage: https://github.com/AKushWarrior/steel_crypt
 repository: https://github.com/AKushWarrior/steel_crypt
 author: Aditya Kishore <akushwarrior@gmail.com>

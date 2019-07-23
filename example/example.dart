@@ -6,16 +6,23 @@ main() {
 
   var encrypter = Crypt(key, 'Salsa20');
 
-  var hasher = HashCrypt('SHA-3/256');
+  var hasher = HashCrypt('sha256');
+
+  var hasher2 = HashCrypt('sha256');
+
+  var iv = CryptKey().genIV(16);
 
 
+  print(key);
 
   print(hasher.hash('word'));
 
-  print(encrypter.encrypt('word'));
+  print(hasher.hashHMAC('word', key));
 
-  print(encrypter.decrypt(encrypter.encrypt('word')));
+  print(encrypter.encrypt('word', iv));
 
-  print(key);
+  String crypted = encrypter.encrypt('word', iv);
+
+  print(encrypter.decrypt(crypted, iv));
 
 }

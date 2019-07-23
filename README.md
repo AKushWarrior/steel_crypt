@@ -2,18 +2,23 @@
 ---
 ## General
 
-A simple library of high-level API's and sugar for PointyCastle/encrypt. This 
-library currently supports both hashing and two-way encryption:
+A simple library of high-level API's and sugar for crypto/encrypt. This 
+library currently supports hashing, two-way encryption, and key/IV generation:
 
 #### 2-Way
 * AES with PKCS7 Padding ('AES') _(Default)_
 * Salsa20 ('Salsa20')
 * More coming...
+* Note: AES requires 16 bytes of IV, whereas Salsa 20 requires 8
 
 #### Hashing
-* SHA-256 (default) ('sha256')
+* SHA-256  ('sha256') _(Default)_
 * SHA-1 ('sha1')
 * MD5 ('md5')
+
+#### Key/IV (Initialization Vector) Generation
+* Generates cryptographically secure keys + IV's
+* Keys default to length 32, IV's to length 16
 
 
 ## Usage
@@ -24,23 +29,30 @@ A simple usage example:
 import 'package:steel_crypt/steel_crypt.dart';
 
 main() {
-  
+
   var key = CryptKey().genKey();
 
-  var encrypter = Crypt(key, 'Salsa20');
+  var encrypter = Crypt(key, 'AES');
 
   var hasher = HashCrypt('sha256');
 
+  var hasher2 = HashCrypt('sha256');
 
-  
-  print(hasher.hash('a'));
+  var iv = CryptKey().genIV(16);
 
-  print(encrypter.encrypt('word'));
-
-  print(encrypter.decrypt(encrypter.encrypt('word')));
 
   print(key);
-  
+
+  print(hasher.hash('word'));
+
+  print(hasher.hashHMAC('word', key));
+
+  print(encrypter.encrypt('word', iv));
+
+  String crypted = encrypter.encrypt('word', iv);
+
+  print(encrypter.decrypt(crypted, iv));
+
 }
 ```
 
