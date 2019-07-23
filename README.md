@@ -11,16 +11,9 @@ library currently supports both hashing and two-way encryption:
 * More coming...
 
 #### Hashing
-* SHA-3 ('SHA-3') (_Default_)
-* Blake2B ('Blake2b')
-* MD5 ('MD5')
-* SHA-1 ('SHA-1')
-* SHA-512 ('SHA-512)
-* SHA-256 ('SHA-256')
-* Whirlpool ('Whirlpool)
-* and more... (Find the full list of exposed hashes at [PointyCastle][PointyLink].)
-
-[PointyLink]: https://github.com/PointyCastle/pointycastle/tree/master/lib/digests
+* SHA-256 (default) ('sha256')
+* SHA-1 ('sha1')
+* MD5 ('md5')
 
 
 ## Usage
@@ -36,7 +29,7 @@ main() {
 
   var encrypter = Crypt(key, 'Salsa20');
 
-  var hasher = HashCrypt('SHA-3');
+  var hasher = HashCrypt('sha256');
 
 
   

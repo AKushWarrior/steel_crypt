@@ -6,11 +6,11 @@ main() {
 
   var encrypter = Crypt(key, 'Salsa20');
 
-  var hasher = HashCrypt('SHA-3');
+  var hasher = HashCrypt('SHA-3/256');
 
 
 
-  print(hasher.hash('a'));
+  print(hasher.hash('word'));
 
   print(encrypter.encrypt('word'));
 

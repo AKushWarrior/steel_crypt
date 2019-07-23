@@ -4,7 +4,7 @@ import 'dart:core' as core;
 import 'dart:math';
 import 'dart:convert';
 import 'package:encrypt/encrypt.dart';
-import 'package:pointycastle/pointycastle.dart';
+import 'package:crypto/crypto.dart';
 
 class Crypt {
   core.String type;
@@ -46,17 +46,40 @@ class CryptKey {
 
 class HashCrypt {
   core.String type;
-  Digest hasher;
-  HashCrypt ([core.String inType = 'SHA-3']) {
+  HashCrypt ([core.String inType = 'sha256']) {
     type = inType;
-    hasher = new Digest(inType);
   }
   core.String hash (core.String input) {
-    var x = AsciiCodec();
-    var list = x.encode(input);
-    var fin = x.decode(hasher.process(list));
-    hasher.reset();
-    return fin;
+    var bytes = utf8.encode(input);
+    Digest digest;
+    if (type == 'sha1') {
+      digest = sha1.convert(bytes);
+    }
+    else if (type == 'sha256') {
+      digest = sha256.convert(bytes);
+    }
+    else if (type == 'md5') {
+      digest = md5.convert(bytes);
+    }
+    return digest.bytes.toString();
+  }
+  core.String hashHMAC (core.String input, core.String key) {
+    var listkey = utf8.encode(key);
+    var bytes = utf8.encode(input);
+    
+    var hmac;
+    if (type == 'sha256') {
+      hmac = new Hmac(sha256, listkey);
+    }
+    if (type == 'sha1') {
+      hmac = new Hmac(sha1, listkey);
+    }
+    if (type == 'md5') {
+      hmac = new Hmac(md5, listkey);
+    }
+    var digest = hmac.convert(bytes);
+    return digest.bytes.toString();
+
   }
 }
 
