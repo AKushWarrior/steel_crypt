@@ -1,5 +1,5 @@
 # Steel Crypt
-
+---
 ## General
 
 A simple library of high-level API's and sugar for PointyCastle. This 
@@ -54,3 +54,9 @@ print(key);
 [tracker]: https://github.com/AKushWarrior/steel_crypt/issues
 
 ## TODO's
+
+- [x] Create Project + add "Starter Set" of algorithms
+- [ ] Add more, different 2-way encryption algorithms + packaging options
+- [ ] Tackle adding an RSA solution OR expose _encrypt_'s RSA
+- [ ] Create a more complete password solution
+
