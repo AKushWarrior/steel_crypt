@@ -18,6 +18,7 @@ library currently supports both hashing and two-way encryption:
 * SHA-512 ('SHA-512)
 * SHA-256 ('SHA-256')
 * Whirlpool ('Whirlpool)
+* and more... (Find the full list of exposed hashes at [PointyCastle][https://github.com/PointyCastle/pointycastle/tree/master/lib/digests].)
 
 
 ## Usage
