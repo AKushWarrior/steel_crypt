@@ -15,6 +15,7 @@ library currently supports hashing, two-way encryption, and key/IV generation:
 * SHA-256  ('sha256') _(Default)_
 * SHA-1 ('sha1')
 * MD5 ('md5')
+* __Note__: HMAC + key can be added to any of the above using the .hashHMAC function.
 
 #### Key/IV (Initialization Vector) Generation
 * Generates cryptographically secure keys + IV's
@@ -61,6 +62,7 @@ main() {
 * Use in production AT YOUR OWN RISK.
 * This is a work-in-progress, but will be actively maintained.
 * Please file feature requests and bugs at the [issue tracker][tracker].
+* I'm busy, so file a PR for new features if possible...
 
 [tracker]: https://github.com/AKushWarrior/steel_crypt/issues
 
