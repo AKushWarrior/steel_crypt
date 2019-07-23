@@ -1,17 +1,30 @@
-A library for Dart developers.
+A simple library of high-level API's and sugar for PointyCastle. This 
+library currently supports both hashing and two-way encryption:
 
-Created from templates made available by Stagehand under a BSD-style
-[license](https://github.com/dart-lang/stagehand/blob/master/LICENSE).
+#### 2-Way
+* AES ('AES') _(Default)_
+* Salsa20 ('Salsa20')
+* More coming...
+
+#### Hashing
+* SHA-3 ('SHA-3)
+* Blake2B ('Blake2b')
+* MD5 ('MD5')
+* SHA-1 ('SHA-1')
+* SHA-512 ('SHA-512)
+* SHA-256 ('SHA-256')
+* Whirlpool ('Whirlpool)
+
 
 ## Usage
 
 A simple usage example:
 
 ```dart
-import 'package:SteelCrypt/SteelCrypt.dart';
+import 'package:steel_crypt/steel_crypt.dart';
 
 main() {
-  var awesome = new Awesome();
+  //TODO
 }
 ```
 
