@@ -5,19 +5,24 @@
 A simple library of high-level API's and sugar for crypto/encrypt. This 
 library currently supports hashing, two-way encryption, and key/IV generation:
 
-#### 2-Way
+#### 2-Way Symmetric (class SymCrypt)
 * AES with PKCS7 Padding ('AES') _(Default)_
 * Salsa20 ('Salsa20')
-* More coming...
-* Note: AES requires 16 bytes of IV, whereas Salsa 20 requires 8
+* More planned...
+* __Note__: AES requires 16 bytes of IV, whereas Salsa 20 requires 8
 
-#### Hashing
+#### 2-Way Asymmetric (class RsaCrypt)
+* RSA with PKCS1 Padding
+* __Note__: RSA requires two keys, a private and a public one.
+
+#### Hashing (class HashCrypt)
 * SHA-256  ('sha256') _(Default)_
 * SHA-1 ('sha1')
 * MD5 ('md5')
-* __Note__: HMAC + key can be added to any of the above using the .hashHMAC function.
+* __Note__: HMAC + key can be added to any of the above using the ```.hashHMAC(input, key)``` function.
+* __Note__: Compare plaintext to hashtext using ```.checkpass(plain, hashed)``` and ```.checkpassHMAC(plain, hashed, key)```
 
-#### Key/IV (Initialization Vector) Generation
+#### Key/IV Generation (class CryptKey)
 * Generates cryptographically secure keys + IV's
 * Keys default to length 32, IV's to length 16
 
@@ -31,28 +36,50 @@ import 'package:steel_crypt/steel_crypt.dart';
 
 main() {
 
-  var key = CryptKey().genKey();
+  var private = CryptKey().genKey();
+  
+  var public = CryptKey().genKey();
+  
 
-  var encrypter = Crypt(key, 'AES');
+  var encrypter = SymCrypt(private, 'AES');
+  
+  var encrypter2 = RsaCrypt(private, public);
+  
 
   var hasher = HashCrypt('sha256');
 
-  var hasher2 = HashCrypt('sha256');
+  var hasher2 = HashCrypt('md5');
 
+  
   var iv = CryptKey().genIV(16);
 
 
-  print(key);
+  
+  print(private);
+  
 
   print(hasher.hash('word'));
 
-  print(hasher.hashHMAC('word', key));
+  var hash = hasher.hash('word');
+
+  print(hasher.checkpass('word', hash));
+  
+
+  print(hasher.hashHMAC('word', private));
+  
 
   print(encrypter.encrypt('word', iv));
 
   String crypted = encrypter.encrypt('word', iv);
 
   print(encrypter.decrypt(crypted, iv));
+  
+
+  print(encrypter2.encrypt("word"));
+  
+  String crypted2 = encrypter2.encrypt('word');
+  
+  print(encrypter2.decrypt(crypted2));
 
 }
 ```
@@ -73,5 +100,21 @@ main() {
 - [ ] Tackle adding an RSA solution OR expose _encrypt_'s RSA
 - [ ] Create a more complete password solution
 - [ ] Add more detailed example
+
+## Reading
+- Look at these links for further information on ciphers, hashes, and terminology used here:
+    - [https://en.wikipedia.org/wiki/Salsa20]
+    - [https://en.wikipedia.org/wiki/Advanced_Encryption_Standard]
+    - [https://en.wikipedia.org/wiki/RSA_(cryptosystem)]
+    - [https://en.wikipedia.org/wiki/SHA-2]
+    - [https://en.wikipedia.org/wiki/SHA-1]
+    - [https://en.wikipedia.org/wiki/MD5]
+    - [https://en.wikipedia.org/wiki/HMAC]
+    - [https://en.wikipedia.org/wiki/PKCS_1]
+    - [https://en.wikipedia.org/wiki/Padding_(cryptography)#PKCS#5_and_PKCS#7]
+    - [https://en.wikipedia.org/wiki/Initialization_vector]
+    - [https://en.wikipedia.org/wiki/Cryptographic_hash_function]
+    - [https://en.wikipedia.org/wiki/Symmetric-key_algorithm]
+    - [https://en.wikipedia.org/wiki/Public-key_cryptography]
 
 ###### Licensed under the Mozilla Public License 2.0

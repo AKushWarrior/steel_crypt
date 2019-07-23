@@ -6,16 +6,16 @@ import 'dart:convert';
 import 'package:encrypt/encrypt.dart';
 import 'package:crypto/crypto.dart';
 
-class Crypt {
+class SymCrypt {
   core.String type;
   core.String key32;
   Encrypter encrypter;
 
-  Crypt (core.String inkey32, [core.String intype = "AES"]) {
+  SymCrypt (core.String inkey32, [core.String intype = "AES"]) {
     type = intype;
     key32 = inkey32;
     if (type == 'AES') {
-      encrypter = Encrypter(AES(Key.fromBase64(key32)));
+      encrypter = Encrypter(AES(Key.fromBase64(key32), mode: AESMode.cbc));
     }
     else if (type == 'Salsa20') {
       encrypter = Encrypter(Salsa20(Key.fromBase64(key32)));
@@ -30,8 +30,25 @@ class Crypt {
   core.String decrypt (core.String encrypted, core.String iv) {
     return encrypter.decrypt64(encrypted, iv: IV.fromBase64(iv));
   } //decrypt base 64 (with iv) and return original
+}
 
-
+class RsaCrypt {
+  var privatekey;
+  var publickey;
+  var encrypter;
+  RsaCrypt (var privKey, var pubKey) {
+    var parser = RSAKeyParser();
+    privatekey = parser.parse(privKey);
+    publickey = parser.parse(pubKey);
+    encrypter = Encrypter(RSA(publicKey: publickey, privateKey: privatekey));
+  }
+  core.String encrypt (core.String input) {
+    Encrypted crypted = encrypter.encrypt(input);
+    return crypted.base64;
+  } //encrypt (with iv) and return in base 64
+  core.String decrypt (core.String encrypted) {
+    return encrypter.decrypt64(encrypted);
+  }
 }
 
 class CryptKey {
@@ -83,7 +100,14 @@ class HashCrypt {
     }
     var digest = hmac.convert(bytes);
     return '$digest';
-
+  }
+  bool checkpass (core.String plain, core.String hashed) {
+    var newhash = hash(plain);
+    return newhash == hashed;
+  }
+  bool checkpassHMAC (core.String plain, core.String hashed, core.String key) {
+    var newhash = hashHMAC(plain, key);
+    return newhash == hashed;
   }
 }
 

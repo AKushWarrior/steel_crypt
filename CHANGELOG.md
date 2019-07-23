@@ -1,3 +1,6 @@
+## 0.2.1+1
+- Updated README
+
 ## 0.2.1
 - Fixed major, breaking bugs
 - Moved away from PointyCastle to reduce package size
