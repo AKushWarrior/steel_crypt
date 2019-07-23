@@ -2,11 +2,11 @@
 ---
 ## General
 
-A simple library of high-level API's and sugar for PointyCastle. This 
+A simple library of high-level API's and sugar for PointyCastle/encrypt. This 
 library currently supports both hashing and two-way encryption:
 
 #### 2-Way
-* AES ('AES') _(Default)_
+* AES with PKCS7 Padding ('AES') _(Default)_
 * Salsa20 ('Salsa20')
 * More coming...
 
@@ -25,24 +25,27 @@ library currently supports both hashing and two-way encryption:
 A simple usage example:
 
 ```dart
-import 'package:steel_crypt/steel_crypt.dart';
+import 'package:SteelCrypt/steel_crypt.dart';
+
+main() {
+  
+  var key = CryptKey().genKey();
+
+  var encrypter = Crypt(key, 'Salsa20');
+
+  var hasher = HashCrypt('SHA-3');
 
 
-var key = cryptKey().genKey();
+  
+  print(hasher.hash('a'));
 
-var encrypter = Crypt(key, 'Salsa20');
+  print(encrypter.encrypt('word'));
 
-var hasher = hashCrypt('SHA-3');
+  print(encrypter.decrypt(encrypter.encrypt('word')));
 
-
-print(hasher.hash('a'));
-
-print(encrypter.encrypt("word"));
-
-print(encrypter.decrypt(encrypter.encrypt(word)));
-
-print(key);
-
+  print(key);
+  
+}
 ```
 
 ## Notes
@@ -59,4 +62,5 @@ print(key);
 - [ ] Add more, different 2-way encryption algorithms + packaging options
 - [ ] Tackle adding an RSA solution OR expose _encrypt_'s RSA
 - [ ] Create a more complete password solution
+- [ ] Add more detailed example
 
