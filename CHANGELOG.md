@@ -1,3 +1,7 @@
-## 1.0.0
+## 0.1.1
 
-- Initial version, created by Stagehand
+- Project created with:
+    - Two-way encryption (AES and Salsa20)
+    - Hashing (Most major hashes)
+    
+

@@ -1,8 +1,8 @@
-name: SteelCrypt
+name: steel_crypt
 description: A collection of high-level API's exposing PointyCastle/encrypt to perform hashing and encrypting in popular/secure algorithms.
-# version: 1.0.0
+version: 0.1.1
 # homepage: https://www.example.com
-# author: Aditya <akushwarrior@gmail.com>
+author: Aditya Kishore <akushwarrior@gmail.com>
 
 environment:
   sdk: '>=2.4.0 <3.0.0'

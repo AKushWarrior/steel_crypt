@@ -28,7 +28,7 @@ library currently supports both hashing and two-way encryption:
 A simple usage example:
 
 ```dart
-import 'package:SteelCrypt/steel_crypt.dart';
+import 'package:steel_crypt/steel_crypt.dart';
 
 main() {
   

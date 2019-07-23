@@ -1,4 +1,4 @@
-import 'package:SteelCrypt/steel_crypt.dart';
+import 'package:steel_crypt/steel_crypt.dart';
 
 main() {
 
