@@ -12,8 +12,8 @@ library currently supports hashing, two-way encryption, and key/IV generation:
 * __Note__: AES requires 16 bytes of IV, whereas Salsa 20 requires 8
 
 #### 2-Way Asymmetric (class RsaCrypt)
-* RSA with PKCS1 Padding
-* __Note__: RSA requires two keys, a private and a public one.
+* RSA
+* __Note__: RsaCrypt is non-traditional. It auto-generates keys and stores them. However, it requires authentication text on the user end to work correctly.
 
 #### Hashing (class HashCrypt)
 * SHA-256  ('sha256') _(Default)_
@@ -32,53 +32,55 @@ library currently supports hashing, two-way encryption, and key/IV generation:
 A simple usage example:
 
 ```dart
+
 import 'package:steel_crypt/steel_crypt.dart';
 
 main() {
 
   var private = CryptKey().genKey();
-  
+
   var public = CryptKey().genKey();
-  
+
 
   var encrypter = SymCrypt(private, 'AES');
-  
-  var encrypter2 = RsaCrypt(private, public);
-  
+
+  var encrypter2 = RsaCrypt();
+
 
   var hasher = HashCrypt('sha256');
 
   var hasher2 = HashCrypt('md5');
 
-  
+
   var iv = CryptKey().genIV(16);
 
 
-  
+
   print(private);
-  
+
 
   print(hasher.hash('word'));
 
   var hash = hasher.hash('word');
 
   print(hasher.checkpass('word', hash));
-  
+
 
   print(hasher.hashHMAC('word', private));
-  
+
 
   print(encrypter.encrypt('word', iv));
 
   String crypted = encrypter.encrypt('word', iv);
 
   print(encrypter.decrypt(crypted, iv));
-  
 
-  print(encrypter2.encrypt("word"));
-  
-  String crypted2 = encrypter2.encrypt('word');
-  
+
+
+  var crypted2 = encrypter2.encrypt('word', "This is authentication text...");
+
+  print(encrypter2.getString(crypted2));
+
   print(encrypter2.decrypt(crypted2));
 
 }

@@ -4,12 +4,11 @@ main() {
 
   var private = CryptKey().genKey();
 
-  var public = CryptKey().genKey();
 
 
   var encrypter = SymCrypt(private, 'AES');
 
-  var encrypter2 = RsaCrypt(private, public);
+  var encrypter2 = RsaCrypt();
 
 
   var hasher = HashCrypt('sha256');
@@ -31,7 +30,7 @@ main() {
   print(hasher.checkpass('word', hash));
 
 
-  print(hasher.hashHMAC('word', private));
+  print(hasher2.hashHMAC('word', private));
 
 
   print(encrypter.encrypt('word', iv));
@@ -41,9 +40,10 @@ main() {
   print(encrypter.decrypt(crypted, iv));
 
 
-  print(encrypter2.encrypt("word"));
 
-  String crypted2 = encrypter2.encrypt('word');
+  var crypted2 = encrypter2.encrypt('word', "This is authentication text...");
+
+  print(encrypter2.getString(crypted2));
 
   print(encrypter2.decrypt(crypted2));
 

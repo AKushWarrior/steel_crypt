@@ -5,6 +5,8 @@ import 'dart:math';
 import 'dart:convert';
 import 'package:encrypt/encrypt.dart';
 import 'package:crypto/crypto.dart';
+import 'package:steel_crypt/src/rsa.dart';
+import 'rsa.dart';
 
 class SymCrypt {
   core.String type;
@@ -32,23 +34,8 @@ class SymCrypt {
   } //decrypt base 64 (with iv) and return original
 }
 
-class RsaCrypt {
-  var privatekey;
-  var publickey;
-  var encrypter;
-  RsaCrypt (var privKey, var pubKey) {
-    var parser = RSAKeyParser();
-    privatekey = parser.parse(privKey);
-    publickey = parser.parse(pubKey);
-    encrypter = Encrypter(RSA(publicKey: publickey, privateKey: privatekey));
-  }
-  core.String encrypt (core.String input) {
-    Encrypted crypted = encrypter.encrypt(input);
-    return crypted.base64;
-  } //encrypt (with iv) and return in base 64
-  core.String decrypt (core.String encrypted) {
-    return encrypter.decrypt64(encrypted);
-  }
+class RsaCrypt extends rsa {
+  RsaCrypt() : super();
 }
 
 class CryptKey {
