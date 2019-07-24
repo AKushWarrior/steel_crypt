@@ -6,7 +6,7 @@ repository: https://github.com/AKushWarrior/steel_crypt
 author: Aditya Kishore <akushwarrior@gmail.com>
 
 environment:
-  sdk: '>=2.4.0 <3.0.0'
+  sdk: '>=2.1.0 <3.0.0'
 
 dependencies:
   encrypt: ^3.2.0

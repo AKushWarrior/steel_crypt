@@ -1,3 +1,6 @@
+## 0.3.2+1
+- Lowered Dart SDK requirement
+
 ## 0.3.2
 - Fixed RSA encryption
 - Updated example
