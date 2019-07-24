@@ -1,3 +1,7 @@
+## 0.3.2
+- Fixed RSA encryption
+- Updated example
+
 ## 0.3.1
 - Added RSA encryption
 - Added plaintext-hashtext checks
