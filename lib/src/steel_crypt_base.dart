@@ -4,8 +4,9 @@ import 'dart:core' as core;
 import 'dart:math';
 import 'dart:convert';
 import 'package:encrypt/encrypt.dart';
-import 'package:crypto/crypto.dart';
 import 'package:steel_crypt/src/rsa.dart';
+import 'package:pointycastle/api.dart';
+import 'package:pointycastle/export.dart';
 import 'rsa.dart';
 
 class SymCrypt {
@@ -54,39 +55,23 @@ class CryptKey {
 
 class HashCrypt {
   core.String type;
-  HashCrypt ([core.String inType = 'sha256']) {
+  HashCrypt ([core.String inType = 'SHA-3/512']) {
     type = inType;
   }
   core.String hash (core.String input) {
-    var bytes = AsciiCodec().encode(input);
+    var bytes = Base64Codec().decode(input);
     Digest digest;
-    if (type == 'sha1') {
-      digest = sha1.convert(bytes);
-    }
-    else if (type == 'sha256') {
-      digest = sha256.convert(bytes);
-    }
-    else if (type == 'md5') {
-      digest = md5.convert(bytes);
-    }
-    return '$digest';
+    digest = Digest(type);
+    var value = digest.process(bytes);
+    return Base64Codec().encode(value);
   }
   core.String hashHMAC (core.String input, core.String key) {
-    var listkey = AsciiCodec().encode(key);
-    var bytes = AsciiCodec().encode(input);
-    
-    var hmac;
-    if (type == 'sha256') {
-      hmac = new Hmac(sha256, listkey);
-    }
-    if (type == 'sha1') {
-      hmac = new Hmac(sha1, listkey);
-    }
-    if (type == 'md5') {
-      hmac = new Hmac(md5, listkey);
-    }
-    var digest = hmac.convert(bytes);
-    return '$digest';
+    var listkey = Base64Codec().decode(key);
+    var bytes = Base64Codec().decode(input);
+    var params = KeyParameter(listkey);
+    final _tmp = HMac(Digest(type), 128)..init(params);
+    var val = _tmp.process(bytes);
+    return Base64Codec().encode(val);
   }
   bool checkpass (core.String plain, core.String hashed) {
     var newhash = hash(plain);

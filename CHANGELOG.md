@@ -1,3 +1,8 @@
+## 0.4.1
+- Exposed base PointyCastle api to get a bunch of new hashes
+- Got rid of crypto dependency
+- Updated pubspec and README to reflect changes
+
 ## 0.3.2+1
 - Lowered Dart SDK requirement
 

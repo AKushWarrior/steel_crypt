@@ -222,7 +222,7 @@
         <entry key="path">
           <value>
             <list>
-              <option value="$USER_HOME$/.pub-cache/hosted/pub.dartlang.org/path-1.6.2/lib" />
+              <option value="$USER_HOME$/.pub-cache/hosted/pub.dartlang.org/path-1.6.4/lib" />
             </list>
           </value>
         </entry>
@@ -376,7 +376,7 @@
         <entry key="vm_service_lib">
           <value>
             <list>
-              <option value="$USER_HOME$/.pub-cache/hosted/pub.dartlang.org/vm_service_lib-3.22.2/lib" />
+              <option value="$USER_HOME$/.pub-cache/hosted/pub.dartlang.org/vm_service_lib-3.22.2+1/lib" />
             </list>
           </value>
         </entry>
@@ -435,7 +435,7 @@
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dartlang.org/node_preamble-1.4.5/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dartlang.org/package_config-1.0.5/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dartlang.org/package_resolver-1.0.10/lib" />
-      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dartlang.org/path-1.6.2/lib" />
+      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dartlang.org/path-1.6.4/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dartlang.org/pedantic-1.8.0+1/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dartlang.org/pointycastle-1.0.1/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dartlang.org/pool-1.4.0/lib" />
@@ -457,7 +457,7 @@
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dartlang.org/test_api-0.2.6/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dartlang.org/test_core-0.2.7/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dartlang.org/typed_data-1.1.6/lib" />
-      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dartlang.org/vm_service_lib-3.22.2/lib" />
+      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dartlang.org/vm_service_lib-3.22.2+1/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dartlang.org/watcher-0.9.7+12/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dartlang.org/web_socket_channel-1.0.14/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dartlang.org/yaml-2.1.16/lib" />

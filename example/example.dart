@@ -11,9 +11,9 @@ main() {
   var encrypter2 = RsaCrypt();
 
 
-  var hasher = HashCrypt('sha256');
+  var hasher = HashCrypt();
 
-  var hasher2 = HashCrypt('md5');
+  var hasher2 = HashCrypt('SHA-3/256');
 
 
   var iv = CryptKey().genIV(16);
