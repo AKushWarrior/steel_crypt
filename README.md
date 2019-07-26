@@ -126,9 +126,13 @@ main() {
     - https://en.wikipedia.org/wiki/Salsa20
     - https://en.wikipedia.org/wiki/Advanced_Encryption_Standard
     - https://en.wikipedia.org/wiki/RSA_(cryptosystem)
+    - https://en.wikipedia.org/wiki/SHA-3
     - https://en.wikipedia.org/wiki/SHA-2
     - https://en.wikipedia.org/wiki/SHA-1
     - https://en.wikipedia.org/wiki/MD5
+    - https://en.wikipedia.org/wiki/MD4
+    - https://en.wikipedia.org/wiki/Tiger_(hash_function)
+    - https://en.wikipedia.org/wiki/Whirlpool_(hash_function)
     - https://en.wikipedia.org/wiki/HMAC
     - https://en.wikipedia.org/wiki/PKCS_1
     - https://en.wikipedia.org/wiki/Padding_(cryptography)#PKCS#5_and_PKCS#7

@@ -1,3 +1,7 @@
+## 0.4.1+1
+- Added to 'Reading' sect. of readme
+- No functional improvement
+
 ## 0.4.1
 - Exposed base PointyCastle api to get a bunch of new hashes
 - Got rid of crypto dependency
