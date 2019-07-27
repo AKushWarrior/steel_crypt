@@ -10,8 +10,8 @@ library currently supports hashing, two-way encryption, and key/IV generation:
 * __Note__: AES requires 16 bytes of IV, whereas Salsa 20 requires 8
 
 #### 2-Way Asymmetric (class RsaCrypt)
-* RSA
-* __Note__: RsaCrypt is non-traditional. It auto-generates keys and stores them. However, it requires authentication text on the user end to work correctly.
+* RSA with OAEP padding
+* __Note__: RsaCrypt auto generates secure keys. You can access them using ```.privKey``` and ```.pubKey``` getters.
 
 #### Hashing (class HashCrypt)
 * SHA-3  ('SHA-3/___') :
@@ -49,14 +49,12 @@ library currently supports hashing, two-way encryption, and key/IV generation:
 A simple usage example:
 
 ```dart
-
 import 'package:steel_crypt/steel_crypt.dart';
 
 main() {
 
   var private = CryptKey().genKey();
-
-
+  
 
   var encrypter = SymCrypt(private, 'AES');
 
@@ -71,34 +69,56 @@ main() {
   var iv = CryptKey().genIV(16);
 
 
-
+  //Print key
+  print ("key");
+  
   print(private);
+  
+  print("");
 
-
+  
+  //SHA-3 512 Hash
+  print("SHA-3 512 Hash:");
+  
   print(hasher.hash('word'));
 
   var hash = hasher.hash('word');
 
   print(hasher.checkpass('word', hash));
 
+  print("");
 
+  
+  //HMAC SHA-3 256 Hash
+  print("HMAC SHA-3 256 Hash:");
+  
   print(hasher2.hashHMAC('word', private));
 
+  print("");
 
+  
+  //AES Symmetric
+  print("AES Symmetric:");
+  
   print(encrypter.encrypt('word', iv));
 
   String crypted = encrypter.encrypt('word', iv);
 
   print(encrypter.decrypt(crypted, iv));
 
+  print("");
+  
+  
+  //RSA Asymmetric
+  print("RSA Asymmetric:");
+  
+  var crypted2 = encrypter2.encrypt("word", encrypter2.pubKey);
 
+  print(crypted2);
 
-  var crypted2 = encrypter2.encrypt('word', "This is authentication text...");
+  print(encrypter2.decrypt(crypted2, encrypter2.privKey));
 
-  print(encrypter2.getString(crypted2));
-
-  print(encrypter2.decrypt(crypted2));
-
+  print("");
 }
 ```
 
@@ -117,7 +137,7 @@ main() {
 - [x] Add more, different hashes 
 - [ ] Add CMAC
 - [ ] Add more, different 2-way encryption algorithms + packaging options
-- [x] Tackle adding an RSA solution OR expose _crypto_tool_'s RSA
+- [x] Tackle adding an RSA solution
 - [x] Create a more complete password solution
 - [ ] Add more detailed example
 

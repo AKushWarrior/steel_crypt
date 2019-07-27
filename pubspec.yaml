@@ -1,8 +1,9 @@
 name: steel_crypt
 description: A collection of high-level API's exposing PointyCastle/encrypt to perform hashing and encrypting in popular and/or secure algorithms.
-version: 0.4.1+1
+version: 0.5.1
 homepage: https://github.com/AKushWarrior/steel_crypt
 repository: https://github.com/AKushWarrior/steel_crypt
+issue_tracker: https://github.com/AKushWarrior/steel_crypt/issues
 author: Aditya Kishore <akushwarrior@gmail.com>
 
 environment:
@@ -10,7 +11,6 @@ environment:
 
 dependencies:
   encrypt: ^3.2.0
-  crypto_keys: ^0.1.0
   pointycastle: ^1.0.1
 
 dev_dependencies:

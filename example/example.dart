@@ -5,7 +5,6 @@ main() {
   var private = CryptKey().genKey();
 
 
-
   var encrypter = SymCrypt(private, 'AES');
 
   var encrypter2 = RsaCrypt();
@@ -19,9 +18,16 @@ main() {
   var iv = CryptKey().genIV(16);
 
 
+  //Print key
+  print ("Key:");
 
   print(private);
 
+  print("");
+
+
+  //SHA-3 512 Hash
+  print("SHA-3 512 Hash:");
 
   print(hasher.hash('word'));
 
@@ -29,9 +35,19 @@ main() {
 
   print(hasher.checkpass('word', hash));
 
+  print("");
+
+
+  //HMAC SHA-3 256 Hash
+  print("HMAC SHA-3 256 Hash:");
 
   print(hasher2.hashHMAC('word', private));
 
+  print("");
+
+
+  //AES Symmetric
+  print("AES Symmetric:");
 
   print(encrypter.encrypt('word', iv));
 
@@ -39,12 +55,17 @@ main() {
 
   print(encrypter.decrypt(crypted, iv));
 
+  print("");
 
 
-  var crypted2 = encrypter2.encrypt('word', "This is authentication text...");
+  //RSA Asymmetric
+  print("RSA Asymmetric:");
 
-  print(encrypter2.getString(crypted2));
+  var crypted2 = encrypter2.encrypt("word", encrypter2.pubKey);
 
-  print(encrypter2.decrypt(crypted2));
+  print(crypted2);
 
+  print(encrypter2.decrypt(crypted2, encrypter2.privKey));
+
+  print("");
 }
