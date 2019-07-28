@@ -1,7 +1,12 @@
+## 0.5.2
+- Added better, more complete password hashing
+- Updated example and README
+
 ## 0.5.1
 - Traded to more traditional RSA solution
 - Got rid of crypto_tools as dependency
 - Changes to README and pubspec reflect this
+- Cleaned up example
 
 ## 0.4.1+1
 - Added to 'Reading' sect. of readme
