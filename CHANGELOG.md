@@ -1,3 +1,7 @@
+## 0.5.3+1
+- Edited README to illustrate best usage of CLI
+- No functional improvement
+
 ## 0.5.3
 - Added new CLI to increase ease of use
 
