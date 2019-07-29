@@ -7,10 +7,10 @@ issue_tracker: https://github.com/AKushWarrior/steel_crypt/issues
 author: Aditya Kishore <akushwarrior@gmail.com>
 
 executables:
-  decrypt: decrypt.dart
-  encrypt: encrypt.dart
-  genkey: genkey.dart
-  hash: hash.dart
+  decrypt: decrypt
+  encrypt: encrypt
+  genkey: genkey
+  hash: hash
 
 environment:
   sdk: '>=2.0.0 <3.0.0'
