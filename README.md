@@ -14,7 +14,7 @@ library currently supports hashing, two-way encryption, and key/IV generation:
 * __Note__: RsaCrypt auto generates secure RSA private and public keys. You can access them using ```.privKey``` and ```.pubKey``` getters, or use your own.
 
 ##### Password Hashing (class PassCrypt)
-* PBKDF2 with SHA-3 and HMAC
+* PBKDF2 with SHA-256 and HMAC
 * Compare plaintext to hashtext using ```.checkPassKey(salt, plain, hashed, length)```
 
 ##### Hashing (class HashCrypt)
@@ -44,7 +44,7 @@ library currently supports hashing, two-way encryption, and key/IV generation:
 * __Note__: Compare plaintext to hashtext using ```.checkpass(plain, hashed)``` and ```.checkpassHMAC(plain, hashed, key)```
 
 ##### Key/IV Generation (class CryptKey)
-* Generates cryptographically secure keys + IV's as per Fortuna
+* Generates cryptographically secure keys + IV's
 * Keys default to length 32, IV's to length 16
 
 
@@ -166,7 +166,7 @@ main() {
 - [x] Create a more complete password solution
 - [x] Add more detailed example
 
-## Reading
+### Reading
 - Look at these links for further information on ciphers, hashes, and terminology used here:
     - https://en.wikipedia.org/wiki/Salsa20
     - https://en.wikipedia.org/wiki/Advanced_Encryption_Standard

@@ -1,3 +1,7 @@
+## 0.5.2+1
+- Improved documentation to adhere to dartdoc standard
+- Increased key generation security to overkill
+
 ## 0.5.2
 - Added better, more complete password hashing
 - Updated example and README

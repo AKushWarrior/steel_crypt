@@ -7,22 +7,28 @@ import 'package:pointycastle/export.dart';
 import 'package:pointycastle/api.dart';
 
 
-
+///RSA asymmetric encryption machine
 class rsa {
+
+  ///Pair of private keys
   var pair;
 
+  ///Construct with keys
   rsa ()  {
     pair = getRsaKeyPair(getSecureRandom());
   }
 
+  ///access private key
   PrivateKey get privKey {
     return pair.privateKey;
   }
 
+  ///access public key
   PublicKey get pubKey {
     return pair.publicKey;
   }
 
+  ///create Random param for RSA keypair
   static SecureRandom getSecureRandom() {
     var secureRandom = FortunaRandom();
     var random = Random.secure();
@@ -34,6 +40,7 @@ class rsa {
     return secureRandom;
   }
 
+  ///create RSA keypair given SecureRandom
   static AsymmetricKeyPair<PublicKey, PrivateKey> getRsaKeyPair(
       SecureRandom secureRandom) {
     var rsapars = new RSAKeyGeneratorParameters(BigInt.from(65537), 2048, 5);
@@ -43,6 +50,7 @@ class rsa {
     return keyGenerator.generateKeyPair();
   }
 
+  ///encrypt using RSA
   String encrypt(String text, RSAPublicKey pubKey) {
     var cipher = OAEPEncoding(RSAEngine());
     cipher.init(true, PublicKeyParameter<RSAPublicKey>(pubKey));
@@ -50,6 +58,7 @@ class rsa {
     return base64Encode(output1);
   }
 
+  ///decrypt using RSA
   String decrypt(String input, RSAPrivateKey privateKey) {
     var cipher = OAEPEncoding(RSAEngine());
     cipher.init(false, PrivateKeyParameter<RSAPrivateKey>(privateKey));

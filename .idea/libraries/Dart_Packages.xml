@@ -173,7 +173,7 @@
         <entry key="node_preamble">
           <value>
             <list>
-              <option value="$USER_HOME$/.pub-cache/hosted/pub.dartlang.org/node_preamble-1.4.5/lib" />
+              <option value="$USER_HOME$/.pub-cache/hosted/pub.dartlang.org/node_preamble-1.4.6/lib" />
             </list>
           </value>
         </entry>
@@ -393,7 +393,7 @@
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dartlang.org/meta-1.1.7/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dartlang.org/mime-0.9.6+3/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dartlang.org/multi_server_socket-1.0.2/lib" />
-      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dartlang.org/node_preamble-1.4.5/lib" />
+      <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dartlang.org/node_preamble-1.4.6/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dartlang.org/package_config-1.0.5/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dartlang.org/package_resolver-1.0.10/lib" />
       <root url="file://$USER_HOME$/.pub-cache/hosted/pub.dartlang.org/path-1.6.4/lib" />
