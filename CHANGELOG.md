@@ -1,3 +1,6 @@
+## 0.5.3
+- Added new CLI to increase ease of use
+
 ## 0.5.2+1
 - Improved documentation to adhere to dartdoc standard
 - Increased key generation security to overkill

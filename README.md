@@ -1,23 +1,25 @@
 # Steel Crypt
 
 A comprehensive library of high-level, cryptographic API's from PointyCastle/encrypt. This 
-library currently supports hashing, two-way encryption, and key/IV generation:
+library currently supports hashing, two-way encryption, and key/IV generation. It also has 
+a CLI to conduct basic cryptography operations
 
-##### 2-Way Symmetric (class SymCrypt)
+## Classes
+#### 2-Way Symmetric (class SymCrypt)
 * AES with PKCS7 Padding ('AES') _(Default Encryption)_
 * Salsa20 ('Salsa20')
 * More planned...
 * __Note__: AES requires 16 bytes of IV, whereas Salsa 20 requires 8
 
-##### 2-Way Asymmetric (class RsaCrypt)
+#### 2-Way Asymmetric (class RsaCrypt)
 * RSA with OAEP padding
 * __Note__: RsaCrypt auto generates secure RSA private and public keys. You can access them using ```.privKey``` and ```.pubKey``` getters, or use your own.
 
-##### Password Hashing (class PassCrypt)
+#### Password Hashing (class PassCrypt)
 * PBKDF2 with SHA-256 and HMAC
 * Compare plaintext to hashtext using ```.checkPassKey(salt, plain, hashed, length)```
 
-##### Hashing (class HashCrypt)
+#### Hashing (class HashCrypt)
 * SHA-3  ('SHA-3/___') :
     - /224
     - /256
@@ -43,12 +45,12 @@ library currently supports hashing, two-way encryption, and key/IV generation:
 * __Note__: HMAC + key can be added to any of the above using the ```.hashHMAC(input, key)``` function.
 * __Note__: Compare plaintext to hashtext using ```.checkpass(plain, hashed)``` and ```.checkpassHMAC(plain, hashed, key)```
 
-##### Key/IV Generation (class CryptKey)
+#### Key/IV Generation (class CryptKey)
 * Generates cryptographically secure keys + IV's
 * Keys default to length 32, IV's to length 16
 
 
-### Usage
+## Usage
 
 A simple usage example:
 
@@ -147,8 +149,17 @@ main() {
   print("");
 }
 ```
+## CLI
+- Run ```pub global activate steel_crypt```, then:
+- ```$ pub global run steel_crypt:encrypt -t (text here) -k (key here) -i (iv here)```
+    - Uses AES with PKCS7 padding
+- ```$ pub global run steel_crypt:decrypt -t (encrypted here) -k (key here) -i (iv here)```
+    - Uses AES with PKCS7 padding
+- ```$ pub global run steel_crypt:hash -p (plain here)```
+    - Uses SHA-3/512
+- ```$ pub global run steel_crypt:genkey -l (length here)```
 
-### Notes
+## Notes
 
 * This is fairly well-tested and documented, but use in production AT YOUR OWN RISK.
 * This is a work-in-progress, but will be actively maintained.
@@ -157,7 +168,7 @@ main() {
 
 [tracker]: https://github.com/AKushWarrior/steel_crypt/issues
 
-### TODO's
+## TODO's
 
 - [x] Create Project + add "Starter Set" of algorithms
 - [x] Add more, different hashes 
@@ -166,7 +177,7 @@ main() {
 - [x] Create a more complete password solution
 - [x] Add more detailed example
 
-### Reading
+## Reading
 - Look at these links for further information on ciphers, hashes, and terminology used here:
     - https://en.wikipedia.org/wiki/Salsa20
     - https://en.wikipedia.org/wiki/Advanced_Encryption_Standard
