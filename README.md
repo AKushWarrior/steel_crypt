@@ -151,17 +151,17 @@ main() {
 ```
 ## CLI
 - If you haven't already done so, add ```$HOME/.pub-cache/bin``` to your path:
-    - ```$ export PATH="$PATH":"$HOME/.pub-cache/bin"```
+    * ```$ export PATH="$PATH":"$HOME/.pub-cache/bin"```
 - Globally activate the steel_crypt package:
-    - ```$ pub global activate steel_crypt```
+    * ```$ pub global activate steel_crypt```
 - You can now use:
-    - ```$ encrypt -t (text here) -k (key here) -i (iv here)```
+    * ```$ encrypt -t (text here) -k (key here) -i (iv here)```
         - Uses AES with PKCS7 padding
-    - ```$ decrypt -t (encrypted here) -k (key here) -i (iv here)```
+    * ```$ decrypt -t (encrypted here) -k (key here) -i (iv here)```
         - Uses AES with PKCS7 padding
-    - ```$ hash -p (plain here)```
+    * ```$ hash -p (plain here)```
         - Uses SHA-3/512
-    - ```$ genkey -l (length here)```
+    * ```$ genkey -l (length here)```
 
 ## Notes
 
