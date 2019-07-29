@@ -150,18 +150,22 @@ main() {
 }
 ```
 ## CLI
-- If you haven't already done so, add ```$HOME/.pub-cache/bin``` to your path:
-    * ```$ export PATH="$PATH":"$HOME/.pub-cache/bin"```
-- Globally activate the steel_crypt package:
-    * ```$ pub global activate steel_crypt```
-- You can now use:
-    * ```$ encrypt -t (text here) -k (key here) -i (iv here)```
-        - Uses AES with PKCS7 padding
-    * ```$ decrypt -t (encrypted here) -k (key here) -i (iv here)```
-        - Uses AES with PKCS7 padding
-    * ```$ hash -p (plain here)```
-        - Uses SHA-3/512
-    * ```$ genkey -l (length here)```
+This CLI allows you to perform basic functions from the main package on the terminal
+#### Setup
+* If you haven't already done so, add pub-cache to your PATH with ```$ export PATH="$PATH":"$HOME/.pub-cache/bin"```
+* Globally activate the steel_crypt package with ```$ pub global activate steel_crypt```
+#### Commands
+* encrypt: ```$ encrypt -t (text here) -k (key here) -i (iv here)```
+    - Uses AES with PKCS7 padding
+    - All fields required
+* decrypt: ```$ decrypt -t (encrypted here) -k (key here) -i (iv here)```
+    - Uses AES with PKCS7 padding
+    - All fields required
+* hash: ```$ hashtext -p (plain here)```
+    - Uses SHA-3/512
+    - Field required
+* make keys: ```$ genkey -l (length here)```
+
 
 ## Notes
 

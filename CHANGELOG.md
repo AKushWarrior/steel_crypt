@@ -1,3 +1,14 @@
+## 0.5.4
+- Fixing hash funct. of CLI
+
+## 0.5.3+4
+- Disregard, README isn't processing properly
+- No functional improvement
+
+## 0.5.3+3
+- More README fixes
+- Still no functional improvement
+
 ## 0.5.3+2
 - README looks terrible on pub, patched
 - No functional improvement
