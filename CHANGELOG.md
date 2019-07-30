@@ -1,3 +1,9 @@
+## 0.5.4+1
+- Added Mozilla License notice + copyright to every code file
+- Included copyright at bottom of README
+- Updated README Notes + TODO's
+- No functional improvement
+
 ## 0.5.4
 - Fixing hash funct. of CLI
 

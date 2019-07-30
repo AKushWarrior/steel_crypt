@@ -170,7 +170,8 @@ This CLI allows you to perform basic functions from the main package on the term
 ## Notes
 
 * This is fairly well-tested and documented, but use in production AT YOUR OWN RISK.
-* This is a work-in-progress, but will be actively maintained.
+* This is relatively complete, but will be actively maintained for new bugs.
+* I've now added almost every algorithm from PointyCastle, so every algorithm requires extensive implementation work. Bear with me!
 * Please file feature requests and bugs at the [issue tracker][tracker].
 * I'm busy, so file a PR for new features if possible...
 
@@ -180,7 +181,8 @@ This CLI allows you to perform basic functions from the main package on the term
 
 - [x] Create Project + add "Starter Set" of algorithms
 - [x] Add more, different hashes 
-- [ ] Add more, different 2-way encryption algorithms + packaging options
+- [ ] Add more, different 2-way encryption algorithms 
+- [ ] Try to add more packaging options
 - [x] Tackle adding an RSA solution
 - [x] Create a more complete password solution
 - [x] Add more detailed example
@@ -205,4 +207,5 @@ This CLI allows you to perform basic functions from the main package on the term
     - https://en.wikipedia.org/wiki/Symmetric-key_algorithm
     - https://en.wikipedia.org/wiki/Public-key_cryptography
 
+###### ©2019 Aditya Kishore
 ###### Licensed under the Mozilla Public License 2.0
