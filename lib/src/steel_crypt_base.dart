@@ -7,6 +7,7 @@
 import 'dart:core';
 import 'dart:core' as core;
 import 'dart:math';
+import 'dart:typed_data';
 import 'dart:convert';
 import 'package:encrypt/encrypt.dart';
 import 'package:steel_crypt/src/rsa.dart';
@@ -17,12 +18,12 @@ import 'rsa.dart';
 ///Create symmetric encryption machine (Crypt)
 class SymCrypt {
   ///Type of algorithm
-  core.String type;
+  static core.String type;
 
   ///Key for encryption
-  core.String key32;
+  static core.String key32;
 
-  var encrypter;
+  static var encrypter;
 
   ///Creates 'Crypt', serves as encrypter/decrypter of text
   SymCrypt (core.String inkey32, [core.String intype = "AES"]) {
@@ -55,22 +56,29 @@ class RsaCrypt extends rsa {
 
 ///Class for creating cryptographically secure strings
 class CryptKey {
-
-  //instantiate random for key generation
-  var random = Random.secure();
-
-  //gen cryptographically-secure, random key; defaults to length 32
-  String genKey ([int length = 32]) {
-    var values = List<int>.generate(length, (i) => random.nextInt(256));
-    var inter = base64Url.encode(values);
-    var scramble = PassCrypt().hashPass(genIV(), inter, length);
-    return scramble;
+  ///Internal for generating Fortuna Random engine
+  static SecureRandom getSecureRandom() {
+    var secureRandom = FortunaRandom();
+    var random = Random.secure();
+    var seeds = List<int>.generate(32, (i) => random.nextInt(256));
+    secureRandom.seed(new KeyParameter(new Uint8List.fromList(seeds)));
+    return secureRandom;
   }
 
-  ////gen cryptographically-secure, random iv; defaults to length 16
+  ///gen cryptographically-secure, random key; defaults to length 32
+  String genKey ([int length = 32]) {
+    var rand = getSecureRandom();
+    var values = rand.nextBytes(length);
+    var stringer = base64Url.encode(values);
+    return stringer;
+  }
+
+  ///gen cryptographically-secure, random iv; defaults to length 16
   String genIV ([int length = 16]) {
-    var values = List<int>.generate(length, (i) => random.nextInt(256));
-    return base64Url.encode(values);
+    var rand = getSecureRandom();
+    var values = rand.nextBytes(length);
+    var stringer = base64Url.encode(values);
+    return stringer;
   }
 }
 
@@ -78,7 +86,7 @@ class CryptKey {
 class PassCrypt {
   ///hash password given salt, text, and length
   String hashPass (String salt, String pass, [int length = 32]) {
-    var params = new Pbkdf2Parameters(utf8.encode(salt), 20000, length);
+    var params = new Pbkdf2Parameters(utf8.encode(salt), 15000, length);
     var keyDerivator = new KeyDerivator("SHA-512/HMAC/PBKDF2")
       ..init( params )
     ;
@@ -97,7 +105,7 @@ class PassCrypt {
 ///General hashing class for usage
 class HashCrypt {
   ///Type of algorithm
-  core.String type;
+  static core.String type;
 
   ///Construct with type of algorithm
   HashCrypt ([core.String inType = 'SHA-3/512']) {

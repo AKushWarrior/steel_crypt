@@ -2,7 +2,6 @@
 //License, v. 2.0. If a copy of the MPL was not distributed with this
 //file, You can obtain one at https://mozilla.org/MPL/2.0/.
 
-
 // © 2019 Aditya Kishore
 
 import 'dart:core';
@@ -18,7 +17,7 @@ import 'package:pointycastle/api.dart';
 class rsa {
 
   ///Pair of private keys
-  var pair;
+  static var pair;
 
   ///Construct with keys
   rsa ()  {

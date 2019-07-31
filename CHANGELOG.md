@@ -1,3 +1,9 @@
+## 0.5.5
+- Changed IV + Key generation to Fortuna for increased speed + entropy
+- Increases security, but no front-end changes
+- Improved runtime efficiency by declaring top-end variables and helper functions static
+- Decreased PassCrypt rounds from 20000 to 15000 to decrease runtime 
+
 ## 0.5.4+1
 - Added Mozilla License notice + copyright to every code file
 - Included copyright at bottom of README
