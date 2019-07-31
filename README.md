@@ -172,6 +172,7 @@ This CLI allows you to perform basic functions from the main package on the term
 * This is fairly well-tested and documented, but use in production AT YOUR OWN RISK.
 * This is relatively complete, but will be actively maintained for new bugs.
 * I've now added almost every algorithm from PointyCastle, so every algorithm requires extensive implementation work. Bear with me!
+* I need your input! What algorithms and features would you like to see here? That leads me to...
 * Please file feature requests and bugs at the [issue tracker][tracker].
 * I'm busy, so file a PR for new features if possible...
 

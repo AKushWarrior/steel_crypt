@@ -23,6 +23,8 @@ class SymCrypt {
   ///Key for encryption
   static core.String key32;
 
+  static List<String> ivlist = [];
+
   static var encrypter;
 
   ///Creates 'Crypt', serves as encrypter/decrypter of text
@@ -40,7 +42,13 @@ class SymCrypt {
   ///Encrypt (with iv) and return in base 64
   core.String encrypt (core.String input, core.String iv) {
     Encrypted crypted = encrypter.encrypt(input, iv:IV.fromBase64(iv));
-    return crypted.base64;
+    if (ivlist.contains(iv)) {
+      throw new ArgumentError("Your IV's must be unique to ensure secure encryption. Make sure to use a unique IV each time you encrypt!");
+    }
+    else {
+      ivlist.add(iv);
+      return crypted.base64;
+    }
   }
 
   ///Decrypt base 64 (with iv) and return original

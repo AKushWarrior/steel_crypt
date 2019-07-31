@@ -1,3 +1,8 @@
+## 0.5.5+1
+- Enforce IV uniqueness in SymCrypt class
+- Minor updates to README
+- Work begins in threefish.dart
+
 ## 0.5.5
 - Changed IV + Key generation to Fortuna for increased speed + entropy
 - Increases security, but no front-end changes
