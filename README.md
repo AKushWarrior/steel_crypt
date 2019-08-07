@@ -11,12 +11,12 @@ a CLI, for conducting basic cryptography operations.
 * __Note__: AES requires 16 bytes of IV
 
 #### Lightweight Ciphers (class LightCrypt)
-* ChaCha20 stream cipher _(Default Encryption)_
+* ChaCha20 stream cipher ('ChaCha20') _(Default Encryption)_
     - Derivative of Salsa20 with increased security
-    - Requires 12 bytes of IV
-* Salsa20 stream cipher
+    - __Note__: Requires 12 bytes of IV
+* Salsa20 stream cipher ('Salsa20')
     - Secure, speedy AES alternative
-    - Requires 8 bytes of IV
+    - __Note__: Requires 8 bytes of IV
 
 #### 2-Way Asymmetric (class RsaCrypt)
 * RSA with OAEP padding
