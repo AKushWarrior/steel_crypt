@@ -4,9 +4,8 @@
 
 // © 2019 Aditya Kishore
 
-/// Support for doing something awesome.
-///
-/// More dartdocs go here.
-library steel_crypt;
+//This is not functional yet, but will be soon. Stay tuned!
 
-export 'src/steel_crypt_base.dart';
+class HC256 {
+
+}

@@ -1,19 +1,26 @@
 # Steel Crypt
 
-A comprehensive library of high-level, cryptographic API's from PointyCastle/encrypt. This 
-library currently supports hashing, two-way encryption, and key/IV generation. It also has 
-a CLI to conduct basic cryptography operations
+A comprehensive library of high-level, cryptographic API's, either manually defined or pulled from PointyCastle/encrypt.
+This library currently supports hashing, two-way encryption, and key/IV generation. It also has 
+a CLI, for conducting basic cryptography operations.
 
+---
 ## Classes
-#### 2-Way Symmetric (class SymCrypt)
-* AES with PKCS7 Padding ('AES') _(Default Encryption)_
-* Salsa20 ('Salsa20')
-* More planned...
-* __Note__: AES requires 16 bytes of IV, whereas Salsa 20 requires 8
+#### AES Encryption (class AesCrypt)
+* AES with PKCS7 Padding ('AES') 
+* __Note__: AES requires 16 bytes of IV
+
+#### Lightweight Ciphers (class LightCrypt)
+* ChaCha20 stream cipher _(Default Encryption)_
+    - Derivative of Salsa20 with increased security
+    - Requires 12 bytes of IV
+* Salsa20 stream cipher
+    - Secure, speedy AES alternative
+    - Requires 8 bytes of IV
 
 #### 2-Way Asymmetric (class RsaCrypt)
 * RSA with OAEP padding
-* __Note__: RsaCrypt auto generates secure RSA private and public keys. You can access them using ```.privKey``` and ```.pubKey``` getters, or use your own.
+* __Note__: RsaCrypt auto generates secure RSA private and public keys. You can access them using ```.privKey``` and ```.pubKey``` getters, or use your own. 
 
 #### Password Hashing (class PassCrypt)
 * PBKDF2 with SHA-256 and HMAC
@@ -49,6 +56,7 @@ a CLI to conduct basic cryptography operations
 * Generates cryptographically secure keys + IV's
 * Keys default to length 32, IV's to length 16
 
+---
 
 ## Usage
 
@@ -59,13 +67,16 @@ import 'package:steel_crypt/steel_crypt.dart';
 
 main() {
 
-  var private = CryptKey().genKey(); //generate key
+  var private = CryptKey().genKey(); //generate 32 byte key
 
 
-  var encrypter = SymCrypt(private, 'AES'); //generate AES encrypter with key
+  var encrypter = AesCrypt(private, 'cbc'); //generate AES encrypter with key
 
 
   var encrypter2 = RsaCrypt(); //generate RSA encrypter
+
+
+  var encrypter3 = LightCrypt(private, "ChaCha20"); //generate ChaCha20 encrypter
 
 
   var hasher = HashCrypt(); //generate SHA-3/512 hasher
@@ -73,10 +84,13 @@ main() {
   var hasher2 = HashCrypt('SHA-3/256'); //generate SHA-3/256 hasher
 
 
-  var passHash = PassCrypt();
+  var passHash = PassCrypt(); //generate PBKDF2 password hasher
 
 
   var iv = CryptKey().genIV(16); //generate iv for AES
+
+  var iv2 = CryptKey().genIV(12); //generate iv for ChaCha20
+
 
   var salt = CryptKey().genIV(16); //generate salt for password hashing
 
@@ -94,9 +108,9 @@ main() {
 
   print(hasher.hash('word')); //perform hash
 
-  var hash = hasher.hash('word');
+  var hash = hasher.hash('pass');
 
-  print(hasher.checkhash('word', hash)); //perform check
+  print(hasher.checkhash('pass', hash)); //perform check
 
   print("");
 
@@ -113,7 +127,7 @@ main() {
   print("");
 
 
-  //Password
+  //Password (SHA-256/HMAC/PBKDF2)
   print("Password hash (SHA-256/HMAC/PBKDF2):");
 
   print(passHash.hashPass(salt, "word")); //perform hash
@@ -125,7 +139,19 @@ main() {
   print("");
 
 
-  //AES Symmetric
+  //ChaCha20; Symmetric stream cipher
+  print("ChaCha20 Symmetric:");
+
+  print(encrypter3.encrypt('word', iv2)); //encrypt
+
+  String crypted3 = encrypter3.encrypt('word', iv2);
+
+  print(encrypter3.decrypt(crypted3, iv2)); //decrypt
+
+  print("");
+
+
+  //AES with PKCS7 padding; Symmetric block cipher
   print("AES Symmetric:");
 
   print(encrypter.encrypt('word', iv)); //encrypt
@@ -137,7 +163,7 @@ main() {
   print("");
 
 
-  //RSA Asymmetric
+  //RSA with OAEP padding; Asymmetric
   print("RSA Asymmetric:");
 
   var crypted2 = encrypter2.encrypt("word", encrypter2.pubKey); //encrypt
@@ -149,6 +175,8 @@ main() {
   print("");
 }
 ```
+
+---
 ## CLI
 This CLI allows you to perform basic functions from the main package on the terminal
 #### Setup
@@ -166,7 +194,7 @@ This CLI allows you to perform basic functions from the main package on the term
     - Field required
 * make keys: ```$ genkey -l (length here)```
 
-
+---
 ## Notes
 
 * This is fairly well-tested and documented, but use in production AT YOUR OWN RISK.
@@ -178,15 +206,20 @@ This CLI allows you to perform basic functions from the main package on the term
 
 [tracker]: https://github.com/AKushWarrior/steel_crypt/issues
 
+---
+
 ## TODO's
 
 - [x] Create Project + add "Starter Set" of algorithms
 - [x] Add more, different hashes 
-- [ ] Add more, different 2-way encryption algorithms 
+- [ ] Add more, different 2-way encryption algorithms (In progress...)
 - [ ] Try to add more packaging options
 - [x] Tackle adding an RSA solution
 - [x] Create a more complete password solution
 - [x] Add more detailed example
+- [ ] Update Reading to reflect new algorithms
+
+---
 
 ## Reading
 - Look at these links for further information on ciphers, hashes, and terminology used here:
@@ -207,6 +240,8 @@ This CLI allows you to perform basic functions from the main package on the term
     - https://en.wikipedia.org/wiki/Cryptographic_hash_function
     - https://en.wikipedia.org/wiki/Symmetric-key_algorithm
     - https://en.wikipedia.org/wiki/Public-key_cryptography
+    
+---
 
 ###### ©2019 Aditya Kishore
 ###### Licensed under the Mozilla Public License 2.0

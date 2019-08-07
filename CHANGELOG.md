@@ -1,3 +1,10 @@
+## 0.6.1 - Breaking!
+- Reorganization of files
+- Implemented ChaCha20
+- Changed SymCrypt() to AesCrypt()
+- Moved Salsa20 and ChaCha20 to new LightCrypt() class
+- Ditched Threefish due to lack of demand
+
 ## 0.5.5+1
 - Enforce IV uniqueness in SymCrypt class
 - Minor updates to README

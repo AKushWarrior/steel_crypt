@@ -4,23 +4,16 @@
 
 // © 2019 Aditya Kishore
 
-import 'dart:core';
-import 'dart:core' as core;
-import 'dart:typed_data';
-import 'dart:convert';
-import 'dart:math';
-import 'package:pointycastle/export.dart';
-import 'package:pointycastle/api.dart';
-
+part of 'steel_crypt_base.dart';
 
 ///RSA asymmetric encryption machine
-class rsa {
+class RsaCrypt {
 
   ///Pair of private keys
   static var pair;
 
   ///Construct with keys
-  rsa ()  {
+  RsaCrypt ()  {
     pair = getRsaKeyPair(getSecureRandom());
   }
 
@@ -42,16 +35,16 @@ class rsa {
     for (int i = 0; i < 32; i++) {
       seeds.add(random.nextInt(255));
     }
-    secureRandom.seed(new KeyParameter(new Uint8List.fromList(seeds)));
+    secureRandom.seed(KeyParameter(Uint8List.fromList(seeds)));
     return secureRandom;
   }
 
   ///create RSA keypair given SecureRandom
   static AsymmetricKeyPair<PublicKey, PrivateKey> getRsaKeyPair(
       SecureRandom secureRandom) {
-    var rsapars = new RSAKeyGeneratorParameters(BigInt.from(65537), 2048, 5);
-    var params = new ParametersWithRandom(rsapars, secureRandom);
-    var keyGenerator = new RSAKeyGenerator();
+    var rsapars = RSAKeyGeneratorParameters(BigInt.from(65537), 2048, 5);
+    var params = ParametersWithRandom(rsapars, secureRandom);
+    var keyGenerator = RSAKeyGenerator();
     keyGenerator.init(params);
     return keyGenerator.generateKeyPair();
   }
