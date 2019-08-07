@@ -1,3 +1,7 @@
+## 0.6.1+1
+- Hotfix for breaking bug regarding meta package
+- Fixes ChaCha20
+
 ## 0.6.1 - Breaking!
 - Reorganization of files
 - Implemented ChaCha20
