@@ -1,3 +1,7 @@
+## 0.6.2
+- Made it so HashCrypt() and PassCrypt() work with all strings
+- Updated AES documentation in README to reflect different modes
+
 ## 0.6.1+1
 - Hotfix for breaking bug regarding meta package
 - Fixes ChaCha20

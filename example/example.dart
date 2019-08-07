@@ -47,11 +47,11 @@ main() {
   //SHA-3 512 Hash
   print("SHA-3 512 Hash:");
 
-  print(hasher.hash('word')); //perform hash
+  print(hasher.hash('words')); //perform hash
 
-  var hash = hasher.hash('pass');
+  var hash = hasher.hash('words');
 
-  print(hasher.checkhash('pass', hash)); //perform check
+  print(hasher.checkhash('words', hash)); //perform check
 
   print("");
 
@@ -59,11 +59,11 @@ main() {
   //HMAC SHA-3 256 Hash
   print("HMAC SHA-3 256 Hash:");
 
-  print(hasher2.hashHMAC('word', private)); //perform hash
+  print(hasher2.hashHMAC('words', private)); //perform hash
 
-  var hash2 = hasher2.hashHMAC('word', private);
+  var hash2 = hasher2.hashHMAC('words', private);
 
-  print(hasher2.checkhashHMAC('word', hash2, private)); //perform check
+  print(hasher2.checkhashHMAC('words', hash2, private)); //perform check
 
   print("");
 
@@ -71,11 +71,11 @@ main() {
   //Password (SHA-256/HMAC/PBKDF2)
   print("Password hash (SHA-256/HMAC/PBKDF2):");
 
-  print(passHash.hashPass(salt, "word")); //perform hash
+  print(passHash.hashPass(salt, "words")); //perform hash
 
-  var hash3 = passHash.hashPass(salt, "word");
+  var hash3 = passHash.hashPass(salt, "words");
 
-  print(passHash.checkPassKey(salt, "word", hash3)); //perform check
+  print(passHash.checkPassKey(salt, "words", hash3)); //perform check
 
   print("");
 

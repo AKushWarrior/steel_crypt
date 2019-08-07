@@ -7,10 +7,17 @@ a CLI, for conducting basic cryptography operations.
 ---
 ## Classes
 #### AES Encryption (class AesCrypt)
-* AES with PKCS7 Padding ('AES') 
+* AES with PKCS7 Padding
+* Operatable in 6 different modes
+    - CBC ('cbc')
+    - SIC ('sic)
+    - CFB ('cfb-64')
+    - CTR ('ctr')
+    - ECB ('ecb)
+    - OFB ('ofb-64')
 * __Note__: AES requires 16 bytes of IV
 
-#### Lightweight Ciphers (class LightCrypt)
+#### Lightweight Stream Ciphers (class LightCrypt)
 * ChaCha20 stream cipher ('ChaCha20') _(Default Encryption)_
     - Derivative of Salsa20 with increased security
     - __Note__: Requires 12 bytes of IV
