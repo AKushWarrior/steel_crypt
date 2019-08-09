@@ -1,3 +1,9 @@
+## 0.7.1 - Breaking!
+- Revamped KeyCrypt() to have two methods
+- One generating with Fortuna
+- Other generating with Random.secure()
+- Old key generation method no longer works
+
 ## 0.6.2
 - Made it so HashCrypt() and PassCrypt() work with all strings
 - Updated AES documentation in README to reflect different modes

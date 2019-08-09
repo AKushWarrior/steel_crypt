@@ -10,7 +10,7 @@ part of 'steel_crypt_base.dart';
 class PassCrypt {
   static List<String> pads = [];
   PassCrypt () {
-    var someBytes = CryptKey().genKey(4);
+    var someBytes = CryptKey().genFortuna(4);
     pads.add(someBytes.substring(3));
     pads.add(someBytes.substring(2,3));
     pads.add(someBytes.substring(1,2));

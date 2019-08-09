@@ -8,16 +8,16 @@ import 'package:steel_crypt/steel_crypt.dart';
 
 main() {
 
-  var private = CryptKey().genKey(); //generate 32 byte key
+  var FortunaKey = CryptKey().genFortuna(); //generate 32 byte key generated with Fortuna
 
 
-  var encrypter = AesCrypt(private, 'cbc'); //generate AES encrypter with key
+  var encrypter = AesCrypt(FortunaKey, 'cbc'); //generate AES encrypter with key
 
 
   var encrypter2 = RsaCrypt(); //generate RSA encrypter
 
 
-  var encrypter3 = LightCrypt(private, "ChaCha20"); //generate ChaCha20 encrypter
+  var encrypter3 = LightCrypt(FortunaKey, "ChaCha20"); //generate ChaCha20 encrypter
 
 
   var hasher = HashCrypt(); //generate SHA-3/512 hasher
@@ -28,18 +28,18 @@ main() {
   var passHash = PassCrypt(); //generate PBKDF2 password hasher
 
 
-  var iv = CryptKey().genIV(16); //generate iv for AES
+  var iv = CryptKey().genDart(16); //generate iv for AES with Dart Random.secure()
 
-  var iv2 = CryptKey().genIV(12); //generate iv for ChaCha20
+  var iv2 = CryptKey().genDart(12); //generate iv for ChaCha20 with Dart Random.secure()
 
 
-  var salt = CryptKey().genIV(16); //generate salt for password hashing
+  var salt = CryptKey().genDart(16); //generate salt for password hashing with Dart Random.secure()
 
 
   //Print key
   print ("Key:");
 
-  print(private);
+  print(FortunaKey);
 
   print("");
 
@@ -59,11 +59,11 @@ main() {
   //HMAC SHA-3 256 Hash
   print("HMAC SHA-3 256 Hash:");
 
-  print(hasher2.hashHMAC('words', private)); //perform hash
+  print(hasher2.hashHMAC('words', FortunaKey)); //perform hash
 
-  var hash2 = hasher2.hashHMAC('words', private);
+  var hash2 = hasher2.hashHMAC('words', FortunaKey);
 
-  print(hasher2.checkhashHMAC('words', hash2, private)); //perform check
+  print(hasher2.checkhashHMAC('words', hash2, FortunaKey)); //perform check
 
   print("");
 

@@ -60,8 +60,15 @@ a CLI, for conducting basic cryptography operations.
 * __Note__: Compare plaintext to hashtext using ```.checkpass(plain, hashed)``` and ```.checkpassHMAC(plain, hashed, key)```
 
 #### Key/IV Generation (class CryptKey)
-* Generates cryptographically secure keys + IV's
-* Keys default to length 32, IV's to length 16
+* `.genFortuna (int length = 32)`:
+    - Generates cryptographic string using Fortuna algorithm
+    - Slower but significantly more secure
+    - Best for private keys
+    - Used exclusively internally
+* `.genDart (int length = 16)`:
+    - Generates cryptographic string using Dart Random.secure()
+    - Faster but less secure
+    - Best for IV's or salt
 
 ---
 
@@ -70,20 +77,26 @@ a CLI, for conducting basic cryptography operations.
 A simple usage example:
 
 ```dart
+//This Source Code Form is subject to the terms of the Mozilla Public
+//License, v. 2.0. If a copy of the MPL was not distributed with this
+//file, You can obtain one at https://mozilla.org/MPL/2.0/.
+
+// © 2019 Aditya Kishore
+
 import 'package:steel_crypt/steel_crypt.dart';
 
 main() {
 
-  var private = CryptKey().genKey(); //generate 32 byte key
+  var FortunaKey = CryptKey().genFortuna(); //generate 32 byte key generated with Fortuna
 
 
-  var encrypter = AesCrypt(private, 'cbc'); //generate AES encrypter with key
+  var encrypter = AesCrypt(FortunaKey, 'cbc'); //generate AES encrypter with key
 
 
   var encrypter2 = RsaCrypt(); //generate RSA encrypter
 
 
-  var encrypter3 = LightCrypt(private, "ChaCha20"); //generate ChaCha20 encrypter
+  var encrypter3 = LightCrypt(FortunaKey, "ChaCha20"); //generate ChaCha20 encrypter
 
 
   var hasher = HashCrypt(); //generate SHA-3/512 hasher
@@ -94,18 +107,18 @@ main() {
   var passHash = PassCrypt(); //generate PBKDF2 password hasher
 
 
-  var iv = CryptKey().genIV(16); //generate iv for AES
+  var iv = CryptKey().genDart(16); //generate iv for AES with Dart Random.secure()
 
-  var iv2 = CryptKey().genIV(12); //generate iv for ChaCha20
+  var iv2 = CryptKey().genDart(12); //generate iv for ChaCha20 with Dart Random.secure()
 
 
-  var salt = CryptKey().genIV(16); //generate salt for password hashing
+  var salt = CryptKey().genDart(16); //generate salt for password hashing with Dart Random.secure()
 
 
   //Print key
   print ("Key:");
 
-  print(private);
+  print(FortunaKey);
 
   print("");
 
@@ -113,11 +126,11 @@ main() {
   //SHA-3 512 Hash
   print("SHA-3 512 Hash:");
 
-  print(hasher.hash('word')); //perform hash
+  print(hasher.hash('words')); //perform hash
 
-  var hash = hasher.hash('pass');
+  var hash = hasher.hash('words');
 
-  print(hasher.checkhash('pass', hash)); //perform check
+  print(hasher.checkhash('words', hash)); //perform check
 
   print("");
 
@@ -125,11 +138,11 @@ main() {
   //HMAC SHA-3 256 Hash
   print("HMAC SHA-3 256 Hash:");
 
-  print(hasher2.hashHMAC('word', private)); //perform hash
+  print(hasher2.hashHMAC('words', FortunaKey)); //perform hash
 
-  var hash2 = hasher2.hashHMAC('word', private);
+  var hash2 = hasher2.hashHMAC('words', FortunaKey);
 
-  print(hasher2.checkhashHMAC('word', hash2, private)); //perform check
+  print(hasher2.checkhashHMAC('words', hash2, FortunaKey)); //perform check
 
   print("");
 
@@ -137,11 +150,11 @@ main() {
   //Password (SHA-256/HMAC/PBKDF2)
   print("Password hash (SHA-256/HMAC/PBKDF2):");
 
-  print(passHash.hashPass(salt, "word")); //perform hash
+  print(passHash.hashPass(salt, "words")); //perform hash
 
-  var hash3 = passHash.hashPass(salt, "word");
+  var hash3 = passHash.hashPass(salt, "words");
 
-  print(passHash.checkPassKey(salt, "word", hash3)); //perform check
+  print(passHash.checkPassKey(salt, "words", hash3)); //perform check
 
   print("");
 

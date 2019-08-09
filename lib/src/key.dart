@@ -17,19 +17,17 @@ class CryptKey {
     return secureRandom;
   }
 
-  ///gen cryptographically-secure, random key; defaults to length 32
-  String genKey ([int length = 32]) {
+  ///gen cryptographically-secure, Fortuna random string; defaults to length 32
+  String genFortuna ([int length = 32]) {
     var rand = getSecureRandom();
     var values = rand.nextBytes(length);
     var stringer = base64Url.encode(values);
     return stringer;
   }
 
-  ///gen cryptographically-secure, random iv; defaults to length 16
-  String genIV ([int length = 16]) {
-    var rand = getSecureRandom();
-    var values = rand.nextBytes(length);
-    var stringer = base64Url.encode(values);
-    return stringer;
+  String genDart ([int length = 16]) {
+    var rand = Random.secure();
+    var bytes = List<int>.generate(length, (i) => rand.nextInt(256));
+    return base64Url.encode(bytes);
   }
 }
