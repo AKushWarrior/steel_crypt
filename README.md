@@ -1,6 +1,6 @@
 # Steel Crypt
 
-[![Pub](https://img.shields.io/pub/v/steel_crypt?color=red&label=steel%20crypt&logo=Steel%20Crypt&logoColor=blue&style=for-the-badge)](https://pub.dev/packages/steel_crypt)
+[![Pub](https://img.shields.io/pub/v/steel_crypt?color=red&label=pub&logo=Steel%20Crypt&logoColor=blue&style=for-the-badge)](https://pub.dev/packages/steel_crypt)
 [![License](https://img.shields.io/github/license/AKushWarrior/steel_crypt?color=red&style=for-the-badge)](https://www.mozilla.org/en-US/MPL/2.0/)
 [![Commits](https://img.shields.io/github/commit-activity/m/AKushWarrior/steel_crypt?color=red&style=for-the-badge)](https://github.com/AKushWarrior/steel_crypt)
 
