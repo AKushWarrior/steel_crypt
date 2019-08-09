@@ -1,5 +1,9 @@
 # Steel Crypt
 
+[![Pub](https://img.shields.io/pub/v/steel_crypt?color=red&label=steel%20crypt&logo=Steel%20Crypt&logoColor=blue&style=for-the-badge)](https://pub.dev/packages/steel_crypt)
+[![License](https://img.shields.io/github/license/AKushWarrior/steel_crypt?color=red&style=for-the-badge)](https://www.mozilla.org/en-US/MPL/2.0/)
+[![Commits](https://img.shields.io/github/commit-activity/m/AKushWarrior/steel_crypt?color=red&style=for-the-badge)](https://github.com/AKushWarrior/steel_crypt)
+
 A comprehensive library of high-level, cryptographic API's, either manually defined or pulled from PointyCastle/encrypt.
 This library currently supports hashing, two-way encryption, and key/IV generation. It also has 
 a CLI, for conducting basic cryptography operations.
@@ -64,7 +68,7 @@ a CLI, for conducting basic cryptography operations.
     - Generates cryptographic string using Fortuna algorithm
     - Slower but significantly more secure
     - Best for private keys
-    - Used exclusively internally
+    - Used internally
 * `.genDart (int length = 16)`:
     - Generates cryptographic string using Dart Random.secure()
     - Faster but less secure
@@ -221,7 +225,7 @@ This CLI allows you to perform basic functions from the main package on the term
 * This is relatively complete, but will be actively maintained for new bugs.
 * I've now added almost every algorithm from PointyCastle, so every algorithm requires extensive implementation work. Bear with me!
 * I need your input! What algorithms and features would you like to see here? That leads me to...
-* Please file feature requests and bugs at the [issue tracker][tracker].
+* Please file feature requests, clarifications, and bugs at the [issue tracker][tracker].
 * I'm busy, so file a PR for new features if possible...
 
 [tracker]: https://github.com/AKushWarrior/steel_crypt/issues

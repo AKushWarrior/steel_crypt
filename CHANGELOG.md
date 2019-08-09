@@ -1,3 +1,11 @@
+## 0.7.1+2
+- Minor Readme update
+- No functional change
+
+## 0.7.1+1
+- Minor Readme update
+- No functional change
+
 ## 0.7.1 - Breaking!
 - Revamped KeyCrypt() to have two methods
 - One generating with Fortuna
