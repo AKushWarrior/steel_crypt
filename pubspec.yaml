@@ -1,6 +1,6 @@
 name: steel_crypt
 description: A collection of high-level API's exposing PointyCastle/encrypt to perform hashing and encrypting in popular and/or secure algorithms.
-version: 0.7.1+2
+version: 0.8.1
 homepage: https://github.com/AKushWarrior/steel_crypt
 repository: https://github.com/AKushWarrior/steel_crypt
 issue_tracker: https://github.com/AKushWarrior/steel_crypt/issues
@@ -20,6 +20,10 @@ dependencies:
   pointycastle: ^1.0.1
   args: ^1.5.2
   meta: ^1.1.7
+
+dependency_overrides:
+  pointycastle:
+    git: git://github.com/PointyCastle/pointycastle.git
 
 dev_dependencies:
   pedantic: ^1.7.0

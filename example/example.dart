@@ -11,7 +11,11 @@ main() {
   var FortunaKey = CryptKey().genFortuna(); //generate 32 byte key generated with Fortuna
 
 
-  var encrypter = AesCrypt(FortunaKey, 'cbc'); //generate AES encrypter with key
+  var aesEncrypter = AesCrypt(FortunaKey, 'cbc', 'iso7816-4'); //generate AES CBC block encrypter with key and ISO7816-4 padding
+
+  var aesEncrypter2 = AesCrypt(FortunaKey, 'cbc', 'pkcs7'); //generate AES CBC block encrypter with key and PKCS7 padding
+
+  var streamAES = AesCrypt(FortunaKey, 'cfb'); //generate AES CFB stream encrypter with key
 
 
   var encrypter2 = RsaCrypt(); //generate RSA encrypter
@@ -92,14 +96,38 @@ main() {
   print("");
 
 
-  //AES with PKCS7 padding; Symmetric block cipher
+  //AES CBC with ISO7816-4 padding; Symmetric block cipher
   print("AES Symmetric:");
 
-  print(encrypter.encrypt('word', iv)); //encrypt
+  print(aesEncrypter.encrypt('words', iv)); //encrypt
 
-  String crypted = encrypter.encrypt('word', iv);
+  String crypted = aesEncrypter.encrypt('words', iv);
 
-  print(encrypter.decrypt(crypted, iv)); //decrypt
+  print(aesEncrypter.decrypt(crypted, iv)); //decrypt
+
+  print("");
+
+
+  //AES CBC with PKCS7 padding; Symmetric block cipher
+  print("AES Symmetric:");
+
+  print(aesEncrypter2.encrypt('words', iv)); //encrypt
+
+  String crypted2 = aesEncrypter2.encrypt('words', iv);
+
+  print(aesEncrypter2.decrypt(crypted2, iv)); //decrypt
+
+  print("");
+
+
+  //AES CFB; Symmetric stream cipher
+  print("AES Symmetric:");
+
+  print(streamAES.encrypt('words', iv)); //encrypt
+
+  String crypted5 = streamAES.encrypt('words', iv);
+
+  print(aesEncrypter.decrypt(crypted5, iv)); //decrypt
 
   print("");
 
@@ -107,11 +135,11 @@ main() {
   //RSA with OAEP padding; Asymmetric
   print("RSA Asymmetric:");
 
-  var crypted2 = encrypter2.encrypt("word", encrypter2.pubKey); //encrypt
+  var crypted4 = encrypter2.encrypt("word", encrypter2.pubKey); //encrypt
 
-  print(crypted2);
+  print(crypted4);
 
-  print(encrypter2.decrypt(crypted2, encrypter2.privKey)); //decrypt
+  print(encrypter2.decrypt(crypted4, encrypter2.privKey)); //decrypt
 
   print("");
 }

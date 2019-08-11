@@ -1,3 +1,9 @@
+## 0.8.1
+- Revamped AES with new padding and better explanation in README
+- Made HashCrypt and PassCrypt less buggy to use
+- Changed pointycastle dependency to github in order to get new padding
+- Slowly phasing out encrypt package
+
 ## 0.7.1+2
 - Minor Readme update
 - No functional change

@@ -8,14 +8,8 @@ part of 'steel_crypt_base.dart';
 
 ///Class specifically for password hashing
 class PassCrypt {
-  static List<String> pads = [];
-  PassCrypt () {
-    var someBytes = CryptKey().genFortuna(4);
-    pads.add(someBytes.substring(3));
-    pads.add(someBytes.substring(2,3));
-    pads.add(someBytes.substring(1,2));
-    pads.add(someBytes.substring(0,1));
-  }
+  static List<String> pads = ['nYg'];
+
   ///hash password given salt, text, and length
   String hashPass (String salt, String pass, [int length = 32]) {
     var params = Pbkdf2Parameters(utf8.encode(salt), 15000, length);

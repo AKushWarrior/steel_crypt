@@ -10,16 +10,11 @@ part of 'steel_crypt_base.dart';
 class HashCrypt {
   ///Type of algorithm
   static core.String type;
-  static List<String> pads = [];
+  static List<String> pads = ['RnL'];
 
   ///Construct with type of algorithm
   HashCrypt ([core.String inType = 'SHA-3/512']) {
     type = inType;
-    var someBytes = CryptKey().genFortuna(4);
-    pads.add(someBytes.substring(3));
-    pads.add(someBytes.substring(2,3));
-    pads.add(someBytes.substring(1,2));
-    pads.add(someBytes.substring(0,1));
   }
 
   ///hash with input
@@ -31,9 +26,9 @@ class HashCrypt {
     else {
       var advinput = input;
       for (var i =0; i < (input.length % 4); i++) {
-        advinput = input + pads[i];
+        advinput = advinput + pads[i];
       }
-      advinput = advinput.substring(0, advinput.length -2);
+      advinput = advinput.substring(0, advinput.length-2);
       bytes = Base64Codec().decode(advinput);
     }
     Digest digest;
@@ -52,7 +47,7 @@ class HashCrypt {
     else {
       var advinput = input;
       for (var i =0; i < input.length % 4; i++) {
-        advinput = input + pads[i];
+        advinput = advinput + pads[i];
       }
       advinput = advinput.substring(0, advinput.length -2);
       bytes = Base64Codec().decode(advinput);
