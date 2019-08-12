@@ -1,3 +1,7 @@
+## 0.8.1+1 to 0.8.1+5
+- Bettered code health for pub
+- No functional improvement
+
 ## 0.8.1
 - Revamped AES with new padding and better explanation in README
 - Made HashCrypt and PassCrypt less buggy to use

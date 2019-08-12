@@ -11,9 +11,8 @@ import 'dart:math';
 import 'dart:typed_data';
 import 'dart:convert';
 
-import 'PointyCastleN/api.dart';
-import 'PointyCastleN/export.dart';
-import 'PointyCastleN/pointycastle.dart';
+import '../PointyCastleN/api.dart';
+import '../PointyCastleN/export.dart';
 
 import 'algos/chacha/chacha20.dart';
 import 'algos/chacha/chacha12.dart';
