@@ -4,21 +4,23 @@
 
 // © 2019 Aditya Kishore
 
-//imports
+//Import needed dart packages
 import 'dart:core';
 import 'dart:core' as core;
 import 'dart:math';
 import 'dart:typed_data';
 import 'dart:convert';
 
+//Import modified version of PointyCastle
 import '../PointyCastleN/api.dart';
 import '../PointyCastleN/export.dart';
 
+//Import manually defined ChaCha20 variants
 import 'algos/chacha/chacha20.dart';
 import 'algos/chacha/chacha12.dart';
 import 'algos/chacha/chacha8.dart';
 
-//parts
+//Parts for export
 part 'rsa.dart'; //for RsaCrypt
 part 'light.dart'; //for LightCrypt
 part 'pass.dart'; //for PassCrypt

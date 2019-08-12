@@ -75,3 +75,5 @@ export 'signers/rsa_signer.dart';
 export 'stream/ctr.dart';
 export 'stream/salsa20.dart';
 export 'stream/sic.dart';
+export 'stream/salsa208.dart';
+export 'stream/salsa2012.dart';

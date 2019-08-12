@@ -14,13 +14,19 @@ class LightCrypt {
   ///Key for encryption
   static core.String key32;
 
+  ///Salsa20 encryption machine
   static StreamCipher encrypter;
 
+  ///Construct encrypter
   LightCrypt (core.String inkey32, [core.String intype = "Salsa20"]) {
     type = intype;
     key32 = inkey32;
-    if (type == 'Salsa20') {
-      encrypter = StreamCipher("Salsa20");
+    if (type == 'Salsa20' || type == 'Salsa20/8' || type == 'Salsa20/12') {
+      encrypter = StreamCipher(type);
+    }
+    else if (type == 'Salsa20/20') {
+      type = 'Salsa20';
+      encrypter = StreamCipher(type);
     }
     else if (type == "ChaCha20" || type == "ChaCha20/20" || type == "ChaCha20/12" || type == "ChaCha20/8") {}
     else {
@@ -30,7 +36,7 @@ class LightCrypt {
 
   ///Encrypt (with iv) and return in base 64
   core.String encrypt (core.String input, core.String iv) {
-    if (type == 'Salsa20') {
+    if (type == 'Salsa20' || type == 'Salsa20/8' || type == 'Salsa20/12') {
       var localKey = utf8.encode(key32);
       var localIV = utf8.encode(iv);
       var localInput = utf8.encode(input);
@@ -70,7 +76,7 @@ class LightCrypt {
 
   ///Decrypt base 64 (with iv) and return original
   core.String decrypt (core.String encrypted, core.String iv) {
-    if (type == 'Salsa20') {
+    if (type == 'Salsa20' || type == 'Salsa20/8' || type == 'Salsa20/12') {
       var localKey = utf8.encode(key32);
       var localIV = utf8.encode(iv);
       var localInput = base64.decode(encrypted);

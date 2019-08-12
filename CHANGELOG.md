@@ -1,3 +1,8 @@
+## 0.8.2
+- New reduced-round variants of Salsa20
+- Better documentation
+- Minor bug fixes to hashing classes
+
 ## 0.8.1+1 to 0.8.1+5
 - Bettered code health for pub
 - No functional improvement

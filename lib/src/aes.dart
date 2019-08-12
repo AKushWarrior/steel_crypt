@@ -15,8 +15,10 @@ class AesCrypt {
   ///Key for encryption
   static core.String key32;
 
+  ///AESFastEngine wrapper
   static var encrypter;
 
+  ///Type of padding
   static String paddingName;
 
   ///Creates 'Crypt', serves as encrypter/decrypter of text

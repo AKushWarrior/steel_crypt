@@ -43,6 +43,8 @@ import '../../signers/rsa_signer.dart';
 import 'registry.dart';
 import '../../stream/ctr.dart';
 import '../../stream/salsa20.dart';
+import '../../stream/salsa2012.dart';
+import '../../stream/salsa208.dart';
 import '../../stream/sic.dart';
 
 void registerFactories(FactoryRegistry registry) {
@@ -134,5 +136,7 @@ void _registerSigners(FactoryRegistry registry) {
 void _registerStreamCiphers(FactoryRegistry registry) {
   registry.register(CTRStreamCipher.FACTORY_CONFIG);
   registry.register(Salsa20Engine.FACTORY_CONFIG);
+  registry.register(Salsa8Engine.FACTORY_CONFIG);
+  registry.register(Salsa12Engine.FACTORY_CONFIG);
   registry.register(SICStreamCipher.FACTORY_CONFIG);
 }

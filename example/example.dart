@@ -51,11 +51,11 @@ main() {
   //SHA-3 512 Hash
   print("SHA-3 512 Hash:");
 
-  print(hasher.hash('words')); //perform hash
+  print(hasher.hash('example')); //perform hash
 
-  var hash = hasher.hash('words');
+  var hash = hasher.hash('example');
 
-  print(hasher.checkhash('words', hash)); //perform check
+  print(hasher.checkhash('example', hash)); //perform check
 
   print("");
 

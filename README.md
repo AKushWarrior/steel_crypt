@@ -4,8 +4,8 @@
 [![License](https://img.shields.io/github/license/AKushWarrior/steel_crypt?color=red&style=for-the-badge)](https://www.mozilla.org/en-US/MPL/2.0/)
 [![Commits](https://img.shields.io/github/commit-activity/m/AKushWarrior/steel_crypt?color=red&style=for-the-badge)](https://github.com/AKushWarrior/steel_crypt)
 
-A comprehensive library of high-level, cryptographic API's, either manually defined or pulled from PointyCastle/encrypt.
-This library currently supports hashing, two-way encryption, and key/IV generation. It also has 
+A comprehensive library of high-level, cryptographic API's, either manually defined or pulled from PointyCastle.
+This library currently supports hashing, symmetric two-way encryption, asymmetric two-way encryption, and key/IV generation. It also has 
 a CLI, for conducting basic cryptography operations.
 
 ---
@@ -25,10 +25,10 @@ a CLI, for conducting basic cryptography operations.
         - ECB ('ecb')
             * PKCS7 Padding ('pkcs7')
             * ISO7816-4 Padding ('iso7816-4')
-        - CFB ('cfb-64')
+        - CFB-64 ('cfb-64')
             * PKCS7 Padding ('pkcs7')
             * ISO7816-4 Padding ('iso7816-4')
-        - OFB ('ofb-64')
+        - OFB-64 ('ofb-64')
             * PKCS7 Padding ('pkcs7')
             * ISO7816-4 Padding ('iso7816-4')
 * __Note__: All block modes require padding, to ensure that input is the correct block size
@@ -42,8 +42,12 @@ a CLI, for conducting basic cryptography operations.
         - 12 round ( __ ==> '12' )
         - 8 round ( __ ==> '8' )
     - __Note__: Requires 12 bytes of IV
-* Salsa20 stream cipher ('Salsa20')
+* Salsa20 stream cipher ('Salsa20/__')
     - Secure, speedy AES alternative
+    - Can be used in 3 variants:
+        - 20 round ( __ ==> '20' )
+        - 12 round ( __ ==> '12' )
+        - 8 round ( __ ==> '8' )
     - __Note__: Requires 8 bytes of IV
 
 #### 2-Way Asymmetric (class RsaCrypt)
@@ -271,7 +275,6 @@ This CLI allows you to perform basic functions from the main package on the term
 * I've now added almost every algorithm from PointyCastle, so every algorithm requires extensive implementation work. Bear with me!
 * I need your input! What algorithms and features would you like to see here? That leads me to...
 * Please file feature requests, clarifications, and bugs at the [issue tracker][tracker].
-* I'm busy, so file a PR for new features if possible...
 
 [tracker]: https://github.com/AKushWarrior/steel_crypt/issues
 
@@ -282,11 +285,12 @@ This CLI allows you to perform basic functions from the main package on the term
 - [x] Create Project + add "Starter Set" of algorithms
 - [x] Add more, different hashes 
 - [ ] Add more, different 2-way encryption algorithms (In progress...)
-- [ ] Try to add more packaging options
+- [x] Try to add more packaging options
 - [x] Tackle adding an RSA solution
 - [x] Create a more complete password solution
 - [x] Add more detailed example
 - [ ] Update Reading to reflect new algorithms
+- [ ] ??? (Leave feature requests in issue tracker, and they'll end up here!)
 
 ---
 

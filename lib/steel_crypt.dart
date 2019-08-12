@@ -4,9 +4,10 @@
 
 // © 2019 Aditya Kishore
 
-/// Support for doing something awesome.
-///
-/// More dartdocs go here.
+///A comprehensive library of high-level, cryptographic API's, either manually defined or pulled from PointyCastle.
+///This library currently supports hashing, symmetric two-way encryption, asymmetric two-way encryption, and key/IV generation.
+///It also has a CLI, for conducting basic cryptography operations.
+
 library steel_crypt;
 
 export 'src/steel_crypt_base.dart';

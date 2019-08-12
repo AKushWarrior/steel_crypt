@@ -8,6 +8,7 @@ part of 'steel_crypt_base.dart';
 
 ///General hashing class for usage
 class HashCrypt {
+
   ///Type of algorithm
   static core.String type;
   static List<String> pads = ['RnL'];
@@ -26,6 +27,7 @@ class HashCrypt {
     else {
       var advinput = input;
       advinput = input + pads[0];
+      advinput = advinput.substring(0, advinput.length-advinput.length%4);
       bytes = Base64Codec().decode(advinput);
     }
     Digest digest;
@@ -44,6 +46,7 @@ class HashCrypt {
     else {
       var advinput = input;
       advinput = input + pads[0];
+      advinput = advinput.substring(0, advinput.length-advinput.length%4);
       bytes = Base64Codec().decode(advinput);
     }
     var params = KeyParameter(listkey);

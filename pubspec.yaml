@@ -1,6 +1,8 @@
 name: steel_crypt
-description: A collection of high-level API's, either manually defined or exposing PointyCastle, to perform hashing and encrypting in popular and/or secure algorithms.
-version: 0.8.1+5
+description: A comprehensive library of high-level, cryptographic API's, either manually defined or pulled from
+  PointyCastle. This library currently supports hashing, symmetric two-way encryption, asymmetric two-way encryption,
+  and key/IV generation. It also has a CLI, for conducting basic cryptography operations.
+version: 0.8.2
 homepage: https://github.com/AKushWarrior/steel_crypt
 repository: https://github.com/AKushWarrior/steel_crypt
 issue_tracker: https://github.com/AKushWarrior/steel_crypt/issues
