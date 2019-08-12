@@ -144,23 +144,12 @@ class Chacha20 extends Converter<List<int>, Uint8List> {
     }
   }
 
-  /// Removes secrets from the heap.
-  ///
   /// After invoking this method, encryption operations will fail unless
   /// [initialize] is called.
   void clear() {
     initialState.fillRange(0, initialState.length, 0);
   }
 
-  // Converter<List<int>, Uint8List>
-
-  /// Converts a stream of bytes.
-  ///
-  /// Chacha20 counter will be sum of [counter] field and [streamIndex].
-  /// Stream index is incremented when bytes arrive.
-  ///
-  /// Throws [StateError] if [initialize] has not been invoked or [clear] has
-  /// been invoked.
   Uint8List convert(List<int> input) {
     final result = Uint8List(input.length);
     fillWithConverted(result, 0, input, 0);
@@ -238,17 +227,13 @@ class Chacha20 extends Converter<List<int>, Uint8List> {
     }
 
     try {
-      // -----------------------------------------------------------------------
       // For each byte
-      // -----------------------------------------------------------------------
       while (length > 0) {
         // Encrypt state
         encryptState(state);
 
         // Should we copy
         if (resultByteData != null && length >= 64) {
-          // Optimized method for whole blocks
-
           // Copy whole block using 16 uint32 assignments
           for (var i = 0; i < 16; i++) {
             resultByteData.setUint32(start, state[i], Endian.little);

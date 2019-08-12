@@ -2,7 +2,8 @@
 - Revamped AES with new padding and better explanation in README
 - Made HashCrypt and PassCrypt less buggy to use
 - Changed pointycastle dependency to github in order to get new padding
-- Slowly phasing out encrypt package
+- Phased out encrypt package
+- Added two new variants of ChaCha20
 
 ## 0.7.1+2
 - Minor Readme update

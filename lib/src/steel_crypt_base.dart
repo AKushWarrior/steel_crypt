@@ -10,10 +10,14 @@ import 'dart:core' as core;
 import 'dart:math';
 import 'dart:typed_data';
 import 'dart:convert';
-import 'package:encrypt/encrypt.dart';
-import 'package:pointycastle/api.dart';
-import 'package:pointycastle/export.dart';
+
+import 'PointyCastleN/api.dart';
+import 'PointyCastleN/export.dart';
+import 'PointyCastleN/pointycastle.dart';
+
 import 'algos/chacha/chacha20.dart';
+import 'algos/chacha/chacha12.dart';
+import 'algos/chacha/chacha8.dart';
 
 //parts
 part 'rsa.dart'; //for RsaCrypt

@@ -13,15 +13,15 @@ main() {
 
   var aesEncrypter = AesCrypt(FortunaKey, 'cbc', 'iso7816-4'); //generate AES CBC block encrypter with key and ISO7816-4 padding
 
-  var aesEncrypter2 = AesCrypt(FortunaKey, 'cbc', 'pkcs7'); //generate AES CBC block encrypter with key and PKCS7 padding
+  var aesEncrypter2 = AesCrypt(FortunaKey, 'ofb-64', 'pkcs7'); //generate AES CBC block encrypter with key and PKCS7 padding
 
-  var streamAES = AesCrypt(FortunaKey, 'cfb'); //generate AES CFB stream encrypter with key
+  var streamAES = AesCrypt(FortunaKey, 'ctr'); //generate AES CTR stream encrypter with key
 
 
   var encrypter2 = RsaCrypt(); //generate RSA encrypter
 
 
-  var encrypter3 = LightCrypt(FortunaKey, "ChaCha20"); //generate ChaCha20 encrypter
+  var encrypter3 = LightCrypt(FortunaKey, "ChaCha20/12"); //generate ChaCha20/12 encrypter
 
 
   var hasher = HashCrypt(); //generate SHA-3/512 hasher
@@ -84,7 +84,7 @@ main() {
   print("");
 
 
-  //ChaCha20; Symmetric stream cipher
+  //12-Round ChaCha20; Symmetric stream cipher
   print("ChaCha20 Symmetric:");
 
   print(encrypter3.encrypt('word', iv2)); //encrypt
@@ -108,7 +108,7 @@ main() {
   print("");
 
 
-  //AES CBC with PKCS7 padding; Symmetric block cipher
+  //AES OFB-64 with PKCS7 padding; Symmetric block cipher
   print("AES Symmetric:");
 
   print(aesEncrypter2.encrypt('words', iv)); //encrypt
@@ -120,7 +120,7 @@ main() {
   print("");
 
 
-  //AES CFB; Symmetric stream cipher
+  //AES CTR; Symmetric stream cipher
   print("AES Symmetric:");
 
   print(streamAES.encrypt('words', iv)); //encrypt

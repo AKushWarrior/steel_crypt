@@ -8,6 +8,7 @@ part of 'steel_crypt_base.dart';
 
 ///Create symmetric encryption machine (Crypt)
 class AesCrypt {
+
   ///Type of AES
   static core.String type;
 
@@ -25,75 +26,77 @@ class AesCrypt {
     paddingName = padding;
 
     if (type == 'cbc') {
-      if (padding == 'iso7816-4') {
-        encrypter = CBCBlockCipher(AESFastEngine());
-      }
-      else if (padding == 'pkcs7') {
-        encrypter = Encrypter(AES(Key.fromBase64(key32), mode: AESMode.cbc));
-      }
+      encrypter = CBCBlockCipher(AESFastEngine());
     }
 
     else if (type == 'sic') {
       paddingName = 'none';
-      encrypter = Encrypter(AES(Key.fromBase64(key32), mode: AESMode.sic));
+      encrypter = SICStreamCipher(AESFastEngine());
     }
 
     else if (type == 'cfb-64') {
-      paddingName = 'none';
-      encrypter = Encrypter(AES(Key.fromBase64(key32), mode: AESMode.cfb64));
+      encrypter = OFBBlockCipher(AESFastEngine(), 64);
     }
 
     else if (type == 'ctr') {
       paddingName = 'none';
-      encrypter = Encrypter(AES(Key.fromBase64(key32), mode: AESMode.ctr));
+      encrypter = CTRStreamCipher(AESFastEngine());
     }
 
     else if (type == 'ecb') {
-      if (padding == 'iso7816-4') {
-        encrypter = ECBBlockCipher(AESFastEngine());
-      }
-      else if (padding == 'pkcs7') {
-        encrypter = Encrypter(AES(Key.fromBase64(key32), mode: AESMode.ecb));
-      }
+      encrypter = ECBBlockCipher(AESFastEngine());
     }
 
     else if (type == 'ofb-64') {
-      paddingName = 'none';
+      encrypter = OFBBlockCipher(AESFastEngine(), 64);
     }
   }
 
   ///Encrypt (with iv) and return in base 64
   core.String encrypt (core.String input, core.String iv) {
-    if (paddingName == "pkcs7" || paddingName == 'none') {
-      Encrypted crypted = encrypter.encrypt(input, iv: IV.fromBase64(iv));
-      return crypted.base64;
-    }
-    else if (paddingName == 'iso7816-4'){
-      var key = utf8.encode(key32);
-      var ivLocal = utf8.encode(iv);
-      CipherParameters params = PaddedBlockCipherParameters(ParametersWithIV(KeyParameter(key.sublist(0,32)), ivLocal.sublist(0, 16)), null);
-      PaddedBlockCipherImpl cipherImpl = PaddedBlockCipherImpl(Padding('ISO7816-4'), encrypter);
-      cipherImpl.init(true, params);
-      var inter = cipherImpl.process(utf8.encode(input));
+    if (paddingName == 'none') {
+      var localKey = utf8.encode(key32);
+      var localIV = utf8.encode(iv);
+      var localInput = utf8.encode(input);
+      var params = ParametersWithIV<KeyParameter>(KeyParameter(localKey.sublist(0,32)), localIV.sublist(0,16));
+      encrypter
+        ..init(true, params);
+      var inter = encrypter.process(localInput);
       return base64.encode(inter);
     }
-    throw ArgumentError("Padding was invalid!");
+    else {
+      var key = utf8.encode(key32);
+      var ivLocal = utf8.encode(iv);
+      CipherParameters params = PaddedBlockCipherParameters(ParametersWithIV<KeyParameter>(KeyParameter(key.sublist(0,32)), ivLocal.sublist(0, 16)), null);
+      PaddedBlockCipher cipher = PaddedBlockCipher("AES/" + type.toUpperCase() + "/" + paddingName.toUpperCase());
+      cipher
+          ..init(true, params);
+      var inter = cipher.process(utf8.encode(input));
+      return base64.encode(inter);
+    }
   }
 
   ///Decrypt base 64 (with iv) and return original
   core.String decrypt (core.String encrypted, core.String iv) {
-    if (paddingName == 'pkcs7' || paddingName == 'none') {
-      return encrypter.decrypt64(encrypted, iv: IV.fromBase64(iv));
+    if (paddingName == 'none') {
+      var localKey = utf8.encode(key32);
+      var localIV = utf8.encode(iv);
+      var localInput = base64.decode(encrypted);
+      var params = ParametersWithIV<KeyParameter>(KeyParameter(localKey.sublist(0,32)), localIV.sublist(0,16));
+      encrypter
+        ..init(false, params);
+      var inter = encrypter.process(localInput);
+      return utf8.decode(inter);
     }
-    else if (paddingName == 'iso7816-4'){
+    else {
       var key = utf8.encode(key32);
       var ivLocal = utf8.encode(iv);
       CipherParameters params = PaddedBlockCipherParameters(ParametersWithIV(KeyParameter(key.sublist(0,32)), ivLocal.sublist(0, 16)), null);
-      PaddedBlockCipherImpl cipherImpl = PaddedBlockCipherImpl(Padding('ISO7816-4'), encrypter);
-      cipherImpl.init(false, params);
-      var inter = cipherImpl.process(base64.decode(encrypted));
+      PaddedBlockCipher cipher = PaddedBlockCipher("AES/" + type.toUpperCase() + "/" + paddingName.toUpperCase());
+      cipher
+        ..init(false, params);
+      var inter = cipher.process(base64.decode(encrypted));
       return utf8.decode(inter);
     }
-    throw ArgumentError("Padding was invalid!");
   }
 }

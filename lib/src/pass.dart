@@ -22,10 +22,7 @@ class PassCrypt {
     }
     else {
       var advinput = pass;
-      for (var i =0; i < (pass.length % 4); i++) {
-        advinput = advinput + pads[i];
-      }
-      advinput = advinput.substring(0, advinput.length -2);
+      advinput = pass + pads[0];
       bytes = Base64Codec().decode(advinput);
     }
     var key = keyDerivator.process(bytes);

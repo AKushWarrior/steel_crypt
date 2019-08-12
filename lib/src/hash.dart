@@ -25,10 +25,7 @@ class HashCrypt {
     }
     else {
       var advinput = input;
-      for (var i =0; i < (input.length % 4); i++) {
-        advinput = advinput + pads[i];
-      }
-      advinput = advinput.substring(0, advinput.length-2);
+      advinput = input + pads[0];
       bytes = Base64Codec().decode(advinput);
     }
     Digest digest;
@@ -46,10 +43,7 @@ class HashCrypt {
     }
     else {
       var advinput = input;
-      for (var i =0; i < input.length % 4; i++) {
-        advinput = advinput + pads[i];
-      }
-      advinput = advinput.substring(0, advinput.length -2);
+      advinput = input + pads[0];
       bytes = Base64Codec().decode(advinput);
     }
     var params = KeyParameter(listkey);

@@ -14,15 +14,15 @@ class LightCrypt {
   ///Key for encryption
   static core.String key32;
 
-  static var encrypter;
+  static StreamCipher encrypter;
 
   LightCrypt (core.String inkey32, [core.String intype = "Salsa20"]) {
     type = intype;
     key32 = inkey32;
     if (type == 'Salsa20') {
-      encrypter = Encrypter(Salsa20(Key.fromBase64(key32)));
+      encrypter = StreamCipher("Salsa20");
     }
-    else if (type == "ChaCha20") {}
+    else if (type == "ChaCha20" || type == "ChaCha20/20" || type == "ChaCha20/12" || type == "ChaCha20/8") {}
     else {
       throw ArgumentError("This algorithm isn't supported. Check for typos, or file a feature request.");
     }
@@ -31,11 +31,34 @@ class LightCrypt {
   ///Encrypt (with iv) and return in base 64
   core.String encrypt (core.String input, core.String iv) {
     if (type == 'Salsa20') {
-      Encrypted crypted = encrypter.encrypt(input, iv:IV.fromBase64(iv));
-      return crypted.base64;
+      var localKey = utf8.encode(key32);
+      var localIV = utf8.encode(iv);
+      var localInput = utf8.encode(input);
+      var params = ParametersWithIV<KeyParameter>(KeyParameter(localKey.sublist(0,32)), localIV.sublist(0,8));
+      encrypter
+        ..init(true, params);
+      var inter = encrypter.process(localInput);
+      return base64.encode(inter);
     }
-    else if (type == 'ChaCha20') {
+
+    else if (type == 'ChaCha20' || type == 'ChaCha20/20') {
       var chacha20 = Chacha20();
+      chacha20.initialize(key: base64Url.decode(key32), nonce: base64Url.decode(iv));
+      var bytes = base64.decode(input);
+      var convert = chacha20.convert(bytes);
+      var returner = base64.encode(convert);
+      return returner;
+    }
+    else if (type == 'ChaCha20/12') {
+      var chacha20 = Chacha12();
+      chacha20.initialize(key: base64Url.decode(key32), nonce: base64Url.decode(iv));
+      var bytes = base64.decode(input);
+      var convert = chacha20.convert(bytes);
+      var returner = base64.encode(convert);
+      return returner;
+    }
+    else if (type == 'ChaCha20/8') {
+      var chacha20 = Chacha8();
       chacha20.initialize(key: base64Url.decode(key32), nonce: base64Url.decode(iv));
       var bytes = base64.decode(input);
       var convert = chacha20.convert(bytes);
@@ -48,10 +71,34 @@ class LightCrypt {
   ///Decrypt base 64 (with iv) and return original
   core.String decrypt (core.String encrypted, core.String iv) {
     if (type == 'Salsa20') {
-      return encrypter.decrypt64(encrypted, iv: IV.fromBase64(iv));
+      var localKey = utf8.encode(key32);
+      var localIV = utf8.encode(iv);
+      var localInput = base64.decode(encrypted);
+      var params = ParametersWithIV<KeyParameter>(KeyParameter(localKey.sublist(0,32)), localIV.sublist(0,8));
+      encrypter
+        ..init(false, params);
+      var inter = encrypter.process(localInput);
+      return utf8.decode(inter);
     }
-    else if (type == 'ChaCha20') {
+
+    else if (type == 'ChaCha20' || type == 'ChaCha20/20') {
       var chacha20 = Chacha20();
+      chacha20.initialize(key: base64Url.decode(key32), nonce: base64Url.decode(iv));
+      var bytes = base64.decode(encrypted);
+      var convert = chacha20.convert(bytes);
+      var returner = base64.encode(convert);
+      return returner;
+    }
+    else if (type == 'ChaCha20/12') {
+      var chacha20 = Chacha12();
+      chacha20.initialize(key: base64Url.decode(key32), nonce: base64Url.decode(iv));
+      var bytes = base64.decode(encrypted);
+      var convert = chacha20.convert(bytes);
+      var returner = base64.encode(convert);
+      return returner;
+    }
+    else if (type == 'ChaCha20/8') {
+      var chacha20 = Chacha8();
       chacha20.initialize(key: base64Url.decode(key32), nonce: base64Url.decode(iv));
       var bytes = base64.decode(encrypted);
       var convert = chacha20.convert(bytes);

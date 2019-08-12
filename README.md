@@ -18,8 +18,6 @@ a CLI, for conducting basic cryptography operations.
     - Stream modes:
         - CTR ('ctr')
         - SIC ('sic)
-        - CFB ('cfb-64')
-        - OFB ('ofb-64')
     - Block modes:
         - CBC ('cbc')
             * PKCS7 Padding ('pkcs7') _(Default Encryption)_
@@ -27,12 +25,22 @@ a CLI, for conducting basic cryptography operations.
         - ECB ('ecb')
             * PKCS7 Padding ('pkcs7')
             * ISO7816-4 Padding ('iso7816-4')
+        - CFB ('cfb-64')
+            * PKCS7 Padding ('pkcs7')
+            * ISO7816-4 Padding ('iso7816-4')
+        - OFB ('ofb-64')
+            * PKCS7 Padding ('pkcs7')
+            * ISO7816-4 Padding ('iso7816-4')
 * __Note__: All block modes require padding, to ensure that input is the correct block size
 * __Note__: AES requires 16 bytes of IV
 
 #### Lightweight Stream Ciphers (class LightCrypt)
-* ChaCha20 stream cipher ('ChaCha20') _(Default Encryption)_
+* ChaCha20 stream cipher ('ChaCha20/__')
     - Derivative of Salsa20 with increased security
+    - Can be used in 3 variants:
+        - 20 round ( __ ==> '20' ) _(Default Encryption)_
+        - 12 round ( __ ==> '12' )
+        - 8 round ( __ ==> '8' )
     - __Note__: Requires 12 bytes of IV
 * Salsa20 stream cipher ('Salsa20')
     - Secure, speedy AES alternative
@@ -105,15 +113,15 @@ main() {
 
   var aesEncrypter = AesCrypt(FortunaKey, 'cbc', 'iso7816-4'); //generate AES CBC block encrypter with key and ISO7816-4 padding
 
-  var aesEncrypter2 = AesCrypt(FortunaKey, 'cbc', 'pkcs7'); //generate AES CBC block encrypter with key and PKCS7 padding
+  var aesEncrypter2 = AesCrypt(FortunaKey, 'ofb-64', 'pkcs7'); //generate AES CBC block encrypter with key and PKCS7 padding
 
-  var streamAES = AesCrypt(FortunaKey, 'cfb'); //generate AES CFB stream encrypter with key
+  var streamAES = AesCrypt(FortunaKey, 'ctr'); //generate AES CTR stream encrypter with key
 
 
   var encrypter2 = RsaCrypt(); //generate RSA encrypter
 
 
-  var encrypter3 = LightCrypt(FortunaKey, "ChaCha20"); //generate ChaCha20 encrypter
+  var encrypter3 = LightCrypt(FortunaKey, "ChaCha20/12"); //generate ChaCha20/12 encrypter
 
 
   var hasher = HashCrypt(); //generate SHA-3/512 hasher
@@ -176,7 +184,7 @@ main() {
   print("");
 
 
-  //ChaCha20; Symmetric stream cipher
+  //12-Round ChaCha20; Symmetric stream cipher
   print("ChaCha20 Symmetric:");
 
   print(encrypter3.encrypt('word', iv2)); //encrypt
@@ -200,7 +208,7 @@ main() {
   print("");
 
 
-  //AES CBC with PKCS7 padding; Symmetric block cipher
+  //AES OFB-64 with PKCS7 padding; Symmetric block cipher
   print("AES Symmetric:");
 
   print(aesEncrypter2.encrypt('words', iv)); //encrypt
@@ -212,7 +220,7 @@ main() {
   print("");
 
 
-  //AES CFB; Symmetric stream cipher
+  //AES CTR; Symmetric stream cipher
   print("AES Symmetric:");
 
   print(streamAES.encrypt('words', iv)); //encrypt
