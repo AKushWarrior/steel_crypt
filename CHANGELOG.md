@@ -1,3 +1,11 @@
+## 1.0.1+1 to 1.0.1+3
+- Minor Readme update
+- No functional change
+
+## 1.0.1
+- Fixed breaking bug in CMAC
+- Added HC-256 algorithm
+
 ## 1.0.0 - Breaking!
 - Release version! This package is now stable and tested.
 - Old .hashHMAC class now obsolete

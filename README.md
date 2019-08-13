@@ -1,8 +1,6 @@
-# Steel Crypt
+# Steel Crypt 
 
-[![Pub](https://img.shields.io/pub/v/steel_crypt?color=red&label=pub&logo=Steel%20Crypt&logoColor=blue&style=for-the-badge)](https://pub.dev/packages/steel_crypt)
-[![License](https://img.shields.io/github/license/AKushWarrior/steel_crypt?color=red&style=for-the-badge)](https://www.mozilla.org/en-US/MPL/2.0/)
-[![Commits](https://img.shields.io/github/commit-activity/m/AKushWarrior/steel_crypt?color=red&style=for-the-badge)](https://github.com/AKushWarrior/steel_crypt)
+[![Paypal](https://img.shields.io/static/v1?label=PayPal&message=Donate&color=blue&logo=paypal&style=for-the-badge)](https://www.paypal.me/kishoredev)
 
 A comprehensive library of high-level, cryptographic API's, either manually defined or pulled from PointyCastle.
 This library currently supports hashing, symmetric two-way encryption, asymmetric two-way encryption, and key/IV generation. It also has 
@@ -43,11 +41,16 @@ a CLI, for conducting basic cryptography operations.
     - __Note__: Requires 12 bytes of IV
 * Salsa20 stream cipher ('Salsa20/__')
     - Secure, speedy AES alternative
+    - E-Crypt Stream Cipher final portfolio
     - Can be used in 3 variants:
         - 20 round ( __ ==> '20' )
         - 12 round ( __ ==> '12' )
         - 8 round ( __ ==> '8' )
     - __Note__: Requires 8 bytes of IV
+* HC-256 stream cipher ('HC-256')
+    - Secure, software-efficient cipher
+    - E-Crypt Stream Cipher final portfolio
+    - __Note__: Requires 16 bytes of IV
 
 #### 2-Way Asymmetric (class RsaCrypt)
 * RSA with OAEP padding
@@ -133,8 +136,6 @@ main() {
 
   var hasher = HashCrypt(); //generate SHA-3/512 hasher
 
-  var hasher2 = MacCrypt(FortunaKey, "HMAC", 'SHA-3/256'); //HMAC SHA-3 256 Hasher
-
   var hasher3 = MacCrypt(FortunaKey, "CMAC", 'cfb-64'); //CMAC AES CFB-64 Hasher
 
 
@@ -168,19 +169,6 @@ main() {
 
   print("");
 
-
-  //HMAC SHA-3 256 Hash
-  print("HMAC SHA-3 256 Hash:");
-
-  print(hasher2.process('words')); //perform hash
-
-  var hash2 = hasher2.process('words');
-
-  print(hasher2.check('words', hash2)); //perform check
-
-  print("");
-  
-  
   //CMAC AES CFB-64 Hash
   print("CMAC AES CFB-64 Hash:");
 
@@ -330,6 +318,10 @@ This CLI allows you to perform basic functions from the main package on the term
     - https://en.wikipedia.org/wiki/Public-key_cryptography
     
 ---
+
+[![Pub](https://img.shields.io/pub/v/steel_crypt?color=green&label=pub&logo=Steel%20Crypt&logoColor=blue&style=for-the-badge)](https://pub.dev/packages/steel_crypt)
+[![License](https://img.shields.io/github/license/AKushWarrior/steel_crypt?color=green&style=for-the-badge)](https://www.mozilla.org/en-US/MPL/2.0/)
+[![Commits](https://img.shields.io/github/commit-activity/m/AKushWarrior/steel_crypt?color=green&style=for-the-badge)](https://github.com/AKushWarrior/steel_crypt)
 
 ###### ©2019 Aditya Kishore
 ###### Licensed under the Mozilla Public License 2.0

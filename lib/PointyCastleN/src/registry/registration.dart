@@ -43,6 +43,7 @@ import '../../random/block_ctr_random.dart';
 import '../../random/fortuna_random.dart';
 import '../../signers/rsa_signer.dart';
 import 'registry.dart';
+import '../../stream/hc256.dart';
 import '../../stream/ctr.dart';
 import '../../stream/salsa20.dart';
 import '../../stream/salsa2012.dart';
@@ -143,4 +144,5 @@ void _registerStreamCiphers(FactoryRegistry registry) {
   registry.register(Salsa8Engine.FACTORY_CONFIG);
   registry.register(Salsa12Engine.FACTORY_CONFIG);
   registry.register(SICStreamCipher.FACTORY_CONFIG);
+  registry.register(HC256Engine.FACTORY_CONFIG);
 }

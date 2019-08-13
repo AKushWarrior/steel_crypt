@@ -188,7 +188,7 @@ class CMac extends BaseMac {
 
   @override
   void init(covariant KeyParameter keyParams) {
-    final zeroIV = Uint8List(keyParams.key.length);
+    final zeroIV = Uint8List(keyParams.key.length).sublist(0,8);
     this._params = ParametersWithIV(keyParams, zeroIV);
 
     // Initialize before computing L, Lu, Lu2

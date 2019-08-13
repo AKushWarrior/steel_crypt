@@ -26,8 +26,6 @@ main() {
 
   var hasher = HashCrypt(); //generate SHA-3/512 hasher
 
-  var hasher2 = MacCrypt(FortunaKey, "HMAC", 'SHA-3/256'); //HMAC SHA-3 256 Hasher
-
   var hasher3 = MacCrypt(FortunaKey, "CMAC", 'cfb-64'); //CMAC AES CFB-64 Hasher
 
 
@@ -60,19 +58,6 @@ main() {
   print(hasher.checkhash('example', hash)); //perform check
 
   print("");
-
-
-  //HMAC SHA-3 256 Hash
-  print("HMAC SHA-3 256 Hash:");
-
-  print(hasher2.process('words')); //perform hash
-
-  var hash2 = hasher2.process('words');
-
-  print(hasher2.check('words', hash2)); //perform check
-
-  print("");
-
 
   //CMAC AES CFB-64 Hash
   print("CMAC AES CFB-64 Hash:");

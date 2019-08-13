@@ -28,7 +28,7 @@ class LightCrypt {
       type = 'Salsa20';
       encrypter = StreamCipher(type);
     }
-    else if (type == "ChaCha20" || type == "ChaCha20/20" || type == "ChaCha20/12" || type == "ChaCha20/8") {}
+    else if (type == "ChaCha20" || type == "ChaCha20/20" || type == "ChaCha20/12" || type == "ChaCha20/8" || type == "HC-256") {}
     else {
       throw ArgumentError("This algorithm isn't supported. Check for typos, or file a feature request.");
     }
@@ -71,6 +71,17 @@ class LightCrypt {
       var returner = base64.encode(convert);
       return returner;
     }
+    else if (type == 'HC-256') {
+      var machine = StreamCipher(type);
+      var localKey = utf8.encode(key32);
+      var localIV = utf8.encode(iv);
+      var localInput = utf8.encode(input);
+      var params = ParametersWithIV<KeyParameter>(KeyParameter(localKey.sublist(0,32)), localIV.sublist(0,16));
+      machine
+        ..init(true, params);
+      var inter = machine.process(localInput);
+      return base64.encode(inter);
+    }
     return "";
   }
 
@@ -86,7 +97,17 @@ class LightCrypt {
       var inter = encrypter.process(localInput);
       return utf8.decode(inter);
     }
-
+    else if (type == 'HC-256') {
+      var hc256 = StreamCipher(type);
+      var localKey = utf8.encode(key32);
+      var localIV = utf8.encode(iv);
+      var localInput = base64.decode(encrypted);
+      var params = ParametersWithIV<KeyParameter>(KeyParameter(localKey.sublist(0,32)), localIV.sublist(0,16));
+      hc256
+        ..init(false, params);
+      var inter = hc256.process(localInput);
+      return utf8.decode(inter);
+    }
     else if (type == 'ChaCha20' || type == 'ChaCha20/20') {
       var chacha20 = Chacha20();
       chacha20.initialize(key: base64Url.decode(key32), nonce: base64Url.decode(iv));

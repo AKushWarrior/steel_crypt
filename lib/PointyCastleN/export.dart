@@ -79,3 +79,4 @@ export 'stream/salsa20.dart';
 export 'stream/sic.dart';
 export 'stream/salsa208.dart';
 export 'stream/salsa2012.dart';
+export 'stream/hc256.dart';

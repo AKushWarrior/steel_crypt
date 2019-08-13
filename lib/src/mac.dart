@@ -8,18 +8,40 @@ part of 'steel_crypt_base.dart';
 
 class MacCrypt {
   static String key32;
-  static String algorithm;
-  static String type;
-  static var mac;
-  MacCrypt(String key, [String intype = 'HMAC', String algo = 'SHA-3/256']) {
+  static String algorithm = 'SHA-3/256';
+  static String type = 'HMAC';
+  static HMAC mac1;
+  static CMAC mac2;
+
+  MacCrypt(String key, String intype, String algo) {
     key32 = key;
     algorithm = algo;
     type = intype;
-    if (type == 'HMAC') {mac = HMAC(key, algo);}
-    else if (type == 'CMAC') {mac = CMAC(key,algo);}
+    if (type == 'HMAC') {
+      mac1 = HMAC(key, algo);
+    }
+    else if (type == 'CMAC') {
+      mac2 = CMAC(key, algo);
+    }
+    print(type);
   }
-  String process (core.String input) {return mac.process(input);}
-  bool check (String plain, String processed) {return mac.check(plain, processed);}
+
+  String process(core.String input) {
+    if (type == "HMAC") {
+      return mac1.process(input);
+    }
+    else if (type == 'CMAC'){
+      return mac2.process(input);
+    }
+    return "";
+  }
+
+  bool check(String plain, String processed) {
+    if (type == 'HMAC') {
+      return mac1.check(plain, processed);
+    }
+    return mac2.check(plain, processed);
+  }
 }
 
 class HMAC {
@@ -77,7 +99,7 @@ class CMAC {
       advinput = advinput.substring(0, advinput.length-advinput.length%4);
       bytes = Base64Codec().decode(advinput);
     }
-    final _tmp = CMac(BlockCipher('AES/' + algorithm.toUpperCase()), 128)..init(listkey);
+    final _tmp = CMac(BlockCipher('AES/' + algorithm.toUpperCase()), 64)..init(listkey);
     var val = _tmp.process(bytes);
     return base64.encode(val);
   }
