@@ -62,6 +62,8 @@ export 'macs/cmac.dart';
 export 'padded_block_cipher/padded_block_cipher_impl.dart';
 export 'paddings/pkcs7.dart';
 export 'paddings/iso7816d4.dart';
+export 'paddings/tbc.dart';
+export 'paddings/x923.dart';
 
 // random
 export 'random/auto_seed_block_ctr_random.dart';

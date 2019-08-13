@@ -26,7 +26,9 @@ main() {
 
   var hasher = HashCrypt(); //generate SHA-3/512 hasher
 
-  var hasher2 = HashCrypt('SHA-3/256'); //generate SHA-3/256 hasher
+  var hasher2 = MacCrypt(FortunaKey, "HMAC", 'SHA-3/256'); //HMAC SHA-3 256 Hasher
+
+  var hasher3 = MacCrypt(FortunaKey, "CMAC", 'cfb-64'); //CMAC AES CFB-64 Hasher
 
 
   var passHash = PassCrypt(); //generate PBKDF2 password hasher
@@ -63,23 +65,34 @@ main() {
   //HMAC SHA-3 256 Hash
   print("HMAC SHA-3 256 Hash:");
 
-  print(hasher2.hashHMAC('words', FortunaKey)); //perform hash
+  print(hasher2.process('words')); //perform hash
 
-  var hash2 = hasher2.hashHMAC('words', FortunaKey);
+  var hash2 = hasher2.process('words');
 
-  print(hasher2.checkhashHMAC('words', hash2, FortunaKey)); //perform check
+  print(hasher2.check('words', hash2)); //perform check
 
   print("");
 
+
+  //CMAC AES CFB-64 Hash
+  print("CMAC AES CFB-64 Hash:");
+
+  print(hasher3.process('words')); //perform hash
+
+  var hash3 = hasher3.process('words');
+
+  print(hasher3.check('words', hash3)); //perform check
+
+  print("");
 
   //Password (SHA-256/HMAC/PBKDF2)
   print("Password hash (SHA-256/HMAC/PBKDF2):");
 
   print(passHash.hashPass(salt, "words")); //perform hash
 
-  var hash3 = passHash.hashPass(salt, "words");
+  var hash4 = passHash.hashPass(salt, "words");
 
-  print(passHash.checkPassKey(salt, "words", hash3)); //perform check
+  print(passHash.checkPassKey(salt, "words", hash4)); //perform check
 
   print("");
 

@@ -2,7 +2,7 @@
 // This library is dually licensed under LGPL 3 and MPL 2.0.
 // See file LICENSE for more information.
 
-library pointycastle.impl.padding.iso7816d4;
+library pointycastle.impl.padding.tbc;
 
 import "dart:typed_data" show Uint8List;
 
@@ -10,13 +10,14 @@ import '../api.dart';
 import '../src/impl/base_padding.dart';
 import '../src/registry/registry.dart';
 
-/// A padder that adds the padding according to the scheme referenced in
-/// ISO 7814-4 - scheme 2 from ISO 9797-1. The first byte is 0x80, rest is 0x00
-class ISO7816d4Padding extends BasePadding {
-  static final FactoryConfig FACTORY_CONFIG =
-      StaticFactoryConfig(Padding, "ISO7816-4", () => ISO7816d4Padding());
+///A padder that adds Trailing-Bit-Compliment padding to a block.
+///This padding pads the block out with the compliment of the last bit of the plain text.
 
-  String get algorithmName => "ISO7816-4";
+class TBCPadding extends BasePadding {
+  static final FactoryConfig FACTORY_CONFIG =
+  StaticFactoryConfig(Padding, "TBC", () => TBCPadding());
+
+  String get algorithmName => "TBC";
 
   @override
   void init([CipherParameters params]) {
@@ -27,32 +28,29 @@ class ISO7816d4Padding extends BasePadding {
   /// number of bytes added.
   @override
   int addPadding(Uint8List data, int offset) {
-    int added = (data.length - offset);
-
-    data[offset] = 0x80;
-    offset++;
-
+    int count = data.length-offset;
+    int code;
+    if (offset>0) {
+      code = ((data[offset - 1] & 0x01) == 0 ? 0xff : 0x00);
+    }
+    else {
+      code = ((data[data.length - 1] & 0x01) == 0 ? 0xff : 0x00);
+    }
     while (offset < data.length) {
-      data[offset] = 0;
+      data[offset] = code;
       offset++;
     }
-
-    return added;
+    return count;
   }
 
   /// return the number of pad bytes present in the block.
   @override
   int padCount(Uint8List data) {
-    int count = data.length - 1;
-
-    while (count > 0 && data[count] == 0) {
-      count--;
+    int code = data[data.length-1];
+    int index = data.length-1;
+    while (index > 0 && data[index-1] == code) {
+      index -= 1;
     }
-
-    if (data[count] != 0x80) {
-      throw new ArgumentError("pad block corrupted");
-    }
-
-    return data.length - count;
+    return data.length -index;
   }
 }

@@ -1,3 +1,13 @@
+## 1.0.0 - Breaking!
+- Release version! This package is now stable and tested.
+- Old .hashHMAC class now obsolete
+- Added new MacCrypt() class with CMAC and HMAC
+- Added two new padding options for AES
+
+## 0.8.2+1
+- Minor updates to pubspec
+- No functional change
+
 ## 0.8.2
 - New reduced-round variants of Salsa20
 - Better documentation
@@ -126,11 +136,9 @@
 - Moved away from PointyCastle to reduce package size
 
 ## 0.1.2
-
 - Github repository added to pubspec
 
 ## 0.1.1
-
 - Project created with:
     - Two-way encryption (AES and Salsa20)
     - Hashing (Most major hashes)

@@ -17,22 +17,21 @@ a CLI, for conducting basic cryptography operations.
 * Operatable in 6 different modes:
     - Stream modes:
         - CTR ('ctr')
-        - SIC ('sic)
+        - SIC ('sic')
     - Block modes:
-        - CBC ('cbc')
-            * PKCS7 Padding ('pkcs7') _(Default Encryption)_
-            * ISO7816-4 Padding ('iso7816-4')
+        - CBC ('cbc') _(Default)_
         - ECB ('ecb')
-            * PKCS7 Padding ('pkcs7')
-            * ISO7816-4 Padding ('iso7816-4')
         - CFB-64 ('cfb-64')
-            * PKCS7 Padding ('pkcs7')
-            * ISO7816-4 Padding ('iso7816-4')
         - OFB-64 ('ofb-64')
-            * PKCS7 Padding ('pkcs7')
-            * ISO7816-4 Padding ('iso7816-4')
-* __Note__: All block modes require padding, to ensure that input is the correct block size
-* __Note__: AES requires 16 bytes of IV
+* 4 paddings available for block modes:
+    - PKCS7 Padding ('pkcs7') _(Default)_
+    - ISO7816-4 Padding ('iso7816-4')
+    - X9.23 Padding ('x9.23')
+    - TBC Padding ('tbc')
+            
+* __Note__: All block modes require padding, to ensure that input is the correct block size.
+* __Note__: Paddings do not work with stream modes. You can still enter the parameter, but it won't be used.
+* __Note__: AES requires 16 bytes of IV.
 
 #### Lightweight Stream Ciphers (class LightCrypt)
 * ChaCha20 stream cipher ('ChaCha20/__')
@@ -80,9 +79,13 @@ a CLI, for conducting basic cryptography operations.
 * MD5 ('MD5') __UNSECURE__
 * MD4 ('MD4') __UNSECURE__
 * MD2 ('MD2') __UNSECURE__
+* __Note__: Compare plaintext to hashtext using ```.checkpass(plain, hashed)```
 
-* __Note__: HMAC + key can be added to any of the above using the ```.hashHMAC(input, key)``` function.
-* __Note__: Compare plaintext to hashtext using ```.checkpass(plain, hashed)``` and ```.checkpassHMAC(plain, hashed, key)```
+#### MAC's (class MacCrypt)
+* Constructor: ```MacCrypt ('32 length key', 'CMAC or HMAC', 'algorithm here')```
+* HMAC and CMAC are available
+    - For HMAC algorithm field, use any available __hashing__ algorithm as in HashCrypt
+    - For CMAC algorithm field, use any available AES __block cipher__ algorithm as in AESCrypt
 
 #### Key/IV Generation (class CryptKey)
 * `.genFortuna (int length = 32)`:
@@ -130,7 +133,9 @@ main() {
 
   var hasher = HashCrypt(); //generate SHA-3/512 hasher
 
-  var hasher2 = HashCrypt('SHA-3/256'); //generate SHA-3/256 hasher
+  var hasher2 = MacCrypt(FortunaKey, "HMAC", 'SHA-3/256'); //HMAC SHA-3 256 Hasher
+
+  var hasher3 = MacCrypt(FortunaKey, "CMAC", 'cfb-64'); //CMAC AES CFB-64 Hasher
 
 
   var passHash = PassCrypt(); //generate PBKDF2 password hasher
@@ -155,11 +160,11 @@ main() {
   //SHA-3 512 Hash
   print("SHA-3 512 Hash:");
 
-  print(hasher.hash('words')); //perform hash
+  print(hasher.hash('example')); //perform hash
 
-  var hash = hasher.hash('words');
+  var hash = hasher.hash('example');
 
-  print(hasher.checkhash('words', hash)); //perform check
+  print(hasher.checkhash('example', hash)); //perform check
 
   print("");
 
@@ -167,23 +172,34 @@ main() {
   //HMAC SHA-3 256 Hash
   print("HMAC SHA-3 256 Hash:");
 
-  print(hasher2.hashHMAC('words', FortunaKey)); //perform hash
+  print(hasher2.process('words')); //perform hash
 
-  var hash2 = hasher2.hashHMAC('words', FortunaKey);
+  var hash2 = hasher2.process('words');
 
-  print(hasher2.checkhashHMAC('words', hash2, FortunaKey)); //perform check
+  print(hasher2.check('words', hash2)); //perform check
 
   print("");
+  
+  
+  //CMAC AES CFB-64 Hash
+  print("CMAC AES CFB-64 Hash:");
 
+  print(hasher3.process('words')); //perform hash
+
+  var hash3 = hasher3.process('words');
+
+  print(hasher3.check('words', hash3)); //perform check
+
+  print("");
 
   //Password (SHA-256/HMAC/PBKDF2)
   print("Password hash (SHA-256/HMAC/PBKDF2):");
 
   print(passHash.hashPass(salt, "words")); //perform hash
 
-  var hash3 = passHash.hashPass(salt, "words");
+  var hash4 = passHash.hashPass(salt, "words");
 
-  print(passHash.checkPassKey(salt, "words", hash3)); //perform check
+  print(passHash.checkPassKey(salt, "words", hash4)); //perform check
 
   print("");
 
@@ -289,8 +305,7 @@ This CLI allows you to perform basic functions from the main package on the term
 - [x] Tackle adding an RSA solution
 - [x] Create a more complete password solution
 - [x] Add more detailed example
-- [ ] Update Reading to reflect new algorithms
-- [ ] ??? (Leave feature requests in issue tracker, and they'll end up here!)
+- [ ] ??? (Leave feature requests in the issue tracker, and they'll end up here!)
 
 ---
 

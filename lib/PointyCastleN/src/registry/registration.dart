@@ -36,6 +36,8 @@ import '../../macs/cmac.dart';
 import '../../padded_block_cipher/padded_block_cipher_impl.dart';
 import '../../paddings/pkcs7.dart';
 import '../../paddings/iso7816d4.dart';
+import '../../paddings/tbc.dart';
+import '../../paddings/x923.dart';
 import '../../random/auto_seed_block_ctr_random.dart';
 import '../../random/block_ctr_random.dart';
 import '../../random/fortuna_random.dart';
@@ -121,6 +123,8 @@ void _registerPaddedBlockCiphers(FactoryRegistry registry) {
 void _registerPaddings(FactoryRegistry registry) {
   registry.register(PKCS7Padding.FACTORY_CONFIG);
   registry.register(ISO7816d4Padding.FACTORY_CONFIG);
+  registry.register(TBCPadding.FACTORY_CONFIG);
+  registry.register(x923Padding.FACTORY_CONFIG);
 }
 
 void _registerRandoms(FactoryRegistry registry) {

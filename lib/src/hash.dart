@@ -36,34 +36,9 @@ class HashCrypt {
     return Base64Codec().encode(value);
   }
 
-  ///HMAC hash with input and key
-  core.String hashHMAC (core.String input, core.String key) {
-    var listkey= Base64Codec().decode(key);
-    var bytes;
-    if (input.length % 4 == 0) {
-      bytes = Base64Codec().decode(input);
-    }
-    else {
-      var advinput = input;
-      advinput = input + pads[0];
-      advinput = advinput.substring(0, advinput.length-advinput.length%4);
-      bytes = Base64Codec().decode(advinput);
-    }
-    var params = KeyParameter(listkey);
-    final _tmp = HMac(Digest(type), 128)..init(params);
-    var val = _tmp.process(bytes);
-    return Base64Codec().encode(val);
-  }
-
   ///Check hashed against plain
   bool checkhash (core.String plain, core.String hashed) {
     var newhash = hash(plain);
-    return newhash == hashed;
-  }
-
-  ///Check HMAC hashed against plain
-  bool checkhashHMAC (core.String plain, core.String hashed, core.String key) {
-    var newhash = hashHMAC(plain, key);
     return newhash == hashed;
   }
 }

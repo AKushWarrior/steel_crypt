@@ -7,8 +7,6 @@
 import 'dart:typed_data';
 import 'dart:convert';
 
-import 'package:meta/meta.dart';
-
 part 'binhex.dart';
 
 /// Implements Chacha20 ([https://tools.ietf.org/html/rfc7539](RFC 7539)), which
@@ -39,8 +37,8 @@ class Chacha20 extends Converter<List<int>, Uint8List> {
 
   /// Sets initial state using the key, nonce, and counter.
   void initialize({
-    @required List<int> key,
-    @required List<int> nonce,
+    List<int> key,
+    List<int> nonce,
     int keyStreamIndex = 0,
   }) {
     if (key == null) {
@@ -288,7 +286,6 @@ class Chacha20 extends Converter<List<int>, Uint8List> {
   ///
   /// Throws [StateError] if [initialize] has not been invoked or [clear] has
   /// been invoked.
-  @visibleForTesting
   void encryptState(Uint32List state) {
     // Validate that we have a proper initial state.
     _validateInitialState(initialState);

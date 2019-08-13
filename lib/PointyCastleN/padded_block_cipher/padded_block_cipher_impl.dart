@@ -12,13 +12,13 @@ import '../src/registry/registry.dart';
 /// The standard implementation of [PaddedBlockCipher].
 class PaddedBlockCipherImpl implements PaddedBlockCipher {
   /// Intended for internal use.
-  static final FactoryConfig FACTORY_CONFIG = new DynamicFactoryConfig.regex(
+  static final FactoryConfig FACTORY_CONFIG = DynamicFactoryConfig.regex(
       PaddedBlockCipher,
       r"^(.+)/([^/]+)$",
       (_, final Match match) => () {
-            Padding padding = new Padding(match.group(2));
-            BlockCipher underlyingCipher = new BlockCipher(match.group(1));
-            return new PaddedBlockCipherImpl(padding, underlyingCipher);
+            Padding padding = Padding(match.group(2));
+            BlockCipher underlyingCipher = BlockCipher(match.group(1));
+            return PaddedBlockCipherImpl(padding, underlyingCipher);
           });
 
   final Padding padding;
@@ -52,13 +52,13 @@ class PaddedBlockCipherImpl implements PaddedBlockCipher {
       outputBlocks = (data.length + blockSize) ~/ blockSize;
     } else {
       if ((data.length % blockSize) != 0) {
-        throw new ArgumentError(
+        throw ArgumentError(
             "Input data length must be a multiple of cipher's block size");
       }
       outputBlocks = inputBlocks;
     }
 
-    var out = new Uint8List(outputBlocks * blockSize);
+    var out = Uint8List(outputBlocks * blockSize);
 
     for (var i = 0; i < (inputBlocks - 1); i++) {
       var offset = (i * blockSize);
@@ -77,7 +77,7 @@ class PaddedBlockCipherImpl implements PaddedBlockCipher {
 
   int doFinal(Uint8List inp, int inpOff, Uint8List out, int outOff) {
     if (_encrypting) {
-      var lastInputBlock = new Uint8List(blockSize)
+      var lastInputBlock = Uint8List(blockSize)
         ..setAll(0, inp.sublist(inpOff));
 
       var remainder = inp.length - inpOff;
