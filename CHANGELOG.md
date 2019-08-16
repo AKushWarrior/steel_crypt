@@ -1,3 +1,8 @@
+## 1.1.0
+- Added Grain-128 algorithm
+- Added ISAAC algorithm
+- README updates
+
 ## 1.0.1+1 to 1.0.1+3
 - Minor Readme update
 - No functional change

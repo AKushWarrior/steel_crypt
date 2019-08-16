@@ -23,7 +23,6 @@ class MacCrypt {
     else if (type == 'CMAC') {
       mac2 = CMAC(key, algo);
     }
-    print(type);
   }
 
   String process(core.String input) {

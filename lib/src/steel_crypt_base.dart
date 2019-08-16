@@ -27,4 +27,4 @@ part 'pass.dart'; //for PassCrypt
 part 'aes.dart'; //for AesCrypt
 part 'key.dart'; //for CryptKey
 part 'hash.dart'; //for HashCrypt
-part 'mac.dart'; //for both MAC classes
+part 'mac.dart'; //for MacCrypt

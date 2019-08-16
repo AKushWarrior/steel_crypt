@@ -17,6 +17,7 @@ export 'asymmetric/oaep.dart';
 
 // block
 export 'block/aes_fast.dart';
+
 // block/modes
 export 'block/modes/cbc.dart';
 export 'block/modes/cfb.dart';
@@ -80,3 +81,4 @@ export 'stream/sic.dart';
 export 'stream/salsa208.dart';
 export 'stream/salsa2012.dart';
 export 'stream/hc256.dart';
+export 'stream/grain128.dart';

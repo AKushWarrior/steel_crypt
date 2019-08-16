@@ -1,6 +1,6 @@
 # Steel Crypt 
 
-[![Paypal](https://img.shields.io/static/v1?label=PayPal&message=Donate&color=blue&logo=paypal&style=for-the-badge)](https://www.paypal.me/kishoredev)
+[![PayPal](https://img.shields.io/static/v1?label=PayPal&message=Donate&color=blue&logo=paypal&style=for-the-badge&labelColor=black)](https://www.paypal.me/kishoredev)
 
 A comprehensive library of high-level, cryptographic API's, either manually defined or pulled from PointyCastle.
 This library currently supports hashing, symmetric two-way encryption, asymmetric two-way encryption, and key/IV generation. It also has 
@@ -51,6 +51,15 @@ a CLI, for conducting basic cryptography operations.
     - Secure, software-efficient cipher
     - E-Crypt Stream Cipher final portfolio
     - __Note__: Requires 16 bytes of IV
+* Grain-128 stream cipher ('Grain-128')
+    - Secure, hardware-efficient cipher
+    - E-Crypt Stream Cipher final portfolio
+    - __Note__: Requires 12 bytes of IV
+* ISAAC stream cipher ('ISAAC')
+    - Extremely fast stream cipher
+    - Secure, but with a low margin
+    - Usage not recommended unless you have very high speed needs
+    - __Note__: Requires no IV; you can enter an IV param, but it won't affect anything
 
 #### 2-Way Asymmetric (class RsaCrypt)
 * RSA with OAEP padding
@@ -288,7 +297,7 @@ This CLI allows you to perform basic functions from the main package on the term
 
 - [x] Create Project + add "Starter Set" of algorithms
 - [x] Add more, different hashes 
-- [ ] Add more, different 2-way encryption algorithms (In progress...)
+- [ ] Add more, different 2-way stream algorithms (In progress...) ("LightCrypt" for updates)
 - [x] Try to add more packaging options
 - [x] Tackle adding an RSA solution
 - [x] Create a more complete password solution
@@ -319,9 +328,9 @@ This CLI allows you to perform basic functions from the main package on the term
     
 ---
 
-[![Pub](https://img.shields.io/pub/v/steel_crypt?color=green&label=pub&logo=Steel%20Crypt&logoColor=blue&style=for-the-badge)](https://pub.dev/packages/steel_crypt)
-[![License](https://img.shields.io/github/license/AKushWarrior/steel_crypt?color=green&style=for-the-badge)](https://www.mozilla.org/en-US/MPL/2.0/)
-[![Commits](https://img.shields.io/github/commit-activity/m/AKushWarrior/steel_crypt?color=green&style=for-the-badge)](https://github.com/AKushWarrior/steel_crypt)
+[![Pub](https://img.shields.io/pub/v/steel_crypt?color=blue&label=pub&logo=Steel%20Crypt&logoColor=blue&style=for-the-badge&labelColor=black)](https://pub.dev/packages/steel_crypt)
+[![License](https://img.shields.io/github/license/AKushWarrior/steel_crypt?color=blue&style=for-the-badge&labelColor=black)](https://www.mozilla.org/en-US/MPL/2.0/)
+[![Commits](https://img.shields.io/github/commit-activity/m/AKushWarrior/steel_crypt?color=blue&style=for-the-badge&labelColor=black)](https://github.com/AKushWarrior/steel_crypt)
 
 ###### ©2019 Aditya Kishore
 ###### Licensed under the Mozilla Public License 2.0

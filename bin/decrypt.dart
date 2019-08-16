@@ -35,5 +35,5 @@ void main(List<String> args) {
     return print(argParser.usage);
   }
 
-  print(AesCrypt(key).decrypt(input, iv));
+  print(AesCrypt(key, 'cbc').decrypt(input, iv));
 }
