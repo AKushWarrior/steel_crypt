@@ -10,16 +10,16 @@ part of 'steel_crypt_base.dart';
 class AesCrypt {
 
   ///Mode of AES
-  static core.String mode;
+  core.String mode;
 
   ///Key for encryption
-  static core.String key32;
+  core.String key32;
 
   ///AESFastEngine wrapper
-  static var encrypter;
+  var encrypter;
 
   ///Type of padding
-  static String paddingName;
+  String paddingName;
 
   ///Creates 'Crypt', serves as encrypter/decrypter of text
   AesCrypt (core.String inkey32, core.String intype, [core.String padding = 'pkcs7']) {

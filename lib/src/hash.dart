@@ -10,8 +10,8 @@ part of 'steel_crypt_base.dart';
 class HashCrypt {
 
   ///Type of algorithm
-  static core.String type;
-  static List<String> pads = ['RnL'];
+  core.String type;
+  List<String> pads = ['RnL'];
 
   ///Construct with type of algorithm
   HashCrypt ([core.String inType = 'SHA-3/512']) {

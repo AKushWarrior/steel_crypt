@@ -8,13 +8,13 @@ part of 'steel_crypt_base.dart';
 
 class LightCrypt {
   ///Type of algorithm
-  static core.String type;
+  core.String type;
 
   ///Key for encryption
-  static core.String key32;
+  core.String key32;
 
   ///Salsa20 encryption machine
-  static StreamCipher encrypter;
+  StreamCipher encrypter;
 
   ///Construct encrypter
   LightCrypt(core.String inkey32, [core.String intype = "Salsa20"]) {

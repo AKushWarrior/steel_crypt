@@ -10,7 +10,7 @@ part of 'steel_crypt_base.dart';
 class RsaCrypt {
 
   ///Pair of private keys
-  static var pair;
+  var pair;
 
   ///Construct with keys
   RsaCrypt ()  {

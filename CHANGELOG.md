@@ -1,3 +1,7 @@
+## 1.1.1
+- Various bug fixes regarding static variables
+- README edits for clarity
+
 ## 1.1.0
 - Added Grain-128 algorithm
 - Added ISAAC algorithm

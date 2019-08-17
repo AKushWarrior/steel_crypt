@@ -7,13 +7,13 @@
 part of 'steel_crypt_base.dart';
 
 class MacCrypt {
-  static String key32;
-  static String algorithm = 'SHA-3/256';
-  static String type = 'HMAC';
-  static HMAC mac1;
-  static CMAC mac2;
+  String key32;
+  String algorithm = 'SHA-3/256';
+  String type = 'HMAC';
+  HMAC mac1;
+  CMAC mac2;
 
-  MacCrypt(String key, String intype, String algo) {
+  MacCrypt(String key, [String intype, String algo]) {
     key32 = key;
     algorithm = algo;
     type = intype;
@@ -44,8 +44,8 @@ class MacCrypt {
 }
 
 class HMAC {
-  static KeyParameter listkey;
-  static String algorithm;
+  KeyParameter listkey;
+  String algorithm;
   static List<String> pads = ['aWM'];
 
   HMAC(String key, [String algo = 'SHA-3/256']) {
@@ -77,9 +77,9 @@ class HMAC {
 
 
 class CMAC {
-  static KeyParameter listkey;
+  KeyParameter listkey;
   static List<String> pads = ['Xcv'];
-  static String algorithm;
+  String algorithm;
 
   CMAC(String key, [algo = 'cfb-64']) {
     var inter = base64.decode(key);

@@ -32,6 +32,7 @@ a CLI, for conducting basic cryptography operations.
 * __Note__: AES requires 16 bytes of IV.
 
 #### Lightweight Stream Ciphers (class LightCrypt)
+* Constructor: ```LightCrypt('32 length key', 'algorithm here')```
 * ChaCha20 stream cipher ('ChaCha20/__')
     - Derivative of Salsa20 with increased security
     - Can be used in 3 variants:
@@ -62,14 +63,17 @@ a CLI, for conducting basic cryptography operations.
     - __Note__: Requires no IV; you can enter an IV param, but it won't affect anything
 
 #### 2-Way Asymmetric (class RsaCrypt)
+* Constructor: ```RsaCrypt()```
 * RSA with OAEP padding
 * __Note__: RsaCrypt auto generates secure RSA private and public keys. You can access them using ```.privKey``` and ```.pubKey``` getters, or use your own. 
 
 #### Password Hashing (class PassCrypt)
+* Constructor: ```PassCrypt()```
 * PBKDF2 with SHA-256 and HMAC
 * Compare plaintext to hashtext using ```.checkPassKey(salt, plain, hashed, length)```
 
 #### Hashing (class HashCrypt)
+* Constructor: ```HashCrypt('algorithm here')```
 * SHA-3  ('SHA-3/___') :
     - /224
     - /256
@@ -100,6 +104,7 @@ a CLI, for conducting basic cryptography operations.
     - For CMAC algorithm field, use any available AES __block cipher__ algorithm as in AESCrypt
 
 #### Key/IV Generation (class CryptKey)
+* Constructor: ```CryptKey()``
 * `.genFortuna (int length = 32)`:
     - Generates cryptographic string using Fortuna algorithm
     - Slower but significantly more secure
@@ -143,7 +148,7 @@ main() {
   var encrypter3 = LightCrypt(FortunaKey, "ChaCha20/12"); //generate ChaCha20/12 encrypter
 
 
-  var hasher = HashCrypt(); //generate SHA-3/512 hasher
+  var hasher = HashCrypt('SHA-3/512'); //generate SHA-3/512 hasher
 
   var hasher3 = MacCrypt(FortunaKey, "CMAC", 'cfb-64'); //CMAC AES CFB-64 Hasher
 
@@ -284,10 +289,10 @@ This CLI allows you to perform basic functions from the main package on the term
 ## Notes
 
 * This is fairly well-tested and documented, but use in production AT YOUR OWN RISK.
-* This is relatively complete, but will be actively maintained for new bugs.
-* I've now added almost every algorithm from PointyCastle, so every algorithm requires extensive implementation work. Bear with me!
+* This is relatively complete, but will get new algorithms and be actively maintained for new bugs.
+* I've now added almost every algorithm from PointyCastle, and some from BouncyCastle, so every algorithm requires extensive implementation work. Bear with me!
 * I need your input! What algorithms and features would you like to see here? That leads me to...
-* Please file feature requests, clarifications, and bugs at the [issue tracker][tracker].
+* Please file feature requests, clarifications, and bugs at the [issue tracker][tracker]!
 
 [tracker]: https://github.com/AKushWarrior/steel_crypt/issues
 

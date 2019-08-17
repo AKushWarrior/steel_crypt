@@ -125,7 +125,7 @@ main() {
 
   String crypted5 = streamAES.encrypt('words', iv);
 
-  print(aesEncrypter.decrypt(crypted5, iv)); //decrypt
+  print(streamAES.decrypt(crypted5, iv)); //decrypt
 
   print("");
 
