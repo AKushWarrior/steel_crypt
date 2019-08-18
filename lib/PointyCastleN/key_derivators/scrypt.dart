@@ -70,7 +70,7 @@ class Scrypt extends BaseKeyDerivator {
     final XY = Uint8List(256 * r);
     final V = Uint8List(128 * r * N);
 
-    final pbkdf2 = PBKDF2KeyDerivator(HMac(SHA256Digest(), 64));
+    final pbkdf2 = PBKDF2KeyDerivator(HMac(Digest('RIPEMD-160'), 64));
 
     pbkdf2.init(Pbkdf2Parameters(salt, 1, p * 128 * r));
     pbkdf2.deriveKey(passwd, 0, B, 0);

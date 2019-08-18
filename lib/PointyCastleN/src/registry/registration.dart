@@ -38,6 +38,7 @@ import '../../paddings/pkcs7.dart';
 import '../../paddings/iso7816d4.dart';
 import '../../paddings/tbc.dart';
 import '../../paddings/x923.dart';
+import '../../paddings/iso10126d2.dart';
 import '../../random/auto_seed_block_ctr_random.dart';
 import '../../random/block_ctr_random.dart';
 import '../../random/fortuna_random.dart';
@@ -128,6 +129,7 @@ void _registerPaddings(FactoryRegistry registry) {
   registry.register(ISO7816d4Padding.FACTORY_CONFIG);
   registry.register(TBCPadding.FACTORY_CONFIG);
   registry.register(x923Padding.FACTORY_CONFIG);
+  registry.register(ISO10126d2Padding.FACTORY_CONFIG);
 }
 
 void _registerRandoms(FactoryRegistry registry) {

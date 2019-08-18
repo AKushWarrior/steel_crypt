@@ -11,7 +11,7 @@ main() {
   var FortunaKey = CryptKey().genFortuna(); //generate 32 byte key generated with Fortuna
 
 
-  var aesEncrypter = AesCrypt(FortunaKey, 'cbc', 'iso7816-4'); //generate AES CBC block encrypter with key and ISO7816-4 padding
+  var aesEncrypter = AesCrypt(FortunaKey, 'cbc', 'iso10126-2'); //generate AES CBC block encrypter with key and ISO7816-4 padding
 
   var aesEncrypter2 = AesCrypt(FortunaKey, 'ofb-64', 'pkcs7'); //generate AES CBC block encrypter with key and PKCS7 padding
 
@@ -24,12 +24,12 @@ main() {
   var encrypter3 = LightCrypt(FortunaKey, "ChaCha20/12"); //generate ChaCha20/12 encrypter
 
 
-  var hasher = HashCrypt(); //generate SHA-3/512 hasher
+  var hasher = HashCrypt("SHA-3/512"); //generate SHA-3/512 hasher
 
   var hasher3 = MacCrypt(FortunaKey, "CMAC", 'cfb-64'); //CMAC AES CFB-64 Hasher
 
 
-  var passHash = PassCrypt(); //generate PBKDF2 password hasher
+  var passHash = PassCrypt('Blake2b/HMAC/PBKDF2'); //generate PBKDF2 password hasher
 
 
   var iv = CryptKey().genDart(16); //generate iv for AES with Dart Random.secure()
@@ -70,8 +70,8 @@ main() {
 
   print("");
 
-  //Password (SHA-256/HMAC/PBKDF2)
-  print("Password hash (SHA-256/HMAC/PBKDF2):");
+  //Password (Blake2b/HMAC/PBKDF2)
+  print("Password hash (Blake2b/HMAC/PBKDF2):");
 
   print(passHash.hashPass(salt, "words")); //perform hash
 

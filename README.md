@@ -21,15 +21,16 @@ a CLI, for conducting basic cryptography operations.
         - ECB ('ecb')
         - CFB-64 ('cfb-64')
         - OFB-64 ('ofb-64')
-* 4 paddings available for block modes:
+* 5 paddings available for block modes:
     - PKCS7 Padding ('pkcs7') _(Default)_
     - ISO7816-4 Padding ('iso7816-4')
     - X9.23 Padding ('x9.23')
     - TBC Padding ('tbc')
+    - ISO10126-2 Padding ('iso10126-2')
             
 * __Note__: All block modes require padding, to ensure that input is the correct block size.
 * __Note__: Paddings do not work with stream modes. You can still enter the parameter, but it won't be used.
-* __Note__: AES requires 16 bytes of IV.
+* __Note__: AES requires 16 bytes of IV (Initialization Vector, see CryptKey for generation).
 
 #### Lightweight Stream Ciphers (class LightCrypt)
 * Constructor: ```LightCrypt('32 length key', 'algorithm here')```
@@ -39,7 +40,7 @@ a CLI, for conducting basic cryptography operations.
         - 20 round ( __ ==> '20' ) _(Default Encryption)_
         - 12 round ( __ ==> '12' )
         - 8 round ( __ ==> '8' )
-    - __Note__: Requires 12 bytes of IV
+    - __Note__: Requires 12 bytes of IV (Initialization Vector, see CryptKey for generation)
 * Salsa20 stream cipher ('Salsa20/__')
     - Secure, speedy AES alternative
     - E-Crypt Stream Cipher final portfolio
@@ -47,15 +48,15 @@ a CLI, for conducting basic cryptography operations.
         - 20 round ( __ ==> '20' )
         - 12 round ( __ ==> '12' )
         - 8 round ( __ ==> '8' )
-    - __Note__: Requires 8 bytes of IV
+    - __Note__: Requires 8 bytes of IV (Initialization Vector, see CryptKey for generation)
 * HC-256 stream cipher ('HC-256')
     - Secure, software-efficient cipher
     - E-Crypt Stream Cipher final portfolio
-    - __Note__: Requires 16 bytes of IV
+    - __Note__: Requires 16 bytes of IV (Initialization Vector, see CryptKey for generation)
 * Grain-128 stream cipher ('Grain-128')
     - Secure, hardware-efficient cipher
     - E-Crypt Stream Cipher final portfolio
-    - __Note__: Requires 12 bytes of IV
+    - __Note__: Requires 12 bytes of IV (Initialization Vector, see CryptKey for generation)
 * ISAAC stream cipher ('ISAAC')
     - Extremely fast stream cipher
     - Secure, but with a low margin
@@ -68,8 +69,19 @@ a CLI, for conducting basic cryptography operations.
 * __Note__: RsaCrypt auto generates secure RSA private and public keys. You can access them using ```.privKey``` and ```.pubKey``` getters, or use your own. 
 
 #### Password Hashing (class PassCrypt)
-* Constructor: ```PassCrypt()```
-* PBKDF2 with SHA-256 and HMAC
+* Constructor: ```PassCrypt('algorithm here')```
+* Scrypt ('Scrypt') _Default Algorithm_
+* PBKDF2 with:
+    - SHA-256 HMAC ('SHA-256/HMAC/PBKDF2')
+    - SHA-384 HMAC ('SHA-384/HMAC/PBKDF2')
+    - SHA-512 HMAC ('SHA-512/HMAC/PBKDF2')
+    - 256 bit SHA-3 HMAC ('SHA-3/256/HMAC/PBKDF2')
+    - 512 bit SHA-3 HMAC ('SHA-3/512/HMAC/PBKDF2')
+    - RipeMD 128 HMAC ('RIPEMD-128/HMAC/PBKDF2')
+    - RipeMD 160 HMAC ('RIPEMD-160/HMAC/PBKDF2')
+    - Blake2b HMAC ('Blake2b/HMAC/PBKDF2')
+    - Tiger HMAC ('Tiger/HMAC/PBKDF2')
+    - Whirlpool HMAC ('Whirlpool/HMAC/PBKDF2')
 * Compare plaintext to hashtext using ```.checkPassKey(salt, plain, hashed, length)```
 
 #### Hashing (class HashCrypt)
@@ -104,13 +116,13 @@ a CLI, for conducting basic cryptography operations.
     - For CMAC algorithm field, use any available AES __block cipher__ algorithm as in AESCrypt
 
 #### Key/IV Generation (class CryptKey)
-* Constructor: ```CryptKey()``
-* `.genFortuna (int length = 32)`:
+* Constructor: ```CryptKey()```
+* ```.genFortuna (int length = 32)```:
     - Generates cryptographic string using Fortuna algorithm
     - Slower but significantly more secure
     - Best for private keys
     - Used internally
-* `.genDart (int length = 16)`:
+* ```.genDart (int length = 16)```:
     - Generates cryptographic string using Dart Random.secure()
     - Faster but less secure
     - Best for IV's or salt
@@ -135,7 +147,7 @@ main() {
   var FortunaKey = CryptKey().genFortuna(); //generate 32 byte key generated with Fortuna
 
 
-  var aesEncrypter = AesCrypt(FortunaKey, 'cbc', 'iso7816-4'); //generate AES CBC block encrypter with key and ISO7816-4 padding
+  var aesEncrypter = AesCrypt(FortunaKey, 'cbc', 'iso10126-2'); //generate AES CBC block encrypter with key and ISO7816-4 padding
 
   var aesEncrypter2 = AesCrypt(FortunaKey, 'ofb-64', 'pkcs7'); //generate AES CBC block encrypter with key and PKCS7 padding
 
@@ -148,12 +160,12 @@ main() {
   var encrypter3 = LightCrypt(FortunaKey, "ChaCha20/12"); //generate ChaCha20/12 encrypter
 
 
-  var hasher = HashCrypt('SHA-3/512'); //generate SHA-3/512 hasher
+  var hasher = HashCrypt("SHA-3/512"); //generate SHA-3/512 hasher
 
   var hasher3 = MacCrypt(FortunaKey, "CMAC", 'cfb-64'); //CMAC AES CFB-64 Hasher
 
 
-  var passHash = PassCrypt(); //generate PBKDF2 password hasher
+  var passHash = PassCrypt('Blake2b/HMAC/PBKDF2'); //generate PBKDF2 password hasher
 
 
   var iv = CryptKey().genDart(16); //generate iv for AES with Dart Random.secure()
@@ -194,8 +206,8 @@ main() {
 
   print("");
 
-  //Password (SHA-256/HMAC/PBKDF2)
-  print("Password hash (SHA-256/HMAC/PBKDF2):");
+  //Password (Blake2b/HMAC/PBKDF2)
+  print("Password hash (Blake2b/HMAC/PBKDF2):");
 
   print(passHash.hashPass(salt, "words")); //perform hash
 
@@ -249,7 +261,7 @@ main() {
 
   String crypted5 = streamAES.encrypt('words', iv);
 
-  print(aesEncrypter.decrypt(crypted5, iv)); //decrypt
+  print(streamAES.decrypt(crypted5, iv)); //decrypt
 
   print("");
 

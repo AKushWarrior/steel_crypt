@@ -139,7 +139,6 @@ class LightCrypt {
     } else if (type == "ISAAC") {
       var machine = StreamCipher(type);
       var localKey = utf8.encode(key32);
-      var localIV = utf8.encode(iv);
       var localInput = base64.decode(encrypted);
       var params = KeyParameter(localKey.sublist(0, 32));
       machine..init(false, params);

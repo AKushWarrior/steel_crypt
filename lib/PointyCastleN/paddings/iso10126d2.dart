@@ -2,31 +2,29 @@
 // This library is dually licensed under LGPL 3 and MPL 2.0.
 // See file LICENSE for more information.
 
-library pointycastle.impl.padding.x923;
+library pointycastle.impl.padding.iso10126d2;
 
 import "dart:typed_data" show Uint8List;
 import 'dart:math' show Random;
 
 import 'package:steel_crypt/PointyCastleN/export.dart';
-
 import '../api.dart';
 import '../src/impl/base_padding.dart';
 import '../src/registry/registry.dart';
 
-///A padder that adds X9.23 padding to a block - if a SecureRandom is
-///passed in random padding is assumed, otherwise padding with zeros is used.
-
-class x923Padding extends BasePadding {
+/// A padder that adds the padding according to the scheme referenced in
+/// ISO 7814-4 - scheme 2 from ISO 9797-1. The first byte is 0x80, rest is 0x00
+class ISO10126d2Padding extends BasePadding {
   static final FactoryConfig FACTORY_CONFIG =
-  StaticFactoryConfig(Padding, "X9.23", () => x923Padding());
+  StaticFactoryConfig(Padding, "ISO10126-2", () => ISO10126d2Padding());
 
-  String get algorithmName => "X9.23";
+  String get algorithmName => "ISO10126-2";
 
   SecureRandom random;
 
   @override
   void init([CipherParameters params]) {
-
+    // nothing to do.
   }
 
   /// add the pad bytes to the passed in block, returning the
@@ -40,23 +38,29 @@ class x923Padding extends BasePadding {
       secureRandom.seed(KeyParameter(Uint8List.fromList(seeds)));
       random = secureRandom;
     }
-    int code = data.length - offset;
-    while (offset < data.length - 1) {
-      data[offset] = random.nextUint32();
-      offset++;
+    int code = (data.length - offset);
+
+    while (offset < (data.length - 1))
+    {
+    data[offset] = random.nextUint32();;
+    offset++;
     }
+
     data[offset] = code;
+
     return code;
   }
 
   /// return the number of pad bytes present in the block.
   @override
   int padCount(Uint8List data) {
-    int count = data[data.length-1] & 0xff;
+    int count = data[data.length - 1] & 0xff;
+
     if (count > data.length)
     {
-      throw UnsupportedError("pad block corrupted");
+    throw ArgumentError("pad block corrupted");
     }
+
     return count;
   }
 }

@@ -1,3 +1,17 @@
+## 1.2.0
+- Total revamp of PassCrypt()
+- Scrypt password hashing now available (and default)
+- PBKDF2 base algorithm now changeable
+- Lowered PBKDF2 rounds to 10000 to increase speed
+
+## 1.1.2
+- New padding option: ISO10126-2
+- Security fix to X9.23 padding
+
+## 1.1.1+1 & 1.1.1+2
+- README edits
+- No functional change
+
 ## 1.1.1
 - Various bug fixes regarding static variables
 - README edits for clarity
