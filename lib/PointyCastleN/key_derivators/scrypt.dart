@@ -7,7 +7,6 @@ library pointycastle.impl.key_derivator.scrypt;
 import "dart:typed_data";
 
 import '../api.dart';
-import '../digests/sha256.dart';
 import 'api.dart';
 import 'pbkdf2.dart';
 import '../macs/hmac.dart';

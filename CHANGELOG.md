@@ -1,3 +1,11 @@
+## 1.2.0+2
+- More major README edits
+- Still no functional change
+
+## 1.2.0+1
+- Fixed major README issue
+- No functional change
+
 ## 1.2.0
 - Total revamp of PassCrypt()
 - Scrypt password hashing now available (and default)

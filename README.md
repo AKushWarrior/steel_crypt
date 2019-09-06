@@ -1,12 +1,19 @@
 # Steel Crypt 
 
-[![PayPal](https://img.shields.io/static/v1?label=PayPal&message=Donate&color=blue&logo=paypal&style=for-the-badge&labelColor=black)](https://www.paypal.me/kishoredev)
-
 A comprehensive library of high-level, cryptographic API's, either manually defined or pulled from PointyCastle.
 This library currently supports hashing, symmetric two-way encryption, asymmetric two-way encryption, and key/IV generation. It also has 
 a CLI, for conducting basic cryptography operations.
 
 ---
+
+It takes time, effort, and mental power to keep this package updated, useful, and
+improving. If you used or are using the package, I'd appreciate it if you could spare a few 
+dollars to help me continue development.
+
+[![PayPal](https://img.shields.io/static/v1?label=PayPal&message=Donate&color=blue&logo=paypal&style=for-the-badge&labelColor=black)](https://www.paypal.me/kishoredev)
+
+---
+
 ## Classes
 #### AES Encryption (class AesCrypt)
 * Constructor: ```AesCrypt ('32 length key', 'mode here', 'padding here')```
@@ -70,7 +77,7 @@ a CLI, for conducting basic cryptography operations.
 
 #### Password Hashing (class PassCrypt)
 * Constructor: ```PassCrypt('algorithm here')```
-* Scrypt ('Scrypt') _Default Algorithm_
+* Scrypt ('scrypt') _Default Algorithm_
 * PBKDF2 with:
     - SHA-256 HMAC ('SHA-256/HMAC/PBKDF2')
     - SHA-384 HMAC ('SHA-384/HMAC/PBKDF2')
@@ -116,13 +123,13 @@ a CLI, for conducting basic cryptography operations.
     - For CMAC algorithm field, use any available AES __block cipher__ algorithm as in AESCrypt
 
 #### Key/IV Generation (class CryptKey)
-* Constructor: ```CryptKey()```
-* ```.genFortuna (int length = 32)```:
+* Constructor: `CryptKey()`
+* Method: ```.genFortuna (int length = 32)```
     - Generates cryptographic string using Fortuna algorithm
     - Slower but significantly more secure
     - Best for private keys
     - Used internally
-* ```.genDart (int length = 16)```:
+* Method: ```.genDart (int length = 16)```
     - Generates cryptographic string using Dart Random.secure()
     - Faster but less secure
     - Best for IV's or salt
@@ -300,9 +307,8 @@ This CLI allows you to perform basic functions from the main package on the term
 ---
 ## Notes
 
-* This is fairly well-tested and documented, but use in production AT YOUR OWN RISK.
-* This is relatively complete, but will get new algorithms and be actively maintained for new bugs.
-* I've now added almost every algorithm from PointyCastle, and some from BouncyCastle, so every algorithm requires extensive implementation work. Bear with me!
+* This is fairly well-tested and documented, but use in production at your own risk.
+* This is practically complete; however, I'm always open to new ideas and feature requests, and will always maintain for bugs.
 * I need your input! What algorithms and features would you like to see here? That leads me to...
 * Please file feature requests, clarifications, and bugs at the [issue tracker][tracker]!
 
@@ -314,7 +320,7 @@ This CLI allows you to perform basic functions from the main package on the term
 
 - [x] Create Project + add "Starter Set" of algorithms
 - [x] Add more, different hashes 
-- [ ] Add more, different 2-way stream algorithms (In progress...) ("LightCrypt" for updates)
+- [x] Add more, different 2-way stream algorithms
 - [x] Try to add more packaging options
 - [x] Tackle adding an RSA solution
 - [x] Create a more complete password solution
