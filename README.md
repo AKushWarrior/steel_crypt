@@ -73,7 +73,10 @@ dollars to help me continue development.
 #### 2-Way Asymmetric (class RsaCrypt)
 * Constructor: ```RsaCrypt()```
 * RSA with OAEP padding
-* __Note__: RsaCrypt auto generates secure RSA private and public keys. You can access them using ```.privKey``` and ```.pubKey``` getters, or use your own. 
+    - String ```encrypt(String text, RSAPublicKey pubKey)```
+    - String ```decrypt(String encrypted, RSAPrivateKey privateKey)```
+* __Note__: RsaCrypt auto generates secure RSA private and public keys. You can access them using ```.randPrivKey``` and ```.randPubKey``` getters, or use your own. 
+* __Note__: To get key from a PEM file, translate the PEM key wanted into a string, and use RsaCrypt().parseKeyFromFile(PemFilepathHere) 
 
 #### Password Hashing (class PassCrypt)
 * Constructor: ```PassCrypt('algorithm here')```

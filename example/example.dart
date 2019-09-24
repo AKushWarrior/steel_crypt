@@ -133,11 +133,11 @@ main() {
   //RSA with OAEP padding; Asymmetric
   print("RSA Asymmetric:");
 
-  var crypted4 = encrypter2.encrypt("word", encrypter2.pubKey); //encrypt
+  var crypted4 = encrypter2.encrypt("word", encrypter2.randPubKey); //encrypt
 
   print(crypted4);
 
-  print(encrypter2.decrypt(crypted4, encrypter2.privKey)); //decrypt
+  print(encrypter2.decrypt(crypted4, encrypter2.randPrivKey)); //decrypt
 
   print("");
 }

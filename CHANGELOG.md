@@ -1,3 +1,7 @@
+## 1.3.0 BREAKING
+- Introduced RSA key parsing from PEM
+- ```.pubKey``` and ```.privKey``` getters are now ```.randPubKey``` and ```.randPrivKey```
+
 ## 1.2.0+2
 - More major README edits
 - Still no functional change

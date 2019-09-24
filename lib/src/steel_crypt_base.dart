@@ -10,6 +10,10 @@ import 'dart:core' as core;
 import 'dart:math';
 import 'dart:typed_data';
 import 'dart:convert';
+import 'dart:io';
+
+//Import asn1lib for PEM translation
+import 'package:asn1lib/asn1lib.dart';
 
 //Import modified version of PointyCastle
 import '../PointyCastleN/api.dart';
