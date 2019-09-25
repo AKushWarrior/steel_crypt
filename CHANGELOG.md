@@ -1,3 +1,8 @@
+## 1.3.1
+- Intro new algorithm: RC4
+- Better documentation
+- Better, more consistent README
+
 ## 1.3.0 BREAKING
 - Introduced RSA key parsing from PEM
 - ```.pubKey``` and ```.privKey``` getters are now ```.randPubKey``` and ```.randPrivKey```

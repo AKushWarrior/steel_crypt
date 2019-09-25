@@ -69,6 +69,11 @@ dollars to help me continue development.
     - Secure, but with a low margin
     - Usage not recommended unless you have very high speed needs
     - __Note__: Requires no IV; you can enter an IV param, but it won't affect anything
+* RC4 stream cipher ('RC4')
+    - Somewhat fast stream cipher
+    - Secure(ish), but with a dangerously low margin
+    - Usage **not** recommended unless you have a legacy system; otherwise use ChaCha for the whole package or Grain/HC-256 for platform optimization
+    - __Note__: Requires no IV; you can enter an IV param, but it won't affect anything    
 
 #### 2-Way Asymmetric (class RsaCrypt)
 * Constructor: ```RsaCrypt()```
@@ -76,10 +81,10 @@ dollars to help me continue development.
     - String ```encrypt(String text, RSAPublicKey pubKey)```
     - String ```decrypt(String encrypted, RSAPrivateKey privateKey)```
 * __Note__: RsaCrypt auto generates secure RSA private and public keys. You can access them using ```.randPrivKey``` and ```.randPubKey``` getters, or use your own. 
-* __Note__: To get key from a PEM file, translate the PEM key wanted into a string, and use RsaCrypt().parseKeyFromFile(PemFilepathHere) 
+* __Note__: To get key from a PEM file, translate the PEM key wanted into a string, and use ```RsaCrypt().parseKeyFromFile(PemFilepathHere)``` 
 
 #### Password Hashing (class PassCrypt)
-* Constructor: ```PassCrypt('algorithm here')```
+* Constructor: ```PassCrypt([String algorithm = "scrypt"])```
 * Scrypt ('scrypt') _Default Algorithm_
 * PBKDF2 with:
     - SHA-256 HMAC ('SHA-256/HMAC/PBKDF2')
@@ -95,7 +100,7 @@ dollars to help me continue development.
 * Compare plaintext to hashtext using ```.checkPassKey(salt, plain, hashed, length)```
 
 #### Hashing (class HashCrypt)
-* Constructor: ```HashCrypt('algorithm here')```
+* Constructor: ```HashCrypt([String algorithm = "SHA-3/512"])```
 * SHA-3  ('SHA-3/___') :
     - /224
     - /256
@@ -127,12 +132,12 @@ dollars to help me continue development.
 
 #### Key/IV Generation (class CryptKey)
 * Constructor: `CryptKey()`
-* Method: ```.genFortuna (int length = 32)```
+* Method: ```.genFortuna ([int length = 32])```
     - Generates cryptographic string using Fortuna algorithm
     - Slower but significantly more secure
     - Best for private keys
     - Used internally
-* Method: ```.genDart (int length = 16)```
+* Method: ```.genDart ([int length = 16])```
     - Generates cryptographic string using Dart Random.secure()
     - Faster but less secure
     - Best for IV's or salt
@@ -360,3 +365,4 @@ This CLI allows you to perform basic functions from the main package on the term
 
 ###### ©2019 Aditya Kishore
 ###### Licensed under the Mozilla Public License 2.0
+###### This project is built on a custom implementation of Steven Roose's PointyCastle.

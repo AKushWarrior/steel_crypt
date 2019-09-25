@@ -83,3 +83,4 @@ export 'stream/salsa208.dart';
 export 'stream/salsa2012.dart';
 export 'stream/hc256.dart';
 export 'stream/grain128.dart';
+export 'stream/rc4.dart';

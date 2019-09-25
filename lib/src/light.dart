@@ -6,6 +6,7 @@
 
 part of 'steel_crypt_base.dart';
 
+///Class containing stream ciphers of every kind.
 class LightCrypt {
   ///Type of algorithm
   core.String type;
@@ -31,7 +32,8 @@ class LightCrypt {
         type == "ChaCha20/8" ||
         type == "HC-256" ||
         type == 'Grain-128' ||
-        type == "ISAAC") {
+        type == "ISAAC"||
+        type == "RC4") {
     } else {
       throw ArgumentError(
           "This algorithm isn't supported. Check for typos, or file a feature request.");
@@ -83,7 +85,7 @@ class LightCrypt {
       machine..init(false, params);
       var inter = machine.process(localInput);
       return base64.encode(inter);
-    } else if (type == "ISAAC") {
+    } else if (type == "ISAAC" || type == "RC4") {
       var machine = StreamCipher(type);
       var localKey = utf8.encode(key32);
       var localInput = utf8.encode(input);
@@ -136,7 +138,7 @@ class LightCrypt {
       machine..init(false, params);
       var inter = machine.process(localInput);
       return utf8.decode(inter);
-    } else if (type == "ISAAC") {
+    } else if (type == "ISAAC"|| type == "RC4") {
       var machine = StreamCipher(type);
       var localKey = utf8.encode(key32);
       var localInput = base64.decode(encrypted);

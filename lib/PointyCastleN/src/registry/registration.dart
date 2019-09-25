@@ -52,6 +52,7 @@ import '../../stream/salsa208.dart';
 import '../../stream/sic.dart';
 import '../../stream/isaac.dart';
 import '../../stream/grain128.dart';
+import '../../stream/rc4.dart';
 
 void registerFactories(FactoryRegistry registry) {
   _registerAsymmetricCiphers(registry);
@@ -151,4 +152,5 @@ void _registerStreamCiphers(FactoryRegistry registry) {
   registry.register(HC256Engine.FACTORY_CONFIG);
   registry.register(Grain128Engine.FACTORY_CONFIG);
   registry.register(ISAACEngine.FACTORY_CONFIG);
+  registry.register(RC4Engine.FACTORY_CONFIG);
 }

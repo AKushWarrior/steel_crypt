@@ -6,6 +6,7 @@
 
 part of 'steel_crypt_base.dart';
 
+///Class containing Message Authentication codes
 class MacCrypt {
   String key32;
   String algorithm = 'SHA-3/256';
@@ -25,7 +26,8 @@ class MacCrypt {
     }
   }
 
-  String process(core.String input) {
+  ///Process and hash string
+  String process(String input) {
     if (type == "HMAC") {
       return mac1.process(input);
     }
@@ -35,6 +37,7 @@ class MacCrypt {
     return "";
   }
 
+  ///Check if plaintext matches previously hashed text
   bool check(String plain, String processed) {
     if (type == 'HMAC') {
       return mac1.check(plain, processed);
