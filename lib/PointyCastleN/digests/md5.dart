@@ -14,7 +14,7 @@ import '../src/ufixnum.dart';
 /// Implementation of MD5 digest
 class MD5Digest extends MD4FamilyDigest implements Digest {
   static final FactoryConfig FACTORY_CONFIG =
-      new StaticFactoryConfig(Digest, "MD5", () => MD5Digest());
+      StaticFactoryConfig(Digest, "MD5", () => MD5Digest());
 
   static const _DIGEST_LENGTH = 16;
 

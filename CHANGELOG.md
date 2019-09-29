@@ -1,3 +1,10 @@
+## 1.3.1+1
+- Changed defaults for a couple classes
+- Cleaned up code a little bit
+- Got rid of those pesky new keywords
+- Reformatted src directory
+- No functional change unless you're using defaults
+
 ## 1.3.1
 - Intro new algorithm: RC4
 - Better documentation
@@ -6,7 +13,7 @@
 ## 1.3.0 BREAKING
 - Introduced RSA key parsing from PEM
 - ```.pubKey``` and ```.privKey``` getters are now ```.randPubKey``` and ```.randPrivKey```
-
+ 
 ## 1.2.0+2
 - More major README edits
 - Still no functional change

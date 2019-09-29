@@ -301,7 +301,7 @@ bool _isProbablePrime(BigInt b, int t) {
     while (j < _lowprimes.length && m < _lplim) {m *= _lowprimes[j++];}
     m = x % m;
     while (i < j) {
-      if (m % _lowprimes[i++] == 0) {
+      if ((m % _lowprimes[i++]).toInt() == 0) {
         return false;
       }
     }

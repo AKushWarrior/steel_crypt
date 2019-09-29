@@ -24,10 +24,10 @@ dollars to help me continue development.
         - CTR ('ctr')
         - SIC ('sic')
     - Block modes:
-        - CBC ('cbc') _(Default)_
+        - CBC ('cbc')
         - ECB ('ecb')
-        - CFB-64 ('cfb-64')
-        - OFB-64 ('ofb-64')
+        - CFB-64 ('cfb-64') _(Default/Recommended Mode)_
+        - OFB-64 ('ofb-64') 
 * 5 paddings available for block modes:
     - PKCS7 Padding ('pkcs7') _(Default)_
     - ISO7816-4 Padding ('iso7816-4')
@@ -44,7 +44,7 @@ dollars to help me continue development.
 * ChaCha20 stream cipher ('ChaCha20/__')
     - Derivative of Salsa20 with increased security
     - Can be used in 3 variants:
-        - 20 round ( __ ==> '20' ) _(Default Encryption)_
+        - 20 round ( __ ==> '20' ) _(Default/Recommended Cipher)_
         - 12 round ( __ ==> '12' )
         - 8 round ( __ ==> '8' )
     - __Note__: Requires 12 bytes of IV (Initialization Vector, see CryptKey for generation)
@@ -85,7 +85,7 @@ dollars to help me continue development.
 
 #### Password Hashing (class PassCrypt)
 * Constructor: ```PassCrypt([String algorithm = "scrypt"])```
-* Scrypt ('scrypt') _Default Algorithm_
+* Scrypt ('scrypt') _(Default/Recommended Algorithm)_
 * PBKDF2 with:
     - SHA-256 HMAC ('SHA-256/HMAC/PBKDF2')
     - SHA-384 HMAC ('SHA-384/HMAC/PBKDF2')
@@ -103,15 +103,15 @@ dollars to help me continue development.
 * Constructor: ```HashCrypt([String algorithm = "SHA-3/512"])```
 * SHA-3  ('SHA-3/___') :
     - /224
-    - /256
+    - /256 _(Default/Recommended Hash)_
     - /384
-    - /512 _(Default Hash)_
+    - /512 
 * SHA-2 ('SHA-___'):
     - -224
     - -256
     - -384
     - -512
-* SHA-1 ('SHA-1') __UNSECURE__
+* SHA-1 ('SHA-1') __INSECURE__
 * Tiger ('Tiger')
 * Blake2b ('Blake2b')
 * RipeMD ('RIPEMD-___'):
@@ -119,16 +119,16 @@ dollars to help me continue development.
     - -160
     - -256
     - -320
-* MD5 ('MD5') __UNSECURE__
-* MD4 ('MD4') __UNSECURE__
-* MD2 ('MD2') __UNSECURE__
+* MD5 ('MD5') __INSECURE__
+* MD4 ('MD4') __INSECURE__
+* MD2 ('MD2') __INSECURE__
 * __Note__: Compare plaintext to hashtext using ```.checkpass(plain, hashed)```
 
 #### MAC's (class MacCrypt)
 * Constructor: ```MacCrypt ('32 length key', 'CMAC or HMAC', 'algorithm here')```
 * HMAC and CMAC are available
-    - For HMAC algorithm field, use any available __hashing__ algorithm as in HashCrypt
-    - For CMAC algorithm field, use any available AES __block cipher__ algorithm as in AESCrypt
+    - For HMAC algorithm field, use any available __hashing__ algorithm in HashCrypt
+    - For CMAC algorithm field, use any available AES __block cipher__ algorithm in AESCrypt
 
 #### Key/IV Generation (class CryptKey)
 * Constructor: `CryptKey()`

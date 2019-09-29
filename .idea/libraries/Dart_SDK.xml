@@ -18,6 +18,7 @@
       <root url="file:///usr/local/opt/dart/libexec/lib/mirrors" />
       <root url="file:///usr/local/opt/dart/libexec/lib/svg" />
       <root url="file:///usr/local/opt/dart/libexec/lib/typed_data" />
+      <root url="file:///usr/local/opt/dart/libexec/lib/wasm" />
       <root url="file:///usr/local/opt/dart/libexec/lib/web_audio" />
       <root url="file:///usr/local/opt/dart/libexec/lib/web_gl" />
       <root url="file:///usr/local/opt/dart/libexec/lib/web_sql" />

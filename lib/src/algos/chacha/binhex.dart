@@ -6,10 +6,10 @@
 
 part of 'chacha20.dart';
 
-const String _ALPHABET = "0123456789abcdef";
+String _ALPHABET = "0123456789abcdef";
 
 /// An instance of the default implementation of the [HexCodec].
-const hex = const HexCodec();
+var hex = HexCodec();
 
 /// A codec for encoding and decoding byte arrays to and from
 /// hexadecimal strings.

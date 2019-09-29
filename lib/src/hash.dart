@@ -8,26 +8,24 @@ part of 'steel_crypt_base.dart';
 
 ///General hashing class for usage
 class HashCrypt {
-
   ///Type of algorithm
   core.String type;
   List<String> pads = ['RnL'];
 
   ///Construct with type of algorithm
-  HashCrypt ([core.String inType = 'SHA-3/512']) {
+  HashCrypt([core.String inType = 'SHA-3/256']) {
     type = inType;
   }
 
   ///hash with input
-  core.String hash (core.String input) {
+  core.String hash(core.String input) {
     var bytes;
     if (input.length % 4 == 0) {
       bytes = Base64Codec().decode(input);
-    }
-    else {
+    } else {
       var advinput = input;
       advinput = input + pads[0];
-      advinput = advinput.substring(0, advinput.length-advinput.length%4);
+      advinput = advinput.substring(0, advinput.length - advinput.length % 4);
       bytes = Base64Codec().decode(advinput);
     }
     Digest digest;
@@ -37,7 +35,7 @@ class HashCrypt {
   }
 
   ///Check hashed against plain
-  bool checkhash (core.String plain, core.String hashed) {
+  bool checkhash(core.String plain, core.String hashed) {
     var newhash = hash(plain);
     return newhash == hashed;
   }

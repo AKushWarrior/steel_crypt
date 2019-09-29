@@ -6,7 +6,6 @@
 import 'dart:typed_data';
 import 'dart:convert';
 
-
 /// Implements Chacha20 ([https://tools.ietf.org/html/rfc7539](RFC 7539)), which
 /// has become a popular symmetric stream cipher. It's now used by protocols
 /// such as TLS.
@@ -28,7 +27,6 @@ class Chacha12 extends Converter<List<int>, Uint8List> {
     _state.offsetInBytes,
     _state.lengthInBytes,
   );
-
 
   // Initialization
   final Uint32List initialState = Uint32List(_stateLength);
@@ -308,7 +306,6 @@ class Chacha12 extends Converter<List<int>, Uint8List> {
 
     // Step 2: Do 20 column/diagonal rounds
     for (var i = 0; i < 6; i++) {
-
       // Columns
       v0 = _uint32mask & (v0 + v4);
       v12 = _rotateLeft(v12 ^ v0, 16);

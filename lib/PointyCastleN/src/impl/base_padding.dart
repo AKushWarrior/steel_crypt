@@ -12,11 +12,11 @@ import '../../api.dart';
 abstract class BasePadding implements Padding {
   Uint8List process(bool pad, Uint8List data) {
     if (pad) {
-      var out = new Uint8List.fromList(data);
+      var out = Uint8List.fromList(data);
       return out;
     } else {
       var len = padCount(data);
-      return new Uint8List.fromList(data.sublist(0, len));
+      return Uint8List.fromList(data.sublist(0, len));
     }
   }
 }

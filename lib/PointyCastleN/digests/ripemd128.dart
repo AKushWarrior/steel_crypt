@@ -14,7 +14,7 @@ import '../src/ufixnum.dart';
 /// Implementation of RIPEMD-128 digest
 class RIPEMD128Digest extends MD4FamilyDigest implements Digest {
   static final FactoryConfig FACTORY_CONFIG =
-      new StaticFactoryConfig(Digest, "RIPEMD-128", () => RIPEMD128Digest());
+      StaticFactoryConfig(Digest, "RIPEMD-128", () => RIPEMD128Digest());
 
   static const _DIGEST_LENGTH = 16;
 

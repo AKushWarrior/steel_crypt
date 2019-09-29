@@ -20,8 +20,7 @@ class MacCrypt {
     type = intype;
     if (type == 'HMAC') {
       mac1 = HMAC(key, algo);
-    }
-    else if (type == 'CMAC') {
+    } else if (type == 'CMAC') {
       mac2 = CMAC(key, algo);
     }
   }
@@ -30,8 +29,7 @@ class MacCrypt {
   String process(String input) {
     if (type == "HMAC") {
       return mac1.process(input);
-    }
-    else if (type == 'CMAC'){
+    } else if (type == 'CMAC') {
       return mac2.process(input);
     }
     return "";
@@ -57,27 +55,26 @@ class HMAC {
     algorithm = algo;
   }
 
-  String process (core.String input) {
+  String process(core.String input) {
     var bytes;
     if (input.length % 4 == 0) {
       bytes = Base64Codec().decode(input);
-    }
-    else {
+    } else {
       var advinput = input;
       advinput = input + pads[0];
-      advinput = advinput.substring(0, advinput.length-advinput.length%4);
+      advinput = advinput.substring(0, advinput.length - advinput.length % 4);
       bytes = Base64Codec().decode(advinput);
     }
     final _tmp = HMac(Digest(algorithm), 128)..init(listkey);
     var val = _tmp.process(bytes);
     return base64.encode(val);
   }
-  bool check (String plain, String processed) {
+
+  bool check(String plain, String processed) {
     var newhash = process(plain);
     return newhash == processed;
   }
 }
-
 
 class CMAC {
   KeyParameter listkey;
@@ -90,23 +87,23 @@ class CMAC {
     algorithm = algo;
   }
 
-  String process (core.String input) {
+  String process(core.String input) {
     var bytes;
     if (input.length % 4 == 0) {
       bytes = Base64Codec().decode(input);
-    }
-    else {
+    } else {
       var advinput = input;
       advinput = input + pads[0];
-      advinput = advinput.substring(0, advinput.length-advinput.length%4);
+      advinput = advinput.substring(0, advinput.length - advinput.length % 4);
       bytes = Base64Codec().decode(advinput);
     }
-    final _tmp = CMac(BlockCipher('AES/' + algorithm.toUpperCase()), 64)..init(listkey);
+    final _tmp = CMac(BlockCipher('AES/' + algorithm.toUpperCase()), 64)
+      ..init(listkey);
     var val = _tmp.process(bytes);
     return base64.encode(val);
   }
 
-  bool check (String plain, String processed) {
+  bool check(String plain, String processed) {
     var newhash = process(plain);
     return newhash == processed;
   }

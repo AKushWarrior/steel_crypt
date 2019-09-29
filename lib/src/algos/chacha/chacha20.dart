@@ -31,7 +31,6 @@ class Chacha20 extends Converter<List<int>, Uint8List> {
     _state.lengthInBytes,
   );
 
-
   // Initialization
   final Uint32List initialState = Uint32List(_stateLength);
 
@@ -310,7 +309,6 @@ class Chacha20 extends Converter<List<int>, Uint8List> {
 
     // Step 2: Do 20 column/diagonal rounds
     for (var i = 0; i < 10; i++) {
-
       // Columns
       v0 = _uint32mask & (v0 + v4);
       v12 = _rotateLeft(v12 ^ v0, 16);

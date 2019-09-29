@@ -14,12 +14,12 @@ import '../../src/ufixnum.dart';
 /// Implementation of GOST 28147 OFB counter mode (GCTR) on top of a [BlockCipher].
 class GCTRBlockCipher extends BaseBlockCipher {
   /// Intended for internal use.
-  static final FactoryConfig FACTORY_CONFIG = new DynamicFactoryConfig.suffix(
+  static final FactoryConfig FACTORY_CONFIG = DynamicFactoryConfig.suffix(
       BlockCipher,
       "/GCTR",
       (_, final Match match) => () {
-            BlockCipher underlying = new BlockCipher(match.group(1));
-            return new GCTRBlockCipher(underlying);
+            BlockCipher underlying = BlockCipher(match.group(1));
+            return GCTRBlockCipher(underlying);
           });
 
   static const C1 = 16843012; //00000001000000010000000100000100
@@ -37,13 +37,13 @@ class GCTRBlockCipher extends BaseBlockCipher {
 
   GCTRBlockCipher(this._underlyingCipher) {
     if (blockSize != 8) {
-      throw new ArgumentError(
+      throw ArgumentError(
           "GCTR can only be used with 64 bit block ciphers");
     }
 
-    _IV = new Uint8List(_underlyingCipher.blockSize);
-    _ofbV = new Uint8List(_underlyingCipher.blockSize);
-    _ofbOutV = new Uint8List(_underlyingCipher.blockSize);
+    _IV = Uint8List(_underlyingCipher.blockSize);
+    _ofbV = Uint8List(_underlyingCipher.blockSize);
+    _ofbOutV = Uint8List(_underlyingCipher.blockSize);
   }
 
   int get blockSize => _underlyingCipher.blockSize;
@@ -91,11 +91,11 @@ class GCTRBlockCipher extends BaseBlockCipher {
 
   int processBlock(Uint8List inp, int inpOff, Uint8List out, int outOff) {
     if ((inpOff + blockSize) > inp.length) {
-      throw new ArgumentError("Input buffer too short");
+      throw ArgumentError("Input buffer too short");
     }
 
     if ((outOff + blockSize) > out.length) {
-      throw new ArgumentError("Output buffer too short");
+      throw ArgumentError("Output buffer too short");
     }
 
     if (_firstStep) {

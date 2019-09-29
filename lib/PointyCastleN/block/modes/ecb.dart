@@ -13,12 +13,12 @@ import '../../src/impl/base_block_cipher.dart';
 /// Implementation of Electronic Code Book (ECB) mode on top of a [BlockCipher].
 class ECBBlockCipher extends BaseBlockCipher {
   /// Intended for internal use.
-  static final FactoryConfig FACTORY_CONFIG = new DynamicFactoryConfig.suffix(
+  static final FactoryConfig FACTORY_CONFIG = DynamicFactoryConfig.suffix(
       BlockCipher,
       "/ECB",
       (_, final Match match) => () {
-            BlockCipher underlying = new BlockCipher(match.group(1));
-            return new ECBBlockCipher(underlying);
+            BlockCipher underlying = BlockCipher(match.group(1));
+            return ECBBlockCipher(underlying);
           });
 
   final BlockCipher _underlyingCipher;

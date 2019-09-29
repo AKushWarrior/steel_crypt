@@ -13,20 +13,20 @@ import '../src/registry/registry.dart';
 /// Implementation of MD2 as outlined in RFC1319 by B.Kaliski from RSA Laboratories April 1992
 class MD2Digest extends BaseDigest {
   static final FactoryConfig FACTORY_CONFIG =
-      new StaticFactoryConfig(Digest, "MD2", () => MD2Digest());
+      StaticFactoryConfig(Digest, "MD2", () => MD2Digest());
 
   static const _DIGEST_LENGTH = 16;
 
   /* X buffer */
-  var _X = new Uint8List(48);
+  var _X = Uint8List(48);
   int _xOff = 0;
 
   /* M buffer */
-  var _M = new Uint8List(16);
+  var _M = Uint8List(16);
   int _mOff = 0;
 
   /* check sum */
-  var _C = new Uint8List(16);
+  var _C = Uint8List(16);
 
   String get algorithmName => "MD2";
 

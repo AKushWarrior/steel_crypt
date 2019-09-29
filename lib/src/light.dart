@@ -32,7 +32,7 @@ class LightCrypt {
         type == "ChaCha20/8" ||
         type == "HC-256" ||
         type == 'Grain-128' ||
-        type == "ISAAC"||
+        type == "ISAAC" ||
         type == "RC4") {
     } else {
       throw ArgumentError(
@@ -138,7 +138,7 @@ class LightCrypt {
       machine..init(false, params);
       var inter = machine.process(localInput);
       return utf8.decode(inter);
-    } else if (type == "ISAAC"|| type == "RC4") {
+    } else if (type == "ISAAC" || type == "RC4") {
       var machine = StreamCipher(type);
       var localKey = utf8.encode(key32);
       var localInput = base64.decode(encrypted);

@@ -13,17 +13,17 @@ import '../../src/impl/base_block_cipher.dart';
 /// Implementation of Output FeedBack mode (OFB) on top of a [BlockCipher].
 class OFBBlockCipher extends BaseBlockCipher {
   /// Intended for internal use.
-  static final FactoryConfig FACTORY_CONFIG = new DynamicFactoryConfig.regex(
+  static final FactoryConfig FACTORY_CONFIG = DynamicFactoryConfig.regex(
       BlockCipher,
       r"^(.+)/OFB-([0-9]+)$",
       (_, final Match match) => () {
-            BlockCipher underlying = new BlockCipher(match.group(1));
+            BlockCipher underlying = BlockCipher(match.group(1));
             int blockSizeInBits = int.parse(match.group(2));
             if ((blockSizeInBits % 8) != 0) {
-              throw new RegistryFactoryException.invalid(
+              throw RegistryFactoryException.invalid(
                   "Bad OFB block size: $blockSizeInBits (must be a multiple of 8)");
             }
-            return new OFBBlockCipher(underlying, blockSizeInBits ~/ 8);
+            return OFBBlockCipher(underlying, blockSizeInBits ~/ 8);
           });
 
   final int blockSize;
@@ -35,9 +35,9 @@ class OFBBlockCipher extends BaseBlockCipher {
   Uint8List _ofbOutV;
 
   OFBBlockCipher(this._underlyingCipher, this.blockSize) {
-    _IV = new Uint8List(_underlyingCipher.blockSize);
-    _ofbV = new Uint8List(_underlyingCipher.blockSize);
-    _ofbOutV = new Uint8List(_underlyingCipher.blockSize);
+    _IV = Uint8List(_underlyingCipher.blockSize);
+    _ofbV = Uint8List(_underlyingCipher.blockSize);
+    _ofbOutV = Uint8List(_underlyingCipher.blockSize);
   }
 
   String get algorithmName =>
@@ -76,11 +76,11 @@ class OFBBlockCipher extends BaseBlockCipher {
 
   int processBlock(Uint8List inp, int inpOff, Uint8List out, int outOff) {
     if ((inpOff + blockSize) > inp.length) {
-      throw new ArgumentError("Input buffer too short");
+      throw ArgumentError("Input buffer too short");
     }
 
     if ((outOff + blockSize) > out.length) {
-      throw new ArgumentError("Output buffer too short");
+      throw ArgumentError("Output buffer too short");
     }
 
     _underlyingCipher.processBlock(_ofbV, 0, _ofbOutV, 0);

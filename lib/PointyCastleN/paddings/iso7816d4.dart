@@ -50,7 +50,7 @@ class ISO7816d4Padding extends BasePadding {
     }
 
     if (data[count] != 0x80) {
-      throw new ArgumentError("pad block corrupted");
+      throw ArgumentError("pad block corrupted");
     }
 
     return data.length - count;

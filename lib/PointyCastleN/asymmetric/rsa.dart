@@ -14,7 +14,7 @@ import '../src/utils.dart' as utils;
 
 class RSAEngine extends BaseAsymmetricBlockCipher {
   static final FactoryConfig FACTORY_CONFIG =
-      new StaticFactoryConfig(AsymmetricBlockCipher, "RSA", () => RSAEngine());
+      StaticFactoryConfig(AsymmetricBlockCipher, "RSA", () => RSAEngine());
 
   bool _forEncryption;
   RSAAsymmetricKey _key;
@@ -26,7 +26,7 @@ class RSAEngine extends BaseAsymmetricBlockCipher {
 
   int get inputBlockSize {
     if (_key == null) {
-      throw new StateError(
+      throw StateError(
           "Input block size cannot be calculated until init() called");
     }
 
@@ -40,7 +40,7 @@ class RSAEngine extends BaseAsymmetricBlockCipher {
 
   int get outputBlockSize {
     if (_key == null) {
-      throw new StateError(
+      throw StateError(
           "Output block size cannot be calculated until init() called");
     }
 
@@ -80,16 +80,16 @@ class RSAEngine extends BaseAsymmetricBlockCipher {
     var inpLen = inp.length;
 
     if (inpLen > (inputBlockSize + 1)) {
-      throw new ArgumentError("Input too large for RSA cipher");
+      throw ArgumentError("Input too large for RSA cipher");
     }
 
     if ((inpLen == (inputBlockSize + 1)) && !_forEncryption) {
-      throw new ArgumentError("Input too large for RSA cipher");
+      throw ArgumentError("Input too large for RSA cipher");
     }
 
     var res = utils.decodeBigInt(inp.sublist(inpOff, inpOff + len));
     if (res >= _key.modulus) {
-      throw new ArgumentError("Input too large for RSA cipher");
+      throw ArgumentError("Input too large for RSA cipher");
     }
 
     return res;

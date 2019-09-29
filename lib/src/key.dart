@@ -8,7 +8,6 @@ part of 'steel_crypt_base.dart';
 
 ///Class for creating cryptographically secure strings
 class CryptKey {
-
   ///Internal for generating Fortuna Random engine
   static SecureRandom getSecureRandom() {
     var secureRandom = FortunaRandom();
@@ -19,7 +18,7 @@ class CryptKey {
   }
 
   ///gen cryptographically-secure, Fortuna random string; defaults to length 32
-  String genFortuna ([int length = 32]) {
+  String genFortuna([int length = 32]) {
     var rand = getSecureRandom();
     var values = rand.nextBytes(length);
     var stringer = base64Url.encode(values);
@@ -27,7 +26,7 @@ class CryptKey {
   }
 
   ///gen cryptographically-secure, Dart Random.secure string; defaults to length 16
-  String genDart ([int length = 16]) {
+  String genDart([int length = 16]) {
     var rand = Random.secure();
     var bytes = List<int>.generate(length, (i) => rand.nextInt(256));
     return base64Url.encode(bytes);

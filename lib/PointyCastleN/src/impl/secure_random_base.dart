@@ -30,7 +30,7 @@ abstract class SecureRandomBase implements SecureRandom {
   }
 
   Uint8List nextBytes(int count) {
-    var bytes = new Uint8List(count);
+    var bytes = Uint8List(count);
     for (var i = 0; i < count; i++) {
       bytes[i] = nextUint8();
     }
@@ -39,11 +39,11 @@ abstract class SecureRandomBase implements SecureRandom {
 
   List<int> _randomBits(int numBits) {
     if (numBits < 0) {
-      throw new ArgumentError("numBits must be non-negative");
+      throw ArgumentError("numBits must be non-negative");
     }
 
     var numBytes = (numBits + 7) ~/ 8; // avoid overflow
-    var randomBits = new Uint8List(numBytes);
+    var randomBits = Uint8List(numBytes);
 
     // Generate random bytes and mask out any excess bits
     if (numBytes > 0) {

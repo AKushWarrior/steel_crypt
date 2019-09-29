@@ -13,13 +13,13 @@ import '../src/impl/secure_random_base.dart';
 
 class BlockCtrRandom extends SecureRandomBase implements SecureRandom {
   /// Intended for internal use.
-  static final FactoryConfig FACTORY_CONFIG = new DynamicFactoryConfig.regex(
+  static final FactoryConfig FACTORY_CONFIG = DynamicFactoryConfig.regex(
       SecureRandom,
       r"^(.*)/CTR/PRNG$",
       (_, final Match match) => () {
             String blockCipherName = match.group(1);
-            BlockCipher blockCipher = new BlockCipher(blockCipherName);
-            return new BlockCtrRandom(blockCipher);
+            BlockCipher blockCipher = BlockCipher(blockCipherName);
+            return BlockCtrRandom(blockCipher);
           });
 
   final BlockCipher cipher;
@@ -29,8 +29,8 @@ class BlockCtrRandom extends SecureRandomBase implements SecureRandom {
   var _used;
 
   BlockCtrRandom(this.cipher) {
-    _input = new Uint8List(cipher.blockSize);
-    _output = new Uint8List(cipher.blockSize);
+    _input = Uint8List(cipher.blockSize);
+    _output = Uint8List(cipher.blockSize);
     _used = _output.length;
   }
 

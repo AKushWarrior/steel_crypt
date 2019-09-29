@@ -11,12 +11,12 @@ import '../src/registry/registry.dart';
 /// Just an alias to be able to create SIC as CTR
 class CTRStreamCipher extends SICStreamCipher {
   /// Intended for internal use.
-  static final FactoryConfig FACTORY_CONFIG = new DynamicFactoryConfig.suffix(
+  static final FactoryConfig FACTORY_CONFIG = DynamicFactoryConfig.suffix(
       StreamCipher,
       "/CTR",
       (_, final Match match) => () {
             String digestName = match.group(1);
-            return new CTRStreamCipher(new BlockCipher(digestName));
+            return CTRStreamCipher(BlockCipher(digestName));
           });
 
   CTRStreamCipher(BlockCipher underlyingCipher) : super(underlyingCipher);

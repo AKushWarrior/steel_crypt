@@ -15,13 +15,13 @@ import '../digests/sha1.dart';
 
 class OAEPEncoding extends BaseAsymmetricBlockCipher {
   /// Intended for internal use.
-  static final FactoryConfig FACTORY_CONFIG = new DynamicFactoryConfig.suffix(
+  static final FactoryConfig FACTORY_CONFIG = DynamicFactoryConfig.suffix(
       AsymmetricBlockCipher,
       "/OAEP",
       (_, final Match match) => () {
             AsymmetricBlockCipher underlyingCipher =
-                new AsymmetricBlockCipher(match.group(1));
-            return new OAEPEncoding(underlyingCipher);
+                AsymmetricBlockCipher(match.group(1));
+            return OAEPEncoding(underlyingCipher);
           });
 
   Digest hash = SHA1Digest();
@@ -41,12 +41,12 @@ class OAEPEncoding extends BaseAsymmetricBlockCipher {
   void reset() {}
 
   Uint8List _seed() {
-    var random = new Random.secure();
+    var random = Random.secure();
     List<int> seeds = [];
     for (int i = 0; i < 32; i++) {
       seeds.add(random.nextInt(255));
     }
-    return new Uint8List.fromList(seeds);
+    return Uint8List.fromList(seeds);
   }
 
   // for compat cleaner translation from java source
@@ -65,7 +65,7 @@ class OAEPEncoding extends BaseAsymmetricBlockCipher {
       _random = paramswr.random;
       akparams = paramswr.parameters;
     } else {
-      _random = new FortunaRandom();
+      _random = FortunaRandom();
       _random.seed(KeyParameter(_seed()));
       akparams = params;
     }
@@ -103,10 +103,10 @@ class OAEPEncoding extends BaseAsymmetricBlockCipher {
   int _encodeBlock(
       Uint8List inp, int inpOff, int inpLen, Uint8List out, int outOff) {
     if (inpLen > inputBlockSize) {
-      throw new ArgumentError("Input data too large");
+      throw ArgumentError("Input data too large");
     }
 
-    var block = new Uint8List(inputBlockSize + 1 + 2 * defHash.length);
+    var block = Uint8List(inputBlockSize + 1 + 2 * defHash.length);
 
     //
     // copy in the message
@@ -160,7 +160,7 @@ class OAEPEncoding extends BaseAsymmetricBlockCipher {
 
   int _decodeBlock(
       Uint8List inp, int inpOff, int inpLen, Uint8List out, int outOff) {
-    var block = new Uint8List(_engine.inputBlockSize);
+    var block = Uint8List(_engine.inputBlockSize);
     var len = _engine.processBlock(inp, inpOff, inpLen, block, 0);
     block = block.sublist(0, len);
 
@@ -219,7 +219,7 @@ class OAEPEncoding extends BaseAsymmetricBlockCipher {
 
     if (defHashWrong | wrongData | dataStartWrong) {
       block.fillRange(0, block.length, 0);
-      throw new ArgumentError("data wrong");
+      throw ArgumentError("data wrong");
     }
 
     //

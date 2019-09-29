@@ -14,7 +14,7 @@ import '../src/ufixnum.dart';
 /// Implementation of SHA-1 digest
 class SHA1Digest extends MD4FamilyDigest implements Digest {
   static final FactoryConfig FACTORY_CONFIG =
-      new StaticFactoryConfig(Digest, "SHA-1", () => SHA1Digest());
+      StaticFactoryConfig(Digest, "SHA-1", () => SHA1Digest());
 
   static const _DIGEST_LENGTH = 20;
 

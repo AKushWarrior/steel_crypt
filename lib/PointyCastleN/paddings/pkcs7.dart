@@ -37,12 +37,12 @@ class PKCS7Padding extends BasePadding {
     var count = clip8(data[data.length - 1]);
 
     if (count > data.length || count == 0) {
-      throw new ArgumentError("Invalid or corrupted pad block");
+      throw ArgumentError("Invalid or corrupted pad block");
     }
 
     for (var i = 1; i <= count; i++) {
       if (data[data.length - i] != count) {
-        throw new ArgumentError("Invalid or corrupted pad block");
+        throw ArgumentError("Invalid or corrupted pad block");
       }
     }
 

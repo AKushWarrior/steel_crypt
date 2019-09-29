@@ -11,13 +11,13 @@ import '../../src/registry/registry.dart';
 
 class CTRBlockCipher extends StreamCipherAsBlockCipher {
   /// Intended for internal use.
-  static final FactoryConfig FACTORY_CONFIG = new DynamicFactoryConfig.suffix(
+  static final FactoryConfig FACTORY_CONFIG =  DynamicFactoryConfig.suffix(
       BlockCipher,
       "/CTR",
       (_, final Match match) => () {
-            BlockCipher underlying = new BlockCipher(match.group(1));
-            return new CTRBlockCipher(
-                underlying.blockSize, new CTRStreamCipher(underlying));
+            BlockCipher underlying =  BlockCipher(match.group(1));
+            return  CTRBlockCipher(
+                underlying.blockSize,  CTRStreamCipher(underlying));
           });
 
   CTRBlockCipher(int blockSize, StreamCipher underlyingCipher)

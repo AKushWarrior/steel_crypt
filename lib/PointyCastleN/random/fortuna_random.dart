@@ -14,7 +14,7 @@ import '../src/registry/registry.dart';
 /// An implementation of [SecureRandom] as specified in the Fortuna algorithm.
 class FortunaRandom implements SecureRandom {
   static final FactoryConfig FACTORY_CONFIG =
-      new StaticFactoryConfig(SecureRandom, "Fortuna", () => FortunaRandom());
+       StaticFactoryConfig(SecureRandom, "Fortuna", () => FortunaRandom());
 
   AESFastEngine _aes;
   AutoSeedBlockCtrRandom _prng;
@@ -22,19 +22,19 @@ class FortunaRandom implements SecureRandom {
   String get algorithmName => "Fortuna";
 
   FortunaRandom() {
-    _aes = new AESFastEngine();
-    _prng = new AutoSeedBlockCtrRandom(_aes, false);
+    _aes =  AESFastEngine();
+    _prng =  AutoSeedBlockCtrRandom(_aes, false);
   }
 
   void seed(covariant KeyParameter param) {
     if (param.key.length != 32) {
-      throw new ArgumentError(
+      throw  ArgumentError(
           "Fortuna PRNG can only be used with 256 bits keys");
     }
 
-    final iv = new Uint8List(16);
+    final iv =  Uint8List(16);
     iv[15] = 1;
-    _prng.seed(new ParametersWithIV(param, iv));
+    _prng.seed( ParametersWithIV(param, iv));
   }
 
   int nextUint8() => _prng.nextUint8();
@@ -47,7 +47,7 @@ class FortunaRandom implements SecureRandom {
 
   Uint8List nextBytes(int count) {
     if (count > 1048576) {
-      throw new ArgumentError(
+      throw  ArgumentError(
           "Fortuna PRNG cannot generate more than 1MB of random data per invocation");
     }
 

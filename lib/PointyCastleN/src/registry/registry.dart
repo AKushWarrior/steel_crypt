@@ -35,7 +35,7 @@ class StaticFactoryConfig extends FactoryConfig {
 
 // From the PatternCharacter rule here:
 // http://ecma-international.org/ecma-262/5.1/#sec-15.10
-final _specialRegExpChars = new RegExp(r'([\\\^\$\.\|\+\[\]\(\)\{\}])');
+final _specialRegExpChars = RegExp(r'([\\\^\$\.\|\+\[\]\(\)\{\}])');
 
 /// Escapes special regular exppression characters in [str] so that it can be
 /// used as a literal match inside of a [RegExp].
@@ -53,7 +53,7 @@ class DynamicFactoryConfig extends FactoryConfig {
 
   DynamicFactoryConfig.regex(
       Type type, String regexString, DynamicConstructorFactory factory)
-      : this(type, new RegExp(regexString), factory);
+      : this(type, RegExp(regexString), factory);
 
   /// A dynamic registry that matches by prefix.
   /// The part after the prefix will be in `match.group(1)`.
@@ -134,7 +134,7 @@ class _RegistryImpl implements FactoryRegistry {
     }
 
     // No factory found
-    throw new RegistryFactoryException.unknown(registrableName, type);
+    throw RegistryFactoryException.unknown(registrableName, type);
   }
 
   void _checkInit() {

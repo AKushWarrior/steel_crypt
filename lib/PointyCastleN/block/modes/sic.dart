@@ -11,13 +11,13 @@ import '../../src/registry/registry.dart';
 
 class SICBlockCipher extends StreamCipherAsBlockCipher {
   /// Intended for internal use.
-  static final FactoryConfig FACTORY_CONFIG = new DynamicFactoryConfig.suffix(
+  static final FactoryConfig FACTORY_CONFIG = DynamicFactoryConfig.suffix(
       BlockCipher,
       "/SIC",
       (_, final Match match) => () {
-            BlockCipher underlying = new BlockCipher(match.group(1));
-            return new SICBlockCipher(
-                underlying.blockSize, new SICStreamCipher(underlying));
+            BlockCipher underlying = BlockCipher(match.group(1));
+            return SICBlockCipher(
+                underlying.blockSize, SICStreamCipher(underlying));
           });
 
   SICBlockCipher(int blockSize, StreamCipher underlyingCipher)

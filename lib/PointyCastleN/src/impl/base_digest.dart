@@ -12,7 +12,7 @@ import '../../api.dart';
 abstract class BaseDigest implements Digest {
   Uint8List process(Uint8List data) {
     update(data, 0, data.length);
-    var out = new Uint8List(digestSize);
+    var out = Uint8List(digestSize);
     var len = doFinal(out, 0);
     return out.sublist(0, len);
   }

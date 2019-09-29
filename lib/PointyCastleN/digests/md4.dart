@@ -14,7 +14,7 @@ import '../src/ufixnum.dart';
 /// Implementation of MD4 digest
 class MD4Digest extends MD4FamilyDigest implements Digest {
   static final FactoryConfig FACTORY_CONFIG =
-      new StaticFactoryConfig(Digest, "MD4", () => MD4Digest());
+      StaticFactoryConfig(Digest, "MD4", () => MD4Digest());
 
   static const _DIGEST_LENGTH = 16;
 

@@ -12,7 +12,7 @@ class RsaCrypt {
   var pair;
 
   ///Construct with keys.
-  RsaCrypt ()  {
+  RsaCrypt() {
     pair = getRsaKeyPair(getSecureRandom());
   }
 
@@ -49,7 +49,8 @@ class RsaCrypt {
   }
 
   ///Parse key from PEM file
-  Future<T> parseKeyFromFile<T extends RSAAsymmetricKey>(String filename) async {
+  Future<T> parseKeyFromFile<T extends RSAAsymmetricKey>(
+      String filename) async {
     final file = File(filename);
     final key = await file.readAsString();
     final parser = RSAKeyParser();
