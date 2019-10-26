@@ -6,10 +6,9 @@
 
 part of 'steel_crypt_base.dart';
 
-///Class for creating cryptographically secure strings
+///Class for creating cryptographically secure strings.
 class CryptKey {
-  ///Internal for generating Fortuna Random engine
-  static SecureRandom getSecureRandom() {
+  static SecureRandom _getSecureRandom() {
     var secureRandom = FortunaRandom();
     var random = Random.secure();
     var seeds = List<int>.generate(32, (i) => random.nextInt(256));
@@ -17,15 +16,24 @@ class CryptKey {
     return secureRandom;
   }
 
-  ///gen cryptographically-secure, Fortuna random string; defaults to length 32
+  /// Generate cryptographically-secure random string using Fortuna algorithm.
+  ///
+  /// This should be used for all cases where privacy is of high importance.
+  ///
+  /// Defaults to length 32 (bytes).
   String genFortuna([int length = 32]) {
-    var rand = getSecureRandom();
+    var rand = _getSecureRandom();
     var values = rand.nextBytes(length);
     var stringer = base64Url.encode(values);
     return stringer;
   }
 
-  ///gen cryptographically-secure, Dart Random.secure string; defaults to length 16
+  /// Generate secure random String using Dart math.random.
+  ///
+  /// This is less secure than Fortuna, but faster. It can be used for IVs and salts,
+  /// but never for keys.
+  ///
+  /// Defaults to length 16.
   String genDart([int length = 16]) {
     var rand = Random.secure();
     var bytes = List<int>.generate(length, (i) => rand.nextInt(256));

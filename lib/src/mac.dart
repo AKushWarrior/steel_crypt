@@ -8,51 +8,51 @@ part of 'steel_crypt_base.dart';
 
 ///Class containing Message Authentication codes
 class MacCrypt {
-  String key32;
-  String algorithm = 'SHA-3/256';
-  String type = 'HMAC';
-  HMAC mac1;
-  CMAC mac2;
+  String _key32;
+  String _algorithm = 'SHA-3/256';
+  String _type = 'HMAC';
+  _HMAC _mac1;
+  _CMAC _mac2;
 
-  MacCrypt(String key, [String intype, String algo]) {
-    key32 = key;
-    algorithm = algo;
-    type = intype;
-    if (type == 'HMAC') {
-      mac1 = HMAC(key, algo);
-    } else if (type == 'CMAC') {
-      mac2 = CMAC(key, algo);
+  MacCrypt(String key, [String inType, String algo]) {
+    _key32 = key;
+    _algorithm = algo;
+    _type = inType;
+    if (_type == 'HMAC') {
+      _mac1 = _HMAC(key, algo);
+    } else if (_type == 'CMAC') {
+      _mac2 = _CMAC(key, algo);
     }
   }
 
   ///Process and hash string
   String process(String input) {
-    if (type == "HMAC") {
-      return mac1.process(input);
-    } else if (type == 'CMAC') {
-      return mac2.process(input);
+    if (_type == "HMAC") {
+      return _mac1.process(input);
+    } else if (_type == 'CMAC') {
+      return _mac2.process(input);
     }
     return "";
   }
 
   ///Check if plaintext matches previously hashed text
   bool check(String plain, String processed) {
-    if (type == 'HMAC') {
-      return mac1.check(plain, processed);
+    if (_type == 'HMAC') {
+      return _mac1.check(plain, processed);
     }
-    return mac2.check(plain, processed);
+    return _mac2.check(plain, processed);
   }
 }
 
-class HMAC {
-  KeyParameter listkey;
-  String algorithm;
-  static List<String> pads = ['aWM'];
+class _HMAC {
+  KeyParameter _listkey;
+  String _algorithm;
+  static List<String> _pads = ['aWM'];
 
-  HMAC(String key, [String algo = 'SHA-3/256']) {
-    var inter = base64.decode(key);
-    listkey = KeyParameter(inter);
-    algorithm = algo;
+  _HMAC(String key, [String algo = 'SHA-3/256']) {
+    var _inter = base64.decode(key);
+    _listkey = KeyParameter(_inter);
+    _algorithm = algo;
   }
 
   String process(core.String input) {
@@ -61,11 +61,12 @@ class HMAC {
       bytes = Base64Codec().decode(input);
     } else {
       var advinput = input;
-      advinput = input + pads[0];
+      advinput = input + _pads[0];
       advinput = advinput.substring(0, advinput.length - advinput.length % 4);
       bytes = Base64Codec().decode(advinput);
     }
-    final _tmp = HMac(Digest(algorithm), 128)..init(listkey);
+    final _tmp = HMac(Digest(_algorithm), 128)
+      ..init(_listkey);
     var val = _tmp.process(bytes);
     return base64.encode(val);
   }
@@ -76,15 +77,15 @@ class HMAC {
   }
 }
 
-class CMAC {
-  KeyParameter listkey;
-  static List<String> pads = ['Xcv'];
-  String algorithm;
+class _CMAC {
+  KeyParameter _listkey;
+  static List<String> _pads = ['Xcv'];
+  String _algorithm;
 
-  CMAC(String key, [algo = 'cfb-64']) {
-    var inter = base64.decode(key);
-    listkey = KeyParameter(inter);
-    algorithm = algo;
+  _CMAC(String key, [algo = 'cfb-64']) {
+    var _inter = base64.decode(key);
+    _listkey = KeyParameter(_inter);
+    _algorithm = algo;
   }
 
   String process(core.String input) {
@@ -93,12 +94,12 @@ class CMAC {
       bytes = Base64Codec().decode(input);
     } else {
       var advinput = input;
-      advinput = input + pads[0];
+      advinput = input + _pads[0];
       advinput = advinput.substring(0, advinput.length - advinput.length % 4);
       bytes = Base64Codec().decode(advinput);
     }
-    final _tmp = CMac(BlockCipher('AES/' + algorithm.toUpperCase()), 64)
-      ..init(listkey);
+    final _tmp = CMac(BlockCipher('AES/' + _algorithm.toUpperCase()), 64)
+      ..init(_listkey);
     var val = _tmp.process(bytes);
     return base64.encode(val);
   }

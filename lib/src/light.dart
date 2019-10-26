@@ -8,32 +8,37 @@ part of 'steel_crypt_base.dart';
 
 ///Class containing stream ciphers of every kind.
 class LightCrypt {
-  ///Type of algorithm
-  core.String type;
+  core.String _type;
+  core.String _key;
+  StreamCipher _encrypter;
 
-  ///Key for encryption
-  core.String key32;
+  ///Get name of this LightCrypt's algorithm.
+  String get algorithm {
+    return _type;
+  }
 
-  ///Salsa20 encryption machine
-  StreamCipher encrypter;
+  ///Get this LightCrypt's key.
+  String get key {
+    return _key;
+  }
 
-  ///Construct encrypter
-  LightCrypt(core.String inkey32, [core.String intype = "Salsa20"]) {
-    type = intype;
-    key32 = inkey32;
-    if (type == 'Salsa20' || type == 'Salsa20/8' || type == 'Salsa20/12') {
-      encrypter = StreamCipher(type);
-    } else if (type == 'Salsa20/20') {
-      type = 'Salsa20';
-      encrypter = StreamCipher(type);
-    } else if (type == "ChaCha20" ||
-        type == "ChaCha20/20" ||
-        type == "ChaCha20/12" ||
-        type == "ChaCha20/8" ||
-        type == "HC-256" ||
-        type == 'Grain-128' ||
-        type == "ISAAC" ||
-        type == "RC4") {
+  ///Construct encryption machine using key and algorithm.
+  LightCrypt(core.String key, [core.String algorithm = "Salsa20"]) {
+    _type = algorithm;
+    _key = key;
+    if (_type == 'Salsa20' || _type == 'Salsa20/8' || _type == 'Salsa20/12') {
+      _encrypter = StreamCipher(_type);
+    } else if (_type == 'Salsa20/20') {
+      _type = 'Salsa20';
+      _encrypter = StreamCipher(_type);
+    } else if (_type == "ChaCha20" ||
+        _type == "ChaCha20/20" ||
+        _type == "ChaCha20/12" ||
+        _type == "ChaCha20/8" ||
+        _type == "HC-256" ||
+        _type == 'Grain-128' ||
+        _type == "ISAAC" ||
+        _type == "RC4") {
     } else {
       throw ArgumentError(
           "This algorithm isn't supported. Check for typos, or file a feature request.");
@@ -42,42 +47,42 @@ class LightCrypt {
 
   ///Encrypt (with iv) and return in base 64
   core.String encrypt(core.String input, core.String iv) {
-    if (type == 'Salsa20' || type == 'Salsa20/8' || type == 'Salsa20/12') {
-      var localKey = utf8.encode(key32);
+    if (_type == 'Salsa20' || _type == 'Salsa20/8' || _type == 'Salsa20/12') {
+      var localKey = utf8.encode(_key);
       var localIV = utf8.encode(iv);
       var localInput = utf8.encode(input);
       var params = ParametersWithIV<KeyParameter>(
           KeyParameter(localKey.sublist(0, 32)), localIV.sublist(0, 8));
-      encrypter..init(true, params);
-      var inter = encrypter.process(localInput);
+      _encrypter..init(true, params);
+      var inter = _encrypter.process(localInput);
       return base64.encode(inter);
-    } else if (type == 'ChaCha20' || type == 'ChaCha20/20') {
+    } else if (_type == 'ChaCha20' || _type == 'ChaCha20/20') {
       var chacha20 = Chacha20();
       chacha20.initialize(
-          key: base64Url.decode(key32), nonce: base64Url.decode(iv));
-      var bytes = base64.decode(input);
+          key: base64Url.decode(_key), nonce: base64Url.decode(iv));
+      var bytes = base64Url.decode(input);
       var convert = chacha20.convert(bytes);
-      var returner = base64.encode(convert);
+      var returner = base64Url.encode(convert);
       return returner;
-    } else if (type == 'ChaCha20/12') {
+    } else if (_type == 'ChaCha20/12') {
       var chacha20 = Chacha12();
       chacha20.initialize(
-          key: base64Url.decode(key32), nonce: base64Url.decode(iv));
-      var bytes = base64.decode(input);
+          key: base64Url.decode(_key), nonce: base64Url.decode(iv));
+      var bytes = base64Url.decode(input);
       var convert = chacha20.convert(bytes);
-      var returner = base64.encode(convert);
+      var returner = base64Url.encode(convert);
       return returner;
-    } else if (type == 'ChaCha20/8') {
+    } else if (_type == 'ChaCha20/8') {
       var chacha20 = Chacha8();
       chacha20.initialize(
-          key: base64Url.decode(key32), nonce: base64Url.decode(iv));
-      var bytes = base64.decode(input);
+          key: base64Url.decode(_key), nonce: base64Url.decode(iv));
+      var bytes = base64Url.decode(input);
       var convert = chacha20.convert(bytes);
-      var returner = base64.encode(convert);
+      var returner = base64Url.encode(convert);
       return returner;
-    } else if (type == 'Grain-128') {
-      var machine = StreamCipher(type);
-      var localKey = utf8.encode(key32);
+    } else if (_type == 'Grain-128') {
+      var machine = StreamCipher(_type);
+      var localKey = utf8.encode(_key);
       var localIV = utf8.encode(iv);
       var localInput = utf8.encode(input);
       var params = ParametersWithIV<KeyParameter>(
@@ -85,17 +90,17 @@ class LightCrypt {
       machine..init(false, params);
       var inter = machine.process(localInput);
       return base64.encode(inter);
-    } else if (type == "ISAAC" || type == "RC4") {
-      var machine = StreamCipher(type);
-      var localKey = utf8.encode(key32);
+    } else if (_type == "ISAAC" || _type == "RC4") {
+      var machine = StreamCipher(_type);
+      var localKey = utf8.encode(_key);
       var localInput = utf8.encode(input);
       var params = KeyParameter(localKey.sublist(0, 32));
       machine..init(false, params);
       var inter = machine.process(localInput);
       return base64.encode(inter);
-    } else if (type == 'HC-256') {
-      var machine = StreamCipher(type);
-      var localKey = utf8.encode(key32);
+    } else if (_type == 'HC-256') {
+      var machine = StreamCipher(_type);
+      var localKey = utf8.encode(_key);
       var localIV = utf8.encode(iv);
       var localInput = utf8.encode(input);
       var params = ParametersWithIV<KeyParameter>(
@@ -109,18 +114,18 @@ class LightCrypt {
 
   ///Decrypt base 64 (with iv) and return original
   core.String decrypt(core.String encrypted, core.String iv) {
-    if (type == 'Salsa20' || type == 'Salsa20/8' || type == 'Salsa20/12') {
-      var localKey = utf8.encode(key32);
+    if (_type == 'Salsa20' || _type == 'Salsa20/8' || _type == 'Salsa20/12') {
+      var localKey = utf8.encode(_key);
       var localIV = utf8.encode(iv);
       var localInput = base64.decode(encrypted);
       var params = ParametersWithIV<KeyParameter>(
           KeyParameter(localKey.sublist(0, 32)), localIV.sublist(0, 8));
-      encrypter..init(false, params);
-      var inter = encrypter.process(localInput);
+      _encrypter..init(false, params);
+      var inter = _encrypter.process(localInput);
       return utf8.decode(inter);
-    } else if (type == 'Grain-128') {
-      var machine = StreamCipher(type);
-      var localKey = utf8.encode(key32);
+    } else if (_type == 'Grain-128') {
+      var machine = StreamCipher(_type);
+      var localKey = utf8.encode(_key);
       var localIV = utf8.encode(iv);
       var localInput = base64.decode(encrypted);
       var params = ParametersWithIV<KeyParameter>(
@@ -128,9 +133,9 @@ class LightCrypt {
       machine..init(false, params);
       var inter = machine.process(localInput);
       return utf8.decode(inter);
-    } else if (type == 'HC-256') {
-      var machine = StreamCipher(type);
-      var localKey = utf8.encode(key32);
+    } else if (_type == 'HC-256') {
+      var machine = StreamCipher(_type);
+      var localKey = utf8.encode(_key);
       var localIV = utf8.encode(iv);
       var localInput = base64.decode(encrypted);
       var params = ParametersWithIV<KeyParameter>(
@@ -138,34 +143,34 @@ class LightCrypt {
       machine..init(false, params);
       var inter = machine.process(localInput);
       return utf8.decode(inter);
-    } else if (type == "ISAAC" || type == "RC4") {
-      var machine = StreamCipher(type);
-      var localKey = utf8.encode(key32);
+    } else if (_type == "ISAAC" || _type == "RC4") {
+      var machine = StreamCipher(_type);
+      var localKey = utf8.encode(_key);
       var localInput = base64.decode(encrypted);
       var params = KeyParameter(localKey.sublist(0, 32));
       machine..init(false, params);
       var inter = machine.process(localInput);
       return utf8.decode(inter);
-    } else if (type == 'ChaCha20' || type == 'ChaCha20/20') {
+    } else if (_type == 'ChaCha20' || _type == 'ChaCha20/20') {
       var chacha20 = Chacha20();
       chacha20.initialize(
-          key: base64Url.decode(key32), nonce: base64Url.decode(iv));
+          key: base64Url.decode(_key), nonce: base64Url.decode(iv));
       var bytes = base64.decode(encrypted);
       var convert = chacha20.convert(bytes);
       var returner = base64.encode(convert);
       return returner;
-    } else if (type == 'ChaCha20/12') {
+    } else if (_type == 'ChaCha20/12') {
       var chacha20 = Chacha12();
       chacha20.initialize(
-          key: base64Url.decode(key32), nonce: base64Url.decode(iv));
+          key: base64Url.decode(_key), nonce: base64Url.decode(iv));
       var bytes = base64.decode(encrypted);
       var convert = chacha20.convert(bytes);
       var returner = base64.encode(convert);
       return returner;
-    } else if (type == 'ChaCha20/8') {
+    } else if (_type == 'ChaCha20/8') {
       var chacha20 = Chacha8();
       chacha20.initialize(
-          key: base64Url.decode(key32), nonce: base64Url.decode(iv));
+          key: base64Url.decode(_key), nonce: base64Url.decode(iv));
       var bytes = base64.decode(encrypted);
       var convert = chacha20.convert(bytes);
       var returner = base64.encode(convert);

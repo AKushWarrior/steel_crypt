@@ -9,25 +9,25 @@ part of 'steel_crypt_base.dart';
 ///RSA asymmetric encryption machine.
 class RsaCrypt {
   ///Pair of private keys.
-  var pair;
+  var _pair;
 
   ///Construct with keys.
   RsaCrypt() {
-    pair = getRsaKeyPair(getSecureRandom());
+    _pair = _getRsaKeyPair(_getSecureRandom());
   }
 
   ///Access private key.
   PrivateKey get randPrivKey {
-    return pair.privateKey;
+    return _pair.privateKey;
   }
 
   ///Access public key.
   PublicKey get randPubKey {
-    return pair.publicKey;
+    return _pair.publicKey;
   }
 
   ///create Random param for RSA keypair.
-  static SecureRandom getSecureRandom() {
+  static SecureRandom _getSecureRandom() {
     var secureRandom = FortunaRandom();
     var random = Random.secure();
     List<int> seeds = [];
@@ -39,7 +39,7 @@ class RsaCrypt {
   }
 
   ///Create RSA keypair given SecureRandom.
-  static AsymmetricKeyPair<PublicKey, PrivateKey> getRsaKeyPair(
+  AsymmetricKeyPair<PublicKey, PrivateKey> _getRsaKeyPair(
       SecureRandom secureRandom) {
     var rsapars = RSAKeyGeneratorParameters(BigInt.from(65537), 2048, 5);
     var params = ParametersWithRandom(rsapars, secureRandom);

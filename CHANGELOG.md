@@ -1,3 +1,8 @@
+## 1.3.2
+- Fixed bug in ECB mode for AES
+- Cleaned up code
+- Updated README for AES bugfix
+
 ## 1.3.1+1
 - Changed defaults for a couple classes
 - Cleaned up code a little bit

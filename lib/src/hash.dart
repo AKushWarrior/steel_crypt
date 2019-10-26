@@ -6,30 +6,34 @@
 
 part of 'steel_crypt_base.dart';
 
-///General hashing class for usage
+///Class to perform one-way hashing using common algorithms.
 class HashCrypt {
-  ///Type of algorithm
-  core.String type;
-  List<String> pads = ['RnL'];
+  core.String _type;
+  List<String> _pads = ['RnL'];
 
-  ///Construct with type of algorithm
-  HashCrypt([core.String inType = 'SHA-3/256']) {
-    type = inType;
+  ///Get this HashCrypt's hashing algorithm.
+  String get type {
+    return _type;
   }
 
-  ///hash with input
-  core.String hash(core.String input) {
+  ///Construct with type of algorithm
+  HashCrypt([String inType = 'SHA-3/256']) {
+    _type = inType;
+  }
+
+  ///Hash with given input.
+  core.String hash(String input) {
     var bytes;
     if (input.length % 4 == 0) {
       bytes = Base64Codec().decode(input);
     } else {
       var advinput = input;
-      advinput = input + pads[0];
+      advinput = input + _pads[0];
       advinput = advinput.substring(0, advinput.length - advinput.length % 4);
       bytes = Base64Codec().decode(advinput);
     }
     Digest digest;
-    digest = Digest(type);
+    digest = Digest(_type);
     var value = digest.process(bytes);
     return Base64Codec().encode(value);
   }

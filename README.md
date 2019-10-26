@@ -25,7 +25,7 @@ dollars to help me continue development.
         - SIC ('sic')
     - Block modes:
         - CBC ('cbc')
-        - ECB ('ecb')
+        - ECB ('ecb') __INSECURE__
         - CFB-64 ('cfb-64') _(Default/Recommended Mode)_
         - OFB-64 ('ofb-64') 
 * 5 paddings available for block modes:
@@ -37,6 +37,7 @@ dollars to help me continue development.
             
 * __Note__: All block modes require padding, to ensure that input is the correct block size.
 * __Note__: Paddings do not work with stream modes. You can still enter the parameter, but it won't be used.
+* __Note__: ECB does not require an IV. You can still enter the parameter, but it won't be used.
 * __Note__: AES requires 16 bytes of IV (Initialization Vector, see CryptKey for generation).
 
 #### Lightweight Stream Ciphers (class LightCrypt)

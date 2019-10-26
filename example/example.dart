@@ -13,7 +13,8 @@ main() {
 
   var aesEncrypter = AesCrypt(FortunaKey, 'cbc', 'iso10126-2'); //generate AES CBC block encrypter with key and ISO7816-4 padding
 
-  var aesEncrypter2 = AesCrypt(FortunaKey, 'ofb-64', 'pkcs7'); //generate AES CBC block encrypter with key and PKCS7 padding
+  var aesEncrypter2 = AesCrypt(FortunaKey, 'ofb-64',
+      'pkcs7'); //generate AES OFB-64 block encrypter with key and PKCS7 padding
 
   var streamAES = AesCrypt(FortunaKey, 'ctr'); //generate AES CTR stream encrypter with key
 
