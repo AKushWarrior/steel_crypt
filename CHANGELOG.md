@@ -1,3 +1,7 @@
+## 1.4.1+1
+- No functional update
+- Changed example to be more efficient
+
 ## 1.4.1 BREAKING
 - Revamped ChaCha20 algorithm to:
     * Be compliant with the original definition

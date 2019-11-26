@@ -150,22 +150,17 @@ dollars to help me continue development.
 A simple usage example:
 
 ```dart
-//This Source Code Form is subject to the terms of the Mozilla Public
-//License, v. 2.0. If a copy of the MPL was not distributed with this
-//file, You can obtain one at https://mozilla.org/MPL/2.0/.
-
-// © 2019 Aditya Kishore
-
 import 'package:steel_crypt/steel_crypt.dart';
 
 main() {
-
   var FortunaKey = CryptKey().genFortuna(); //generate 32 byte key generated with Fortuna
 
 
-  var aesEncrypter = AesCrypt(FortunaKey, 'cbc', 'iso10126-2'); //generate AES CBC block encrypter with key and ISO7816-4 padding
+  var aesEncrypter = AesCrypt(FortunaKey, 'cbc',
+      'iso10126-2'); //generate AES block encrypter with key and ISO7816-4 padding
 
-  var aesEncrypter2 = AesCrypt(FortunaKey, 'ofb-64', 'pkcs7'); //generate AES CBC block encrypter with key and PKCS7 padding
+  var aesEncrypter2 = AesCrypt(FortunaKey, 'ofb-64',
+      'pkcs7'); //generate AES OFB-64 block encrypter with key and PKCS7 padding
 
   var streamAES = AesCrypt(FortunaKey, 'ctr'); //generate AES CTR stream encrypter with key
 
@@ -181,16 +176,13 @@ main() {
   var hasher3 = MacCrypt(FortunaKey, "CMAC", 'cfb-64'); //CMAC AES CFB-64 Hasher
 
 
-  var passHash = PassCrypt('Blake2b/HMAC/PBKDF2'); //generate PBKDF2 password hasher
+  var passHash = PassCrypt('scrypt'); //generate scrypt password hasher
 
 
-  var iv = CryptKey().genDart(16); //generate iv for AES with Dart Random.secure()
+  var ivsalt = CryptKey().genDart(
+      16); //generate iv for AES with Dart Random.secure()
 
-  var iv2 = CryptKey().genDart(12); //generate iv for ChaCha20 with Dart Random.secure()
-
-
-  var salt = CryptKey().genDart(16); //generate salt for password hashing with Dart Random.secure()
-
+  var iv2 = CryptKey().genDart(8); //generate iv for ChaCha20 with Dart Random.secure()
 
   //Print key
   print ("Key:");
@@ -200,12 +192,26 @@ main() {
   print("");
 
 
+  //Print IV
+  print ("IV (AES/Scrypt):");
+
+  print(ivsalt);
+
+  print("");
+
+  //Print IV
+  print ("IV (ChaCha20):");
+
+  print(iv2);
+
+  print("");
+  
   //SHA-3 512 Hash
   print("SHA-3 512 Hash:");
 
-  print(hasher.hash('example')); //perform hash
+  String hash = hasher.hash('example'); //perform hash
 
-  var hash = hasher.hash('example');
+  print(hash);
 
   print(hasher.checkhash('example', hash)); //perform check
 
@@ -214,22 +220,22 @@ main() {
   //CMAC AES CFB-64 Hash
   print("CMAC AES CFB-64 Hash:");
 
-  print(hasher3.process('words')); //perform hash
+  var hash3 = hasher3.process('words'); //perform hash
 
-  var hash3 = hasher3.process('words');
+  print(hash3);
 
   print(hasher3.check('words', hash3)); //perform check
 
   print("");
 
-  //Password (Blake2b/HMAC/PBKDF2)
-  print("Password hash (Blake2b/HMAC/PBKDF2):");
+  //Password (scrypt)
+  print("Password hash (scrypt):");
 
-  print(passHash.hashPass(salt, "words")); //perform hash
+  var hash4 = passHash.hashPass(ivsalt, "words"); //perform hash
 
-  var hash4 = passHash.hashPass(salt, "words");
+  print(hash4);
 
-  print(passHash.checkPassKey(salt, "words", hash4)); //perform check
+  print(passHash.checkPassKey(ivsalt, "words", hash4)); //perform check
 
   print("");
 
@@ -237,9 +243,9 @@ main() {
   //12-Round ChaCha20; Symmetric stream cipher
   print("ChaCha20 Symmetric:");
 
-  print(encrypter3.encrypt('word', iv2)); //encrypt
+  String crypted3 = encrypter3.encrypt('broken', iv2); //encrypt
 
-  String crypted3 = encrypter3.encrypt('word', iv2);
+  print(crypted3);
 
   print(encrypter3.decrypt(crypted3, iv2)); //decrypt
 
@@ -247,37 +253,37 @@ main() {
 
 
   //AES CBC with ISO7816-4 padding; Symmetric block cipher
-  print("AES Symmetric:");
+  print("AES Symmetric CBC:");
 
-  print(aesEncrypter.encrypt('words', iv)); //encrypt
+  String crypted = aesEncrypter.encrypt('words', ivsalt); //encrypt
 
-  String crypted = aesEncrypter.encrypt('words', iv);
+  print(crypted);
 
-  print(aesEncrypter.decrypt(crypted, iv)); //decrypt
+  print(aesEncrypter.decrypt(crypted, ivsalt)); //decrypt
 
   print("");
 
 
   //AES OFB-64 with PKCS7 padding; Symmetric block cipher
-  print("AES Symmetric:");
+  print("AES Symmetric OFB-64:");
 
-  print(aesEncrypter2.encrypt('words', iv)); //encrypt
+  String crypted2 = aesEncrypter2.encrypt('words', ivsalt); //encrypt
 
-  String crypted2 = aesEncrypter2.encrypt('words', iv);
+  print(crypted2);
 
-  print(aesEncrypter2.decrypt(crypted2, iv)); //decrypt
+  print(aesEncrypter2.decrypt(crypted2, ivsalt)); //decrypt
 
   print("");
 
 
   //AES CTR; Symmetric stream cipher
-  print("AES Symmetric:");
+  print("AES Symmetric CTR:");
 
-  print(streamAES.encrypt('words', iv)); //encrypt
+  String crypted5 = streamAES.encrypt('words', ivsalt); //Encrypt.
 
-  String crypted5 = streamAES.encrypt('words', iv);
+  print(crypted5);
 
-  print(streamAES.decrypt(crypted5, iv)); //decrypt
+  print(streamAES.decrypt(crypted5, ivsalt)); //Decrypt.
 
   print("");
 
@@ -285,11 +291,11 @@ main() {
   //RSA with OAEP padding; Asymmetric
   print("RSA Asymmetric:");
 
-  var crypted4 = encrypter2.encrypt("word", encrypter2.pubKey); //encrypt
+  var crypted4 = encrypter2.encrypt("word", encrypter2.randPubKey); //encrypt
 
   print(crypted4);
 
-  print(encrypter2.decrypt(crypted4, encrypter2.privKey)); //decrypt
+  print(encrypter2.decrypt(crypted4, encrypter2.randPrivKey)); //decrypt
 
   print("");
 }
