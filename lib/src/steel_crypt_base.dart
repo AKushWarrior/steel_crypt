@@ -5,30 +5,22 @@
 // © 2019 Aditya Kishore
 
 //Import needed dart packages
+import 'dart:convert';
 import 'dart:core';
 import 'dart:core' as core;
+import 'dart:io';
 import 'dart:math';
 import 'dart:typed_data';
-import 'dart:convert';
-import 'dart:io';
 
-//Import asn1lib for PEM translation
 import 'package:asn1lib/asn1lib.dart';
 
-//Import modified version of PointyCastle
 import '../PointyCastleN/api.dart';
 import '../PointyCastleN/export.dart';
 
-//Import manually defined ChaCha20 variants
-import 'algos/chacha/chacha20.dart';
-import 'algos/chacha/chacha12.dart';
-import 'algos/chacha/chacha8.dart';
-
-//Parts for export
-part 'rsa.dart'; //for RsaCrypt
-part 'light.dart'; //for LightCrypt
-part 'pass.dart'; //for PassCrypt
 part 'aes.dart'; //for AesCrypt
-part 'key.dart'; //for CryptKey
 part 'hash.dart'; //for HashCrypt
+part 'key.dart'; //for CryptKey
+part 'light.dart'; //for LightCrypt
 part 'mac.dart'; //for MacCrypt
+part 'pass.dart'; //for PassCrypt
+part 'rsa.dart'; //for RsaCrypt

@@ -53,7 +53,7 @@ class RsaCrypt {
       String filename) async {
     final file = File(filename);
     final key = await file.readAsString();
-    final parser = RSAKeyParser();
+    final parser = _RSAKeyParser();
     return parser.parse(key) as T;
   }
 
@@ -75,7 +75,7 @@ class RsaCrypt {
 }
 
 /// RSA PEM parser. Not for public use, don't use!!!
-class RSAKeyParser {
+class _RSAKeyParser {
   RSAAsymmetricKey parse(String key) {
     final rows = key.split(RegExp(r'\r\n?|\n'));
     final header = rows.first;

@@ -1,4 +1,11 @@
-## 1.3.2
+## 1.4.1 BREAKING
+- Revamped ChaCha20 algorithm to:
+    * Be compliant with the original definition
+    * Work with the UTF-8 charset
+- Bettered documentation
+- Cleaned up code
+
+## 1.3.2-1.3.2+1
 - Fixed bug in ECB mode for AES
 - Cleaned up code
 - Updated README for AES bugfix

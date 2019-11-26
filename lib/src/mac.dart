@@ -50,7 +50,7 @@ class _HMAC {
   static List<String> _pads = ['aWM'];
 
   _HMAC(String key, [String algo = 'SHA-3/256']) {
-    var _inter = base64.decode(key);
+    var _inter = utf8.encode(key).sublist(0, 32);
     _listkey = KeyParameter(_inter);
     _algorithm = algo;
   }
@@ -58,12 +58,12 @@ class _HMAC {
   String process(core.String input) {
     var bytes;
     if (input.length % 4 == 0) {
-      bytes = Base64Codec().decode(input);
+      bytes = utf8.encode(input);
     } else {
       var advinput = input;
       advinput = input + _pads[0];
       advinput = advinput.substring(0, advinput.length - advinput.length % 4);
-      bytes = Base64Codec().decode(advinput);
+      bytes = utf8.encode(advinput);
     }
     final _tmp = HMac(Digest(_algorithm), 128)
       ..init(_listkey);
@@ -83,7 +83,7 @@ class _CMAC {
   String _algorithm;
 
   _CMAC(String key, [algo = 'cfb-64']) {
-    var _inter = base64.decode(key);
+    var _inter = utf8.encode(key).sublist(0, 32);
     _listkey = KeyParameter(_inter);
     _algorithm = algo;
   }
@@ -91,12 +91,12 @@ class _CMAC {
   String process(core.String input) {
     var bytes;
     if (input.length % 4 == 0) {
-      bytes = Base64Codec().decode(input);
+      bytes = utf8.encode(input);
     } else {
       var advinput = input;
       advinput = input + _pads[0];
       advinput = advinput.substring(0, advinput.length - advinput.length % 4);
-      bytes = Base64Codec().decode(advinput);
+      bytes = utf8.encode(advinput);
     }
     final _tmp = CMac(BlockCipher('AES/' + _algorithm.toUpperCase()), 64)
       ..init(_listkey);

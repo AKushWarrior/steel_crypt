@@ -43,12 +43,12 @@ dollars to help me continue development.
 #### Lightweight Stream Ciphers (class LightCrypt)
 * Constructor: ```LightCrypt('32 length key', 'algorithm here')```
 * ChaCha20 stream cipher ('ChaCha20/__')
-    - Derivative of Salsa20 with increased security
+    - Derivative of Salsa20 with increased security/speed
     - Can be used in 3 variants:
         - 20 round ( __ ==> '20' ) _(Default/Recommended Cipher)_
         - 12 round ( __ ==> '12' )
         - 8 round ( __ ==> '8' )
-    - __Note__: Requires 12 bytes of IV (Initialization Vector, see CryptKey for generation)
+    - __Note__: Requires 8 bytes of IV (Initialization Vector, see CryptKey for generation)
 * Salsa20 stream cipher ('Salsa20/__')
     - Secure, speedy AES alternative
     - E-Crypt Stream Cipher final portfolio
@@ -128,8 +128,8 @@ dollars to help me continue development.
 #### MAC's (class MacCrypt)
 * Constructor: ```MacCrypt ('32 length key', 'CMAC or HMAC', 'algorithm here')```
 * HMAC and CMAC are available
-    - For HMAC algorithm field, use any available __hashing__ algorithm in HashCrypt
-    - For CMAC algorithm field, use any available AES __block cipher__ algorithm in AESCrypt
+    - For HMAC algorithm field, use any available __hashing__ algorithm in HashCrypt for `algorithm`
+    - For CMAC algorithm field, use any available AES __block cipher__ algorithm in AESCrypt for `algorithm`
 
 #### Key/IV Generation (class CryptKey)
 * Constructor: `CryptKey()`

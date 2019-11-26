@@ -53,7 +53,7 @@ class AesCrypt {
   }
 
   ///Encrypt (with iv) and return in base 64.
-  core.String encrypt(core.String input, core.String iv) {
+  core.String encrypt(core.String input, [core.String iv = ""]) {
     if (_mode != "ecb") {
       if (_paddingName == 'none') {
         var localKey = utf8.encode(_key32);
@@ -91,7 +91,7 @@ class AesCrypt {
   }
 
   ///Decrypt base 64 (with iv) and return original.
-  core.String decrypt(core.String encrypted, core.String iv) {
+  core.String decrypt(core.String encrypted, [core.String iv = ""]) {
     if (_mode != "ecb") {
       if (_paddingName == 'none') {
         var localKey = utf8.encode(_key32);

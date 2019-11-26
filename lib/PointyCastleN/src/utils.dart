@@ -28,3 +28,12 @@ Uint8List encodeBigInt(BigInt number) {
   }
   return result;
 }
+
+Uint8List toByteArray(String inp) {
+  Uint8List bytes = Uint8List(inp.length);
+  for (int i = 0; i != bytes.length; i++) {
+    int ch = inp.codeUnitAt(i);
+    bytes[i] = ch;
+  }
+  return bytes;
+}

@@ -12,6 +12,8 @@ const _MASK_6 = 0x3F;
 const _MASK_8 = 0xFF;
 const _MASK_16 = 0xFFFF;
 const _MASK_32 = 0xFFFFFFFF;
+const _MASK_64 = 0xFFFFFFFFFFFFFFFF;
+
 
 final _MASK32_HI_BITS = [
   0xFFFFFFFF,
@@ -52,6 +54,21 @@ final _MASK32_HI_BITS = [
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 // 8 bit operations
 //
+void pack8(int x, dynamic out, int offset, Endian endian) {
+  assert((x >= 0) && (x <= _MASK_8));
+  if (out is! ByteData) {
+    out = ByteData.view(out.buffer, out.offsetInBytes, out.length);
+  }
+  (out as ByteData).setUint8(offset, x);
+}
+
+int unpack8(dynamic inp, int offset, Endian endian) {
+  if (inp is! ByteData) {
+    inp = ByteData.view(inp.buffer, inp.offsetInBytes, inp.length);
+  }
+  return (inp as ByteData).getUint8(offset);
+}
+
 int clip8(int x) => (x & _MASK_8);
 
 int csum8(int x, int y) => sum8(clip8(x), clip8(y));

@@ -16,7 +16,7 @@ class Salsa20Engine extends BaseStreamCipher {
   static final FactoryConfig FACTORY_CONFIG =
       StaticFactoryConfig(StreamCipher, "Salsa20", () => Salsa20Engine());
 
-  static const _STATE_SIZE = 16;
+  static const STATE_SIZE = 16;
 
   static final _sigma = Uint8List.fromList("expand 32-byte k".codeUnits);
   static final _tau = Uint8List.fromList("expand 16-byte k".codeUnits);
@@ -24,10 +24,10 @@ class Salsa20Engine extends BaseStreamCipher {
   Uint8List _workingKey;
   Uint8List _workingIV;
 
-  final _state = List<int>(_STATE_SIZE);
-  final _buffer = List<int>(_STATE_SIZE);
+  final _state = List<int>(STATE_SIZE);
+  final _buffer = List<int>(STATE_SIZE);
 
-  final _keyStream = Uint8List(_STATE_SIZE * 4);
+  final _keyStream = Uint8List(STATE_SIZE * 4);
   var _keyStreamOffset = 0;
 
   var _initialised = false;
@@ -138,7 +138,7 @@ class Salsa20Engine extends BaseStreamCipher {
   }
 
   void _generateKeyStream(Uint8List output) {
-    _salsa20Core(20, _state, _buffer);
+    _core(20, _state, _buffer);
     var outOff = 0;
     for (var x in _buffer) {
       pack32(x, output, outOff, Endian.little);
@@ -147,7 +147,7 @@ class Salsa20Engine extends BaseStreamCipher {
   }
 
   /// The Salsa20 core function
-  void _salsa20Core(int rounds, List<int> input, List<int> x) {
+  void _core(int rounds, List<int> input, List<int> x) {
     x.setAll(0, input);
 
     for (var i = rounds; i > 0; i -= 2) {
@@ -185,7 +185,7 @@ class Salsa20Engine extends BaseStreamCipher {
       x[15] ^= crotl32((x[14] + x[13]), 18);
     }
 
-    for (int i = 0; i < _STATE_SIZE; ++i) {
+    for (int i = 0; i < STATE_SIZE; ++i) {
       x[i] = sum32(x[i], input[i]);
     }
   }

@@ -8,8 +8,7 @@ part of 'steel_crypt_base.dart';
 
 ///Class to perform one-way hashing using common algorithms.
 class HashCrypt {
-  core.String _type;
-  List<String> _pads = ['RnL'];
+  String _type;
 
   ///Get this HashCrypt's hashing algorithm.
   String get type {
@@ -22,20 +21,13 @@ class HashCrypt {
   }
 
   ///Hash with given input.
-  core.String hash(String input) {
-    var bytes;
-    if (input.length % 4 == 0) {
-      bytes = Base64Codec().decode(input);
-    } else {
-      var advinput = input;
-      advinput = input + _pads[0];
-      advinput = advinput.substring(0, advinput.length - advinput.length % 4);
-      bytes = Base64Codec().decode(advinput);
-    }
+  String hash(String input) {
+    var bytes = utf8.encode(input);
+    ;
     Digest digest;
     digest = Digest(_type);
     var value = digest.process(bytes);
-    return Base64Codec().encode(value);
+    return base64.encode(value);
   }
 
   ///Check hashed against plain
