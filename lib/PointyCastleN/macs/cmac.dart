@@ -65,7 +65,6 @@ class CMac extends BaseMac {
 
   CMac.fromCipher(BlockCipher cipher) : this(cipher, cipher.blockSize * 8);
 
-
   ///* create a standard MAC based on a block cipher with the size of the
   ///* MAC been given in bits.
   ///* <p>
@@ -188,7 +187,7 @@ class CMac extends BaseMac {
 
   @override
   void init(covariant KeyParameter keyParams) {
-    final zeroIV = Uint8List(keyParams.key.length).sublist(0,8);
+    final zeroIV = Uint8List(keyParams.key.length).sublist(0, 8);
     this._params = ParametersWithIV(keyParams, zeroIV);
 
     // Initialize before computing L, Lu, Lu2

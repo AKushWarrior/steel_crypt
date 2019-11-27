@@ -12,13 +12,19 @@ void main(List<String> args) {
   final argParser = ArgParser();
 
   argParser.addOption('text',
-      abbr: 't', defaultsTo: '', help: 'Input the encrypted string to be decrypted here...');
+      abbr: 't',
+      defaultsTo: '',
+      help: 'Input the encrypted string to be decrypted here...');
 
   argParser.addOption('key',
-      abbr: 'k', defaultsTo: '', help: 'Input the key to decrypt the word here...');
+      abbr: 'k',
+      defaultsTo: '',
+      help: 'Input the key to decrypt the word here...');
 
   argParser.addOption('iv',
-      abbr: 'i', defaultsTo: '', help: 'Input the IV to decrypt the word here...');
+      abbr: 'i',
+      defaultsTo: '',
+      help: 'Input the IV to decrypt the word here...');
 
   argParser.addFlag('help',
       abbr: 'h', defaultsTo: false, help: 'Show this help message');

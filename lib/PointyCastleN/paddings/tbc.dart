@@ -15,7 +15,7 @@ import '../src/registry/registry.dart';
 
 class TBCPadding extends BasePadding {
   static final FactoryConfig FACTORY_CONFIG =
-  StaticFactoryConfig(Padding, "TBC", () => TBCPadding());
+      StaticFactoryConfig(Padding, "TBC", () => TBCPadding());
 
   String get algorithmName => "TBC";
 
@@ -28,12 +28,11 @@ class TBCPadding extends BasePadding {
   /// number of bytes added.
   @override
   int addPadding(Uint8List data, int offset) {
-    int count = data.length-offset;
+    int count = data.length - offset;
     int code;
-    if (offset>0) {
+    if (offset > 0) {
       code = ((data[offset - 1] & 0x01) == 0 ? 0xff : 0x00);
-    }
-    else {
+    } else {
       code = ((data[data.length - 1] & 0x01) == 0 ? 0xff : 0x00);
     }
     while (offset < data.length) {
@@ -46,11 +45,11 @@ class TBCPadding extends BasePadding {
   /// return the number of pad bytes present in the block.
   @override
   int padCount(Uint8List data) {
-    int code = data[data.length-1];
-    int index = data.length-1;
-    while (index > 0 && data[index-1] == code) {
+    int code = data[data.length - 1];
+    int index = data.length - 1;
+    while (index > 0 && data[index - 1] == code) {
       index -= 1;
     }
-    return data.length -index;
+    return data.length - index;
   }
 }

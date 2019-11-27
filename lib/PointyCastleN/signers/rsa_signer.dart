@@ -81,8 +81,7 @@ class RSASigner implements Signer {
 
   RSASignature generateSignature(Uint8List message) {
     if (!_forSigning) {
-      throw StateError(
-          "Signer was not initialised for signature generation");
+      throw StateError("Signer was not initialised for signature generation");
     }
 
     var hash = Uint8List(_digest.digestSize);
@@ -98,8 +97,7 @@ class RSASigner implements Signer {
 
   bool verifySignature(Uint8List message, covariant RSASignature signature) {
     if (_forSigning) {
-      throw StateError(
-          "Signer was not initialised for signature verification");
+      throw StateError("Signer was not initialised for signature verification");
     }
 
     var hash = Uint8List(_digest.digestSize);
@@ -147,8 +145,7 @@ class RSASigner implements Signer {
   }
 
   Uint8List _derEncode(Uint8List hash) {
-    var out =
-        Uint8List(2 + 2 + _digestIdentifier.length + 2 + 2 + hash.length);
+    var out = Uint8List(2 + 2 + _digestIdentifier.length + 2 + 2 + hash.length);
     var i = 0;
 
     // header

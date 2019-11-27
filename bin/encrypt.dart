@@ -6,20 +6,25 @@
 
 import 'package:steel_crypt/steel_crypt.dart';
 
-
 import 'package:args/args.dart';
 
 void main(List<String> args) {
   final argParser = ArgParser();
 
   argParser.addOption('text',
-      abbr: 't', defaultsTo: '', help: 'Input the word to be encrypted here...');
+      abbr: 't',
+      defaultsTo: '',
+      help: 'Input the word to be encrypted here...');
 
   argParser.addOption('key',
-      abbr: 'k', defaultsTo: '', help: 'Input the key to encrypt the word here...');
+      abbr: 'k',
+      defaultsTo: '',
+      help: 'Input the key to encrypt the word here...');
 
   argParser.addOption('iv',
-      abbr: 'i', defaultsTo: '', help: 'Input the IV to encrypt the word here...');
+      abbr: 'i',
+      defaultsTo: '',
+      help: 'Input the IV to encrypt the word here...');
 
   argParser.addFlag('help',
       abbr: 'h', defaultsTo: false, help: 'Show this help message');

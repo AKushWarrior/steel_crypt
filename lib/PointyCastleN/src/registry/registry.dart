@@ -15,8 +15,8 @@ abstract class FactoryRegistry {
   void register<T>(FactoryConfig config);
 }
 
-typedef /*Registrable*/ RegistrableConstructor();
-typedef RegistrableConstructor DynamicConstructorFactory(
+typedef /*Registrable*/ RegistrableConstructor = Function();
+typedef DynamicConstructorFactory = RegistrableConstructor Function(
     String registrableName, Match match);
 
 abstract class FactoryConfig {

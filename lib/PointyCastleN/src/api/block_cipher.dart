@@ -16,12 +16,9 @@ abstract class BlockCipher extends Algorithm {
   /// Reset the cipher to its original state.
   void reset();
 
-
   void init(bool forEncryption, CipherParameters params);
 
-
   Uint8List process(Uint8List data);
-
 
   int processBlock(Uint8List inp, int inpOff, Uint8List out, int outOff);
 }

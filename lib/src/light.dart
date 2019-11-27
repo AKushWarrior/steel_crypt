@@ -51,7 +51,9 @@ class LightCrypt {
 
   ///Encrypt (with iv) and return in base 64
   core.String encrypt(core.String input, core.String iv) {
-    if (_type == 'Salsa20' || _type == 'Salsa20/8' || _type == 'Salsa20/12' ||
+    if (_type == 'Salsa20' ||
+        _type == 'Salsa20/8' ||
+        _type == 'Salsa20/12' ||
         _type == "ChaCha20" ||
         _type == "ChaCha20/12" ||
         _type == "ChaCha20/8") {
@@ -97,7 +99,9 @@ class LightCrypt {
 
   ///Decrypt base 64 (with iv) and return original
   core.String decrypt(core.String encrypted, core.String iv) {
-    if (_type == 'Salsa20' || _type == 'Salsa20/8' || _type == 'Salsa20/12' ||
+    if (_type == 'Salsa20' ||
+        _type == 'Salsa20/8' ||
+        _type == 'Salsa20/12' ||
         _type == "ChaCha20" ||
         _type == "ChaCha20/12" ||
         _type == "ChaCha20/8") {

@@ -65,8 +65,7 @@ class _HMAC {
       advinput = advinput.substring(0, advinput.length - advinput.length % 4);
       bytes = utf8.encode(advinput);
     }
-    final _tmp = HMac(Digest(_algorithm), 128)
-      ..init(_listkey);
+    final _tmp = HMac(Digest(_algorithm), 128)..init(_listkey);
     var val = _tmp.process(bytes);
     return base64.encode(val);
   }

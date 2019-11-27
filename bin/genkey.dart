@@ -12,7 +12,9 @@ void main(List<String> args) {
   final argParser = ArgParser();
 
   argParser.addOption('length',
-      abbr: 'l', defaultsTo: '32', help: 'Input the encrypted string to be decrypted here...');
+      abbr: 'l',
+      defaultsTo: '32',
+      help: 'Input the encrypted string to be decrypted here...');
 
   argParser.addFlag('help',
       abbr: 'h', defaultsTo: false, help: 'Show this help message');

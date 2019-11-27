@@ -33,7 +33,7 @@ class Grain128Engine extends BaseStreamCipher {
     if (iv == null || iv.length != 12) {
       throw ArgumentError("Grain-128  requires exactly 12 bytes of IV");
     }
-    for (var i = 0; i< 12; i++) {
+    for (var i = 0; i < 12; i++) {
       workingIV[i] = iv[i];
     }
     workingKey = keyparam.key.sublist(0, keyparam.key.length);
@@ -134,7 +134,7 @@ class Grain128Engine extends BaseStreamCipher {
   }
 
   static void setKey(Uint8List keyBytes, Uint8List ivBytes) {
-    for (var i =0; i<12;i++) {
+    for (var i = 0; i < 12; i++) {
       workingIV[i] = ivBytes[i];
     }
     workingIV[12] = 0xFF;
@@ -143,10 +143,7 @@ class Grain128Engine extends BaseStreamCipher {
     workingIV[15] = 0xFF;
     workingKey = keyBytes;
 
-
-    /**
-   * Load NFSR and LFSR
-   */
+    // Load NFSR and LFSR
     int j = 0;
     for (int i = 0; i < nfsr.length; i++) {
       nfsr[i] = ((workingKey[j + 3]) << 24) |
@@ -205,10 +202,8 @@ class Grain128Engine extends BaseStreamCipher {
     return (inp ^ getKeyStream());
   }
 
-  static int getKeyStream()
-  {
-    if (index > 3)
-    {
+  static int getKeyStream() {
+    if (index > 3) {
       oneRound();
       index = 0;
     }

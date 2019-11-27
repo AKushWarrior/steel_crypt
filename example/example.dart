@@ -7,8 +7,8 @@
 import 'package:steel_crypt/steel_crypt.dart';
 
 main() {
-  var FortunaKey = CryptKey().genFortuna(); //generate 32 byte key generated with Fortuna
-
+  var FortunaKey =
+      CryptKey().genFortuna(); //generate 32 byte key generated with Fortuna
 
   var aesEncrypter = AesCrypt(FortunaKey, 'cbc',
       'iso10126-2'); //generate AES block encrypter with key and ISO7816-4 padding
@@ -16,36 +16,32 @@ main() {
   var aesEncrypter2 = AesCrypt(FortunaKey, 'ofb-64',
       'pkcs7'); //generate AES OFB-64 block encrypter with key and PKCS7 padding
 
-  var streamAES = AesCrypt(FortunaKey, 'ctr'); //generate AES CTR stream encrypter with key
-
+  var streamAES =
+      AesCrypt(FortunaKey, 'ctr'); //generate AES CTR stream encrypter with key
 
   var encrypter2 = RsaCrypt(); //generate RSA encrypter
 
-
-  var encrypter3 = LightCrypt(FortunaKey, "ChaCha20/12"); //generate ChaCha20/12 encrypter
-
+  var encrypter3 =
+      LightCrypt(FortunaKey, "ChaCha20/12"); //generate ChaCha20/12 encrypter
 
   var hasher = HashCrypt("SHA-3/512"); //generate SHA-3/512 hasher
 
   var hasher3 = MacCrypt(FortunaKey, "CMAC", 'cfb-64'); //CMAC AES CFB-64 Hasher
 
-
   var passHash = PassCrypt('scrypt'); //generate scrypt password hasher
 
+  var ivsalt =
+      CryptKey().genDart(16); //generate iv for AES with Dart Random.secure()
 
-  var ivsalt = CryptKey().genDart(
-      16); //generate iv for AES with Dart Random.secure()
-
-  var iv2 = CryptKey().genDart(
-      8); //generate iv for ChaCha20 with Dart Random.secure()
+  var iv2 = CryptKey()
+      .genDart(8); //generate iv for ChaCha20 with Dart Random.secure()
 
   //Print key
-  print ("Key:");
+  print("Key:");
 
   print(FortunaKey);
 
   print("");
-
 
   //Print IV
   print("IV (AES/Scrypt):");
@@ -94,7 +90,6 @@ main() {
 
   print("");
 
-
   //12-Round ChaCha20; Symmetric stream cipher
   print("ChaCha20 Symmetric:");
 
@@ -105,7 +100,6 @@ main() {
   print(encrypter3.decrypt(crypted3, iv2)); //decrypt
 
   print("");
-
 
   //AES CBC with ISO7816-4 padding; Symmetric block cipher
   print("AES Symmetric CBC:");
@@ -118,7 +112,6 @@ main() {
 
   print("");
 
-
   //AES OFB-64 with PKCS7 padding; Symmetric block cipher
   print("AES Symmetric OFB-64:");
 
@@ -130,7 +123,6 @@ main() {
 
   print("");
 
-
   //AES CTR; Symmetric stream cipher
   print("AES Symmetric CTR:");
 
@@ -141,7 +133,6 @@ main() {
   print(streamAES.decrypt(crypted5, ivsalt)); //Decrypt.
 
   print("");
-
 
   //RSA with OAEP padding; Asymmetric
   print("RSA Asymmetric:");

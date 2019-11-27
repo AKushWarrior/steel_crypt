@@ -12,8 +12,6 @@ const _MASK_6 = 0x3F;
 const _MASK_8 = 0xFF;
 const _MASK_16 = 0xFFFF;
 const _MASK_32 = 0xFFFFFFFF;
-const _MASK_64 = 0xFFFFFFFFFFFFFFFF;
-
 
 final _MASK32_HI_BITS = [
   0xFFFFFFFF,

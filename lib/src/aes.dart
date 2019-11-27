@@ -79,9 +79,8 @@ class AesCrypt {
       }
     } else {
       var key = utf8.encode(_key32);
-      var ivLocal = utf8.encode(iv);
       CipherParameters params =
-      PaddedBlockCipherParameters(KeyParameter(key.sublist(0, 32)), null);
+          PaddedBlockCipherParameters(KeyParameter(key.sublist(0, 32)), null);
       PaddedBlockCipher cipher = PaddedBlockCipher(
           "AES/" + _mode.toUpperCase() + "/" + _paddingName.toUpperCase());
       cipher..init(true, params);
@@ -118,7 +117,7 @@ class AesCrypt {
     } else {
       var key = utf8.encode(_key32);
       CipherParameters params =
-      PaddedBlockCipherParameters(KeyParameter(key.sublist(0, 32)), null);
+          PaddedBlockCipherParameters(KeyParameter(key.sublist(0, 32)), null);
       PaddedBlockCipher cipher = PaddedBlockCipher(
           "AES/" + _mode.toUpperCase() + "/" + _paddingName.toUpperCase());
       cipher..init(false, params);
