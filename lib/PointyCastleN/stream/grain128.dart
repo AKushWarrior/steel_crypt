@@ -143,9 +143,7 @@ class Grain128Engine extends BaseStreamCipher {
     workingIV[15] = 0xFF;
     workingKey = keyBytes;
 
-    /**
-   * Load NFSR and LFSR
-   */
+    // Load NFSR and LFSR
     int j = 0;
     for (int i = 0; i < nfsr.length; i++) {
       nfsr[i] = ((workingKey[j + 3]) << 24) |

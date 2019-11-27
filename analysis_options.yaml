@@ -4,11 +4,7 @@
 include: package:pedantic/analysis_options.yaml
 
 # For lint rules and documentation, see http://dart-lang.github.io/linter/lints.
-# Uncomment to specify additional rules.
-# linter:
-#   rules:
-#     - camel_case_types
-
-# analyzer:
-#   exclude:
-#     - path/to/excluded/files/**
+linter:
+  rules:
+    # Not defined in pedantic lints, but fixed by `dartfmt --fix -w .`
+    - prefer_generic_function_type_aliases
