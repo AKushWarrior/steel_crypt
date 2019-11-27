@@ -18,16 +18,14 @@ import '../src/registry/registry.dart';
 
 class x923Padding extends BasePadding {
   static final FactoryConfig FACTORY_CONFIG =
-  StaticFactoryConfig(Padding, "X9.23", () => x923Padding());
+      StaticFactoryConfig(Padding, "X9.23", () => x923Padding());
 
   String get algorithmName => "X9.23";
 
   SecureRandom random;
 
   @override
-  void init([CipherParameters params]) {
-
-  }
+  void init([CipherParameters params]) {}
 
   /// add the pad bytes to the passed in block, returning the
   /// number of bytes added.
@@ -52,9 +50,8 @@ class x923Padding extends BasePadding {
   /// return the number of pad bytes present in the block.
   @override
   int padCount(Uint8List data) {
-    int count = data[data.length-1] & 0xff;
-    if (count > data.length)
-    {
+    int count = data[data.length - 1] & 0xff;
+    if (count > data.length) {
       throw UnsupportedError("pad block corrupted");
     }
     return count;

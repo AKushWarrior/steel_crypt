@@ -17,7 +17,7 @@ import '../src/impl/base_mac.dart';
 ///
 class HMac extends BaseMac {
   static final FactoryConfig FACTORY_CONFIG =
-  DynamicFactoryConfig.suffix(Mac, "/HMAC", (_, Match match) {
+      DynamicFactoryConfig.suffix(Mac, "/HMAC", (_, Match match) {
     final String digestName = match.group(1);
     final int blockLength = _DIGEST_BLOCK_LENGTH[digestName];
     if (blockLength == null) {
@@ -48,7 +48,6 @@ class HMac extends BaseMac {
     "Tiger": 64,
     "Whirlpool": 64,
   };
-
 
   static final _IPAD = 0x36;
   static final _OPAD = 0x5C;

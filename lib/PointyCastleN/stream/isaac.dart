@@ -10,10 +10,9 @@ import '../api.dart';
 import '../src/impl/base_stream_cipher.dart';
 import '../src/registry/registry.dart';
 
-
 class ISAACEngine extends BaseStreamCipher {
   static final FactoryConfig FACTORY_CONFIG =
-  StaticFactoryConfig(StreamCipher, "ISAAC", () => ISAACEngine());
+      StaticFactoryConfig(StreamCipher, "ISAAC", () => ISAACEngine());
 
   // Constants
   static int sizeL = 8;
@@ -24,14 +23,12 @@ class ISAACEngine extends BaseStreamCipher {
   // Cipher's internal state
   Uint8List engineState; // mm
   Uint8List results; // randrsl
-  int a = 0,
-      b = 0,
-      c = 0;
+  int a = 0, b = 0, c = 0;
 
   // Engine state
   int index = 0;
-  Uint8List keyStream = Uint8List(
-      stateArraySize << 2); // results expanded into bytes
+  Uint8List keyStream =
+      Uint8List(stateArraySize << 2); // results expanded into bytes
   Uint8List workingKey;
   bool initialised = false;
 
@@ -65,23 +62,22 @@ class ISAACEngine extends BaseStreamCipher {
   }
 
   static void intToBigEndian(int n, Uint8List bs, int off) {
-    bs[ off] = (n >> 24);
+    bs[off] = (n >> 24);
     bs[++off] = (n >> 16);
     bs[++off] = (n >> 8);
     bs[++off] = (n);
   }
 
-  static int littleEndianToInt(Uint8List bs, int off)
-  {
-  int n = bs[off] & 0xff;
-  n |= (bs[++off] & 0xff) << 8;
-  n |= (bs[++off] & 0xff) << 16;
-  n |= bs[++off] << 24;
-  return n;
+  static int littleEndianToInt(Uint8List bs, int off) {
+    int n = bs[off] & 0xff;
+    n |= (bs[++off] & 0xff) << 8;
+    n |= (bs[++off] & 0xff) << 16;
+    n |= bs[++off] << 24;
+    return n;
   }
 
-  int processBytes(Uint8List inp, int inOff, int len, Uint8List out,
-      int outOff) {
+  int processBytes(
+      Uint8List inp, int inOff, int len, Uint8List out, int outOff) {
     if (!initialised) {
       throw StateError("ISAAC" + " not initialised");
     }
@@ -105,7 +101,6 @@ class ISAACEngine extends BaseStreamCipher {
 
     return len;
   }
-
 
   void reset() {
     setKey(workingKey);
@@ -139,7 +134,7 @@ class ISAACEngine extends BaseStreamCipher {
     var counter = 0;
     for (var i in keyBytes) {
       t[counter] = i;
-      counter ++;
+      counter++;
     }
     for (i = 0; i < t.length; i += 4) {
       results[i >> 2] = littleEndianToInt(t, i);
@@ -201,15 +196,30 @@ class ISAACEngine extends BaseStreamCipher {
     }
   }
 
-  void mix (Uint8List x)
-  {
-  x[0]^=x[1]<< 11; x[3]+=x[0]; x[1]+=x[2];
-  x[1]^=x[2]>> 2; x[4]+=x[1]; x[2]+=x[3];
-  x[2]^=x[3]<< 8; x[5]+=x[2]; x[3]+=x[4];
-  x[3]^=x[4]>>16; x[6]+=x[3]; x[4]+=x[5];
-  x[4]^=x[5]<< 10; x[7]+=x[4]; x[5]+=x[6];
-  x[5]^=x[6]>> 4; x[0]+=x[5]; x[6]+=x[7];
-  x[6]^=x[7]<< 8; x[1]+=x[6]; x[7]+=x[0];
-  x[7]^=x[0]>> 9; x[2]+=x[7]; x[0]+=x[1];
+  void mix(Uint8List x) {
+    x[0] ^= x[1] << 11;
+    x[3] += x[0];
+    x[1] += x[2];
+    x[1] ^= x[2] >> 2;
+    x[4] += x[1];
+    x[2] += x[3];
+    x[2] ^= x[3] << 8;
+    x[5] += x[2];
+    x[3] += x[4];
+    x[3] ^= x[4] >> 16;
+    x[6] += x[3];
+    x[4] += x[5];
+    x[4] ^= x[5] << 10;
+    x[7] += x[4];
+    x[5] += x[6];
+    x[5] ^= x[6] >> 4;
+    x[0] += x[5];
+    x[6] += x[7];
+    x[6] ^= x[7] << 8;
+    x[1] += x[6];
+    x[7] += x[0];
+    x[7] ^= x[0] >> 9;
+    x[2] += x[7];
+    x[0] += x[1];
   }
 }

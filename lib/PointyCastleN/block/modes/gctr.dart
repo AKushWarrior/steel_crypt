@@ -37,8 +37,7 @@ class GCTRBlockCipher extends BaseBlockCipher {
 
   GCTRBlockCipher(this._underlyingCipher) {
     if (blockSize != 8) {
-      throw ArgumentError(
-          "GCTR can only be used with 64 bit block ciphers");
+      throw ArgumentError("GCTR can only be used with 64 bit block ciphers");
     }
 
     _IV = Uint8List(_underlyingCipher.blockSize);

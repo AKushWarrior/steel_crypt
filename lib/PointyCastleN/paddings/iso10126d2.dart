@@ -16,7 +16,7 @@ import '../src/registry/registry.dart';
 /// ISO 7814-4 - scheme 2 from ISO 9797-1. The first byte is 0x80, rest is 0x00
 class ISO10126d2Padding extends BasePadding {
   static final FactoryConfig FACTORY_CONFIG =
-  StaticFactoryConfig(Padding, "ISO10126-2", () => ISO10126d2Padding());
+      StaticFactoryConfig(Padding, "ISO10126-2", () => ISO10126d2Padding());
 
   String get algorithmName => "ISO10126-2";
 
@@ -40,10 +40,10 @@ class ISO10126d2Padding extends BasePadding {
     }
     int code = (data.length - offset);
 
-    while (offset < (data.length - 1))
-    {
-    data[offset] = random.nextUint32();;
-    offset++;
+    while (offset < (data.length - 1)) {
+      data[offset] = random.nextUint32();
+      ;
+      offset++;
     }
 
     data[offset] = code;
@@ -56,9 +56,8 @@ class ISO10126d2Padding extends BasePadding {
   int padCount(Uint8List data) {
     int count = data[data.length - 1] & 0xff;
 
-    if (count > data.length)
-    {
-    throw ArgumentError("pad block corrupted");
+    if (count > data.length) {
+      throw ArgumentError("pad block corrupted");
     }
 
     return count;

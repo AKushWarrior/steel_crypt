@@ -277,8 +277,7 @@ class SHA3Digest extends BaseDigest implements Digest {
     }
 
     if ((outputLength % 8) != 0) {
-      throw StateError(
-          "Output length not a multiple of 8: ${outputLength}");
+      throw StateError("Output length not a multiple of 8: ${outputLength}");
     }
 
     i = 0;

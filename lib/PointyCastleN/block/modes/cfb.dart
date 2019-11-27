@@ -49,17 +49,17 @@ class CFBBlockCipher extends BaseBlockCipher {
     _underlyingCipher.reset();
   }
 
-   ///
-   /// Initialise the cipher and, possibly, the initialisation vector (IV).
-   /// If an IV isn't passed as part of the parameter, the IV will be all zeros.
-   /// An IV which is too short is handled in FIPS compliant fashion.
+  ///
+  /// Initialise the cipher and, possibly, the initialisation vector (IV).
+  /// If an IV isn't passed as part of the parameter, the IV will be all zeros.
+  /// An IV which is too short is handled in FIPS compliant fashion.
 
-   /// @param encrypting if true the cipher is initialised for
-   ///  encryption, if false for decryption.
-   /// @param params the key and other data required by the cipher.
-   /// @exception IllegalArgumentException if the params argument is
-   /// inappropriate.
-   ///
+  /// @param encrypting if true the cipher is initialised for
+  ///  encryption, if false for decryption.
+  /// @param params the key and other data required by the cipher.
+  /// @exception IllegalArgumentException if the params argument is
+  /// inappropriate.
+  ///
   void init(bool encrypting, CipherParameters params) {
     _encrypting = encrypting;
 
@@ -88,33 +88,33 @@ class CFBBlockCipher extends BaseBlockCipher {
     }
   }
 
-   /// Process one block of input from the array in and write it to
-   /// the out array.
+  /// Process one block of input from the array in and write it to
+  /// the out array.
 
-   /// @param in the array containing the input data.
-   /// @param inOff offset into the in array the data starts at.
-   /// @param out the array the output data will be copied into.
-   /// @param outOff the offset into the out array the output will start at.
-   /// @exception DataLengthException if there isn't enough data in in, or
-   /// space in out.
-   /// @exception IllegalStateException if the cipher isn't initialised.
-   /// @return the number of bytes processed and produced.
+  /// @param in the array containing the input data.
+  /// @param inOff offset into the in array the data starts at.
+  /// @param out the array the output data will be copied into.
+  /// @param outOff the offset into the out array the output will start at.
+  /// @exception DataLengthException if there isn't enough data in in, or
+  /// space in out.
+  /// @exception IllegalStateException if the cipher isn't initialised.
+  /// @return the number of bytes processed and produced.
 
   int processBlock(Uint8List inp, int inpOff, Uint8List out, int outOff) =>
       _encrypting
           ? _encryptBlock(inp, inpOff, out, outOff)
           : _decryptBlock(inp, inpOff, out, outOff);
 
-   /// Do the appropriate processing for CFB mode encryption.
-   ///
-   /// @param in the array containing the data to be encrypted.
-   /// @param inOff offset into the in array the data starts at.
-   /// @param out the array the encrypted data will be copied into.
-   /// @param outOff the offset into the out array the output will start at.
-   /// @exception DataLengthException if there isn't enough data in in, or
-   /// space in out.
-   /// @exception IllegalStateException if the cipher isn't initialised.
-   /// @return the number of bytes processed and produced.
+  /// Do the appropriate processing for CFB mode encryption.
+  ///
+  /// @param in the array containing the data to be encrypted.
+  /// @param inOff offset into the in array the data starts at.
+  /// @param out the array the encrypted data will be copied into.
+  /// @param outOff the offset into the out array the output will start at.
+  /// @exception DataLengthException if there isn't enough data in in, or
+  /// space in out.
+  /// @exception IllegalStateException if the cipher isn't initialised.
+  /// @return the number of bytes processed and produced.
 
   int _encryptBlock(Uint8List inp, int inpOff, Uint8List out, int outOff) {
     if ((inpOff + blockSize) > inp.length) {
@@ -139,7 +139,6 @@ class CFBBlockCipher extends BaseBlockCipher {
 
     return blockSize;
   }
-
 
   /// Do the appropriate processing for CFB mode decryption.
   ///

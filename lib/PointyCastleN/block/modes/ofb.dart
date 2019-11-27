@@ -48,7 +48,6 @@ class OFBBlockCipher extends BaseBlockCipher {
     _underlyingCipher.reset();
   }
 
-
   void init(bool forEncryption, CipherParameters params) {
     if (params is ParametersWithIV) {
       ParametersWithIV ivParam = params;

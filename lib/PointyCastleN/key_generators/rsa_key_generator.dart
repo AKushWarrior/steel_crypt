@@ -15,7 +15,7 @@ bool _testBit(BigInt i, int n) {
 
 class RSAKeyGenerator implements KeyGenerator {
   static final FactoryConfig FACTORY_CONFIG =
-  StaticFactoryConfig(KeyGenerator, "RSA", () => RSAKeyGenerator());
+      StaticFactoryConfig(KeyGenerator, "RSA", () => RSAKeyGenerator());
 
   SecureRandom _random;
   RSAKeyGeneratorParameters _params;
@@ -118,8 +118,7 @@ class RSAKeyGenerator implements KeyGenerator {
     var phi = (pSub1 * qSub1);
     var d = e.modInverse(phi);
 
-    return AsymmetricKeyPair(
-        RSAPublicKey(n, e), RSAPrivateKey(n, d, p, q));
+    return AsymmetricKeyPair(RSAPublicKey(n, e), RSAPrivateKey(n, d, p, q));
   }
 }
 
@@ -298,7 +297,9 @@ bool _isProbablePrime(BigInt b, int t) {
   i = 1;
   while (i < _lowprimes.length) {
     var m = _lowprimes[i], j = i + 1;
-    while (j < _lowprimes.length && m < _lplim) {m *= _lowprimes[j++];}
+    while (j < _lowprimes.length && m < _lplim) {
+      m *= _lowprimes[j++];
+    }
     m = x % m;
     while (i < j) {
       if ((m % _lowprimes[i++]).toInt() == 0) {
