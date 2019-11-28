@@ -8,6 +8,7 @@ import '../../block/modes/cbc.dart';
 import '../../block/modes/cfb.dart';
 import '../../block/modes/ctr.dart';
 import '../../block/modes/ecb.dart';
+import '../../block/modes/gcm.dart';
 import '../../block/modes/gctr.dart';
 import '../../block/modes/ofb.dart';
 import '../../block/modes/sic.dart';
@@ -88,6 +89,7 @@ void _registerBlockCiphers(FactoryRegistry registry) {
   registry.register(GCTRBlockCipher.FACTORY_CONFIG);
   registry.register(OFBBlockCipher.FACTORY_CONFIG);
   registry.register(SICBlockCipher.FACTORY_CONFIG);
+  registry.register(GCMBlockCipher.FACTORY_CONFIG);
 }
 
 void _registerDigests(FactoryRegistry registry) {

@@ -1,3 +1,9 @@
+## 1.5.1
+- Made MacCrypt more consistent with standards
+- Improved CMAC to function better
+- Added GCM and GCTR to AES
+- Improved README with note on prior knowledge
+
 ## 1.4.1+1
 - No functional update
 - Changed example to be more efficient

@@ -7,18 +7,18 @@ library pointycastle.impl.secure_random.auto_seed_block_ctr_random;
 import "dart:typed_data";
 
 import '../api.dart';
-import 'block_ctr_random.dart';
 import '../src/registry/registry.dart';
+import 'block_ctr_random.dart';
 
 class AutoSeedBlockCtrRandom implements SecureRandom {
   /// Intended for internal use.
-  static final FactoryConfig FACTORY_CONFIG =  DynamicFactoryConfig.regex(
+  static final FactoryConfig FACTORY_CONFIG = DynamicFactoryConfig.regex(
       SecureRandom,
       r"^(.*)/CTR/AUTO-SEED-PRNG$",
       (_, final Match match) => () {
             String blockCipherName = match.group(1);
-            BlockCipher blockCipher =  BlockCipher(blockCipherName);
-            return  AutoSeedBlockCtrRandom(blockCipher);
+            BlockCipher blockCipher = BlockCipher(blockCipherName);
+            return AutoSeedBlockCtrRandom(blockCipher);
           });
 
   BlockCtrRandom _delegate;
@@ -31,7 +31,7 @@ class AutoSeedBlockCtrRandom implements SecureRandom {
       "${_delegate.cipher.algorithmName}/CTR/AUTO-SEED-PRNG";
 
   AutoSeedBlockCtrRandom(BlockCipher cipher, [this._reseedIV = true]) {
-    _delegate =  BlockCtrRandom(cipher);
+    _delegate = BlockCtrRandom(cipher);
   }
 
   void seed(CipherParameters params) {
@@ -42,7 +42,7 @@ class AutoSeedBlockCtrRandom implements SecureRandom {
       _autoReseedKeyLength = params.key.length;
       _delegate.seed(params);
     } else {
-      throw  ArgumentError(
+      throw ArgumentError(
           "Only types ParametersWithIV<KeyParameter> or KeyParameter allowed for seeding");
     }
   }
@@ -81,12 +81,12 @@ class AutoSeedBlockCtrRandom implements SecureRandom {
 
   void _doAutoReseed() {
     var Key = nextBytes(_autoReseedKeyLength);
-    var keyParam =  KeyParameter(Key);
+    var keyParam = KeyParameter(Key);
 
     var params;
     if (_reseedIV) {
       params =
-           ParametersWithIV(keyParam, nextBytes(_delegate.cipher.blockSize));
+          ParametersWithIV(keyParam, nextBytes(_delegate.cipher.blockSize));
     } else {
       params = keyParam;
     }

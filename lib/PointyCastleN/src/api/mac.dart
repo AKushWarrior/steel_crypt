@@ -15,7 +15,6 @@ abstract class Mac extends Algorithm {
   /// Reset the MAC to its original state.
   void reset();
 
-
   void init(CipherParameters params);
 
   /// Process a whole block of [data] at once, returning the result in a new
@@ -25,9 +24,7 @@ abstract class Mac extends Algorithm {
   /// Add one byte of data to the MAC input.
   void updateByte(int inp);
 
-
   void update(Uint8List inp, int inpOff, int len);
-
 
   int doFinal(Uint8List out, int outOff);
 }

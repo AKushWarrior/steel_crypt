@@ -7,8 +7,8 @@ library pointycastle.impl.mac.hmac;
 import "dart:typed_data";
 
 import '../api.dart';
-import '../src/registry/registry.dart';
 import '../src/impl/base_mac.dart';
+import '../src/registry/registry.dart';
 
 ///
 ///HMAC implementation based on RFC2104
@@ -48,7 +48,6 @@ class HMac extends BaseMac {
     "Tiger": 64,
     "Whirlpool": 64,
   };
-
 
   static final _IPAD = 0x36;
   static final _OPAD = 0x5C;

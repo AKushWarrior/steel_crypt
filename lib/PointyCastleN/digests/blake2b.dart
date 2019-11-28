@@ -28,10 +28,13 @@ class Blake2bDigest extends BaseDigest implements Digest {
   Uint8List _buffer;
   // Position of last inserted byte:
   int _bufferPos = 0; // a value from 0 up to 128
-  final _internalState = Register64List(16); // In the Blake2b paper it is called: v
-  Register64List _chainValue; // state vector, in the Blake2b paper it is called: h
+  final _internalState =
+  Register64List(16); // In the Blake2b paper it is called: v
+  Register64List
+  _chainValue; // state vector, in the Blake2b paper it is called: h
 
-  final _t0 = Register64(); // holds last significant bits, counter (counts bytes)
+  final _t0 =
+  Register64(); // holds last significant bits, counter (counts bytes)
   final _t1 = Register64(); // counter: Length up to 2^128 are supported
   final _f0 = Register64(); // finalization flag, for last block: ~0L
 
@@ -47,12 +50,14 @@ class Blake2bDigest extends BaseDigest implements Digest {
     }
     _digestLength = digestSize;
     if (salt != null) {
-      if (salt.length != 16) throw ArgumentError("salt length must be exactly 16 bytes");
+      if (salt.length != 16)
+        throw ArgumentError("salt length must be exactly 16 bytes");
       _salt = Uint8List.fromList(salt);
     }
     if (personalization != null) {
       if (personalization.length != 16) {
-        throw ArgumentError("personalization length must be exactly 16 bytes");}
+        throw ArgumentError("personalization length must be exactly 16 bytes");
+      }
       _personalization = Uint8List.fromList(personalization);
     }
     if (key != null) {
@@ -74,7 +79,7 @@ class Blake2bDigest extends BaseDigest implements Digest {
       _chainValue = Register64List(8);
       _chainValue[0]
         ..set(_blake2b_IV[0])
-        ..xor( Register64(digestSize | (_keyLength << 8) | 0x1010000));
+        ..xor(Register64(digestSize | (_keyLength << 8) | 0x1010000));
       _chainValue[1].set(_blake2b_IV[1]);
       _chainValue[2].set(_blake2b_IV[2]);
 
@@ -90,15 +95,20 @@ class Blake2bDigest extends BaseDigest implements Digest {
       _chainValue[6].set(_blake2b_IV[6]);
       _chainValue[7].set(_blake2b_IV[7]);
       if (_personalization != null) {
-        _chainValue[6].xor(Register64()..unpack(_personalization, 0, Endian.little));
-        _chainValue[7].xor(Register64()..unpack(_personalization, 8, Endian.little));
+        _chainValue[6]
+            .xor(Register64()
+          ..unpack(_personalization, 0, Endian.little));
+        _chainValue[7]
+            .xor(Register64()
+          ..unpack(_personalization, 8, Endian.little));
       }
     }
   }
 
   void _initializeInternalState() {
     _internalState.setRange(0, _chainValue.length, _chainValue);
-    _internalState.setRange(_chainValue.length, _chainValue.length + 4, _blake2b_IV);
+    _internalState.setRange(
+        _chainValue.length, _chainValue.length + 4, _blake2b_IV);
     _internalState[12]
       ..set(_t0)
       ..xor(_blake2b_IV[4]);
@@ -118,7 +128,8 @@ class Blake2bDigest extends BaseDigest implements Digest {
       // This requires hashing > 2^64 bytes which is impossible for the forseeable future.
       // So _t1 is untested dead code, but I've left it in because it is in the source library.
       if (_t0.lo32 == 0 && _t0.hi32 == 0) {
-        _t1.sum(1);}
+        _t1.sum(1);
+      }
       _compress(_buffer, 0);
       _buffer.fillRange(0, _buffer.length, 0); // clear buffer
       _buffer[0] = inp;
@@ -130,7 +141,7 @@ class Blake2bDigest extends BaseDigest implements Digest {
   }
 
   void update(Uint8List inp, int inpOff, int len) {
-    if(inp == null || len == 0) {
+    if (inp == null || len == 0) {
       return;
     }
     int remainingLength = 0;
@@ -154,7 +165,9 @@ class Blake2bDigest extends BaseDigest implements Digest {
 
     int msgPos;
     int blockWiseLastPos = inpOff + len - _blockSize;
-    for (msgPos = inpOff + remainingLength; msgPos < blockWiseLastPos; msgPos += _blockSize) {
+    for (msgPos = inpOff + remainingLength;
+    msgPos < blockWiseLastPos;
+    msgPos += _blockSize) {
       _t0.sum(_blockSize);
       if (_t0.lo32 == 0 && _t0.hi32 == 0) {
         _t1.sum(1);
@@ -220,18 +233,27 @@ class Blake2bDigest extends BaseDigest implements Digest {
     }
 
     for (var round = 0; round < _rounds; ++round) {
-      G(_m[_blake2b_sigma[round][0]], _m[_blake2b_sigma[round][1]], 0, 4, 8, 12);
-      G(_m[_blake2b_sigma[round][2]], _m[_blake2b_sigma[round][3]], 1, 5, 9, 13);
-      G(_m[_blake2b_sigma[round][4]], _m[_blake2b_sigma[round][5]], 2, 6, 10, 14);
-      G(_m[_blake2b_sigma[round][6]], _m[_blake2b_sigma[round][7]], 3, 7, 11, 15);
-      G(_m[_blake2b_sigma[round][8]], _m[_blake2b_sigma[round][9]], 0, 5, 10, 15);
-      G(_m[_blake2b_sigma[round][10]], _m[_blake2b_sigma[round][11]], 1, 6, 11, 12);
-      G(_m[_blake2b_sigma[round][12]], _m[_blake2b_sigma[round][13]], 2, 7, 8, 13);
-      G(_m[_blake2b_sigma[round][14]], _m[_blake2b_sigma[round][15]], 3, 4, 9, 14);
+      G(_m[_blake2b_sigma[round][0]], _m[_blake2b_sigma[round][1]], 0, 4, 8,
+          12);
+      G(_m[_blake2b_sigma[round][2]], _m[_blake2b_sigma[round][3]], 1, 5, 9,
+          13);
+      G(_m[_blake2b_sigma[round][4]], _m[_blake2b_sigma[round][5]], 2, 6, 10,
+          14);
+      G(_m[_blake2b_sigma[round][6]], _m[_blake2b_sigma[round][7]], 3, 7, 11,
+          15);
+      G(_m[_blake2b_sigma[round][8]], _m[_blake2b_sigma[round][9]], 0, 5, 10,
+          15);
+      G(_m[_blake2b_sigma[round][10]], _m[_blake2b_sigma[round][11]], 1, 6, 11,
+          12);
+      G(_m[_blake2b_sigma[round][12]], _m[_blake2b_sigma[round][13]], 2, 7, 8,
+          13);
+      G(_m[_blake2b_sigma[round][14]], _m[_blake2b_sigma[round][15]], 3, 4, 9,
+          14);
     }
 
     for (var offset = 0; offset < _chainValue.length; ++offset) {
-      _chainValue[offset]..xor(_internalState[offset])..xor(_internalState[offset + 8]);
+      _chainValue[offset]
+        ..xor(_internalState[offset])..xor(_internalState[offset + 8]);
     }
   }
 
@@ -239,14 +261,26 @@ class Blake2bDigest extends BaseDigest implements Digest {
     // This variable is faster as a local. The allocation is probably sunk.
     final r = Register64();
 
-    _internalState[posA].sumReg(r..set(_internalState[posB])..sumReg(m1));
-    _internalState[posD]..xor(_internalState[posA])..rotr(32);
+    _internalState[posA].sumReg(r
+      ..set(_internalState[posB])
+      ..sumReg(m1));
+    _internalState[posD]
+      ..xor(_internalState[posA])
+      ..rotr(32);
     _internalState[posC].sumReg(_internalState[posD]);
-    _internalState[posB]..xor(_internalState[posC])..rotr(24);
-    _internalState[posA].sumReg(r..set(_internalState[posB])..sumReg(m2));
-    _internalState[posD]..xor(_internalState[posA])..rotr(16);
+    _internalState[posB]
+      ..xor(_internalState[posC])
+      ..rotr(24);
+    _internalState[posA].sumReg(r
+      ..set(_internalState[posB])
+      ..sumReg(m2));
+    _internalState[posD]
+      ..xor(_internalState[posA])
+      ..rotr(16);
     _internalState[posC].sumReg(_internalState[posD]);
-    _internalState[posB]..xor(_internalState[posC])..rotr(63);
+    _internalState[posB]
+      ..xor(_internalState[posC])
+      ..rotr(63);
   }
 }
 

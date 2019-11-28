@@ -30,7 +30,7 @@ class AesCrypt {
 
   ///Creates 'Crypt', serves as encrypter/decrypter of text.
   AesCrypt(core.String in_key32,
-      [core.String intype = 'cfb-64', core.String padding = 'pkcs7']) {
+      [core.String intype = 'gcm', core.String padding = 'pkcs7']) {
     _mode = intype;
     _key32 = in_key32;
     _paddingName = padding;
@@ -49,6 +49,12 @@ class AesCrypt {
       _encrypter = ECBBlockCipher(AESFastEngine());
     } else if (_mode == 'ofb-64') {
       _encrypter = OFBBlockCipher(AESFastEngine(), 64);
+    } else if (_mode == 'gctr') {
+      _encrypter = GCTRBlockCipher(AESFastEngine());
+    } else if (_mode == 'gcm') {
+      _encrypter = GCMBlockCipher(AESFastEngine());
+    } else {
+      throw ArgumentError('invalid mode');
     }
   }
 
@@ -79,7 +85,6 @@ class AesCrypt {
       }
     } else {
       var key = utf8.encode(_key32);
-      var ivLocal = utf8.encode(iv);
       CipherParameters params =
       PaddedBlockCipherParameters(KeyParameter(key.sublist(0, 32)), null);
       PaddedBlockCipher cipher = PaddedBlockCipher(

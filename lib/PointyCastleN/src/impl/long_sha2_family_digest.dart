@@ -114,7 +114,6 @@ abstract class LongSHA2FamilyDigest extends BaseDigest {
     }
   }
 
-
   void _adjustByteCounts() {
     if (_byteCount1 > _MAX_BYTE_COUNT1) {
       _byteCount2.sum(Register64(_byteCount1)..shiftr(61));

@@ -4,8 +4,8 @@
 
 library pointycastle.impl.padding.x923;
 
-import "dart:typed_data" show Uint8List;
 import 'dart:math' show Random;
+import "dart:typed_data" show Uint8List;
 
 import 'package:steel_crypt/PointyCastleN/export.dart';
 
@@ -25,9 +25,7 @@ class x923Padding extends BasePadding {
   SecureRandom random;
 
   @override
-  void init([CipherParameters params]) {
-
-  }
+  void init([CipherParameters params]) {}
 
   /// add the pad bytes to the passed in block, returning the
   /// number of bytes added.
@@ -52,9 +50,8 @@ class x923Padding extends BasePadding {
   /// return the number of pad bytes present in the block.
   @override
   int padCount(Uint8List data) {
-    int count = data[data.length-1] & 0xff;
-    if (count > data.length)
-    {
+    int count = data[data.length - 1] & 0xff;
+    if (count > data.length) {
       throw UnsupportedError("pad block corrupted");
     }
     return count;

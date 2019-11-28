@@ -7,8 +7,8 @@ library pointycastle.impl.block_cipher.modes.gctr;
 import "dart:typed_data";
 
 import '../../api.dart';
-import '../../src/registry/registry.dart';
 import '../../src/impl/base_block_cipher.dart';
+import '../../src/registry/registry.dart';
 import '../../src/ufixnum.dart';
 
 /// Implementation of GOST 28147 OFB counter mode (GCTR) on top of a [BlockCipher].
@@ -37,8 +37,7 @@ class GCTRBlockCipher extends BaseBlockCipher {
 
   GCTRBlockCipher(this._underlyingCipher) {
     if (blockSize != 8) {
-      throw ArgumentError(
-          "GCTR can only be used with 64 bit block ciphers");
+      throw ArgumentError("GCTR can only be used with 64 bit block ciphers");
     }
 
     _IV = Uint8List(_underlyingCipher.blockSize);

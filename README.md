@@ -26,8 +26,10 @@ dollars to help me continue development.
     - Block modes:
         - CBC ('cbc')
         - ECB ('ecb') __INSECURE__
-        - CFB-64 ('cfb-64') _(Default/Recommended Mode)_
+        - CFB-64 ('cfb-64') 
         - OFB-64 ('ofb-64') 
+        - GCTR ('gctr')
+        - GCM ('gcm') _(Default/Recommended Mode)_
 * 5 paddings available for block modes:
     - PKCS7 Padding ('pkcs7') _(Default)_
     - ISO7816-4 Padding ('iso7816-4')
@@ -38,7 +40,7 @@ dollars to help me continue development.
 * __Note__: All block modes require padding, to ensure that input is the correct block size.
 * __Note__: Paddings do not work with stream modes. You can still enter the parameter, but it won't be used.
 * __Note__: ECB does not require an IV. You can still enter the parameter, but it won't be used.
-* __Note__: AES requires 16 bytes of IV (Initialization Vector, see CryptKey for generation).
+* __Note__: All other modes require 16 bytes of IV (Initialization Vector, see CryptKey for generation).
 
 #### Lightweight Stream Ciphers (class LightCrypt)
 * Constructor: ```LightCrypt('32 length key', 'algorithm here')```
@@ -340,30 +342,22 @@ This CLI allows you to perform basic functions from the main package on the term
 - [x] Tackle adding an RSA solution
 - [x] Create a more complete password solution
 - [x] Add more detailed example
-- [ ] ??? (Leave feature requests in the issue tracker, and they'll end up here!)
+- [x] Update further reading
+- [ ] Use Dart2Native for CLI (maybe)
+- [ ] Add more AES modes (GCM done, de-prioritized)
+- [ ] ??? (Leave feature requests in the issue tracker above, and they'll end up here!)
 
 ---
 
-## Reading
-- Look at these links for further information on ciphers, hashes, and terminology used here:
-    - https://en.wikipedia.org/wiki/Salsa20
-    - https://en.wikipedia.org/wiki/Advanced_Encryption_Standard
-    - https://en.wikipedia.org/wiki/RSA_(cryptosystem)
-    - https://en.wikipedia.org/wiki/SHA-3
-    - https://en.wikipedia.org/wiki/SHA-2
-    - https://en.wikipedia.org/wiki/SHA-1
-    - https://en.wikipedia.org/wiki/MD5
-    - https://en.wikipedia.org/wiki/MD4
-    - https://en.wikipedia.org/wiki/Tiger_(hash_function)
-    - https://en.wikipedia.org/wiki/Whirlpool_(hash_function)
-    - https://en.wikipedia.org/wiki/HMAC
-    - https://en.wikipedia.org/wiki/OAEP
-    - https://en.wikipedia.org/wiki/Padding_(cryptography)#PKCS#5_and_PKCS#7
-    - https://en.wikipedia.org/wiki/Initialization_vector
-    - https://en.wikipedia.org/wiki/Cryptographic_hash_function
-    - https://en.wikipedia.org/wiki/Symmetric-key_algorithm
-    - https://en.wikipedia.org/wiki/Public-key_cryptography
-    
+## Note: Prior Knowledge
+It is my personal recommendation to always know what each algorithm that you are using in a given application, and how it works. 
+However, this package exists to help you with that transition. This package is **not** a guide on cryptography, and cannot 
+substitute for prior knowledge of some level of cryptography. 
+If you need help understanding concepts of cryptography, **ask**someone; user data is always the priority, and I'll help
+anyone willing to listen. I'd much rather answer an issue regarding basic encryption than hear that my packagewas used 
+improperly and thus compromised. If you ever need to reach me, post in the issue tracker above; I'll be on it as quickly as
+possible.
+   
 ---
 
 [![Pub](https://img.shields.io/pub/v/steel_crypt?color=blue&label=pub&logo=Steel%20Crypt&logoColor=blue&style=for-the-badge&labelColor=black)](https://pub.dev/packages/steel_crypt)

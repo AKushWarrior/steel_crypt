@@ -7,10 +7,9 @@ library pointycastle.impl.mac.cmac;
 import "dart:typed_data";
 
 import '../api.dart';
-import '../src/registry/registry.dart';
-import '../src/impl/base_mac.dart';
 import '../paddings/iso7816d4.dart';
-import '../block/modes/cbc.dart';
+import '../src/impl/base_mac.dart';
+import '../src/registry/registry.dart';
 
 ///
 /// CMAC - as specified at www.nuee.nagoya-u.ac.jp/labs/tiwata/omac/omac.html
@@ -65,7 +64,6 @@ class CMac extends BaseMac {
 
   CMac.fromCipher(BlockCipher cipher) : this(cipher, cipher.blockSize * 8);
 
-
   ///* create a standard MAC based on a block cipher with the size of the
   ///* MAC been given in bits.
   ///* <p>
@@ -80,7 +78,7 @@ class CMac extends BaseMac {
 
   CMac(BlockCipher cipher, int macSizeInBits)
       : this._macSize = macSizeInBits ~/ 8,
-        this._cipher = CBCBlockCipher(cipher) {
+        this._cipher = cipher {
     if ((macSizeInBits % 8) != 0) {
       throw ArgumentError("MAC size must be multiple of 8");
     }
@@ -188,7 +186,8 @@ class CMac extends BaseMac {
 
   @override
   void init(covariant KeyParameter keyParams) {
-    final zeroIV = Uint8List(keyParams.key.length).sublist(0,8);
+    final zeroIV =
+    Uint8List(keyParams.key.length).sublist(0, _cipher.blockSize);
     this._params = ParametersWithIV(keyParams, zeroIV);
 
     // Initialize before computing L, Lu, Lu2

@@ -48,14 +48,14 @@ main() {
 
 
   //Print IV
-  print("IV (AES/Scrypt):");
+  print("IV (for AES/Scrypt):");
 
   print(ivsalt);
 
   print("");
 
   //Print IV
-  print("IV (ChaCha20):");
+  print("IV (for ChaCha20):");
 
   print(iv2);
 

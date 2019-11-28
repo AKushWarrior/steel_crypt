@@ -4,10 +4,11 @@
 
 library pointycastle.impl.padding.iso10126d2;
 
-import "dart:typed_data" show Uint8List;
 import 'dart:math' show Random;
+import "dart:typed_data" show Uint8List;
 
 import 'package:steel_crypt/PointyCastleN/export.dart';
+
 import '../api.dart';
 import '../src/impl/base_padding.dart';
 import '../src/registry/registry.dart';
@@ -40,10 +41,10 @@ class ISO10126d2Padding extends BasePadding {
     }
     int code = (data.length - offset);
 
-    while (offset < (data.length - 1))
-    {
-    data[offset] = random.nextUint32();;
-    offset++;
+    while (offset < (data.length - 1)) {
+      data[offset] = random.nextUint32();
+      ;
+      offset++;
     }
 
     data[offset] = code;
@@ -56,9 +57,8 @@ class ISO10126d2Padding extends BasePadding {
   int padCount(Uint8List data) {
     int count = data[data.length - 1] & 0xff;
 
-    if (count > data.length)
-    {
-    throw ArgumentError("pad block corrupted");
+    if (count > data.length) {
+      throw ArgumentError("pad block corrupted");
     }
 
     return count;

@@ -4,14 +4,14 @@
 
 library pointycastle.impl.asymmetric_block_cipher.oeap;
 
-import "dart:typed_data";
 import "dart:math";
+import "dart:typed_data";
 
 import '../api.dart';
-import '../src/registry/registry.dart';
-import '../src/impl/base_asymmetric_block_cipher.dart';
-import '../random/fortuna_random.dart';
 import '../digests/sha1.dart';
+import '../random/fortuna_random.dart';
+import '../src/impl/base_asymmetric_block_cipher.dart';
+import '../src/registry/registry.dart';
 
 class OAEPEncoding extends BaseAsymmetricBlockCipher {
   /// Intended for internal use.
@@ -32,7 +32,7 @@ class OAEPEncoding extends BaseAsymmetricBlockCipher {
   SecureRandom _random;
   bool _forEncryption;
 
-  OAEPEncoding(this._engine){
+  OAEPEncoding(this._engine) {
     SHA1Digest().doFinal(defHash, 0);
   }
 
@@ -136,7 +136,8 @@ class OAEPEncoding extends BaseAsymmetricBlockCipher {
     //
     // mask the message block.
     //
-    Uint8List mask = _maskGeneratorFunction1(seed, 0, seed.length, block.length - defHash.length);
+    Uint8List mask = _maskGeneratorFunction1(
+        seed, 0, seed.length, block.length - defHash.length);
     for (int i = defHash.length; i != block.length; i++) {
       block[i] ^= mask[i - defHash.length];
     }
@@ -186,7 +187,8 @@ class OAEPEncoding extends BaseAsymmetricBlockCipher {
     //
     // unmask the message block.
     //
-    mask = _maskGeneratorFunction1(block, 0, defHash.length, block.length - defHash.length);
+    mask = _maskGeneratorFunction1(
+        block, 0, defHash.length, block.length - defHash.length);
 
     for (int i = defHash.length; i != block.length; i++) {
       block[i] ^= mask[i - defHash.length];
@@ -241,7 +243,8 @@ class OAEPEncoding extends BaseAsymmetricBlockCipher {
     return sp;
   }
 
-  Uint8List _maskGeneratorFunction1(Uint8List Z, int zOff, int zLen, int length) {
+  Uint8List _maskGeneratorFunction1(Uint8List Z, int zOff, int zLen,
+      int length) {
     Uint8List mask = Uint8List(length);
     Uint8List hashBuf = Uint8List(mgf1Hash.digestSize);
     Uint8List C = Uint8List(4);
@@ -253,7 +256,8 @@ class OAEPEncoding extends BaseAsymmetricBlockCipher {
       mgf1Hash.update(Z, zOff, zLen);
       mgf1Hash.update(C, 0, C.length);
       mgf1Hash.doFinal(hashBuf, 0);
-      mask = _arraycopy(hashBuf, 0, mask, counter * hashBuf.length, hashBuf.length);
+      mask = _arraycopy(
+          hashBuf, 0, mask, counter * hashBuf.length, hashBuf.length);
       counter++;
     }
 

@@ -14,6 +14,7 @@ export 'block/modes/cbc.dart';
 export 'block/modes/cfb.dart';
 export 'block/modes/ctr.dart';
 export 'block/modes/ecb.dart';
+export 'block/modes/gcm.dart';
 export 'block/modes/gctr.dart';
 export 'block/modes/ofb.dart';
 export 'block/modes/sic.dart';

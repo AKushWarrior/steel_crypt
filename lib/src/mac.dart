@@ -6,48 +6,38 @@
 
 part of 'steel_crypt_base.dart';
 
-///Class containing Message Authentication codes
+///Class containing hashing for Message Authentication Codes.
 class MacCrypt {
   String _key32;
-  String _algorithm = 'SHA-3/256';
-  String _type = 'HMAC';
-  _HMAC _mac1;
-  _CMAC _mac2;
+  String _algorithm;
+  String _type;
+  var _mac;
 
-  MacCrypt(String key, [String inType, String algo]) {
+  MacCrypt(String key, [String inType = 'CMAC', String algo = 'gcm']) {
     _key32 = key;
     _algorithm = algo;
     _type = inType;
     if (_type == 'HMAC') {
-      _mac1 = _HMAC(key, algo);
+      _mac = _HMAC(key, algo);
     } else if (_type == 'CMAC') {
-      _mac2 = _CMAC(key, algo);
+      _mac = _CMAC(key, algo);
     }
   }
 
   ///Process and hash string
   String process(String input) {
-    if (_type == "HMAC") {
-      return _mac1.process(input);
-    } else if (_type == 'CMAC') {
-      return _mac2.process(input);
-    }
-    return "";
+    return _mac.process(input);
   }
 
   ///Check if plaintext matches previously hashed text
   bool check(String plain, String processed) {
-    if (_type == 'HMAC') {
-      return _mac1.check(plain, processed);
-    }
-    return _mac2.check(plain, processed);
+    return _mac.check(plain, processed);
   }
 }
 
 class _HMAC {
   KeyParameter _listkey;
   String _algorithm;
-  static List<String> _pads = ['aWM'];
 
   _HMAC(String key, [String algo = 'SHA-3/256']) {
     var _inter = utf8.encode(key).sublist(0, 32);
@@ -56,15 +46,7 @@ class _HMAC {
   }
 
   String process(core.String input) {
-    var bytes;
-    if (input.length % 4 == 0) {
-      bytes = utf8.encode(input);
-    } else {
-      var advinput = input;
-      advinput = input + _pads[0];
-      advinput = advinput.substring(0, advinput.length - advinput.length % 4);
-      bytes = utf8.encode(advinput);
-    }
+    var bytes = utf8.encode(input);
     final _tmp = HMac(Digest(_algorithm), 128)
       ..init(_listkey);
     var val = _tmp.process(bytes);
@@ -79,25 +61,16 @@ class _HMAC {
 
 class _CMAC {
   KeyParameter _listkey;
-  static List<String> _pads = ['Xcv'];
   String _algorithm;
 
-  _CMAC(String key, [algo = 'cfb-64']) {
+  _CMAC(String key, algo) {
     var _inter = utf8.encode(key).sublist(0, 32);
     _listkey = KeyParameter(_inter);
     _algorithm = algo;
   }
 
-  String process(core.String input) {
-    var bytes;
-    if (input.length % 4 == 0) {
-      bytes = utf8.encode(input);
-    } else {
-      var advinput = input;
-      advinput = input + _pads[0];
-      advinput = advinput.substring(0, advinput.length - advinput.length % 4);
-      bytes = utf8.encode(advinput);
-    }
+  String process(String input) {
+    var bytes = utf8.encode(input);
     final _tmp = CMac(BlockCipher('AES/' + _algorithm.toUpperCase()), 64)
       ..init(_listkey);
     var val = _tmp.process(bytes);

@@ -7,8 +7,8 @@ library pointycastle.impl.block_cipher.modes.ofb;
 import "dart:typed_data";
 
 import '../../api.dart';
-import '../../src/registry/registry.dart';
 import '../../src/impl/base_block_cipher.dart';
+import '../../src/registry/registry.dart';
 
 /// Implementation of Output FeedBack mode (OFB) on top of a [BlockCipher].
 class OFBBlockCipher extends BaseBlockCipher {
@@ -47,7 +47,6 @@ class OFBBlockCipher extends BaseBlockCipher {
     _ofbV.setRange(0, _IV.length, _IV);
     _underlyingCipher.reset();
   }
-
 
   void init(bool forEncryption, CipherParameters params) {
     if (params is ParametersWithIV) {

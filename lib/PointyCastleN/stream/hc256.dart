@@ -142,7 +142,8 @@ class HC256Engine extends BaseStreamCipher {
     initialized = true;
   }
 
-  void processBytes(Uint8List inp, int inOff, int len, Uint8List out, int outOff) {
+  void processBytes(Uint8List inp, int inOff, int len, Uint8List out,
+      int outOff) {
     if (!initialized) {
       throw StateError('HC-256' + " not initialised");
     }
@@ -160,14 +161,12 @@ class HC256Engine extends BaseStreamCipher {
     }
   }
 
-  void reset()
-  {
+  void reset() {
     initialize();
   }
 
-  int returnByte(int inp)
-  {
-  return (inp ^ getByte());
+  int returnByte(int inp) {
+    return (inp ^ getByte());
   }
 
   static int rotateRight(int x, int n) {

@@ -7,13 +7,12 @@ library pointycastle.impl.key_derivator.scrypt;
 import "dart:typed_data";
 
 import '../api.dart';
-import 'api.dart';
-import 'pbkdf2.dart';
 import '../macs/hmac.dart';
 import '../src/impl/base_key_derivator.dart';
 import '../src/registry/registry.dart';
 import '../src/ufixnum.dart';
-
+import 'api.dart';
+import 'pbkdf2.dart';
 
 class Scrypt extends BaseKeyDerivator {
   static final FactoryConfig FACTORY_CONFIG =
@@ -36,13 +35,8 @@ class Scrypt extends BaseKeyDerivator {
   }
 
   int deriveKey(Uint8List inp, int inpOff, Uint8List out, int outOff) {
-    var key = _scryptJ(
-        Uint8List.fromList(inp.sublist(inpOff)),
-        _params.salt,
-        _params.N,
-        _params.r,
-        _params.p,
-        _params.desiredKeyLength);
+    var key = _scryptJ(Uint8List.fromList(inp.sublist(inpOff)), _params.salt,
+        _params.N, _params.r, _params.p, _params.desiredKeyLength);
 
     out.setRange(0, keySize, key);
 
