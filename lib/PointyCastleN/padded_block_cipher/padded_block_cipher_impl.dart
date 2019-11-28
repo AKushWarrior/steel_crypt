@@ -77,8 +77,7 @@ class PaddedBlockCipherImpl implements PaddedBlockCipher {
 
   int doFinal(Uint8List inp, int inpOff, Uint8List out, int outOff) {
     if (_encrypting) {
-      var lastInputBlock = Uint8List(blockSize)
-        ..setAll(0, inp.sublist(inpOff));
+      var lastInputBlock = Uint8List(blockSize)..setAll(0, inp.sublist(inpOff));
 
       var remainder = inp.length - inpOff;
 

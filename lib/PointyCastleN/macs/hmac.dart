@@ -17,7 +17,7 @@ import '../src/registry/registry.dart';
 ///
 class HMac extends BaseMac {
   static final FactoryConfig FACTORY_CONFIG =
-  DynamicFactoryConfig.suffix(Mac, "/HMAC", (_, Match match) {
+      DynamicFactoryConfig.suffix(Mac, "/HMAC", (_, Match match) {
     final String digestName = match.group(1);
     final int blockLength = _DIGEST_BLOCK_LENGTH[digestName];
     if (blockLength == null) {

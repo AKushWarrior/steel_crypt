@@ -15,7 +15,7 @@ import '../src/registry/registry.dart';
 
 class TBCPadding extends BasePadding {
   static final FactoryConfig FACTORY_CONFIG =
-  StaticFactoryConfig(Padding, "TBC", () => TBCPadding());
+      StaticFactoryConfig(Padding, "TBC", () => TBCPadding());
 
   String get algorithmName => "TBC";
 

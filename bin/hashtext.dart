@@ -12,8 +12,10 @@ void main(List<String> args) {
   final argParser = ArgParser();
 
   argParser.addOption('plain',
-      abbr: 'p', defaultsTo: '', help: 'Input the plaintext to be hashed here...');
-  
+      abbr: 'p',
+      defaultsTo: '',
+      help: 'Input the plaintext to be hashed here...');
+
   argParser.addFlag('help',
       abbr: 'h', defaultsTo: false, help: 'Show this help message');
 

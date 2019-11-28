@@ -18,7 +18,7 @@ import '../src/registry/registry.dart';
 
 class x923Padding extends BasePadding {
   static final FactoryConfig FACTORY_CONFIG =
-  StaticFactoryConfig(Padding, "X9.23", () => x923Padding());
+      StaticFactoryConfig(Padding, "X9.23", () => x923Padding());
 
   String get algorithmName => "X9.23";
 

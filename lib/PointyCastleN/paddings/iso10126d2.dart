@@ -17,7 +17,7 @@ import '../src/registry/registry.dart';
 /// ISO 7814-4 - scheme 2 from ISO 9797-1. The first byte is 0x80, rest is 0x00
 class ISO10126d2Padding extends BasePadding {
   static final FactoryConfig FACTORY_CONFIG =
-  StaticFactoryConfig(Padding, "ISO10126-2", () => ISO10126d2Padding());
+      StaticFactoryConfig(Padding, "ISO10126-2", () => ISO10126d2Padding());
 
   String get algorithmName => "ISO10126-2";
 

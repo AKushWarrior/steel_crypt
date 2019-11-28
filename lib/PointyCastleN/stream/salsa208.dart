@@ -14,7 +14,7 @@ import '../src/ufixnum.dart';
 /// Implementation of Daniel J. Bernstein's Salsa20 stream cipher, Snuffle 2005.
 class Salsa8Engine extends BaseStreamCipher {
   static final FactoryConfig FACTORY_CONFIG =
-  StaticFactoryConfig(StreamCipher, "Salsa20/8", () => Salsa8Engine());
+      StaticFactoryConfig(StreamCipher, "Salsa20/8", () => Salsa8Engine());
 
   static const _STATE_SIZE = 16;
 
