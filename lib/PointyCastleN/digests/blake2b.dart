@@ -29,12 +29,12 @@ class Blake2bDigest extends BaseDigest implements Digest {
   // Position of last inserted byte:
   int _bufferPos = 0; // a value from 0 up to 128
   final _internalState =
-  Register64List(16); // In the Blake2b paper it is called: v
+      Register64List(16); // In the Blake2b paper it is called: v
   Register64List
-  _chainValue; // state vector, in the Blake2b paper it is called: h
+      _chainValue; // state vector, in the Blake2b paper it is called: h
 
   final _t0 =
-  Register64(); // holds last significant bits, counter (counts bytes)
+      Register64(); // holds last significant bits, counter (counts bytes)
   final _t1 = Register64(); // counter: Length up to 2^128 are supported
   final _f0 = Register64(); // finalization flag, for last block: ~0L
 
@@ -50,8 +50,9 @@ class Blake2bDigest extends BaseDigest implements Digest {
     }
     _digestLength = digestSize;
     if (salt != null) {
-      if (salt.length != 16)
+      if (salt.length != 16) {
         throw ArgumentError("salt length must be exactly 16 bytes");
+      }
       _salt = Uint8List.fromList(salt);
     }
     if (personalization != null) {
@@ -96,11 +97,9 @@ class Blake2bDigest extends BaseDigest implements Digest {
       _chainValue[7].set(_blake2b_IV[7]);
       if (_personalization != null) {
         _chainValue[6]
-            .xor(Register64()
-          ..unpack(_personalization, 0, Endian.little));
+            .xor(Register64()..unpack(_personalization, 0, Endian.little));
         _chainValue[7]
-            .xor(Register64()
-          ..unpack(_personalization, 8, Endian.little));
+            .xor(Register64()..unpack(_personalization, 8, Endian.little));
       }
     }
   }
@@ -166,8 +165,8 @@ class Blake2bDigest extends BaseDigest implements Digest {
     int msgPos;
     int blockWiseLastPos = inpOff + len - _blockSize;
     for (msgPos = inpOff + remainingLength;
-    msgPos < blockWiseLastPos;
-    msgPos += _blockSize) {
+        msgPos < blockWiseLastPos;
+        msgPos += _blockSize) {
       _t0.sum(_blockSize);
       if (_t0.lo32 == 0 && _t0.hi32 == 0) {
         _t1.sum(1);
@@ -253,7 +252,8 @@ class Blake2bDigest extends BaseDigest implements Digest {
 
     for (var offset = 0; offset < _chainValue.length; ++offset) {
       _chainValue[offset]
-        ..xor(_internalState[offset])..xor(_internalState[offset + 8]);
+        ..xor(_internalState[offset])
+        ..xor(_internalState[offset + 8]);
     }
   }
 

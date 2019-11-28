@@ -1,0 +1,174 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ChangeListManager">
+    <list default="true" id="e546f96d-56df-4bc2-a633-1533d678c8ee" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/lib/PointyCastleN/block/modes/gcm.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/PointyCastleN/block/modes/gcm.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/PointyCastleN/digests/blake2b.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/PointyCastleN/digests/blake2b.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/PointyCastleN/src/ufixnum.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/PointyCastleN/src/ufixnum.dart" afterDir="false" />
+    </list>
+    <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
+    <option name="SHOW_DIALOG" value="false" />
+    <option name="HIGHLIGHT_CONFLICTS" value="true" />
+    <option name="HIGHLIGHT_NON_ACTIVE_CHANGELIST" value="false" />
+    <option name="LAST_RESOLUTION" value="IGNORE" />
+  </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Dart File" />
+      </list>
+    </option>
+  </component>
+  <component name="Git.Settings">
+    <option name="PREVIOUS_COMMIT_AUTHORS">
+      <list>
+        <option value="Aditya Kishore &lt;akushwarrior@gmail.com&gt;" />
+      </list>
+    </option>
+    <option name="PUSH_AUTO_UPDATE" value="true" />
+    <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+    <option name="SET_USER_NAME_GLOBALLY" value="false" />
+    <option name="SIGN_OFF_COMMIT" value="true" />
+  </component>
+  <component name="IgnoredFileRootStore">
+    <option name="generatedRoots">
+      <set>
+        <option value="$PROJECT_DIR$/.idea" />
+      </set>
+    </option>
+  </component>
+  <component name="ProjectId" id="1RWCoAZFWxkURPs3ZWpc1fb4ugg" />
+  <component name="ProjectLevelVcsManager" settingsEditedManually="true">
+    <ConfirmationsSetting value="2" id="Add" />
+  </component>
+  <component name="PropertiesComponent">
+    <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
+    <property name="WebServerToolWindowFactoryState" value="false" />
+    <property name="aspect.path.notification.shown" value="true" />
+    <property name="dart.analysis.tool.window.force.activate" value="false" />
+    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+  </component>
+  <component name="RecentsManager">
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="$PROJECT_DIR$/lib/PointyCastleN/key_derivators/C" />
+      <recent name="$PROJECT_DIR$/lib/PointyCastleN/key_derivators/C/Argon2" />
+    </key>
+  </component>
+  <component name="RunDashboard">
+    <option name="ruleStates">
+      <list>
+        <RuleState>
+          <option name="name" value="ConfigurationTypeDashboardGroupingRule" />
+        </RuleState>
+        <RuleState>
+          <option name="name" value="StatusDashboardGroupingRule" />
+        </RuleState>
+      </list>
+    </option>
+  </component>
+  <component name="RunManager">
+    <configuration name="Unnamed" type="DartTestRunConfigurationType" factoryName="Dart Test" nameIsGenerated="true">
+      <option name="filePath" value="$PROJECT_DIR$/example/example.dart" />
+      <method v="2" />
+    </configuration>
+  </component>
+  <component name="TaskManager">
+    <task active="true" id="Default" summary="Default task">
+      <changelist id="e546f96d-56df-4bc2-a633-1533d678c8ee" name="Default Changelist" comment="" />
+      <created>1569773637715</created>
+      <option name="number" value="Default" />
+      <option name="presentableId" value="Default" />
+      <updated>1569773637715</updated>
+      <workItem from="1569773643161" duration="438000" />
+      <workItem from="1569774817600" duration="432000" />
+      <workItem from="1569775310228" duration="39000" />
+      <workItem from="1569775642414" duration="2292000" />
+      <workItem from="1570315830909" duration="2252000" />
+      <workItem from="1571070865442" duration="502000" />
+      <workItem from="1571121484151" duration="401000" />
+      <workItem from="1571257402384" duration="595000" />
+      <workItem from="1572112029916" duration="2720000" />
+      <workItem from="1572281187613" duration="2743000" />
+      <workItem from="1573063290434" duration="39702000" />
+      <workItem from="1573783557094" duration="45000" />
+      <workItem from="1574731992307" duration="19283000" />
+      <workItem from="1574905180335" duration="3974000" />
+    </task>
+    <task id="LOCAL-00001" summary="RC4 Algorithm, maintenance update, cleaner code">
+      <created>1569777074344</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1569777074344</updated>
+    </task>
+    <task id="LOCAL-00002" summary="Clean up code and fix up ECB mode for AES">
+      <created>1572114239070</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1572114239070</updated>
+    </task>
+    <task id="LOCAL-00003" summary="Bugfix/Revamp for ChaCha20 to work with UTF-8 charset...">
+      <created>1574793820017</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1574793820017</updated>
+    </task>
+    <task id="LOCAL-00004" summary="better example">
+      <created>1574806721389</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1574806721389</updated>
+    </task>
+    <task id="LOCAL-00005" summary="2 new AES modes, ran dartfmt -w, improved README">
+      <created>1574918686486</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1574918686486</updated>
+    </task>
+    <task id="LOCAL-00006" summary="Quick README update">
+      <created>1574919056564</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1574919056564</updated>
+    </task>
+    <option name="localTasksCounter" value="7" />
+    <servers />
+  </component>
+  <component name="TypeScriptGeneratedFilesManager">
+    <option name="version" value="1" />
+  </component>
+  <component name="UnknownFeatures">
+    <option featureType="com.intellij.fileTypeFactory" implementationName="*.h" />
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="COLUMN_ORDER" />
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <option name="CHECK_CODE_SMELLS_BEFORE_PROJECT_COMMIT" value="false" />
+    <option name="ADD_EXTERNAL_FILES_SILENTLY" value="true" />
+    <MESSAGE value="RC4 Algorithm, maintenance update, cleaner code" />
+    <MESSAGE value="Clean up code and fix up ECB mode for AES" />
+    <MESSAGE value="Bugfix/Revamp for ChaCha20 to work with UTF-8 charset..." />
+    <MESSAGE value="better example" />
+    <MESSAGE value="2 new AES modes, ran dartfmt -w, improved README" />
+    <MESSAGE value="Quick README update" />
+    <option name="LAST_COMMIT_MESSAGE" value="Quick README update" />
+    <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
+    <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
+  </component>
+</project>

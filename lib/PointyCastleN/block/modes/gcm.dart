@@ -163,7 +163,7 @@ class GCMBlockCipher extends BaseAEADBlockCipher {
 
   @override
   int doFinal(Uint8List out, int outOff) {
-    var result = remainingInput.length > 0
+    var result = remainingInput.isNotEmpty
         ? processBlock(remainingInput, 0, out, outOff)
         : 0;
 
