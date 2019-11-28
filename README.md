@@ -353,7 +353,7 @@ This CLI allows you to perform basic functions from the main package on the term
 It is my personal recommendation to always know what each algorithm that you are using in a given application, and how it works. 
 However, this package exists to help you with that transition. This package is **not** a guide on cryptography, and cannot 
 substitute for prior knowledge of some level of cryptography. 
-If you need help understanding concepts of cryptography, **ask**someone; user data is always the priority, and I'll help
+If you need help understanding concepts of cryptography, **ask** someone; user data is always the priority, and I'll help
 anyone willing to listen. I'd much rather answer an issue regarding basic encryption than hear that my packagewas used 
 improperly and thus compromised. If you ever need to reach me, post in the issue tracker above; I'll be on it as quickly as
 possible.
