@@ -2,6 +2,10 @@
 // This library is dually licensed under LGPL 3 and MPL 2.0.
 // See file LICENSE for more information.
 
+// ignore_for_file: omit_local_variable_types, prefer_single_quotes
+// ignore_for_file: non_constant_identifier_names, directives_ordering
+// ignore_for_file: prefer_typing_uninitialized_variables, camel_case_types
+// ignore_for_file: annotate_overrides
 library pointycastle.impl.digest.ripemd128;
 
 import "dart:typed_data";
@@ -20,9 +24,12 @@ class RIPEMD128Digest extends MD4FamilyDigest implements Digest {
 
   RIPEMD128Digest() : super(Endian.little, 4, 16);
 
+  @override
   final algorithmName = "RIPEMD-128";
+  @override
   final digestSize = _DIGEST_LENGTH;
 
+  @override
   void resetState() {
     state[0] = 0x67452301;
     state[1] = 0xefcdab89;
@@ -30,11 +37,12 @@ class RIPEMD128Digest extends MD4FamilyDigest implements Digest {
     state[3] = 0x10325476;
   }
 
+  @override
   void processBlock() {
-    var a, aa;
-    var b, bb;
-    var c, cc;
-    var d, dd;
+    int a, aa;
+    int b, bb;
+    int c, cc;
+    int d, dd;
 
     a = aa = state[0];
     b = bb = state[1];

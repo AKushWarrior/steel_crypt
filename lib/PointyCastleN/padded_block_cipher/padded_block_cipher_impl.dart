@@ -9,45 +9,58 @@ import "dart:typed_data";
 import '../api.dart';
 import '../src/registry/registry.dart';
 
+// ignore_for_file: omit_local_variable_types, prefer_single_quotes
+// ignore_for_file: non_constant_identifier_names, directives_ordering
+// ignore_for_file: prefer_typing_uninitialized_variables, camel_case_types
+// ignore_for_file: annotate_overrides
+
 /// The standard implementation of [PaddedBlockCipher].
 class PaddedBlockCipherImpl implements PaddedBlockCipher {
   /// Intended for internal use.
+  // ignore: non_constant_identifier_names
   static final FactoryConfig FACTORY_CONFIG = DynamicFactoryConfig.regex(
       PaddedBlockCipher,
-      r"^(.+)/([^/]+)$",
+      r'^(.+)/([^/]+)$',
       (_, final Match match) => () {
-            Padding padding = Padding(match.group(2));
-            BlockCipher underlyingCipher = BlockCipher(match.group(1));
+        var padding = Padding(match.group(2));
+        var underlyingCipher = BlockCipher(match.group(1));
             return PaddedBlockCipherImpl(padding, underlyingCipher);
           });
 
+  @override
   final Padding padding;
+  @override
   final BlockCipher cipher;
 
   bool _encrypting;
 
   PaddedBlockCipherImpl(this.padding, this.cipher);
 
+  @override
   String get algorithmName =>
-      cipher.algorithmName + "/" + padding.algorithmName;
+      cipher.algorithmName + '/' + padding.algorithmName;
 
+  @override
   int get blockSize => cipher.blockSize;
 
+  @override
   void reset() {
     _encrypting = null;
     cipher.reset();
   }
 
+  @override
   void init(bool forEncryption, covariant PaddedBlockCipherParameters params) {
     _encrypting = forEncryption;
     cipher.init(forEncryption, params.underlyingCipherParameters);
     padding.init(params.paddingCipherParameters);
   }
 
+  @override
   Uint8List process(Uint8List data) {
     var inputBlocks = (data.length + blockSize - 1) ~/ blockSize;
 
-    var outputBlocks;
+    int outputBlocks;
     if (_encrypting) {
       outputBlocks = (data.length + blockSize) ~/ blockSize;
     } else {
@@ -71,10 +84,12 @@ class PaddedBlockCipherImpl implements PaddedBlockCipher {
     return out.sublist(0, lastBlockOffset + lastBlockSize);
   }
 
+  @override
   int processBlock(Uint8List inp, int inpOff, Uint8List out, int outOff) {
     return cipher.processBlock(inp, inpOff, out, outOff);
   }
 
+  @override
   int doFinal(Uint8List inp, int inpOff, Uint8List out, int outOff) {
     if (_encrypting) {
       var lastInputBlock = Uint8List(blockSize)..setAll(0, inp.sublist(inpOff));

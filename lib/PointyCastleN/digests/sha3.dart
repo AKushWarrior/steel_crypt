@@ -2,6 +2,10 @@
 // This library is dually licensed under LGPL 3 and MPL 2.0.
 // See file LICENSE for more information.
 
+// ignore_for_file: omit_local_variable_types, prefer_single_quotes
+// ignore_for_file: non_constant_identifier_names, directives_ordering
+// ignore_for_file: prefer_typing_uninitialized_variables, camel_case_types
+// ignore_for_file: annotate_overrides
 library pointycastle.impl.digest.sha3;
 
 import "dart:typed_data";
@@ -13,14 +17,16 @@ import '../src/ufixnum.dart';
 
 /// Implementation of SHA-3 digest.
 class SHA3Digest extends BaseDigest implements Digest {
-  static final RegExp _NAME_REGEX = RegExp(r"^SHA-3\/([0-9]+)$");
+  // ignore: non_constant_identifier_names
+  static final RegExp _NAME_REGEX = RegExp(r'^SHA-3\/([0-9]+)$');
 
   /// Intended for internal use.
+  // ignore: non_constant_identifier_names
   static final FactoryConfig FACTORY_CONFIG = DynamicFactoryConfig(
       Digest,
       _NAME_REGEX,
       (_, final Match match) => () {
-            int bitLength = int.parse(match.group(1));
+        var bitLength = int.parse(match.group(1));
             return SHA3Digest(bitLength);
           });
 
@@ -93,22 +99,28 @@ class SHA3Digest extends BaseDigest implements Digest {
     _init(bitLength);
   }
 
-  String get algorithmName => "SHA-3/${_fixedOutputLength}";
+  @override
+  String get algorithmName => 'SHA-3/$_fixedOutputLength';
 
+  @override
   int get digestSize => (_fixedOutputLength ~/ 8);
 
+  @override
   void reset() {
     _init(_fixedOutputLength);
   }
 
+  @override
   void updateByte(int inp) {
     _doUpdate(Uint8List.fromList([inp]), 0, 8);
   }
 
+  @override
   void update(Uint8List inp, int inpOff, int len) {
     _doUpdate(inp, inpOff, len * 8);
   }
 
+  @override
   int doFinal(Uint8List out, int outOff) {
     _squeeze(out, outOff, _fixedOutputLength);
 
@@ -141,7 +153,7 @@ class SHA3Digest extends BaseDigest implements Digest {
 
       default:
         throw ArgumentError(
-            "bitLength (${bitLength}) must be one of 224, 256, 384, or 512");
+            'bitLength (${bitLength}) must be one of 224, 256, 384, or 512');
     }
   }
 
@@ -165,10 +177,10 @@ class SHA3Digest extends BaseDigest implements Digest {
   void _initSponge(int rate, int capacity) {
     if ((rate + capacity) != 1600) {
       throw StateError(
-          "Value of (rate + capacity) is not 1600: ${rate + capacity}");
+          'Value of (rate + capacity) is not 1600: ${rate + capacity}');
     }
     if ((rate <= 0) || (rate >= 1600) || ((rate % 64) != 0)) {
-      throw StateError("Invalid rate value: ${rate}");
+      throw StateError('Invalid rate value: ${rate}');
     }
 
     _rate = rate;
@@ -191,11 +203,11 @@ class SHA3Digest extends BaseDigest implements Digest {
     int i, j, wholeBlocks;
 
     if ((_bitsInQueue % 8) != 0) {
-      throw StateError("Attempt to absorb with odd length queue");
+      throw StateError('Attempt to absorb with odd length queue');
     }
 
     if (_squeezing) {
-      throw StateError("Attempt to absorb while squeezing");
+      throw StateError('Attempt to absorb while squeezing');
     }
 
     i = 0;
@@ -236,7 +248,7 @@ class SHA3Digest extends BaseDigest implements Digest {
           _absorbQueue();
         }
         if (partialByte > 0) {
-          int mask = (1 << partialByte) - 1;
+          var mask = (1 << partialByte) - 1;
           _dataQueue[_bitsInQueue ~/ 8] = (data[off + (i ~/ 8)] & mask);
           _bitsInQueue += partialByte;
           i += partialByte;
@@ -277,7 +289,7 @@ class SHA3Digest extends BaseDigest implements Digest {
     }
 
     if ((outputLength % 8) != 0) {
-      throw StateError("Output length not a multiple of 8: ${outputLength}");
+      throw StateError('Output length not a multiple of 8: ${outputLength}');
     }
 
     i = 0;
@@ -310,12 +322,12 @@ class SHA3Digest extends BaseDigest implements Digest {
   void _fromBytesToWords(Register64List stateAsWords, Uint8List state) {
     final r = Register64();
 
-    for (int i = 0; i < (1600 ~/ 64); i++) {
+    for (var i = 0; i < (1600 ~/ 64); i++) {
       final index = i * (64 ~/ 8);
 
       stateAsWords[i].set(0);
 
-      for (int j = 0; j < (64 ~/ 8); j++) {
+      for (var j = 0; j < (64 ~/ 8); j++) {
         r.set(state[index + j]);
         r.shiftl(8 * j);
         stateAsWords[i].or(r);
@@ -326,10 +338,10 @@ class SHA3Digest extends BaseDigest implements Digest {
   void _fromWordsToBytes(Uint8List state, Register64List stateAsWords) {
     final r = Register64();
 
-    for (int i = 0; i < (1600 ~/ 64); i++) {
+    for (var i = 0; i < (1600 ~/ 64); i++) {
       final index = i * (64 ~/ 8);
 
-      for (int j = 0; j < (64 ~/ 8); j++) {
+      for (var j = 0; j < (64 ~/ 8); j++) {
         r.set(stateAsWords[i]);
         r.shiftr(8 * j);
         state[index + j] = r.lo32;
@@ -347,14 +359,14 @@ class SHA3Digest extends BaseDigest implements Digest {
 
   void _keccakPermutationAfterXor(
       Uint8List state, Uint8List data, int dataLengthInBytes) {
-    for (int i = 0; i < dataLengthInBytes; i++) {
+    for (var i = 0; i < dataLengthInBytes; i++) {
       state[i] ^= data[i];
     }
     _keccakPermutation(state);
   }
 
   void _keccakPermutationOnWords(Register64List state) {
-    for (int i = 0; i < 24; i++) {
+    for (var i = 0; i < 24; i++) {
       theta(state);
       rho(state);
       pi(state);
@@ -368,15 +380,15 @@ class SHA3Digest extends BaseDigest implements Digest {
     final r0 = Register64();
     final r1 = Register64();
 
-    for (int x = 0; x < 5; x++) {
+    for (var x = 0; x < 5; x++) {
       C[x].set(0);
 
-      for (int y = 0; y < 5; y++) {
+      for (var y = 0; y < 5; y++) {
         C[x].xor(A[x + 5 * y]);
       }
     }
 
-    for (int x = 0; x < 5; x++) {
+    for (var x = 0; x < 5; x++) {
       r0.set(C[(x + 1) % 5]);
       r0.shiftl(1);
 
@@ -386,7 +398,7 @@ class SHA3Digest extends BaseDigest implements Digest {
       r0.xor(r1);
       r0.xor(C[(x + 4) % 5]);
 
-      for (int y = 0; y < 5; y++) {
+      for (var y = 0; y < 5; y++) {
         A[x + 5 * y].xor(r0);
       }
     }
@@ -395,8 +407,8 @@ class SHA3Digest extends BaseDigest implements Digest {
   void rho(Register64List A) {
     final r = Register64();
 
-    for (int x = 0; x < 5; x++) {
-      for (int y = 0; y < 5; y++) {
+    for (var x = 0; x < 5; x++) {
+      for (var y = 0; y < 5; y++) {
         final index = x + 5 * y;
 
         if (_keccakRhoOffsets[index] != 0) {
@@ -415,8 +427,8 @@ class SHA3Digest extends BaseDigest implements Digest {
 
     tempA.setRange(0, tempA.length, A);
 
-    for (int x = 0; x < 5; x++) {
-      for (int y = 0; y < 5; y++) {
+    for (var x = 0; x < 5; x++) {
+      for (var y = 0; y < 5; y++) {
         A[y + 5 * ((2 * x + 3 * y) % 5)].set(tempA[x + 5 * y]);
       }
     }
@@ -425,14 +437,14 @@ class SHA3Digest extends BaseDigest implements Digest {
   void chi(Register64List A) {
     final chiC = Register64List(5);
 
-    for (int y = 0; y < 5; y++) {
-      for (int x = 0; x < 5; x++) {
+    for (var y = 0; y < 5; y++) {
+      for (var x = 0; x < 5; x++) {
         chiC[x].set(A[((x + 1) % 5) + (5 * y)]);
         chiC[x].not();
         chiC[x].and(A[((x + 2) % 5) + (5 * y)]);
         chiC[x].xor(A[x + 5 * y]);
       }
-      for (int x = 0; x < 5; x++) {
+      for (var x = 0; x < 5; x++) {
         A[x + 5 * y].set(chiC[x]);
       }
     }

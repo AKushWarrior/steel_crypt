@@ -2,6 +2,11 @@
 // This library is dually licensed under LGPL 3 and MPL 2.0.
 // See file LICENSE for more information.
 
+// ignore_for_file: omit_local_variable_types, prefer_single_quotes
+// ignore_for_file: non_constant_identifier_names, directives_ordering
+// ignore_for_file: prefer_typing_uninitialized_variables, camel_case_types
+// ignore_for_file: annotate_overrides
+
 library pointycastle.impl.key_generator.rsa_key_generator;
 
 import '../api.dart';
@@ -14,35 +19,37 @@ bool _testBit(BigInt i, int n) {
 }
 
 class RSAKeyGenerator implements KeyGenerator {
+  // ignore: non_constant_identifier_names
   static final FactoryConfig FACTORY_CONFIG =
-      StaticFactoryConfig(KeyGenerator, "RSA", () => RSAKeyGenerator());
+  StaticFactoryConfig(KeyGenerator, 'RSA', () => RSAKeyGenerator());
 
   SecureRandom _random;
   RSAKeyGeneratorParameters _params;
 
-  String get algorithmName => "RSA";
+  @override
+  String get algorithmName => 'RSA';
 
   @override
   void init(CipherParameters params) {
     if (params is ParametersWithRandom) {
       _random = params.random;
-      _params = params.parameters;
+      _params = params.parameters as RSAKeyGeneratorParameters;
     } else {
       _random = SecureRandom();
-      _params = params;
+      _params = params as RSAKeyGeneratorParameters;
     }
 
     if (_params.bitStrength < 12) {
-      throw ArgumentError("key bit strength cannot be smaller than 12");
+      throw ArgumentError('key bit strength cannot be smaller than 12');
     }
 
     if (!_testBit(_params.publicExponent, 0)) {
-      throw ArgumentError("Public exponent cannot be even");
+      throw ArgumentError('Public exponent cannot be even');
     }
   }
 
   AsymmetricKeyPair generateKeyPair() {
-    var p, q, n, e;
+    BigInt p, q, n, e;
 
     // p and q values should have a length of half the strength in bits
     var strength = _params.bitStrength;
@@ -284,7 +291,8 @@ bool _millerRabin(BigInt b, int t) {
 /// test primality with certainty >= 1-.5^t
 bool _isProbablePrime(BigInt b, int t) {
   // Implementation borrowed from bignum.BigIntegerDartvm.
-  var i, x = b.abs();
+  int i;
+  BigInt x = b.abs();
   if (b <= _lowprimes.last) {
     for (i = 0; i < _lowprimes.length; ++i) {
       if (b == _lowprimes[i]) {

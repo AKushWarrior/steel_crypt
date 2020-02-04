@@ -2,6 +2,8 @@
 // This library is dually licensed under LGPL 3 and MPL 2.0.
 // See file LICENSE for more information.
 
+// ignore_for_file: omit_local_variable_types, prefer_single_quotes, non_constant_identifier_names, directives_ordering
+
 library pointycastle.impl.block_cipher.modes.ofb;
 
 import "dart:typed_data";
@@ -13,23 +15,26 @@ import '../../src/registry/registry.dart';
 /// Implementation of Output FeedBack mode (OFB) on top of a [BlockCipher].
 class OFBBlockCipher extends BaseBlockCipher {
   /// Intended for internal use.
+  // ignore: non_constant_identifier_names
   static final FactoryConfig FACTORY_CONFIG = DynamicFactoryConfig.regex(
       BlockCipher,
-      r"^(.+)/OFB-([0-9]+)$",
+      r'^(.+)/OFB-([0-9]+)$',
       (_, final Match match) => () {
-            BlockCipher underlying = BlockCipher(match.group(1));
-            int blockSizeInBits = int.parse(match.group(2));
+        var underlying = BlockCipher(match.group(1));
+        var blockSizeInBits = int.parse(match.group(2));
             if ((blockSizeInBits % 8) != 0) {
               throw RegistryFactoryException.invalid(
-                  "Bad OFB block size: $blockSizeInBits (must be a multiple of 8)");
+                  'Bad OFB block size: $blockSizeInBits (must be a multiple of 8)');
             }
             return OFBBlockCipher(underlying, blockSizeInBits ~/ 8);
           });
 
+  @override
   final int blockSize;
 
   final BlockCipher _underlyingCipher;
 
+  // ignore: non_constant_identifier_names
   Uint8List _IV;
   Uint8List _ofbV;
   Uint8List _ofbOutV;
@@ -40,17 +45,20 @@ class OFBBlockCipher extends BaseBlockCipher {
     _ofbOutV = Uint8List(_underlyingCipher.blockSize);
   }
 
+  @override
   String get algorithmName =>
-      "${_underlyingCipher.algorithmName}/OFB-${blockSize * 8}";
+      '${_underlyingCipher.algorithmName}/OFB-${blockSize * 8}';
 
+  @override
   void reset() {
     _ofbV.setRange(0, _IV.length, _IV);
     _underlyingCipher.reset();
   }
 
+  @override
   void init(bool forEncryption, CipherParameters params) {
     if (params is ParametersWithIV) {
-      ParametersWithIV ivParam = params;
+      var ivParam = params;
       var iv = ivParam.iv;
 
       if (iv.length < _IV.length) {
@@ -73,19 +81,20 @@ class OFBBlockCipher extends BaseBlockCipher {
     }
   }
 
+  @override
   int processBlock(Uint8List inp, int inpOff, Uint8List out, int outOff) {
     if ((inpOff + blockSize) > inp.length) {
-      throw ArgumentError("Input buffer too short");
+      throw ArgumentError('Input buffer too short');
     }
 
     if ((outOff + blockSize) > out.length) {
-      throw ArgumentError("Output buffer too short");
+      throw ArgumentError('Output buffer too short');
     }
 
     _underlyingCipher.processBlock(_ofbV, 0, _ofbOutV, 0);
 
     // XOR the ofbV with the plaintext producing the cipher text (and the next input block).
-    for (int i = 0; i < blockSize; i++) {
+    for (var i = 0; i < blockSize; i++) {
       out[outOff + i] = _ofbOutV[i] ^ inp[inpOff + i];
     }
 

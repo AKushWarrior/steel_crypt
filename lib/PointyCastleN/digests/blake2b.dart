@@ -2,6 +2,10 @@
 // This library is dually licensed under LGPL 3 and MPL 2.0.
 // See file LICENSE for more information.
 
+// ignore_for_file: omit_local_variable_types, prefer_single_quotes
+// ignore_for_file: non_constant_identifier_names, directives_ordering
+// ignore_for_file: prefer_typing_uninitialized_variables, camel_case_types
+// ignore_for_file: annotate_overrides
 library pointycastle.impl.digest.blake2b;
 
 import "dart:typed_data";
@@ -12,8 +16,9 @@ import '../src/registry/registry.dart';
 import '../src/ufixnum.dart';
 
 class Blake2bDigest extends BaseDigest implements Digest {
+  // ignore: non_constant_identifier_names
   static final FactoryConfig FACTORY_CONFIG =
-      StaticFactoryConfig(Digest, "Blake2b", () => Blake2bDigest());
+  StaticFactoryConfig(Digest, 'Blake2b', () => Blake2bDigest());
 
   static const _rounds = 12;
   static const _blockSize = 128;
@@ -46,23 +51,23 @@ class Blake2bDigest extends BaseDigest implements Digest {
     _buffer = Uint8List(_blockSize);
 
     if (digestSize < 1 || digestSize > 64) {
-      throw ArgumentError("Invalid digest length (required: 1 - 64)");
+      throw ArgumentError('Invalid digest length (required: 1 - 64)');
     }
     _digestLength = digestSize;
     if (salt != null) {
       if (salt.length != 16) {
-        throw ArgumentError("salt length must be exactly 16 bytes");
+        throw ArgumentError('salt length must be exactly 16 bytes');
       }
       _salt = Uint8List.fromList(salt);
     }
     if (personalization != null) {
       if (personalization.length != 16) {
-        throw ArgumentError("personalization length must be exactly 16 bytes");
+        throw ArgumentError('personalization length must be exactly 16 bytes');
       }
       _personalization = Uint8List.fromList(personalization);
     }
     if (key != null) {
-      if (key.length > 64) throw ArgumentError("Keys > 64 are not supported");
+      if (key.length > 64) throw ArgumentError('Keys > 64 are not supported');
       _key = Uint8List.fromList(key);
 
       _keyLength = key.length;
@@ -72,7 +77,10 @@ class Blake2bDigest extends BaseDigest implements Digest {
     init();
   }
 
-  String get algorithmName => "Blake2b";
+  @override
+  String get algorithmName => 'Blake2b';
+
+  @override
   int get digestSize => _digestLength;
 
   void init() {
@@ -120,6 +128,7 @@ class Blake2bDigest extends BaseDigest implements Digest {
     _internalState[15]..set(_blake2b_IV[7]); // ^ f1 with f1 = 0
   }
 
+  @override
   void updateByte(int inp) {
     if (_bufferPos == _blockSize) {
       // full buffer
@@ -139,11 +148,12 @@ class Blake2bDigest extends BaseDigest implements Digest {
     }
   }
 
+  @override
   void update(Uint8List inp, int inpOff, int len) {
     if (inp == null || len == 0) {
       return;
     }
-    int remainingLength = 0;
+    var remainingLength = 0;
     if (_bufferPos != 0) {
       remainingLength = _blockSize - _bufferPos;
       if (remainingLength < len) {
@@ -163,10 +173,10 @@ class Blake2bDigest extends BaseDigest implements Digest {
     }
 
     int msgPos;
-    int blockWiseLastPos = inpOff + len - _blockSize;
+    var blockWiseLastPos = inpOff + len - _blockSize;
     for (msgPos = inpOff + remainingLength;
-        msgPos < blockWiseLastPos;
-        msgPos += _blockSize) {
+    msgPos < blockWiseLastPos;
+    msgPos += _blockSize) {
       _t0.sum(_blockSize);
       if (_t0.lo32 == 0 && _t0.hi32 == 0) {
         _t1.sum(1);
@@ -178,6 +188,7 @@ class Blake2bDigest extends BaseDigest implements Digest {
     _bufferPos += inpOff + len - msgPos;
   }
 
+  @override
   int doFinal(Uint8List out, int outOff) {
     _f0.set(0xFFFFFFFF, 0xFFFFFFFF);
     _t0.sum(_bufferPos);
@@ -208,6 +219,7 @@ class Blake2bDigest extends BaseDigest implements Digest {
     return _digestLength;
   }
 
+  @override
   void reset() {
     _bufferPos = 0;
     _f0.set(0);
@@ -286,6 +298,7 @@ class Blake2bDigest extends BaseDigest implements Digest {
 
 // Produced from the square root of primes 2, 3, 5, 7, 11, 13, 17, 19.
 // The same as SHA-512 IV.
+// ignore: non_constant_identifier_names
 final _blake2b_IV = Register64List.from([
   [0x6a09e667, 0xf3bcc908],
   [0xbb67ae85, 0x84caa73b],
@@ -297,6 +310,7 @@ final _blake2b_IV = Register64List.from([
   [0x5be0cd19, 0x137e2179],
 ]);
 
+// ignore: non_constant_identifier_names
 final _blake2b_sigma = [
   [0, 1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 11, 12, 13, 14, 15],
   [14, 10, 4, 8, 9, 15, 13, 6, 1, 12, 0, 2, 11, 7, 5, 3],

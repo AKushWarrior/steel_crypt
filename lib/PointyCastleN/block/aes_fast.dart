@@ -2,9 +2,11 @@
 // This library is dually licensed under LGPL 3 and MPL 2.0.
 // See file LICENSE for more information.
 
+// ignore_for_file: omit_local_variable_types, prefer_single_quotes, non_constant_identifier_names, directives_ordering
+
 library pointycastle.impl.block_cipher.aes_fast;
 
-import "dart:typed_data";
+import 'dart:typed_data';
 
 import '../api.dart';
 import '../src/impl/base_block_cipher.dart';
@@ -13,7 +15,7 @@ import '../src/ufixnum.dart';
 
 class AESFastEngine extends BaseBlockCipher {
   static final FactoryConfig FACTORY_CONFIG =
-      StaticFactoryConfig(BlockCipher, "AES", () => AESFastEngine());
+  StaticFactoryConfig(BlockCipher, 'AES', () => AESFastEngine());
 
   static const _BLOCK_SIZE = 16;
 
@@ -22,10 +24,13 @@ class AESFastEngine extends BaseBlockCipher {
   int _ROUNDS;
   int _C0, _C1, _C2, _C3;
 
-  String get algorithmName => "AES";
+  @override
+  String get algorithmName => 'AES';
 
+  @override
   int get blockSize => _BLOCK_SIZE;
 
+  @override
   void reset() {
     _ROUNDS = 0;
     _C0 = _C1 = _C2 = _C3 = 0;
@@ -33,16 +38,18 @@ class AESFastEngine extends BaseBlockCipher {
     _workingKey = null;
   }
 
+  @override
   void init(bool forEncryption, covariant KeyParameter params) {
     var key = params.key;
 
-    int KC = (key.lengthInBytes / 4).floor(); // key length in words
+    // ignore: non_constant_identifier_names
+    var KC = (key.lengthInBytes / 4).floor(); // key length in words
     if (((KC != 4) && (KC != 6) && (KC != 8)) ||
         ((KC * 4) != key.lengthInBytes)) {
-      throw ArgumentError("Key length must be 128/192/256 bits");
+      throw ArgumentError('Key length must be 128/192/256 bits');
     }
 
-    this._forEncryption = forEncryption;
+    _forEncryption = forEncryption;
     _ROUNDS = KC +
         6; // This is not always true for the generalized Rijndael that allows larger block sizes
     _workingKey = List.generate(
@@ -57,9 +64,9 @@ class AESFastEngine extends BaseBlockCipher {
     }
 
     // While not enough round key material calculated calculate values.
-    int k = (_ROUNDS + 1) << 2;
-    for (int i = KC; i < k; i++) {
-      int temp = _workingKey[(i - 1) >> 2][(i - 1) & 3].toInt();
+    var k = (_ROUNDS + 1) << 2;
+    for (var i = KC; i < k; i++) {
+      var temp = _workingKey[(i - 1) >> 2][(i - 1) & 3].toInt();
       if ((i % KC) == 0) {
         temp = _subWord(_shift(temp, 8)) ^ _rcon[((i / KC) - 1).floor()];
       } else if ((KC > 6) && ((i % KC) == 4)) {
@@ -80,17 +87,18 @@ class AESFastEngine extends BaseBlockCipher {
     }
   }
 
+  @override
   int processBlock(Uint8List inp, int inpOff, Uint8List out, int outOff) {
     if (_workingKey == null) {
-      throw StateError("AES engine not initialised");
+      throw StateError('AES engine not initialised');
     }
 
     if ((inpOff + (32 / 2)) > inp.lengthInBytes) {
-      throw ArgumentError("Input buffer too short");
+      throw ArgumentError('Input buffer too short');
     }
 
     if ((outOff + (32 / 2)) > out.lengthInBytes) {
-      throw ArgumentError("Output buffer too short");
+      throw ArgumentError('Output buffer too short');
     }
 
     var inpView = ByteData.view(inp.buffer, inp.offsetInBytes, inp.length);
@@ -334,10 +342,10 @@ int _FFmulX(int x) {
 }
 
 int _inv_mcol(int x) {
-  int f2 = _FFmulX(x);
-  int f4 = _FFmulX(f2);
-  int f8 = _FFmulX(f4);
-  int f9 = x ^ f8;
+  var f2 = _FFmulX(x);
+  var f4 = _FFmulX(f2);
+  var f8 = _FFmulX(f4);
+  var f9 = x ^ f8;
 
   return f2 ^
       f4 ^

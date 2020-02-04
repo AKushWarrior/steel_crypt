@@ -31,16 +31,24 @@ import '../src/registry/registry.dart';
 /// * </p>
 /// */
 
+// ignore_for_file: omit_local_variable_types, prefer_single_quotes
+// ignore_for_file: non_constant_identifier_names, directives_ordering
+// ignore_for_file: prefer_typing_uninitialized_variables, camel_case_types
+// ignore_for_file: annotate_overrides
+
 class CMac extends BaseMac {
+  // ignore: non_constant_identifier_names
   static final FactoryConfig FACTORY_CONFIG = DynamicFactoryConfig.suffix(
       Mac,
-      "/CMAC",
+      '/CMAC',
       (_, final Match match) => () {
-            BlockCipher cipher = BlockCipher(match.group(1));
+        var cipher = BlockCipher(match.group(1));
             return CMac.fromCipher(cipher);
           });
 
   Uint8List _poly;
+
+  // ignore: non_constant_identifier_names
   Uint8List _ZEROES;
 
   Uint8List _mac;
@@ -51,6 +59,7 @@ class CMac extends BaseMac {
 
   final int _macSize;
 
+  // ignore: non_constant_identifier_names
   Uint8List _Lu, _Lu2;
 
   ParametersWithIV _params;
@@ -77,15 +86,15 @@ class CMac extends BaseMac {
   ///* @param macSizeInBits the size of the MAC in bits, must be a multiple of 8 and &lt;= 128.
 
   CMac(BlockCipher cipher, int macSizeInBits)
-      : this._macSize = macSizeInBits ~/ 8,
-        this._cipher = cipher {
+      : _macSize = macSizeInBits ~/ 8,
+        _cipher = cipher {
     if ((macSizeInBits % 8) != 0) {
-      throw ArgumentError("MAC size must be multiple of 8");
+      throw ArgumentError('MAC size must be multiple of 8');
     }
 
     if (macSizeInBits > (_cipher.blockSize * 8)) {
       throw ArgumentError(
-          "MAC size must be less or equal to ${_cipher.blockSize * 8}");
+          'MAC size must be less or equal to ${_cipher.blockSize * 8}');
     }
 
     _poly = lookupPoly(cipher.blockSize);
@@ -101,15 +110,17 @@ class CMac extends BaseMac {
 
   @override
   String get algorithmName {
-    String blockCipherAlgorithmName = _cipher.algorithmName.split("/").first;
-    return "${blockCipherAlgorithmName}/CMAC";
+    var blockCipherAlgorithmName = _cipher.algorithmName
+        .split('/')
+        .first;
+    return '$blockCipherAlgorithmName/CMAC';
   }
 
   static int shiftLeft(Uint8List block, Uint8List output) {
-    int i = block.length;
-    int bit = 0;
+    var i = block.length;
+    var bit = 0;
     while (--i >= 0) {
-      int b = block[i] & 0xff;
+      var b = block[i] & 0xff;
       output[i] = ((b << 1) | bit);
       bit = (b >> 7) & 1;
     }
@@ -117,11 +128,11 @@ class CMac extends BaseMac {
   }
 
   Uint8List _doubleLu(Uint8List inp) {
-    Uint8List ret = Uint8List(inp.length);
-    int carry = shiftLeft(inp, ret);
+    var ret = Uint8List(inp.length);
+    var carry = shiftLeft(inp, ret);
 
     // NOTE: This construction is an attempt at a constant-time implementation.
-    int mask = (-carry) & 0xff;
+    var mask = (-carry) & 0xff;
     ret[inp.length - 3] ^= _poly[1] & mask;
     ret[inp.length - 2] ^= _poly[2] & mask;
     ret[inp.length - 1] ^= _poly[3] & mask;
@@ -173,7 +184,7 @@ class CMac extends BaseMac {
         break;
       default:
         throw ArgumentError(
-            "Unknown block size for CMAC: ${blockSizeLength * 8}");
+            'Unknown block size for CMAC: ${blockSizeLength * 8}');
     }
 
     final out = Uint8List(4);
@@ -188,13 +199,13 @@ class CMac extends BaseMac {
   void init(covariant KeyParameter keyParams) {
     final zeroIV =
     Uint8List(keyParams.key.length).sublist(0, _cipher.blockSize);
-    this._params = ParametersWithIV(keyParams, zeroIV);
+    _params = ParametersWithIV(keyParams, zeroIV);
 
     // Initialize before computing L, Lu, Lu2
     _cipher.init(true, _params);
 
     //initializes the L, Lu, Lu2 numbers
-    Uint8List L = Uint8List(_ZEROES.length);
+    var L = Uint8List(_ZEROES.length);
     _cipher.processBlock(_ZEROES, 0, L, 0);
     _Lu = _doubleLu(L);
     _Lu2 = _doubleLu(_Lu);
@@ -204,7 +215,7 @@ class CMac extends BaseMac {
   }
 
   @override
-  get macSize => _macSize;
+  int get macSize => _macSize;
 
   @override
   void updateByte(int inp) {
@@ -222,8 +233,8 @@ class CMac extends BaseMac {
       throw ArgumentError("Can't have a negative input length!");
     }
 
-    int blockSize = _cipher.blockSize;
-    int gapLen = blockSize - _bufOff;
+    var blockSize = _cipher.blockSize;
+    var gapLen = blockSize - _bufOff;
 
     if (len > gapLen) {
       _buf.setRange(_bufOff, _bufOff + gapLen, inp.sublist(inOff));
@@ -249,7 +260,7 @@ class CMac extends BaseMac {
 
   @override
   int doFinal(Uint8List out, int outOff) {
-    int blockSize = _cipher.blockSize;
+    var blockSize = _cipher.blockSize;
 
     Uint8List lu;
     if (_bufOff == blockSize) {
@@ -259,7 +270,7 @@ class CMac extends BaseMac {
       lu = _Lu2;
     }
 
-    for (int i = 0; i < _mac.length; i++) {
+    for (var i = 0; i < _mac.length; i++) {
       _buf[i] ^= lu[i];
     }
 
@@ -276,7 +287,7 @@ class CMac extends BaseMac {
   @override
   void reset() {
     // clean the buffer.
-    for (int i = 0; i < _buf.length; i++) {
+    for (var i = 0; i < _buf.length; i++) {
       _buf[i] = 0;
     }
 

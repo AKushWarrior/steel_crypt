@@ -8,23 +8,28 @@ part of 'steel_crypt_base.dart';
 
 ///Class for creating cryptographically secure strings.
 class CryptKey {
-  static SecureRandom _getSecureRandom() {
+  static SecureRandom _getFortunaRandom() {
     var secureRandom = FortunaRandom();
     var random = Random.secure();
     var seeds = List<int>.generate(32, (i) => random.nextInt(256));
+    var seedHash = Blake2bDigest();
+    seeds = seedHash.process(Uint8List.fromList(seeds)).sublist(0, 32);
     secureRandom.seed(KeyParameter(Uint8List.fromList(seeds)));
     return secureRandom;
   }
 
   /// Generate cryptographically-secure random string using Fortuna algorithm.
   ///
-  /// This should be used for all cases where privacy is of high importance.
+  /// This should be used for all cases where randomness is of high importance.
+  /// This includes, but is not limited to, key generation.
   ///
-  /// Defaults to length 32 (bytes).
+  /// Defaults to length 32 bytes.
   String genFortuna([int length = 32]) {
-    var rand = _getSecureRandom();
-    var values = rand.nextBytes(length);
-    var stringer = base64Url.encode(values);
+    var rand = _getFortunaRandom();
+    var values = List.generate((length), (int i) {
+      return rand.nextUint8();
+    });
+    var stringer = String.fromCharCodes(values);
     return stringer;
   }
 
@@ -37,6 +42,6 @@ class CryptKey {
   String genDart([int length = 16]) {
     var rand = Random.secure();
     var bytes = List<int>.generate(length, (i) => rand.nextInt(256));
-    return base64Url.encode(bytes);
+    return String.fromCharCodes(bytes);
   }
 }

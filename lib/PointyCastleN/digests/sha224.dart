@@ -2,6 +2,10 @@
 // This library is dually licensed under LGPL 3 and MPL 2.0.
 // See file LICENSE for more information.
 
+// ignore_for_file: omit_local_variable_types, prefer_single_quotes
+// ignore_for_file: non_constant_identifier_names, directives_ordering
+// ignore_for_file: prefer_typing_uninitialized_variables, camel_case_types
+// ignore_for_file: annotate_overrides
 library pointycastle.impl.digest.sha224;
 
 import "dart:typed_data";
@@ -14,7 +18,7 @@ import '../src/ufixnum.dart';
 /// Implementation of SHA-224 digest.
 class SHA224Digest extends MD4FamilyDigest implements Digest {
   static final FactoryConfig FACTORY_CONFIG =
-      StaticFactoryConfig(Digest, "SHA-224", () => SHA224Digest());
+  StaticFactoryConfig(Digest, "SHA-224", () => SHA224Digest());
 
   static const _DIGEST_LENGTH = 28;
 
@@ -127,6 +131,8 @@ class SHA224Digest extends MD4FamilyDigest implements Digest {
 
   int _Theta1(int x) => rotr32(x, 17) ^ rotr32(x, 19) ^ shiftr32(x, 10);
 
+  /// SHA-224 Constants (represent the first 32 bits of the fractional parts of the cube roots of the
+  /// first sixty-four prime numbers)
   static final _K = [
     0x428a2f98,
     0x71374491,

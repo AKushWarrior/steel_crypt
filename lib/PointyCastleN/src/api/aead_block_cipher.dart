@@ -1,5 +1,7 @@
 part of '../../api.dart';
 
+// ignore_for_file: omit_local_variable_types, prefer_single_quotes, non_constant_identifier_names, directives_ordering, prefer_typing_uninitialized_variables
+
 /// A block cipher mode that includes authenticated encryption
 abstract class AEADBlockCipher implements BlockCipher {
   /// Process [len] bytes from [inp] starting at offset [inpOff] and output the

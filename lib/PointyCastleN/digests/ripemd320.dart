@@ -2,6 +2,10 @@
 // This library is dually licensed under LGPL 3 and MPL 2.0.
 // See file LICENSE for more information.
 
+// ignore_for_file: omit_local_variable_types, prefer_single_quotes
+// ignore_for_file: non_constant_identifier_names, directives_ordering
+// ignore_for_file: prefer_typing_uninitialized_variables, camel_case_types
+// ignore_for_file: annotate_overrides
 library pointycastle.impl.digest.ripemd320;
 
 import "dart:typed_data";
@@ -20,9 +24,12 @@ class RIPEMD320Digest extends MD4FamilyDigest implements Digest {
 
   RIPEMD320Digest() : super(Endian.little, 10, 16);
 
+  @override
   final algorithmName = "RIPEMD-320";
+  @override
   final digestSize = _DIGEST_LENGTH;
 
+  @override
   void resetState() {
     state[0] = 0x67452301;
     state[1] = 0xefcdab89;
@@ -36,24 +43,20 @@ class RIPEMD320Digest extends MD4FamilyDigest implements Digest {
     state[9] = 0x3C2D1E0F;
   }
 
+  @override
   void processBlock() {
-    var a, aa;
-    var b, bb;
-    var c, cc;
-    var d, dd;
-    var e, ee;
-    var t;
+    int t;
 
-    a = state[0];
-    b = state[1];
-    c = state[2];
-    d = state[3];
-    e = state[4];
-    aa = state[5];
-    bb = state[6];
-    cc = state[7];
-    dd = state[8];
-    ee = state[9];
+    int a = state[0];
+    int b = state[1];
+    int c = state[2];
+    int d = state[3];
+    int e = state[4];
+    int aa = state[5];
+    int bb = state[6];
+    int cc = state[7];
+    int dd = state[8];
+    int ee = state[9];
 
     //
     // Rounds 1 - 16

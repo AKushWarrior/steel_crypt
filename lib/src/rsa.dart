@@ -9,7 +9,7 @@ part of 'steel_crypt_base.dart';
 ///RSA asymmetric encryption machine.
 class RsaCrypt {
   ///Pair of private keys.
-  var _pair;
+  AsymmetricKeyPair _pair;
 
   ///Construct with keys.
   RsaCrypt() {
@@ -17,21 +17,21 @@ class RsaCrypt {
   }
 
   ///Access private key.
-  PrivateKey get randPrivKey {
-    return _pair.privateKey;
+  RSAPrivateKey get randPrivKey {
+    return _pair.privateKey as RSAPrivateKey;
   }
 
   ///Access public key.
-  PublicKey get randPubKey {
-    return _pair.publicKey;
+  RSAPublicKey get randPubKey {
+    return _pair.publicKey as RSAPublicKey;
   }
 
   ///create Random param for RSA keypair.
   static SecureRandom _getSecureRandom() {
-    var secureRandom = FortunaRandom();
-    var random = Random.secure();
-    List<int> seeds = [];
-    for (int i = 0; i < 32; i++) {
+    final secureRandom = FortunaRandom();
+    final random = Random.secure();
+    var seeds = List<int>.of([]);
+    for (var i = 0; i < 32; i++) {
       seeds.add(random.nextInt(255));
     }
     secureRandom.seed(KeyParameter(Uint8List.fromList(seeds)));
@@ -41,14 +41,14 @@ class RsaCrypt {
   ///Create RSA keypair given SecureRandom.
   AsymmetricKeyPair<PublicKey, PrivateKey> _getRsaKeyPair(
       SecureRandom secureRandom) {
-    var rsapars = RSAKeyGeneratorParameters(BigInt.from(65537), 2048, 5);
-    var params = ParametersWithRandom(rsapars, secureRandom);
-    var keyGenerator = RSAKeyGenerator();
+    final rsapars = RSAKeyGeneratorParameters(BigInt.from(65537), 2048, 5);
+    final params = ParametersWithRandom(rsapars, secureRandom);
+    final keyGenerator = RSAKeyGenerator();
     keyGenerator.init(params);
     return keyGenerator.generateKeyPair();
   }
 
-  ///Parse key from PEM file
+  ///Parse key from PEM file.
   Future<T> parseKeyFromFile<T extends RSAAsymmetricKey>(
       String filename) async {
     final file = File(filename);
@@ -57,19 +57,95 @@ class RsaCrypt {
     return parser.parse(key) as T;
   }
 
+  ///Parse key from PEM string.
+  T parseKeyFromString<T extends RSAAsymmetricKey>(String pemString) {
+    final parser = _RSAKeyParser();
+    return parser.parse(pemString) as T;
+  }
+
+  ///Encode RSA key to a PEM string.
+  String encodeKeyToString(RSAAsymmetricKey key) {
+    if (key is RSAPublicKey) {
+      final algorithmSeq = ASN1Sequence();
+      final algorithmAsn1Obj = ASN1Object.fromBytes(Uint8List.fromList(
+          [0x6, 0x9, 0x2a, 0x86, 0x48, 0x86, 0xf7, 0xd, 0x1, 0x1, 0x1]));
+      final paramsAsn1Obj =
+      ASN1Object.fromBytes(Uint8List.fromList([0x5, 0x0]));
+      algorithmSeq.add(algorithmAsn1Obj);
+      algorithmSeq.add(paramsAsn1Obj);
+
+      final publicKeySeq = ASN1Sequence();
+      publicKeySeq.add(ASN1Integer(key.modulus));
+      publicKeySeq.add(ASN1Integer(key.exponent));
+      final publicKeySeqBitString =
+      ASN1BitString(Uint8List.fromList(publicKeySeq.encodedBytes));
+
+      final topLevelSeq = ASN1Sequence();
+      topLevelSeq.add(algorithmSeq);
+      topLevelSeq.add(publicKeySeqBitString);
+      final dataBase64 = base64.encode(topLevelSeq.encodedBytes);
+
+      return '-----BEGIN PUBLIC KEY-----\r\n$dataBase64\r\n-----END PUBLIC KEY-----';
+    } else {
+      final privateKey = key as RSAPrivateKey;
+      final version = ASN1Integer(BigInt.from(0));
+
+      final algorithmSeq = ASN1Sequence();
+      final algorithmAsn1Obj = ASN1Object.fromBytes(Uint8List.fromList(
+          [0x6, 0x9, 0x2a, 0x86, 0x48, 0x86, 0xf7, 0xd, 0x1, 0x1, 0x1]));
+      final paramsAsn1Obj =
+      ASN1Object.fromBytes(Uint8List.fromList([0x5, 0x0]));
+      algorithmSeq.add(algorithmAsn1Obj);
+      algorithmSeq.add(paramsAsn1Obj);
+
+      final privateKeySeq = ASN1Sequence();
+      final modulus = ASN1Integer(key.n);
+      final publicExponent = ASN1Integer(BigInt.parse('65537'));
+      final privateExponent = ASN1Integer(privateKey.d);
+      final p = ASN1Integer(privateKey.p);
+      final q = ASN1Integer(privateKey.q);
+      final dP = privateKey.d % (privateKey.p - BigInt.from(1));
+      final exp1 = ASN1Integer(dP);
+      final dQ = privateKey.d % (privateKey.q - BigInt.from(1));
+      final exp2 = ASN1Integer(dQ);
+      final iQ = privateKey.q.modInverse(privateKey.p);
+      final co = ASN1Integer(iQ);
+
+      privateKeySeq.add(version);
+      privateKeySeq.add(modulus);
+      privateKeySeq.add(publicExponent);
+      privateKeySeq.add(privateExponent);
+      privateKeySeq.add(p);
+      privateKeySeq.add(q);
+      privateKeySeq.add(exp1);
+      privateKeySeq.add(exp2);
+      privateKeySeq.add(co);
+      final publicKeySeqOctetString =
+      ASN1OctetString(Uint8List.fromList(privateKeySeq.encodedBytes));
+
+      final topLevelSeq = ASN1Sequence();
+      topLevelSeq.add(version);
+      topLevelSeq.add(algorithmSeq);
+      topLevelSeq.add(publicKeySeqOctetString);
+      final dataBase64 = base64.encode(topLevelSeq.encodedBytes);
+
+      return '-----BEGIN PRIVATE KEY-----\r\n$dataBase64\r\n-----END PRIVATE KEY-----';
+    }
+  }
+
   ///Encrypt using RSA.
   String encrypt(String text, RSAPublicKey pubKey) {
-    var cipher = OAEPEncoding(RSAEngine());
+    final cipher = OAEPEncoding(RSAEngine());
     cipher.init(true, PublicKeyParameter<RSAPublicKey>(pubKey));
-    Uint8List output1 = cipher.process(utf8.encode(text));
+    final output1 = cipher.process(Uint8List.fromList(utf8.encode(text)));
     return base64Encode(output1);
   }
 
   ///Decrypt using RSA.
   String decrypt(String encrypted, RSAPrivateKey privateKey) {
-    var cipher = OAEPEncoding(RSAEngine());
+    final cipher = OAEPEncoding(RSAEngine());
     cipher.init(false, PrivateKeyParameter<RSAPrivateKey>(privateKey));
-    Uint8List output = cipher.process(base64Decode(encrypted));
+    final output = cipher.process(base64Decode(encrypted));
     return utf8.decode(output);
   }
 }
@@ -129,7 +205,7 @@ class _RSAKeyParser {
   }
 
   ASN1Sequence _pkcs8PublicSequence(ASN1Sequence sequence) {
-    final ASN1Object bitString = sequence.elements[1];
+    var bitString = sequence.elements[1];
     final bytes = bitString.valueBytes().sublist(1);
     final parser = ASN1Parser(Uint8List.fromList(bytes));
 
@@ -137,7 +213,7 @@ class _RSAKeyParser {
   }
 
   ASN1Sequence _pkcs8PrivateSequence(ASN1Sequence sequence) {
-    final ASN1Object bitString = sequence.elements[2];
+    var bitString = sequence.elements[2];
     final bytes = bitString.valueBytes();
     final parser = ASN1Parser(bytes);
 

@@ -2,6 +2,10 @@
 // This library is dually licensed under LGPL 3 and MPL 2.0.
 // See file LICENSE for more information.
 
+// ignore_for_file: omit_local_variable_types, prefer_single_quotes
+// ignore_for_file: non_constant_identifier_names, directives_ordering
+// ignore_for_file: prefer_typing_uninitialized_variables, camel_case_types
+// ignore_for_file: annotate_overrides
 library pointycastle.src.impl.digests.md4_family_digest;
 
 import "dart:typed_data";
@@ -19,9 +23,9 @@ abstract class MD4FamilyDigest extends BaseDigest {
   final Endian _endian;
   final _packedStateSize;
 
-  final state;
+  final List<int> state;
 
-  final buffer;
+  final List<int> buffer;
   int bufferOffset;
 
   MD4FamilyDigest(this._endian, int stateSize, int bufferSize,
@@ -29,7 +33,7 @@ abstract class MD4FamilyDigest extends BaseDigest {
       : _packedStateSize =
             (packedStateSize == null) ? stateSize : packedStateSize,
         state = List<int>(stateSize),
-        buffer = List<int>(bufferSize) {
+        buffer = Uint8List(bufferSize) {
     reset();
   }
 
@@ -39,6 +43,7 @@ abstract class MD4FamilyDigest extends BaseDigest {
   /// Process a whole block of data in extender digest.
   void processBlock();
 
+  @override
   void reset() {
     _byteCount.set(0);
 
@@ -58,7 +63,7 @@ abstract class MD4FamilyDigest extends BaseDigest {
   }
 
   void update(Uint8List inp, int inpOff, int len) {
-    var nbytes;
+    int nbytes;
 
     nbytes = _processUntilNextWord(inp, inpOff, len);
     inpOff += nbytes;
@@ -142,6 +147,7 @@ abstract class MD4FamilyDigest extends BaseDigest {
     return processed;
   }
 
+  // ignore: comment_references
   /// Process a word in [_xBuff] if it is already full and then reset it
   void _processWordIfBufferFull() {
     if (_wordBufferOffset == _wordBuffer.length) {
@@ -158,6 +164,7 @@ abstract class MD4FamilyDigest extends BaseDigest {
     }
   }
 
+  // ignore: comment_references
   /// Called from [finish] so that extender can process the number of bits processed.
   void _processLength(Register64 bitLength) {
     if (bufferOffset > 14) {
@@ -176,12 +183,12 @@ abstract class MD4FamilyDigest extends BaseDigest {
         break;
 
       default:
-        throw StateError("Invalid endianness: ${_endian}");
+        throw StateError("Invalid endianness: $_endian");
     }
   }
 
   void _packState(Uint8List out, int outOff) {
-    for (int i = 0; i < _packedStateSize; i++) {
+    for (int i = 0; i < (_packedStateSize as num); i++) {
       pack32(state[i], out, (outOff + i * 4), _endian);
     }
   }

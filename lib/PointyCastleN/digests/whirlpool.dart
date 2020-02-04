@@ -2,6 +2,10 @@
 // This library is dually licensed under LGPL 3 and MPL 2.0.
 // See file LICENSE for more information.
 
+// ignore_for_file: omit_local_variable_types, prefer_single_quotes
+// ignore_for_file: non_constant_identifier_names, directives_ordering
+// ignore_for_file: prefer_typing_uninitialized_variables, camel_case_types
+// ignore_for_file: annotate_overrides
 library pointycastle.impl.digest.whirlpool;
 
 import "dart:typed_data";
@@ -13,14 +17,18 @@ import '../src/ufixnum.dart';
 
 /// Implementation of Whirlpool digest.
 class WhirlpoolDigest extends BaseDigest implements Digest {
+  // ignore: non_constant_identifier_names
   static final FactoryConfig FACTORY_CONFIG =
-      StaticFactoryConfig(Digest, "Whirlpool", () => WhirlpoolDigest());
+  StaticFactoryConfig(Digest, 'Whirlpool', () => WhirlpoolDigest());
 
   static const _DIGEST_LENGTH_BYTES = 512 ~/ 8;
   static const _BUFFER_SIZE = 64;
   static const _ROUNDS = 10;
+
+  // ignore: non_constant_identifier_names
   static final _R64_ZERO = Register64(0);
 
+  // ignore: non_constant_identifier_names
   static final _ZEROS_LIST = Uint8List(_BUFFER_SIZE);
 
   final _buffer = Uint8List(_BUFFER_SIZE);
@@ -29,7 +37,11 @@ class WhirlpoolDigest extends BaseDigest implements Digest {
   final _bitCount = Register64List(4);
 
   final _hash = Register64List(8);
+
+  // ignore: non_constant_identifier_names
   final _K = Register64List(8);
+
+  // ignore: non_constant_identifier_names
   final _L = Register64List(8);
   final _block = Register64List(8);
   final _state = Register64List(8);
@@ -38,9 +50,12 @@ class WhirlpoolDigest extends BaseDigest implements Digest {
     reset();
   }
 
-  final algorithmName = "Whirlpool";
+  @override
+  final algorithmName = 'Whirlpool';
+  @override
   final digestSize = _DIGEST_LENGTH_BYTES;
 
+  @override
   void reset() {
     _bufferPos = 0;
     _buffer.fillRange(0, _buffer.length, 0);
@@ -54,6 +69,7 @@ class WhirlpoolDigest extends BaseDigest implements Digest {
     _state.fillRange(0, _state.length, 0);
   }
 
+  @override
   void updateByte(int inp) {
     _buffer[_bufferPos++] = inp;
 
@@ -64,8 +80,9 @@ class WhirlpoolDigest extends BaseDigest implements Digest {
     _increment();
   }
 
+  @override
   void update(Uint8List inp, int inpOff, int len) {
-    for (int i = 0; i < len; i++) {
+    for (var i = 0; i < len; i++) {
       _buffer[_bufferPos++] = inp[inpOff + i];
 
       if (_bufferPos == _buffer.length) {
@@ -76,10 +93,11 @@ class WhirlpoolDigest extends BaseDigest implements Digest {
     _increment(len * 8);
   }
 
+  @override
   int doFinal(Uint8List out, int outOff) {
     _finish();
 
-    for (int i = 0; i < 8; i++) {
+    for (var i = 0; i < 8; i++) {
       _hash[i].pack(out, outOff + (i * 8), Endian.big);
     }
 
@@ -89,7 +107,7 @@ class WhirlpoolDigest extends BaseDigest implements Digest {
   }
 
   void _processFilledBuffer(Uint8List inp, int inpOff) {
-    for (int i = 0; i < _state.length; i++) {
+    for (var i = 0; i < _state.length; i++) {
       _block[i].unpack(_buffer, i * 8, Endian.big);
     }
 
@@ -101,7 +119,7 @@ class WhirlpoolDigest extends BaseDigest implements Digest {
 
   void _processBlock() {
     // compute and apply K^0
-    for (int i = 0; i < 8; i++) {
+    for (var i = 0; i < 8; i++) {
       _K[i].set(_hash[i]);
       _state[i]
         ..set(_block[i])
@@ -109,8 +127,8 @@ class WhirlpoolDigest extends BaseDigest implements Digest {
     }
 
     // iterate over the rounds
-    for (int round = 1; round <= _ROUNDS; round++) {
-      for (int i = 0; i < 8; i++) {
+    for (var round = 1; round <= _ROUNDS; round++) {
+      for (var i = 0; i < 8; i++) {
         _L[i].set(0);
         _L[i].xor(_C0[clip8(_K[(i - 0) & 7].hi32 >> 24)]);
         _L[i].xor(_C1[clip8(_K[(i - 1) & 7].hi32 >> 16)]);
@@ -127,7 +145,7 @@ class WhirlpoolDigest extends BaseDigest implements Digest {
       _K[0].xor(_rc[round]);
 
       // apply the round transformation
-      for (int i = 0; i < 8; i++) {
+      for (var i = 0; i < 8; i++) {
         _L[i].set(_K[i]);
         _L[i].xor(_C0[clip8(_state[(i - 0) & 7].hi32 >> 24)]);
         _L[i].xor(_C1[clip8(_state[(i - 1) & 7].hi32 >> 16)]);
@@ -145,7 +163,7 @@ class WhirlpoolDigest extends BaseDigest implements Digest {
 
     // apply Miuaguchi-Preneel compression
     final r = Register64();
-    for (int i = 0; i < 8; i++) {
+    for (var i = 0; i < 8; i++) {
       _hash[i].xor(r
         ..set(_state[i])
         ..xor(_block[i]));
@@ -203,6 +221,7 @@ class WhirlpoolDigest extends BaseDigest implements Digest {
   }
 }
 
+// ignore: non_constant_identifier_names
 final _C0 = Register64List.from([
   [0x18186018, 0xc07830d8],
   [0x23238c23, 0x05af4626],
@@ -462,6 +481,7 @@ final _C0 = Register64List.from([
   [0x86862286, 0x44a411c2]
 ]);
 
+// ignore: non_constant_identifier_names
 final _C1 = Register64List.from([
   [0xd8181860, 0x18c07830],
   [0x2623238c, 0x2305af46],
@@ -721,6 +741,7 @@ final _C1 = Register64List.from([
   [0xc2868622, 0x8644a411]
 ]);
 
+// ignore: non_constant_identifier_names
 final _C2 = Register64List.from([
   [0x30d81818, 0x6018c078],
   [0x46262323, 0x8c2305af],
@@ -980,6 +1001,7 @@ final _C2 = Register64List.from([
   [0x11c28686, 0x228644a4]
 ]);
 
+// ignore: non_constant_identifier_names
 final _C3 = Register64List.from([
   [0x7830d818, 0x186018c0],
   [0xaf462623, 0x238c2305],
@@ -1239,6 +1261,7 @@ final _C3 = Register64List.from([
   [0xa411c286, 0x86228644]
 ]);
 
+// ignore: non_constant_identifier_names
 final _C4 = Register64List.from([
   [0xc07830d8, 0x18186018],
   [0x05af4626, 0x23238c23],
@@ -1498,6 +1521,7 @@ final _C4 = Register64List.from([
   [0x44a411c2, 0x86862286]
 ]);
 
+// ignore: non_constant_identifier_names
 final _C5 = Register64List.from([
   [0x18c07830, 0xd8181860],
   [0x2305af46, 0x2623238c],
@@ -1757,6 +1781,7 @@ final _C5 = Register64List.from([
   [0x8644a411, 0xc2868622]
 ]);
 
+// ignore: non_constant_identifier_names
 final _C6 = Register64List.from([
   [0x6018c078, 0x30d81818],
   [0x8c2305af, 0x46262323],
@@ -2016,6 +2041,7 @@ final _C6 = Register64List.from([
   [0x228644a4, 0x11c28686]
 ]);
 
+// ignore: non_constant_identifier_names
 final _C7 = Register64List.from([
   [0x186018c0, 0x7830d818],
   [0x238c2305, 0xaf462623],

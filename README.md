@@ -84,7 +84,9 @@ dollars to help me continue development.
     - String ```encrypt(String text, RSAPublicKey pubKey)```
     - String ```decrypt(String encrypted, RSAPrivateKey privateKey)```
 * __Note__: RsaCrypt auto generates secure RSA private and public keys. You can access them using ```.randPrivKey``` and ```.randPubKey``` getters, or use your own. 
-* __Note__: To get key from a PEM file, translate the PEM key wanted into a string, and use ```RsaCrypt().parseKeyFromFile(PemFilepathHere)``` 
+* __Note__: To get key from a PEM file, use ```RsaCrypt().parseKeyFromFile(String PemFilepathHere)``` and pass the PEM file as a string.
+* __Note__: To get key from a PEM string, use ```RsaCrypt().parseKeyFromString(String PemStringHere)``` and pass the PEM string.
+* __Note__: To convert key to PEM string, use ```RsaCrypt().encodeKeyToString(RsaAsymmetricKey KeyHere)``` and pass the key.
 
 #### Password Hashing (class PassCrypt)
 * Constructor: ```PassCrypt([String algorithm = "scrypt"])```
@@ -144,6 +146,8 @@ dollars to help me continue development.
     - Generates cryptographic string using Dart Random.secure()
     - Faster but less secure
     - Best for IV's or salt
+* Note: Keys/IVs may look strange when printed, because the terminal is thrown by the full range of utf-16 characters. 
+Rest assured, they are still valid.
 
 ---
 
@@ -343,18 +347,17 @@ This CLI allows you to perform basic functions from the main package on the term
 - [x] Create a more complete password solution
 - [x] Add more detailed example
 - [x] Update further reading
-- [ ] Use Dart2Native for CLI (maybe)
 - [ ] Add more AES modes (GCM done, de-prioritized)
 - [ ] ??? (Leave feature requests in the issue tracker above, and they'll end up here!)
 
 ---
 
 ## Note: Prior Knowledge
-It is my personal recommendation to always know what each algorithm that you are using in a given application, and how it works. 
+It is my personal recommendation to always know what each algorithm that you are using in a given application is, and how it works. 
 However, this package exists to help you with that transition. This package is **not** a guide on cryptography, and cannot 
 substitute for prior knowledge of some level of cryptography. 
 If you need help understanding concepts of cryptography, **ask** someone; user data is always the priority, and I'll help
-anyone willing to listen. I'd much rather answer an issue regarding basic encryption than hear that my packagewas used 
+anyone willing to listen. I'd much rather answer an issue regarding basic encryption than hear that my package was used 
 improperly and thus compromised. If you ever need to reach me, post in the issue tracker above; I'll be on it as quickly as
 possible.
    

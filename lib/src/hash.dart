@@ -26,7 +26,7 @@ class HashCrypt {
     ;
     Digest digest;
     digest = Digest(_type);
-    var value = digest.process(bytes);
+    var value = digest.process(bytes as Uint8List);
     return base64.encode(value);
   }
 

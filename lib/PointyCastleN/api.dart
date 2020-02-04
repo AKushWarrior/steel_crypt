@@ -4,12 +4,11 @@
 
 library pointycastle.api;
 
-import "dart:typed_data";
+import 'dart:typed_data';
 
 import 'src/registry/registry.dart';
 
 part 'src/api/aead_block_cipher.dart';
-
 part 'src/api/aead_parameters.dart';
 part 'src/api/algorithm.dart';
 part 'src/api/asymmetric_block_cipher.dart';

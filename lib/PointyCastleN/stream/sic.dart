@@ -2,9 +2,14 @@
 // This library is dually licensed under LGPL 3 and MPL 2.0.
 // See file LICENSE for more information.
 
+// ignore_for_file: omit_local_variable_types, prefer_single_quotes
+// ignore_for_file: non_constant_identifier_names, directives_ordering
+// ignore_for_file: prefer_typing_uninitialized_variables, camel_case_types
+// ignore_for_file: annotate_overrides
+
 library pointycastle.impl.stream_cipher.sic;
 
-import "dart:typed_data";
+import 'dart:typed_data';
 
 import '../api.dart';
 import '../src/impl/base_stream_cipher.dart';
@@ -15,9 +20,9 @@ class SICStreamCipher extends BaseStreamCipher {
   /// Intended for internal use.
   static final FactoryConfig FACTORY_CONFIG = DynamicFactoryConfig.suffix(
       StreamCipher,
-      "/SIC",
+      '/SIC',
       (_, final Match match) => () {
-            String digestName = match.group(1);
+        var digestName = match.group(1);
             return SICStreamCipher(BlockCipher(digestName));
           });
 
@@ -34,8 +39,10 @@ class SICStreamCipher extends BaseStreamCipher {
     _counterOut = Uint8List(underlyingCipher.blockSize);
   }
 
-  String get algorithmName => "${underlyingCipher.algorithmName}/SIC";
+  @override
+  String get algorithmName => '${underlyingCipher.algorithmName}/SIC';
 
+  @override
   void reset() {
     underlyingCipher.reset();
     _counter.setAll(0, _iv);
@@ -43,19 +50,21 @@ class SICStreamCipher extends BaseStreamCipher {
     _consumed = _counterOut.length;
   }
 
+  @override
   void init(bool forEncryption, covariant ParametersWithIV params) {
     _iv.setAll(0, params.iv);
     reset();
     underlyingCipher.init(true, params.parameters);
   }
 
-  void processBytes(
-      Uint8List inp, int inpOff, int len, Uint8List out, int outOff) {
+  @override
+  void processBytes(Uint8List inp, int inpOff, int len, Uint8List out, int outOff) {
     for (var i = 0; i < len; i++) {
       out[outOff + i] = returnByte(inp[inpOff + i]);
     }
   }
 
+  @override
   int returnByte(int inp) {
     _feedCounterIfNeeded();
     return clip8(inp) ^ _counterOut[_consumed++];
@@ -76,8 +85,7 @@ class SICStreamCipher extends BaseStreamCipher {
 
   /// Increments [_counter] by 1
   void _incrementCounter() {
-    var i;
-    for (i = _counter.lengthInBytes - 1; i >= 0; i--) {
+    for (var i = _counter.lengthInBytes - 1; i >= 0; i--) {
       var val = _counter[i];
       val++;
       _counter[i] = val;

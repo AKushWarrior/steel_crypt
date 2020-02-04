@@ -2,6 +2,10 @@
 // This library is dually licensed under LGPL 3 and MPL 2.0.
 // See file LICENSE for more information.
 
+// ignore_for_file: omit_local_variable_types, prefer_single_quotes
+// ignore_for_file: non_constant_identifier_names, directives_ordering
+// ignore_for_file: prefer_typing_uninitialized_variables, camel_case_types
+// ignore_for_file: annotate_overrides
 library pointycastle.impl.stream_cipher.rc4;
 
 import '../api.dart';
@@ -10,7 +14,7 @@ import '../src/registry/registry.dart';
 
 class RC4Engine extends BaseStreamCipher {
   static final FactoryConfig FACTORY_CONFIG =
-      StaticFactoryConfig(StreamCipher, "RC4", () => RC4Engine());
+  StaticFactoryConfig(StreamCipher, 'RC4', () => RC4Engine());
 
   static int STATE_LENGTH = 256;
   List<int> engineState;
@@ -18,19 +22,22 @@ class RC4Engine extends BaseStreamCipher {
   int y = 0;
   List<int> workingKey;
 
-  String get algorithmName => "RC4";
+  @override
+  String get algorithmName => 'RC4';
 
+  @override
   void init(bool forEncryption, covariant KeyParameter params) {
     workingKey = params.key;
     setKey(workingKey);
   }
 
+  @override
   int returnByte(int inp) {
     x = (x + 1) & 0xff;
     y = (engineState[x] + y) & 0xff;
 
     // swap
-    int tmp = engineState[x];
+    var tmp = engineState[x];
     engineState[x] = engineState[y];
     engineState[y] = tmp;
 
@@ -38,32 +45,33 @@ class RC4Engine extends BaseStreamCipher {
     return (inp ^ engineState[(engineState[x] + engineState[y]) & 0xff]);
   }
 
-  int processBytes(
-      List<int> inp, int inOff, int len, List<int> out, int outOff) {
+  @override
+  int processBytes(List<int> inp, int inOff, int len, List<int> out, int outOff) {
     if ((inOff + len) > inp.length) {
-      throw ArgumentError("input buffer too short");
+      throw ArgumentError('input buffer too short');
     }
 
     if ((outOff + len) > out.length) {
-      throw ArgumentError("output buffer too short");
+      throw ArgumentError('output buffer too short');
     }
 
-    for (int i = 0; i < len; i++) {
+    for (var i = 0; i < len; i++) {
       x = (x + 1) & 0xff;
       y = (engineState[x] + y) & 0xff;
 
       // swap
-      int tmp = engineState[x];
+      var tmp = engineState[x];
       engineState[x] = engineState[y];
       engineState[y] = tmp;
 
       // xor
       out[i + outOff] = (inp[i + inOff] ^
-          engineState[(engineState[x] + engineState[y]) & 0xff]);
+      engineState[(engineState[x] + engineState[y]) & 0xff]);
     }
     return len;
   }
 
+  @override
   void reset() {
     setKey(workingKey);
   }
@@ -76,22 +84,20 @@ class RC4Engine extends BaseStreamCipher {
     x = 0;
     y = 0;
 
-    if (engineState == null) {
-      engineState = List<int>(STATE_LENGTH);
-    }
+    engineState ??= List<int>(STATE_LENGTH);
 
     // reset the state of the engine
-    for (int i = 0; i < STATE_LENGTH; i++) {
+    for (var i = 0; i < STATE_LENGTH; i++) {
       engineState[i] = i;
     }
 
-    int i1 = 0;
-    int i2 = 0;
+    var i1 = 0;
+    var i2 = 0;
 
-    for (int i = 0; i < STATE_LENGTH; i++) {
+    for (var i = 0; i < STATE_LENGTH; i++) {
       i2 = ((keyBytes[i1] & 0xff) + engineState[i] + i2) & 0xff;
       // do the byte-swap inline
-      int tmp = engineState[i];
+      var tmp = engineState[i];
       engineState[i] = engineState[i2];
       engineState[i2] = tmp;
       i1 = (i1 + 1) % keyBytes.length;

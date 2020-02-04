@@ -2,24 +2,25 @@
 // This library is dually licensed under LGPL 3 and MPL 2.0.
 // See file LICENSE for more information.
 
+// ignore_for_file: omit_local_variable_types, prefer_single_quotes, non_constant_identifier_names
+
 library pointycastle.impl.asymmetric_block_cipher.pkcs1;
 
-import "dart:typed_data";
-import "dart:math";
+import 'dart:math' show Random;
+import 'dart:typed_data';
 
 import '../api.dart';
-import '../src/registry/registry.dart';
-import '../src/impl/base_asymmetric_block_cipher.dart';
 import '../random/fortuna_random.dart';
+import '../src/impl/base_asymmetric_block_cipher.dart';
+import '../src/registry/registry.dart';
 
 class PKCS1Encoding extends BaseAsymmetricBlockCipher {
   /// Intended for internal use.
   static final FactoryConfig FACTORY_CONFIG = DynamicFactoryConfig.suffix(
       AsymmetricBlockCipher,
-      "/PKCS1",
+      '/PKCS1',
       (_, final Match match) => () {
-            AsymmetricBlockCipher underlyingCipher =
-                AsymmetricBlockCipher(match.group(1));
+        var underlyingCipher = AsymmetricBlockCipher(match.group(1));
             return PKCS1Encoding(underlyingCipher);
           });
 
@@ -33,31 +34,34 @@ class PKCS1Encoding extends BaseAsymmetricBlockCipher {
 
   PKCS1Encoding(this._engine);
 
-  String get algorithmName => "${_engine.algorithmName}/PKCS1";
+  @override
+  String get algorithmName => '${_engine.algorithmName}/PKCS1';
 
+  @override
   void reset() {}
 
   Uint8List _seed() {
     var random = Random.secure();
-    List<int> seeds = [];
+    var seeds = [];
     for (int i = 0; i < 32; i++) {
       seeds.add(random.nextInt(255));
     }
-    return Uint8List.fromList(seeds);
+    return Uint8List.fromList(seeds as List<int>);
   }
 
+  @override
   void init(bool forEncryption, CipherParameters params) {
     AsymmetricKeyParameter akparams;
 
     if (params is ParametersWithRandom) {
-      ParametersWithRandom paramswr = params;
+      var paramswr = params;
 
       _random = paramswr.random;
-      akparams = paramswr.parameters;
+      akparams = paramswr.parameters as AsymmetricKeyParameter;
     } else {
       _random = FortunaRandom();
       _random.seed(KeyParameter(_seed()));
-      akparams = params;
+      akparams = params as AsymmetricKeyParameter;
     }
 
     _engine.init(forEncryption, akparams);
@@ -66,6 +70,7 @@ class PKCS1Encoding extends BaseAsymmetricBlockCipher {
     _forEncryption = forEncryption;
   }
 
+  @override
   int get inputBlockSize {
     var baseBlockSize = _engine.inputBlockSize;
 
@@ -76,6 +81,7 @@ class PKCS1Encoding extends BaseAsymmetricBlockCipher {
     }
   }
 
+  @override
   int get outputBlockSize {
     var baseBlockSize = _engine.outputBlockSize;
 
@@ -86,8 +92,8 @@ class PKCS1Encoding extends BaseAsymmetricBlockCipher {
     }
   }
 
-  int processBlock(
-      Uint8List inp, int inpOff, int len, Uint8List out, int outOff) {
+  @override
+  int processBlock(Uint8List inp, int inpOff, int len, Uint8List out, int outOff) {
     if (_forEncryption) {
       return _encodeBlock(inp, inpOff, len, out, outOff);
     } else {
@@ -98,7 +104,7 @@ class PKCS1Encoding extends BaseAsymmetricBlockCipher {
   int _encodeBlock(
       Uint8List inp, int inpOff, int inpLen, Uint8List out, int outOff) {
     if (inpLen > inputBlockSize) {
-      throw ArgumentError("Input data too large");
+      throw ArgumentError('Input data too large');
     }
 
     var block = Uint8List(_engine.inputBlockSize);
@@ -133,23 +139,23 @@ class PKCS1Encoding extends BaseAsymmetricBlockCipher {
     block = block.sublist(0, len);
 
     if (block.length < outputBlockSize) {
-      throw ArgumentError("Block truncated");
+      throw ArgumentError('Block truncated');
     }
 
     var type = block[0];
 
     if (_forPrivateKey && (type != 2)) {
-      throw ArgumentError("Unsupported block type for private key: $type");
+      throw ArgumentError('Unsupported block type for private key: $type');
     }
     if (!_forPrivateKey && (type != 1)) {
-      throw ArgumentError("Unsupported block type for public key: $type");
+      throw ArgumentError('Unsupported block type for public key: $type');
     }
     if (block.length != _engine.outputBlockSize) {
-      throw ArgumentError("Block size is incorrect: ${block.length}");
+      throw ArgumentError('Block size is incorrect: ${block.length}');
     }
 
     // find and extract the message block.
-    var start;
+    var start = 1;
 
     for (start = 1; start < block.length; start++) {
       var pad = block[start];
@@ -158,14 +164,14 @@ class PKCS1Encoding extends BaseAsymmetricBlockCipher {
         break;
       }
       if (type == 1 && (pad != 0xFF)) {
-        throw ArgumentError("Incorrect block padding");
+        throw ArgumentError('Incorrect block padding');
       }
     }
 
     start++; // data should start at the next byte
 
     if ((start > block.length) || (start < _HEADER_LENGTH)) {
-      throw ArgumentError("No data found in block, only padding");
+      throw ArgumentError('No data found in block, only padding');
     }
 
     var rlen = (block.length - start);

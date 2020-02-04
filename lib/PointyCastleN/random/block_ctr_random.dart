@@ -2,14 +2,18 @@
 // This library is dually licensed under LGPL 3 and MPL 2.0.
 // See file LICENSE for more information.
 
+// ignore_for_file: omit_local_variable_types, prefer_single_quotes
+// ignore_for_file: non_constant_identifier_names, directives_ordering
+// ignore_for_file: prefer_typing_uninitialized_variables, camel_case_types
+// ignore_for_file: annotate_overrides
 library pointycastle.impl.secure_random.block_ctr_random;
 
 import "dart:typed_data";
 
 import '../api.dart';
+import '../src/impl/secure_random_base.dart';
 import '../src/registry/registry.dart';
 import '../src/ufixnum.dart';
-import '../src/impl/secure_random_base.dart';
 
 class BlockCtrRandom extends SecureRandomBase implements SecureRandom {
   /// Intended for internal use.
@@ -26,7 +30,7 @@ class BlockCtrRandom extends SecureRandomBase implements SecureRandom {
 
   Uint8List _input;
   Uint8List _output;
-  var _used;
+  int _used;
 
   BlockCtrRandom(this.cipher) {
     _input = Uint8List(cipher.blockSize);
@@ -36,6 +40,7 @@ class BlockCtrRandom extends SecureRandomBase implements SecureRandom {
 
   String get algorithmName => "${cipher.algorithmName}/CTR/PRNG";
 
+  @override
   void seed(CipherParameters params) {
     _used = _output.length;
     if (params is ParametersWithIV) {
@@ -46,6 +51,7 @@ class BlockCtrRandom extends SecureRandomBase implements SecureRandom {
     }
   }
 
+  @override
   int nextUint8() {
     if (_used == _output.length) {
       cipher.processBlock(_input, 0, _output, 0);

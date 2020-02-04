@@ -15,6 +15,7 @@ abstract class PaddedBlockCipher implements BlockCipher {
   /// Get the underlying [BlockCipher] used by this cipher.
   BlockCipher get cipher;
 
+  @override
   Uint8List process(Uint8List data);
 
   int doFinal(Uint8List inp, int inpOff, Uint8List out, int outOff);

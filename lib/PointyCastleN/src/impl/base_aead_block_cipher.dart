@@ -5,6 +5,10 @@ import "dart:typed_data";
 
 import "../../api.dart";
 
+// ignore_for_file: omit_local_variable_types, prefer_single_quotes
+// ignore_for_file: non_constant_identifier_names, directives_ordering
+// ignore_for_file: prefer_typing_uninitialized_variables, camel_case_types
+// ignore_for_file: annotate_overrides
 abstract class BaseAEADBlockCipher extends AEADBlockCipher {
   final BlockCipher _underlyingCipher;
 
@@ -98,14 +102,14 @@ abstract class BaseAEADBlockCipher extends AEADBlockCipher {
       }
 
       _macSize = macSizeBits ~/ 8;
-      keyParam = param.parameters;
+      keyParam = param.parameters as KeyParameter;
     } else if (params is ParametersWithIV) {
       ParametersWithIV param = params;
 
       newNonce = param.iv;
       _initialAssociatedText = Uint8List(0);
       _macSize = 16;
-      keyParam = param.parameters;
+      keyParam = param.parameters as KeyParameter;
     } else {
       throw ArgumentError("invalid parameters passed to AEADBlockCipher");
     }

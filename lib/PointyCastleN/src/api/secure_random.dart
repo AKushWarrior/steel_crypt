@@ -6,7 +6,7 @@ part of pointycastle.api;
 
 abstract class SecureRandom extends Algorithm {
   /// Create the secure random specified by the standard [algorithmName].
-  factory SecureRandom([String algorithmName = ""]) =>
+  factory SecureRandom([String algorithmName = '']) =>
       registry.create<SecureRandom>(algorithmName);
 
   /// Seed the RNG with some entropy (look at package cipher_entropy providing entropy sources).
@@ -21,6 +21,7 @@ abstract class SecureRandom extends Algorithm {
   /// Get four bytes long random int.
   int nextUint32();
 
+  // ignore: comment_references
   /// Get a random [BigInteger] of [bitLength] bits.
   BigInt nextBigInteger(int bitLength);
 

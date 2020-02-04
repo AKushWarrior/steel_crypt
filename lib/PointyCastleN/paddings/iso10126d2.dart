@@ -2,6 +2,8 @@
 // This library is dually licensed under LGPL 3 and MPL 2.0.
 // See file LICENSE for more information.
 
+// ignore_for_file: omit_local_variable_types, prefer_single_quotes, non_constant_identifier_names, directives_ordering, prefer_typing_uninitialized_variables
+
 library pointycastle.impl.padding.iso10126d2;
 
 import 'dart:math' show Random;
@@ -12,6 +14,11 @@ import 'package:steel_crypt/PointyCastleN/export.dart';
 import '../api.dart';
 import '../src/impl/base_padding.dart';
 import '../src/registry/registry.dart';
+
+// ignore_for_file: omit_local_variable_types, prefer_single_quotes
+// ignore_for_file: non_constant_identifier_names, directives_ordering
+// ignore_for_file: prefer_typing_uninitialized_variables, camel_case_types
+// ignore_for_file: annotate_overrides
 
 /// A padder that adds the padding according to the scheme referenced in
 /// ISO 7814-4 - scheme 2 from ISO 9797-1. The first byte is 0x80, rest is 0x00

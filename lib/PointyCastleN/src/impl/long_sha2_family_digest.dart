@@ -2,6 +2,11 @@
 // This library is dually licensed under LGPL 3 and MPL 2.0.
 // See file LICENSE for more information.
 
+// ignore_for_file: omit_local_variable_types, prefer_single_quotes
+// ignore_for_file: non_constant_identifier_names, directives_ordering
+// ignore_for_file: prefer_typing_uninitialized_variables, camel_case_types
+// ignore_for_file: annotate_overrides
+
 library pointycastle.src.impl.digests.long_sha2_family_digest;
 
 import "dart:typed_data";
@@ -13,20 +18,37 @@ import 'base_digest.dart';
 abstract class LongSHA2FamilyDigest extends BaseDigest {
   static const _BYTE_LENGTH = 128;
 
+  // ignore: non_constant_identifier_names
   static final _MAX_BYTE_COUNT1 = Register64(0x1fffffff, 0xffffffff);
 
+  // ignore: non_constant_identifier_names
   final H1 = Register64();
+
+  // ignore: non_constant_identifier_names
   final H2 = Register64();
+
+  // ignore: non_constant_identifier_names
   final H3 = Register64();
+
+  // ignore: non_constant_identifier_names
   final H4 = Register64();
+
+  // ignore: non_constant_identifier_names
   final H5 = Register64();
+
+  // ignore: non_constant_identifier_names
   final H6 = Register64();
+
+  // ignore: non_constant_identifier_names
   final H7 = Register64();
+
+  // ignore: non_constant_identifier_names
   final H8 = Register64();
 
   final _wordBuffer = Uint8List(8);
   int _wordBufferOffset = 0;
 
+  // ignore: non_constant_identifier_names
   final _W = Register64List(80);
   int _wOff = 0;
 
@@ -39,6 +61,7 @@ abstract class LongSHA2FamilyDigest extends BaseDigest {
 
   int get byteLength => _BYTE_LENGTH;
 
+  @override
   void reset() {
     _byteCount1.set(0);
     _byteCount2.set(0);
@@ -50,6 +73,7 @@ abstract class LongSHA2FamilyDigest extends BaseDigest {
     _W.fillRange(0, _W.length, 0);
   }
 
+  @override
   void updateByte(int inp) {
     _wordBuffer[_wordBufferOffset++] = inp;
 
@@ -61,6 +85,7 @@ abstract class LongSHA2FamilyDigest extends BaseDigest {
     _byteCount1.sum(1);
   }
 
+  @override
   void update(Uint8List inp, int inpOff, int len) {
     // fill the current word
     while ((_wordBufferOffset != 0) && (len > 0)) {
@@ -208,12 +233,13 @@ abstract class LongSHA2FamilyDigest extends BaseDigest {
     _W.fillRange(0, 16, 0);
   }
 
+  // ignore: non_constant_identifier_names
   Register64 _Ch(Register64 x, Register64 y, Register64 z) {
     // r += ((x & y) ^ ((~x) & z));
-    Register64 r0 = Register64(x);
+    var r0 = Register64(x);
     r0.and(y);
 
-    Register64 r1 = Register64(x);
+    var r1 = Register64(x);
     r1.not();
     r1.and(z);
 
@@ -221,15 +247,16 @@ abstract class LongSHA2FamilyDigest extends BaseDigest {
     return r0;
   }
 
+  // ignore: non_constant_identifier_names
   Register64 _Maj(Register64 x, Register64 y, Register64 z) {
     // r += ((x & y) ^ (x & z) ^ (y & z));
-    Register64 r0 = Register64(x);
+    var r0 = Register64(x);
     r0.and(y);
 
-    Register64 r1 = Register64(x);
+    var r1 = Register64(x);
     r1.and(z);
 
-    Register64 r2 = Register64(y);
+    var r2 = Register64(y);
     r2.and(z);
 
     r0.xor(r1);
@@ -238,15 +265,16 @@ abstract class LongSHA2FamilyDigest extends BaseDigest {
     return r0;
   }
 
+  // ignore: non_constant_identifier_names
   Register64 _Sum0(Register64 x) {
     // r += ((x << 36)|(x >> 28)) ^ ((x << 30)|(x >> 34)) ^ ((x << 25)|(x >> 39));
-    Register64 r0 = Register64(x);
+    var r0 = Register64(x);
     r0.rotl(36);
 
-    Register64 r1 = Register64(x);
+    var r1 = Register64(x);
     r1.rotl(30);
 
-    Register64 r2 = Register64(x);
+    var r2 = Register64(x);
     r2.rotl(25);
 
     r0.xor(r1);
@@ -255,15 +283,16 @@ abstract class LongSHA2FamilyDigest extends BaseDigest {
     return r0;
   }
 
+  // ignore: non_constant_identifier_names
   Register64 _Sum1(Register64 x) {
     // r += ((x << 50)|(x >> 14)) ^ ((x << 46)|(x >> 18)) ^ ((x << 23)|(x >> 41));
-    Register64 r0 = Register64(x);
+    var r0 = Register64(x);
     r0.rotl(50);
 
-    Register64 r1 = Register64(x);
+    var r1 = Register64(x);
     r1.rotl(46);
 
-    Register64 r2 = Register64(x);
+    var r2 = Register64(x);
     r2.rotl(23);
 
     r0.xor(r1);
@@ -272,15 +301,16 @@ abstract class LongSHA2FamilyDigest extends BaseDigest {
     return r0;
   }
 
+  // ignore: non_constant_identifier_names
   Register64 _Sigma0(Register64 x) {
     // r = (((x << 63)|(x >> 1)) ^ ((x << 56)|(x >> 8)) ^ (x >> 7));
-    Register64 r0 = Register64(x);
+    var r0 = Register64(x);
     r0.rotl(63);
 
-    Register64 r1 = Register64(x);
+    var r1 = Register64(x);
     r1.rotl(56);
 
-    Register64 r2 = Register64(x);
+    var r2 = Register64(x);
     r2.shiftr(7);
 
     r0.xor(r1);
@@ -289,15 +319,16 @@ abstract class LongSHA2FamilyDigest extends BaseDigest {
     return r0;
   }
 
+  // ignore: non_constant_identifier_names
   Register64 _Sigma1(Register64 x) {
     // r = (((x << 45)|(x >> 19)) ^ ((x << 3)|(x >> 61)) ^ (x >> 6));
-    Register64 r0 = Register64(x);
+    var r0 = Register64(x);
     r0.rotl(45);
 
-    Register64 r1 = Register64(x);
+    var r1 = Register64(x);
     r1.rotl(3);
 
-    Register64 r2 = Register64(x);
+    var r2 = Register64(x);
     r2.shiftr(6);
 
     r0.xor(r1);
@@ -306,6 +337,7 @@ abstract class LongSHA2FamilyDigest extends BaseDigest {
     return r0;
   }
 
+  // ignore: non_constant_identifier_names
   static final _K = <Register64>[
     Register64(0x428a2f98, 0xd728ae22),
     Register64(0x71374491, 0x23ef65cd),

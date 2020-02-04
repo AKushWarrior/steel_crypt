@@ -1,3 +1,5 @@
+// ignore_for_file: omit_local_variable_types, prefer_single_quotes, non_constant_identifier_names, directives_ordering
+
 library pointycastle.impl.block_cipher.modes.gcm;
 
 import 'dart:math' show min;
@@ -12,10 +14,10 @@ class GCMBlockCipher extends BaseAEADBlockCipher {
   static final FactoryConfig FACTORY_CONFIG = DynamicFactoryConfig.suffix(
       BlockCipher,
       "/GCM",
-      (_, final Match match) => () {
-            BlockCipher underlying = BlockCipher(match.group(1));
-            return GCMBlockCipher(underlying);
-          });
+          (_, final Match match) => () {
+        BlockCipher underlying = BlockCipher(match.group(1));
+        return GCMBlockCipher(underlying);
+      });
 
   Uint8List _h;
   Uint8List _counter;
@@ -68,9 +70,10 @@ class GCMBlockCipher extends BaseAEADBlockCipher {
     return counter;
   }
 
+  @override
   int processBlock(Uint8List inp, int inpOff, Uint8List out, int outOff) {
     var length =
-        blockSize < inp.length - inpOff ? blockSize : inp.length - inpOff;
+    blockSize < inp.length - inpOff ? blockSize : inp.length - inpOff;
 
     var i = Uint8List(blockSize);
     i.setAll(0, inp.skip(inpOff).take(length));
@@ -168,8 +171,8 @@ class GCMBlockCipher extends BaseAEADBlockCipher {
         : 0;
 
     var len = Uint8List.view((Uint64List(2)
-          ..[1] = aad.length * 8
-          ..[0] = _processedBytes * 8)
+      ..[1] = aad.length * 8
+      ..[0] = _processedBytes * 8)
         .buffer);
     len = Uint8List.fromList(len.reversed.toList());
 
@@ -195,7 +198,8 @@ class GCMBlockCipher extends BaseAEADBlockCipher {
     var block = Uint8List(16);
     for (var i = 0; i < len; i += 16) {
       block.fillRange(0, 16, 0);
-      block.setAll(0, inp.sublist(inpOff + i, inpOff + min(i + 16, len)));
+      block.setAll(
+          0, inp.sublist(inpOff + i, inpOff + min(i + 16, len) as int));
       _gHASHBlock(_x, block);
     }
   }

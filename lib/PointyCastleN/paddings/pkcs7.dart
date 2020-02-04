@@ -2,6 +2,8 @@
 // This library is dually licensed under LGPL 3 and MPL 2.0.
 // See file LICENSE for more information.
 
+// ignore_for_file: omit_local_variable_types, prefer_single_quotes, non_constant_identifier_names, directives_ordering, prefer_typing_uninitialized_variables
+
 library pointycastle.impl.padding.pkcs7;
 
 import "dart:typed_data";
@@ -10,6 +12,11 @@ import '../api.dart';
 import '../src/impl/base_padding.dart';
 import '../src/registry/registry.dart';
 import '../src/ufixnum.dart';
+
+// ignore_for_file: omit_local_variable_types, prefer_single_quotes
+// ignore_for_file: non_constant_identifier_names, directives_ordering
+// ignore_for_file: prefer_typing_uninitialized_variables, camel_case_types
+// ignore_for_file: annotate_overrides
 
 /// A [Padding] that adds PKCS7/PKCS5 padding to a block.
 class PKCS7Padding extends BasePadding {

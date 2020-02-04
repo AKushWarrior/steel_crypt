@@ -2,9 +2,13 @@
 // This library is dually licensed under LGPL 3 and MPL 2.0.
 // See file LICENSE for more information.
 
+// ignore_for_file: omit_local_variable_types, prefer_single_quotes
+// ignore_for_file: non_constant_identifier_names, directives_ordering
+// ignore_for_file: prefer_typing_uninitialized_variables, camel_case_types
+// ignore_for_file: annotate_overrides
 library pointycastle.impl.stream_cipher.isaac;
 
-import "dart:typed_data";
+import 'dart:typed_data';
 
 import '../api.dart';
 import '../src/impl/base_stream_cipher.dart';
@@ -12,13 +16,14 @@ import '../src/registry/registry.dart';
 
 class ISAACEngine extends BaseStreamCipher {
   static final FactoryConfig FACTORY_CONFIG =
-  StaticFactoryConfig(StreamCipher, "ISAAC", () => ISAACEngine());
+  StaticFactoryConfig(StreamCipher, 'ISAAC', () => ISAACEngine());
 
   // Constants
   static int sizeL = 8;
   static int stateArraySize = sizeL << 5; // 256
 
-  String algorithmName = "ISAAC";
+  @override
+  String algorithmName = 'ISAAC';
 
   // Cipher's internal state
   Uint8List engineState; // mm
@@ -34,30 +39,32 @@ class ISAACEngine extends BaseStreamCipher {
   Uint8List workingKey;
   bool initialised = false;
 
+  @override
   void init(bool forEncryption, covariant KeyParameter params) {
     setKey(params.key);
     return;
   }
 
+  @override
   int returnByte(int inp) {
     if (index == 0) {
       isaac();
       keyStream = uintToBigEndian(results);
     }
-    int out = (keyStream[index] ^ inp);
+    var out = (keyStream[index] ^ inp);
     index = (index + 1) & 1023;
 
     return out;
   }
 
   static Uint8List uintToBigEndian(Uint8List n) {
-    Uint8List bs = Uint8List(4 * n.length);
+    var bs = Uint8List(4 * n.length);
     uintToBigEndianimpl(n, bs, 0);
     return bs;
   }
 
   static void uintToBigEndianimpl(Uint8List n, Uint8List bs, int off) {
-    for (int i = 0; i < n.length; ++i) {
+    for (var i = 0; i < n.length; ++i) {
       intToBigEndian(n[i], bs, off);
       off += 4;
     }
@@ -71,28 +78,29 @@ class ISAACEngine extends BaseStreamCipher {
   }
 
   static int littleEndianToInt(Uint8List bs, int off) {
-    int n = bs[off] & 0xff;
+    var n = bs[off] & 0xff;
     n |= (bs[++off] & 0xff) << 8;
     n |= (bs[++off] & 0xff) << 16;
     n |= bs[++off] << 24;
     return n;
   }
 
+  @override
   int processBytes(Uint8List inp, int inOff, int len, Uint8List out,
       int outOff) {
     if (!initialised) {
-      throw StateError("ISAAC" + " not initialised");
+      throw StateError('ISAAC not initialised');
     }
 
     if ((inOff + len) > inp.length) {
-      throw ArgumentError("input buffer too short");
+      throw ArgumentError('input buffer too short');
     }
 
     if ((outOff + len) > out.length) {
-      throw ArgumentError("output buffer too short");
+      throw ArgumentError('output buffer too short');
     }
 
-    for (int i = 0; i < len; i++) {
+    for (var i = 0; i < len; i++) {
       if (index == 0) {
         isaac();
         keyStream = uintToBigEndian(results);
@@ -104,6 +112,7 @@ class ISAACEngine extends BaseStreamCipher {
     return len;
   }
 
+  @override
   void reset() {
     setKey(workingKey);
   }
@@ -112,13 +121,9 @@ class ISAACEngine extends BaseStreamCipher {
   void setKey(Uint8List keyBytes) {
     workingKey = keyBytes;
 
-    if (engineState == null) {
-      engineState = Uint8List(stateArraySize);
-    }
+    engineState ??= Uint8List(stateArraySize);
 
-    if (results == null) {
-      results = Uint8List(stateArraySize);
-    }
+    results ??= Uint8List(stateArraySize);
 
     int i, j, k;
 
@@ -132,7 +137,7 @@ class ISAACEngine extends BaseStreamCipher {
     index = 0;
 
     // Convert the key bytes to ints and put them into results[] for initialization
-    Uint8List t = Uint8List(keyBytes.length + (keyBytes.length & 3));
+    var t = Uint8List(keyBytes.length + (keyBytes.length & 3));
     var counter = 0;
     for (var i in keyBytes) {
       t[counter] = i;
@@ -143,7 +148,7 @@ class ISAACEngine extends BaseStreamCipher {
     }
 
     // It has begun?
-    Uint8List abcdefgh = Uint8List(sizeL);
+    var abcdefgh = Uint8List(sizeL);
 
     for (i = 0; i < sizeL; i++) {
       abcdefgh[i] = 0x9e3779b9; // Phi (golden ratio)

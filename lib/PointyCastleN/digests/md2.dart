@@ -2,6 +2,10 @@
 // This library is dually licensed under LGPL 3 and MPL 2.0.
 // See file LICENSE for more information.
 
+// ignore_for_file: omit_local_variable_types, prefer_single_quotes
+// ignore_for_file: non_constant_identifier_names, directives_ordering
+// ignore_for_file: prefer_typing_uninitialized_variables, camel_case_types
+// ignore_for_file: annotate_overrides
 library pointycastle.impl.digest.md2;
 
 import "dart:typed_data";
@@ -12,26 +16,33 @@ import '../src/registry/registry.dart';
 
 /// Implementation of MD2 as outlined in RFC1319 by B.Kaliski from RSA Laboratories April 1992
 class MD2Digest extends BaseDigest {
+  // ignore: non_constant_identifier_names
   static final FactoryConfig FACTORY_CONFIG =
-      StaticFactoryConfig(Digest, "MD2", () => MD2Digest());
+  StaticFactoryConfig(Digest, 'MD2', () => MD2Digest());
 
   static const _DIGEST_LENGTH = 16;
 
   /* X buffer */
-  var _X = Uint8List(48);
+  // ignore: non_constant_identifier_names
+  final _X = Uint8List(48);
   int _xOff = 0;
 
   /* M buffer */
-  var _M = Uint8List(16);
+  // ignore: non_constant_identifier_names
+  final _M = Uint8List(16);
   int _mOff = 0;
 
   /* check sum */
-  var _C = Uint8List(16);
+  // ignore: non_constant_identifier_names
+  final _C = Uint8List(16);
 
-  String get algorithmName => "MD2";
+  @override
+  String get algorithmName => 'MD2';
 
+  @override
   int get digestSize => _DIGEST_LENGTH;
 
+  @override
   void reset() {
     _xOff = 0;
     _X.fillRange(0, _X.length, 0);
@@ -42,6 +53,7 @@ class MD2Digest extends BaseDigest {
     _C.fillRange(0, _C.length, 0);
   }
 
+  @override
   void updateByte(int inp) {
     _M[_mOff++] = inp;
 
@@ -52,6 +64,7 @@ class MD2Digest extends BaseDigest {
     }
   }
 
+  @override
   void update(Uint8List inp, int inpOff, int len) {
     // fill the current word
     while ((_mOff != 0) && (len > 0)) {
@@ -77,6 +90,7 @@ class MD2Digest extends BaseDigest {
     }
   }
 
+  @override
   int doFinal(Uint8List out, int outOff) {
     // add padding
     var paddingByte = _M.length - _mOff;
@@ -126,6 +140,7 @@ class MD2Digest extends BaseDigest {
   }
 
   // 256-byte random permutation constructed from the digits of PI
+  // ignore: non_constant_identifier_names
   static final _S = [
     41,
     46,

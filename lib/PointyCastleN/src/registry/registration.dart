@@ -1,4 +1,5 @@
 library pointycastle.src.registry.impl;
+// ignore_for_file: directives_ordering
 
 import '../../asymmetric/oaep.dart';
 import '../../asymmetric/pkcs1.dart';
@@ -12,6 +13,7 @@ import '../../block/modes/gcm.dart';
 import '../../block/modes/gctr.dart';
 import '../../block/modes/ofb.dart';
 import '../../block/modes/sic.dart';
+import '../../block/tea.dart';
 import '../../digests/blake2b.dart';
 import '../../digests/md2.dart';
 import '../../digests/md4.dart';
@@ -43,7 +45,6 @@ import '../../paddings/x923.dart';
 import '../../random/auto_seed_block_ctr_random.dart';
 import '../../random/block_ctr_random.dart';
 import '../../random/fortuna_random.dart';
-import '../../signers/rsa_signer.dart';
 import '../../stream/chacha20.dart';
 import '../../stream/chacha2012.dart';
 import '../../stream/chacha208.dart';
@@ -68,7 +69,6 @@ void registerFactories(FactoryRegistry registry) {
   _registerPaddedBlockCiphers(registry);
   _registerPaddings(registry);
   _registerRandoms(registry);
-  _registerSigners(registry);
   _registerStreamCiphers(registry);
 }
 
@@ -80,6 +80,7 @@ void _registerAsymmetricCiphers(FactoryRegistry registry) {
 
 void _registerBlockCiphers(FactoryRegistry registry) {
   registry.register(AESFastEngine.FACTORY_CONFIG);
+  registry.register(TeaEngine.FACTORY_CONFIG);
 
   // modes
   registry.register(CBCBlockCipher.FACTORY_CONFIG);
@@ -142,10 +143,6 @@ void _registerRandoms(FactoryRegistry registry) {
   registry.register(AutoSeedBlockCtrRandom.FACTORY_CONFIG);
   registry.register(BlockCtrRandom.FACTORY_CONFIG);
   registry.register(FortunaRandom.FACTORY_CONFIG);
-}
-
-void _registerSigners(FactoryRegistry registry) {
-  registry.register(RSASigner.FACTORY_CONFIG);
 }
 
 void _registerStreamCiphers(FactoryRegistry registry) {

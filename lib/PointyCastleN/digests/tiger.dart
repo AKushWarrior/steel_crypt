@@ -2,6 +2,10 @@
 // This library is dually licensed under LGPL 3 and MPL 2.0.
 // See file LICENSE for more information.
 
+// ignore_for_file: omit_local_variable_types, prefer_single_quotes
+// ignore_for_file: non_constant_identifier_names, directives_ordering
+// ignore_for_file: prefer_typing_uninitialized_variables, camel_case_types
+// ignore_for_file: annotate_overrides
 library pointycastle.impl.digest.tiger;
 
 import "dart:typed_data";
@@ -36,9 +40,12 @@ class TigerDigest extends BaseDigest implements Digest {
     reset();
   }
 
+  @override
   final algorithmName = "Tiger";
+  @override
   final digestSize = _DIGEST_LENGTH;
 
+  @override
   void reset() {
     _a.set(0x01234567, 0x89ABCDEF);
     _b.set(0xFEDCBA98, 0x76543210);
@@ -53,6 +60,7 @@ class TigerDigest extends BaseDigest implements Digest {
     _byteCount.set(0);
   }
 
+  @override
   int doFinal(Uint8List out, int outOff) {
     _finish();
 
@@ -65,6 +73,7 @@ class TigerDigest extends BaseDigest implements Digest {
     return _DIGEST_LENGTH;
   }
 
+  @override
   void updateByte(int inp) {
     _wordBuffer[_wordBufferOffset++] = inp;
 
@@ -75,6 +84,7 @@ class TigerDigest extends BaseDigest implements Digest {
     _byteCount.sum(1);
   }
 
+  @override
   void update(Uint8List inp, int inpOff, int len) {
     // fill the current word
     while ((_wordBufferOffset != 0) && (len > 0)) {

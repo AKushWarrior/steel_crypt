@@ -23,15 +23,15 @@ class LightCrypt {
   }
 
   ///Construct encryption machine using key and algorithm.
-  LightCrypt(core.String key, [core.String algorithm = "ChaCha20"]) {
+  LightCrypt(core.String key, [core.String algorithm = 'ChaCha20']) {
     _type = algorithm;
     _key = key;
     if (_type == 'Salsa20' ||
         _type == 'Salsa20/8' ||
         _type == 'Salsa20/12' ||
-        _type == "ChaCha20" ||
-        _type == "ChaCha20/12" ||
-        _type == "ChaCha20/8") {
+        _type == 'ChaCha20' ||
+        _type == 'ChaCha20/12' ||
+        _type == 'ChaCha20/8') {
       _encrypter = StreamCipher(_type);
     } else if (_type == 'Salsa20/20') {
       _type = 'Salsa20';
@@ -39,10 +39,10 @@ class LightCrypt {
     } else if (_type == 'ChaCha20/20') {
       _type = 'ChaCha20';
       _encrypter = StreamCipher(_type);
-    } else if (_type == "HC-256" ||
+    } else if (_type == 'HC-256' ||
         _type == 'Grain-128' ||
-        _type == "ISAAC" ||
-        _type == "RC4") {
+        _type == 'ISAAC' ||
+        _type == 'RC4') {
     } else {
       throw ArgumentError(
           "This algorithm isn't supported. Check for typos, or file a feature request.");
@@ -54,47 +54,50 @@ class LightCrypt {
     if (_type == 'Salsa20' ||
         _type == 'Salsa20/8' ||
         _type == 'Salsa20/12' ||
-        _type == "ChaCha20" ||
-        _type == "ChaCha20/12" ||
-        _type == "ChaCha20/8") {
-      var localKey = utf8.encode(_key);
-      var localIV = utf8.encode(iv);
+        _type == 'ChaCha20' ||
+        _type == 'ChaCha20/12' ||
+        _type == 'ChaCha20/8') {
+      var localKey = Uint8List.fromList(key.codeUnits);
+      var localIV = Uint8List.fromList(iv.codeUnits);
       var localInput = utf8.encode(input);
       var params = ParametersWithIV<KeyParameter>(
-          KeyParameter(localKey.sublist(0, 32)), localIV.sublist(0, 8));
+          KeyParameter(Uint8List.fromList(localKey.sublist(0, 32))),
+          Uint8List.fromList(localIV.sublist(0, 8)));
       _encrypter..init(true, params);
-      var inter = _encrypter.process(localInput);
+      var inter = _encrypter.process(Uint8List.fromList(localInput));
       return base64.encode(inter);
     } else if (_type == 'Grain-128') {
       var machine = StreamCipher(_type);
-      var localKey = utf8.encode(_key);
-      var localIV = utf8.encode(iv);
+      var localKey = Uint8List.fromList(key.codeUnits);
+      var localIV = Uint8List.fromList(iv.codeUnits);
       var localInput = utf8.encode(input);
       var params = ParametersWithIV<KeyParameter>(
-          KeyParameter(localKey.sublist(0, 32)), localIV.sublist(0, 12));
+          KeyParameter(Uint8List.fromList(localKey.sublist(0, 32))),
+          Uint8List.fromList(localIV.sublist(0, 12)));
       machine..init(false, params);
-      var inter = machine.process(localInput);
+      var inter = machine.process(Uint8List.fromList(localInput));
       return base64.encode(inter);
-    } else if (_type == "ISAAC" || _type == "RC4") {
+    } else if (_type == 'ISAAC' || _type == 'RC4') {
       var machine = StreamCipher(_type);
-      var localKey = utf8.encode(_key);
+      var localKey = Uint8List.fromList(key.codeUnits);
       var localInput = utf8.encode(input);
-      var params = KeyParameter(localKey.sublist(0, 32));
+      var params = KeyParameter(Uint8List.fromList(localKey.sublist(0, 32)));
       machine..init(false, params);
-      var inter = machine.process(localInput);
+      var inter = machine.process(Uint8List.fromList(localInput));
       return base64.encode(inter);
     } else if (_type == 'HC-256') {
       var machine = StreamCipher(_type);
-      var localKey = utf8.encode(_key);
-      var localIV = utf8.encode(iv);
+      var localKey = Uint8List.fromList(key.codeUnits);
+      var localIV = Uint8List.fromList(iv.codeUnits);
       var localInput = utf8.encode(input);
       var params = ParametersWithIV<KeyParameter>(
-          KeyParameter(localKey.sublist(0, 32)), localIV.sublist(0, 16));
+          KeyParameter(Uint8List.fromList(localKey.sublist(0, 32))),
+          Uint8List.fromList(localIV.sublist(0, 16)));
       machine..init(false, params);
-      var inter = machine.process(localInput);
+      var inter = machine.process(Uint8List.fromList(localInput));
       return base64.encode(inter);
     }
-    return "";
+    return '';
   }
 
   ///Decrypt base 64 (with iv) and return original
@@ -102,46 +105,49 @@ class LightCrypt {
     if (_type == 'Salsa20' ||
         _type == 'Salsa20/8' ||
         _type == 'Salsa20/12' ||
-        _type == "ChaCha20" ||
-        _type == "ChaCha20/12" ||
-        _type == "ChaCha20/8") {
-      var localKey = utf8.encode(_key);
-      var localIV = utf8.encode(iv);
+        _type == 'ChaCha20' ||
+        _type == 'ChaCha20/12' ||
+        _type == 'ChaCha20/8') {
+      var localKey = Uint8List.fromList(key.codeUnits);
+      var localIV = Uint8List.fromList(iv.codeUnits);
       var localInput = base64.decode(encrypted);
       var params = ParametersWithIV<KeyParameter>(
-          KeyParameter(localKey.sublist(0, 32)), localIV.sublist(0, 8));
+          KeyParameter(Uint8List.fromList(localKey.sublist(0, 32))),
+          Uint8List.fromList(localIV.sublist(0, 8)));
       _encrypter..init(false, params);
       var inter = _encrypter.process(localInput);
       return utf8.decode(inter);
     } else if (_type == 'Grain-128') {
       var machine = StreamCipher(_type);
-      var localKey = utf8.encode(_key);
-      var localIV = utf8.encode(iv);
+      var localKey = Uint8List.fromList(key.codeUnits);
+      var localIV = Uint8List.fromList(iv.codeUnits);
       var localInput = base64.decode(encrypted);
       var params = ParametersWithIV<KeyParameter>(
-          KeyParameter(localKey.sublist(0, 32)), localIV.sublist(0, 12));
+          KeyParameter(Uint8List.fromList(localKey.sublist(0, 32))),
+          Uint8List.fromList(localIV.sublist(0, 12)));
       machine..init(false, params);
       var inter = machine.process(localInput);
       return utf8.decode(inter);
     } else if (_type == 'HC-256') {
       var machine = StreamCipher(_type);
-      var localKey = utf8.encode(_key);
-      var localIV = utf8.encode(iv);
+      var localKey = Uint8List.fromList(key.codeUnits);
+      var localIV = Uint8List.fromList(iv.codeUnits);
       var localInput = base64.decode(encrypted);
       var params = ParametersWithIV<KeyParameter>(
-          KeyParameter(localKey.sublist(0, 32)), localIV.sublist(0, 16));
+          KeyParameter(Uint8List.fromList(localKey.sublist(0, 32))),
+          Uint8List.fromList(localIV.sublist(0, 16)));
       machine..init(false, params);
       var inter = machine.process(localInput);
       return utf8.decode(inter);
-    } else if (_type == "ISAAC" || _type == "RC4") {
+    } else if (_type == 'ISAAC' || _type == 'RC4') {
       var machine = StreamCipher(_type);
-      var localKey = utf8.encode(_key);
+      var localKey = Uint8List.fromList(key.codeUnits);
       var localInput = base64.decode(encrypted);
-      var params = KeyParameter(localKey.sublist(0, 32));
+      var params = KeyParameter(Uint8List.fromList(localKey.sublist(0, 32)));
       machine..init(false, params);
       var inter = machine.process(localInput);
       return utf8.decode(inter);
     }
-    return "";
+    return '';
   }
 }

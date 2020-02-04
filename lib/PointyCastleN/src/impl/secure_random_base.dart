@@ -2,6 +2,10 @@
 // This library is dually licensed under LGPL 3 and MPL 2.0.
 // See file LICENSE for more information.
 
+// ignore_for_file: omit_local_variable_types, prefer_single_quotes
+// ignore_for_file: non_constant_identifier_names, directives_ordering
+// ignore_for_file: prefer_typing_uninitialized_variables, camel_case_types
+// ignore_for_file: annotate_overrides
 library pointycastle.src.impl.random.secure_random_base;
 
 import "dart:typed_data";
@@ -11,12 +15,14 @@ import '../ufixnum.dart';
 import '../utils.dart' as utils;
 
 abstract class SecureRandomBase implements SecureRandom {
+  @override
   int nextUint16() {
     var b0 = nextUint8();
     var b1 = nextUint8();
     return clip16((b1 << 8) | b0);
   }
 
+  @override
   int nextUint32() {
     var b0 = nextUint8();
     var b1 = nextUint8();
@@ -25,10 +31,12 @@ abstract class SecureRandomBase implements SecureRandom {
     return clip32((b3 << 24) | (b2 << 16) | (b1 << 8) | b0);
   }
 
+  @override
   BigInt nextBigInteger(int bitLength) {
     return utils.decodeBigInt(_randomBits(bitLength));
   }
 
+  @override
   Uint8List nextBytes(int count) {
     var bytes = Uint8List(count);
     for (var i = 0; i < count; i++) {

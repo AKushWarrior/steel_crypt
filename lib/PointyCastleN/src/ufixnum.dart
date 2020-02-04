@@ -2,9 +2,13 @@
 // This library is dually licensed under LGPL 3 and MPL 2.0.
 // See file LICENSE for more information.
 
+// ignore_for_file: omit_local_variable_types, prefer_single_quotes
+// ignore_for_file: non_constant_identifier_names, directives_ordering
+// ignore_for_file: prefer_typing_uninitialized_variables, camel_case_types
+// ignore_for_file: annotate_overrides
 library pointycastle.src.ufixnum;
 
-import "dart:typed_data";
+import 'dart:typed_data';
 
 const _MASK_3 = 0x07;
 const _MASK_5 = 0x1F;
@@ -55,14 +59,16 @@ final _MASK32_HI_BITS = [
 void pack8(int x, dynamic out, int offset, Endian endian) {
   assert((x >= 0) && (x <= _MASK_8));
   if (out is! ByteData) {
-    out = ByteData.view(out.buffer, out.offsetInBytes, out.length);
+    out = ByteData.view(
+        out.buffer as ByteBuffer, out.offsetInBytes as int, out.length as int);
   }
   (out as ByteData).setUint8(offset, x);
 }
 
 int unpack8(dynamic inp, int offset, Endian endian) {
   if (inp is! ByteData) {
-    inp = ByteData.view(inp.buffer, inp.offsetInBytes, inp.length);
+    inp = ByteData.view(
+        inp.buffer as ByteBuffer, inp.offsetInBytes as int, inp.length as int);
   }
   return (inp as ByteData).getUint8(offset);
 }
@@ -134,14 +140,16 @@ int clip16(int x) => (x & _MASK_16);
 void pack16(int x, dynamic out, int offset, Endian endian) {
   assert((x >= 0) && (x <= _MASK_16));
   if (out is! ByteData) {
-    out = ByteData.view(out.buffer, out.offsetInBytes, out.length);
+    out = ByteData.view(
+        out.buffer as ByteBuffer, out.offsetInBytes as int, out.length as int);
   }
   (out as ByteData).setUint16(offset, x, endian);
 }
 
 int unpack16(dynamic inp, int offset, Endian endian) {
   if (inp is! ByteData) {
-    inp = ByteData.view(inp.buffer, inp.offsetInBytes, inp.length);
+    inp = ByteData.view(
+        inp.buffer as ByteBuffer, inp.offsetInBytes as int, inp.length as int);
   }
   return (inp as ByteData).getUint16(offset, endian);
 }
@@ -211,14 +219,16 @@ int rotr32(int x, int n) {
 void pack32(int x, dynamic out, int offset, Endian endian) {
   assert((x >= 0) && (x <= _MASK_32));
   if (out is! ByteData) {
-    out = ByteData.view(out.buffer, out.offsetInBytes, out.length);
+    out = ByteData.view(
+        out.buffer as ByteBuffer, out.offsetInBytes as int, out.length as int);
   }
   (out as ByteData).setUint32(offset, x, endian);
 }
 
 int unpack32(dynamic inp, int offset, Endian endian) {
   if (inp is! ByteData) {
-    inp = ByteData.view(inp.buffer, inp.offsetInBytes, inp.length);
+    inp = ByteData.view(
+        inp.buffer as ByteBuffer, inp.offsetInBytes as int, inp.length as int);
   }
   return (inp as ByteData).getUint32(offset, endian);
 }
@@ -251,14 +261,14 @@ class Register64 {
         _hi32 = hiOrLo32OrY._hi32;
         _lo32 = hiOrLo32OrY._lo32;
       } else {
-        assert(hiOrLo32OrY <= _MASK_32);
+        assert(hiOrLo32OrY as num <= _MASK_32);
         _hi32 = 0;
-        _lo32 = hiOrLo32OrY;
+        _lo32 = hiOrLo32OrY as int;
       }
     } else {
-      assert(hiOrLo32OrY <= _MASK_32);
+      assert(hiOrLo32OrY as num <= _MASK_32);
       assert(lo32 <= _MASK_32);
-      _hi32 = hiOrLo32OrY;
+      _hi32 = hiOrLo32OrY as int;
       _lo32 = lo32;
     }
   }
@@ -266,17 +276,17 @@ class Register64 {
   void sum(dynamic y) {
     if (y is int) {
       y &= _MASK_32;
-      int slo32 = (_lo32 + y);
+      int slo32 = (_lo32 + (y as num)) as int;
       _lo32 = (slo32 & _MASK_32);
       if (slo32 != _lo32) {
         _hi32++;
         _hi32 &= _MASK_32;
       }
     } else {
-      int slo32 = (_lo32 + y._lo32);
+      int slo32 = (_lo32 + (y._lo32 as num)) as int;
       _lo32 = (slo32 & _MASK_32);
       int carry = ((slo32 != _lo32) ? 1 : 0);
-      _hi32 = (((_hi32 + y._hi32 + carry) as int) & _MASK_32);
+      _hi32 = (((_hi32 + (y._hi32 as num) + carry) as int) & _MASK_32);
     }
   }
 
@@ -300,12 +310,13 @@ class Register64 {
       _hi32 = clip32(hi32);
       _lo32 = clip32(lo32);
     } else {
-      final lo32 = _lo32 * y._lo32;
+      final lo32 = _lo32 * (y._lo32 as num);
       final carry = (lo32 ~/ 0x100000000);
-      final hi32 = clip32(_hi32 * y._lo32) + clip32(_lo32 * y._hi32) + carry;
+      final hi32 = clip32(_hi32 * (y._lo32 as int)) +
+          clip32(_lo32 * (y._hi32 as int)) + carry;
 
       _hi32 = clip32(hi32);
-      _lo32 = clip32(lo32);
+      _lo32 = clip32(lo32 as int);
     }
   }
 
@@ -423,7 +434,7 @@ class Register64 {
         break;
 
       default:
-        throw UnsupportedError("Invalid endianness: ${endian}");
+        throw UnsupportedError("Invalid endianness: $endian");
     }
   }
 

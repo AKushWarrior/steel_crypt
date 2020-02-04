@@ -1,4 +1,28 @@
-## 1.5.1
+## 1.6.1
+- Fixed critical keyspace issue
+- Fixed bug with RSA PEM parsing
+- Updated dependencies
+- Minor README updates
+
+## 1.5.4 - 1.5.4+1
+- Changes to random generation to adjust for base-64 bugs
+- Use UTF-8 encoding more (wherever possible)
+- Started work on TEA algorithm
+- Updated asn1lib to placate pub
+
+## 1.5.2 - 1.5.3
+- RSA parsing improved
+    - Added option to parse key from PEM string, not just files
+    - Added option to encode key to PEM string
+- Minor changes to MacCrypt
+- Formatting changes for pub's new, super-strict linting
+    - New casting reqs. might cause marginal slowdown
+    - I'm trying to get that rating out of the dump
+    - Also having to fix bugs that come with migrating a whole codebase
+    - NNBD has been adopted by Pub before Dart?
+    - Nothing should be broken; leave bugs in the issue tracker
+
+## 1.5.1-1.5.1+2
 - Made MacCrypt more consistent with standards
 - Improved CMAC to function better
 - Added GCM and GCTR to AES

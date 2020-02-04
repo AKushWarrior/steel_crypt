@@ -2,6 +2,8 @@
 // This library is dually licensed under LGPL 3 and MPL 2.0.
 // See file LICENSE for more information.
 
+// ignore_for_file: omit_local_variable_types, prefer_single_quotes, non_constant_identifier_names, directives_ordering
+
 library pointycastle.impl.block_cipher.modes.cfb;
 
 import "dart:typed_data";
@@ -13,23 +15,27 @@ import '../../src/registry/registry.dart';
 /// Implementation of Cipher Feedback Mode (CFB) on top of a [BlockCipher].
 class CFBBlockCipher extends BaseBlockCipher {
   /// Intended for internal use.
+  // ignore: non_constant_identifier_names
   static final FactoryConfig FACTORY_CONFIG = DynamicFactoryConfig.regex(
       BlockCipher,
-      r"^(.+)/CFB-([0-9]+)$",
+      r'^(.+)/CFB-([0-9]+)$',
       (_, final Match match) => () {
-            BlockCipher underlying = BlockCipher(match.group(1));
-            int blockSizeInBits = int.parse(match.group(2));
+        var underlying = BlockCipher(match.group(1));
+        var blockSizeInBits = int.parse(match.group(2));
             if ((blockSizeInBits % 8) != 0) {
               throw RegistryFactoryException.invalid(
-                  "Bad CFB block size: $blockSizeInBits (must be a multiple of 8)");
+                  'Bad CFB block size: $blockSizeInBits (must be a multiple of 8)');
             }
             return CFBBlockCipher(underlying, blockSizeInBits ~/ 8);
           });
 
-  final int blockSize;
+  @override
+  // ignore: prefer_typing_uninitialized_variables
+  final blockSize;
 
   final BlockCipher _underlyingCipher;
 
+  // ignore: non_constant_identifier_names
   Uint8List _IV;
   Uint8List _cfbV;
   Uint8List _cfbOutV;
@@ -41,9 +47,11 @@ class CFBBlockCipher extends BaseBlockCipher {
     _cfbOutV = Uint8List(_underlyingCipher.blockSize);
   }
 
+  @override
   String get algorithmName =>
-      "${_underlyingCipher.algorithmName}/CFB-${blockSize * 8}";
+      '${_underlyingCipher.algorithmName}/CFB-${blockSize * 8}';
 
+  @override
   void reset() {
     _cfbV.setRange(0, _IV.length, _IV);
     _underlyingCipher.reset();
@@ -60,11 +68,12 @@ class CFBBlockCipher extends BaseBlockCipher {
   /// @exception IllegalArgumentException if the params argument is
   /// inappropriate.
   ///
+  @override
   void init(bool encrypting, CipherParameters params) {
     _encrypting = encrypting;
 
     if (params is ParametersWithIV) {
-      ParametersWithIV ivParam = params;
+      var ivParam = params;
       var iv = ivParam.iv;
 
       if (iv.length < _IV.length) {
@@ -100,6 +109,7 @@ class CFBBlockCipher extends BaseBlockCipher {
   /// @exception IllegalStateException if the cipher isn't initialised.
   /// @return the number of bytes processed and produced.
 
+  @override
   int processBlock(Uint8List inp, int inpOff, Uint8List out, int outOff) =>
       _encrypting
           ? _encryptBlock(inp, inpOff, out, outOff)
@@ -118,17 +128,17 @@ class CFBBlockCipher extends BaseBlockCipher {
 
   int _encryptBlock(Uint8List inp, int inpOff, Uint8List out, int outOff) {
     if ((inpOff + blockSize) > inp.length) {
-      throw ArgumentError("Input buffer too short");
+      throw ArgumentError('Input buffer too short');
     }
 
     if ((outOff + blockSize) > out.length) {
-      throw ArgumentError("Output buffer too short");
+      throw ArgumentError('Output buffer too short');
     }
 
     _underlyingCipher.processBlock(_cfbV, 0, _cfbOutV, 0);
 
     // XOR the cfbV with the plaintext producing the ciphertext
-    for (int i = 0; i < blockSize; i++) {
+    for (var i = 0; i < blockSize; i++) {
       out[outOff + i] = _cfbOutV[i] ^ inp[inpOff + i];
     }
 
@@ -153,11 +163,11 @@ class CFBBlockCipher extends BaseBlockCipher {
 
   int _decryptBlock(Uint8List inp, int inpOff, Uint8List out, int outOff) {
     if ((inpOff + blockSize) > inp.length) {
-      throw ArgumentError("Input buffer too short");
+      throw ArgumentError('Input buffer too short');
     }
 
     if ((outOff + blockSize) > out.length) {
-      throw ArgumentError("Output buffer too short");
+      throw ArgumentError('Output buffer too short');
     }
 
     _underlyingCipher.processBlock(_cfbV, 0, _cfbOutV, 0);
@@ -168,7 +178,7 @@ class CFBBlockCipher extends BaseBlockCipher {
     _cfbV.setRange(offset, _cfbV.length, inp.sublist(inpOff));
 
     // XOR the cfbV with the ciphertext producing the plaintext
-    for (int i = 0; i < blockSize; i++) {
+    for (var i = 0; i < blockSize; i++) {
       out[outOff + i] = _cfbOutV[i] ^ inp[inpOff + i];
     }
 

@@ -1,6 +1,6 @@
-library pointycastle.impl.stream_cipher.chacha208;
+library pointycastle.impl.stream_cipher.chacha8;
 
-import "dart:typed_data";
+import 'dart:typed_data';
 
 import 'package:steel_crypt/PointyCastleN/export.dart';
 
@@ -9,15 +9,20 @@ import '../src/impl/base_stream_cipher.dart';
 import '../src/registry/registry.dart';
 import '../src/ufixnum.dart';
 
+// ignore_for_file: omit_local_variable_types, prefer_single_quotes
+// ignore_for_file: non_constant_identifier_names, directives_ordering
+// ignore_for_file: prefer_typing_uninitialized_variables, camel_case_types
+// ignore_for_file: annotate_overrides
 /// Implementation of Daniel J. Bernstein's ChaCha20 stream cipher, Snuffle 2005.
 class ChaCha8Engine extends BaseStreamCipher {
+  // ignore: non_constant_identifier_names
   static final FactoryConfig FACTORY_CONFIG =
-      StaticFactoryConfig(StreamCipher, "ChaCha20/8", () => ChaCha8Engine());
+  StaticFactoryConfig(StreamCipher, 'ChaCha20/8', () => ChaCha8Engine());
 
   static const STATE_SIZE = 16;
 
-  static final _sigma = Uint8List.fromList("expand 32-byte k".codeUnits);
-  static final _tau = Uint8List.fromList("expand 16-byte k".codeUnits);
+  static final _sigma = Uint8List.fromList('expand 32-byte k'.codeUnits);
+  static final _tau = Uint8List.fromList('expand 16-byte k'.codeUnits);
 
   Uint8List _workingKey;
   Uint8List _workingIV;
@@ -30,20 +35,22 @@ class ChaCha8Engine extends BaseStreamCipher {
 
   var _initialised = false;
 
-  final String algorithmName = "ChaCha20";
+  @override
+  final String algorithmName = 'ChaCha8';
 
+  @override
   void reset() {
     if (_workingKey != null) {
       _setKey(_workingKey, _workingIV);
     }
   }
 
-  void init(
-      bool forEncryption, covariant ParametersWithIV<KeyParameter> params) {
+  @override
+  void init(bool forEncryption, covariant ParametersWithIV<KeyParameter> params) {
     var uparams = params.parameters;
     var iv = params.iv;
     if (iv == null || iv.length != 8) {
-      throw ArgumentError("ChaCha20 requires exactly 8 bytes of IV");
+      throw ArgumentError('ChaCha8 requires exactly 8 bytes of IV');
     }
 
     _workingIV = iv;
@@ -52,6 +59,7 @@ class ChaCha8Engine extends BaseStreamCipher {
     _setKey(_workingKey, _workingIV);
   }
 
+  @override
   int returnByte(int inp) {
     if (_keyStreamOffset == 0) {
       _generateKeyStream(_keyStream);
@@ -67,20 +75,20 @@ class ChaCha8Engine extends BaseStreamCipher {
     return out;
   }
 
-  void processBytes(
-      Uint8List inp, int inpOff, int len, Uint8List out, int outOff) {
+  @override
+  void processBytes(Uint8List inp, int inpOff, int len, Uint8List out, int outOff) {
     if (!_initialised) {
-      throw StateError("ChaCha20 not initialized: please call init() first");
+      throw StateError('ChaCha8 not initialized: please call init() first');
     }
 
     if ((inpOff + len) > inp.length) {
       throw ArgumentError(
-          "Input buffer too short or requested length too long");
+          'Input buffer too short or requested length too long');
     }
 
     if ((outOff + len) > out.length) {
       throw ArgumentError(
-          "Output buffer too short or requested length too long");
+          'Output buffer too short or requested length too long');
     }
 
     for (var i = 0; i < len; i++) {
@@ -102,7 +110,7 @@ class ChaCha8Engine extends BaseStreamCipher {
     _workingIV = ivBytes;
 
     _keyStreamOffset = 0;
-    int offset = 0;
+    var offset = 0;
     Uint8List constants;
 
     // Key
@@ -136,7 +144,7 @@ class ChaCha8Engine extends BaseStreamCipher {
   }
 
   void _generateKeyStream(Uint8List output) {
-    _core(8, _state, _buffer);
+    _core(20, _state, _buffer);
     var outOff = 0;
     for (var x in _buffer) {
       pack32(x, output, outOff, Endian.little);
@@ -146,24 +154,24 @@ class ChaCha8Engine extends BaseStreamCipher {
 
   /// The ChaCha20 core function
   void _core(int rounds, List<int> input, List<int> x) {
-    int x00 = input[0];
-    int x01 = input[1];
-    int x02 = input[2];
-    int x03 = input[3];
-    int x04 = input[4];
-    int x05 = input[5];
-    int x06 = input[6];
-    int x07 = input[7];
-    int x08 = input[8];
-    int x09 = input[9];
-    int x10 = input[10];
-    int x11 = input[11];
-    int x12 = input[12];
-    int x13 = input[13];
-    int x14 = input[14];
-    int x15 = input[15];
+    var x00 = input[0];
+    var x01 = input[1];
+    var x02 = input[2];
+    var x03 = input[3];
+    var x04 = input[4];
+    var x05 = input[5];
+    var x06 = input[6];
+    var x07 = input[7];
+    var x08 = input[8];
+    var x09 = input[9];
+    var x10 = input[10];
+    var x11 = input[11];
+    var x12 = input[12];
+    var x13 = input[13];
+    var x14 = input[14];
+    var x15 = input[15];
 
-    for (int i = rounds; i > 0; i -= 2) {
+    for (var i = rounds; i > 0; i -= 2) {
       x00 += x04;
       x12 = crotl32(x12 ^ x00, 16);
       x08 += x12;
@@ -229,7 +237,7 @@ class ChaCha8Engine extends BaseStreamCipher {
       x09 += x14;
       x04 = crotl32(x04 ^ x09, 7);
     }
-    List<int> xup = [
+    var xup = [
       x00,
       x01,
       x02,
@@ -247,10 +255,11 @@ class ChaCha8Engine extends BaseStreamCipher {
       x14,
       x15
     ];
-    for (int i = 0; i < STATE_SIZE; ++i) {
+    for (var i = 0; i < STATE_SIZE; ++i) {
       x[i] = csum32(xup[i], input[i]);
     }
   }
 
+  @override
   external dynamic noSuchMethod(Invocation invocation);
 }

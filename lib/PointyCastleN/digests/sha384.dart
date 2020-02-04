@@ -2,6 +2,10 @@
 // This library is dually licensed under LGPL 3 and MPL 2.0.
 // See file LICENSE for more information.
 
+// ignore_for_file: omit_local_variable_types, prefer_single_quotes
+// ignore_for_file: non_constant_identifier_names, directives_ordering
+// ignore_for_file: prefer_typing_uninitialized_variables, camel_case_types
+// ignore_for_file: annotate_overrides
 library pointycastle.impl.digest.sha384;
 
 import "dart:typed_data";
@@ -21,9 +25,12 @@ class SHA384Digest extends LongSHA2FamilyDigest implements Digest {
     reset();
   }
 
+  @override
   final algorithmName = "SHA-384";
+  @override
   final digestSize = _DIGEST_LENGTH;
 
+  @override
   void reset() {
     super.reset();
 
@@ -37,6 +44,7 @@ class SHA384Digest extends LongSHA2FamilyDigest implements Digest {
     H8.set(0x47b5481d, 0xbefa4fa4);
   }
 
+  @override
   int doFinal(Uint8List out, int outOff) {
     finish();
 

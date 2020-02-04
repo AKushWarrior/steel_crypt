@@ -1,10 +1,116 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="e546f96d-56df-4bc2-a633-1533d678c8ee" name="Default Changelist" comment="">
+    <list default="true" id="e546f96d-56df-4bc2-a633-1533d678c8ee" name="Default Changelist" comment="Quick Formatting changes...">
+      <change afterPath="$PROJECT_DIR$/.idea/SteelCrypt.iml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/libraries/Dart_SDK.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/.idea/modules.xml" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/PointyCastleN/block/modes/ocb.dart" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/lib/PointyCastleN/block/tea.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/misc.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/misc.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CHANGELOG.md" beforeDir="false" afterPath="$PROJECT_DIR$/CHANGELOG.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/analysis_options.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/analysis_options.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/example.dart" beforeDir="false" afterPath="$PROJECT_DIR$/example/example.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/PointyCastleN/adapters/stream_cipher_as_block_cipher.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/PointyCastleN/adapters/stream_cipher_as_block_cipher.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/PointyCastleN/api.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/PointyCastleN/api.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/PointyCastleN/asymmetric/api.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/PointyCastleN/asymmetric/api.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/PointyCastleN/asymmetric/oaep.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/PointyCastleN/asymmetric/oaep.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/PointyCastleN/asymmetric/pkcs1.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/PointyCastleN/asymmetric/pkcs1.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/PointyCastleN/asymmetric/rsa.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/PointyCastleN/asymmetric/rsa.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/PointyCastleN/block/aes_fast.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/PointyCastleN/block/aes_fast.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/PointyCastleN/block/modes/cbc.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/PointyCastleN/block/modes/cbc.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/PointyCastleN/block/modes/cfb.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/PointyCastleN/block/modes/cfb.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/PointyCastleN/block/modes/ctr.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/PointyCastleN/block/modes/ctr.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/PointyCastleN/block/modes/ecb.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/PointyCastleN/block/modes/ecb.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/PointyCastleN/block/modes/gcm.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/PointyCastleN/block/modes/gcm.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/PointyCastleN/block/modes/gctr.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/PointyCastleN/block/modes/gctr.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/PointyCastleN/block/modes/ofb.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/PointyCastleN/block/modes/ofb.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/PointyCastleN/block/modes/sic.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/PointyCastleN/block/modes/sic.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/PointyCastleN/digests/blake2b.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/PointyCastleN/digests/blake2b.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/PointyCastleN/digests/md2.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/PointyCastleN/digests/md2.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/PointyCastleN/digests/md4.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/PointyCastleN/digests/md4.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/PointyCastleN/digests/md5.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/PointyCastleN/digests/md5.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/PointyCastleN/digests/ripemd128.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/PointyCastleN/digests/ripemd128.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/PointyCastleN/digests/ripemd160.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/PointyCastleN/digests/ripemd160.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/PointyCastleN/digests/ripemd256.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/PointyCastleN/digests/ripemd256.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/PointyCastleN/digests/ripemd320.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/PointyCastleN/digests/ripemd320.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/PointyCastleN/digests/sha1.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/PointyCastleN/digests/sha1.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/PointyCastleN/digests/sha224.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/PointyCastleN/digests/sha224.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/PointyCastleN/digests/sha256.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/PointyCastleN/digests/sha256.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/PointyCastleN/digests/sha3.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/PointyCastleN/digests/sha3.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/PointyCastleN/digests/sha384.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/PointyCastleN/digests/sha384.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/PointyCastleN/digests/sha512.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/PointyCastleN/digests/sha512.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/PointyCastleN/digests/sha512t.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/PointyCastleN/digests/sha512t.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/PointyCastleN/digests/tiger.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/PointyCastleN/digests/tiger.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/PointyCastleN/digests/whirlpool.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/PointyCastleN/digests/whirlpool.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/PointyCastleN/export.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/PointyCastleN/export.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/PointyCastleN/key_derivators/api.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/PointyCastleN/key_derivators/api.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/PointyCastleN/key_derivators/pbkdf2.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/PointyCastleN/key_derivators/pbkdf2.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/PointyCastleN/key_derivators/scrypt.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/PointyCastleN/key_derivators/scrypt.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/PointyCastleN/key_generators/api.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/PointyCastleN/key_generators/api.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/PointyCastleN/key_generators/rsa_key_generator.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/PointyCastleN/key_generators/rsa_key_generator.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/PointyCastleN/macs/cmac.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/PointyCastleN/macs/cmac.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/PointyCastleN/macs/hmac.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/PointyCastleN/macs/hmac.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/PointyCastleN/padded_block_cipher/padded_block_cipher_impl.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/PointyCastleN/padded_block_cipher/padded_block_cipher_impl.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/PointyCastleN/paddings/iso10126d2.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/PointyCastleN/paddings/iso10126d2.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/PointyCastleN/paddings/iso7816d4.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/PointyCastleN/paddings/iso7816d4.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/PointyCastleN/paddings/pkcs7.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/PointyCastleN/paddings/pkcs7.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/PointyCastleN/paddings/tbc.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/PointyCastleN/paddings/tbc.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/PointyCastleN/paddings/x923.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/PointyCastleN/paddings/x923.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/PointyCastleN/random/auto_seed_block_ctr_random.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/PointyCastleN/random/auto_seed_block_ctr_random.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/PointyCastleN/random/block_ctr_random.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/PointyCastleN/random/block_ctr_random.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/PointyCastleN/random/fortuna_random.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/PointyCastleN/random/fortuna_random.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/PointyCastleN/signers/rsa_signer.dart" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/PointyCastleN/src/api/aead_block_cipher.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/PointyCastleN/src/api/aead_block_cipher.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/PointyCastleN/src/api/aead_parameters.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/PointyCastleN/src/api/aead_parameters.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/PointyCastleN/src/api/algorithm.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/PointyCastleN/src/api/algorithm.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/PointyCastleN/src/api/asymmetric_block_cipher.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/PointyCastleN/src/api/asymmetric_block_cipher.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/PointyCastleN/src/api/asymmetric_key.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/PointyCastleN/src/api/asymmetric_key.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/PointyCastleN/src/api/asymmetric_key_pair.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/PointyCastleN/src/api/asymmetric_key_pair.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/PointyCastleN/src/api/block_cipher.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/PointyCastleN/src/api/block_cipher.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/PointyCastleN/src/api/padded_block_cipher.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/PointyCastleN/src/api/padded_block_cipher.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/PointyCastleN/src/api/private_key_parameter.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/PointyCastleN/src/api/private_key_parameter.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/PointyCastleN/src/api/public_key_parameter.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/PointyCastleN/src/api/public_key_parameter.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/PointyCastleN/src/api/registry_factory_exception.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/PointyCastleN/src/api/registry_factory_exception.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/PointyCastleN/src/api/secure_random.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/PointyCastleN/src/api/secure_random.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/PointyCastleN/src/impl/base_aead_block_cipher.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/PointyCastleN/src/impl/base_aead_block_cipher.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/PointyCastleN/src/impl/base_asymmetric_block_cipher.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/PointyCastleN/src/impl/base_asymmetric_block_cipher.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/PointyCastleN/src/impl/base_block_cipher.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/PointyCastleN/src/impl/base_block_cipher.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/PointyCastleN/src/impl/base_digest.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/PointyCastleN/src/impl/base_digest.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/PointyCastleN/src/impl/base_key_derivator.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/PointyCastleN/src/impl/base_key_derivator.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/PointyCastleN/src/impl/base_mac.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/PointyCastleN/src/impl/base_mac.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/PointyCastleN/src/impl/base_padding.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/PointyCastleN/src/impl/base_padding.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/PointyCastleN/src/impl/base_stream_cipher.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/PointyCastleN/src/impl/base_stream_cipher.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/PointyCastleN/src/impl/long_sha2_family_digest.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/PointyCastleN/src/impl/long_sha2_family_digest.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/PointyCastleN/src/impl/md4_family_digest.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/PointyCastleN/src/impl/md4_family_digest.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/PointyCastleN/src/impl/secure_random_base.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/PointyCastleN/src/impl/secure_random_base.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/PointyCastleN/src/registry/registration.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/PointyCastleN/src/registry/registration.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/PointyCastleN/src/registry/registry.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/PointyCastleN/src/registry/registry.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/PointyCastleN/src/ufixnum.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/PointyCastleN/src/ufixnum.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/PointyCastleN/src/utils.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/PointyCastleN/src/utils.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/PointyCastleN/stream/chacha20.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/PointyCastleN/stream/chacha20.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/PointyCastleN/stream/chacha2012.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/PointyCastleN/stream/chacha2012.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/PointyCastleN/stream/chacha208.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/PointyCastleN/stream/chacha208.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/PointyCastleN/stream/ctr.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/PointyCastleN/stream/ctr.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/PointyCastleN/stream/grain128.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/PointyCastleN/stream/grain128.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/PointyCastleN/stream/hc256.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/PointyCastleN/stream/hc256.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/PointyCastleN/stream/isaac.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/PointyCastleN/stream/isaac.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/PointyCastleN/stream/rc4.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/PointyCastleN/stream/rc4.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/PointyCastleN/stream/salsa20.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/PointyCastleN/stream/salsa20.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/PointyCastleN/stream/salsa2012.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/PointyCastleN/stream/salsa2012.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/PointyCastleN/stream/salsa208.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/PointyCastleN/stream/salsa208.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/PointyCastleN/stream/sic.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/PointyCastleN/stream/sic.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/aes.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/aes.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/hash.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/hash.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/key.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/key.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/light.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/light.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/mac.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/mac.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/pass.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/pass.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/rsa.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/rsa.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.yaml" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
@@ -43,10 +149,16 @@
   </component>
   <component name="PropertiesComponent">
     <property name="ASKED_ADD_EXTERNAL_FILES" value="true" />
+    <property name="SHARE_PROJECT_CONFIGURATION_FILES" value="true" />
     <property name="WebServerToolWindowFactoryState" value="false" />
     <property name="aspect.path.notification.shown" value="true" />
     <property name="dart.analysis.tool.window.force.activate" value="false" />
-    <property name="settings.editor.selected.configurable" value="preferences.pluginManager" />
+    <property name="project.structure.last.edited" value="Project" />
+    <property name="project.structure.proportion" value="0.0" />
+    <property name="project.structure.side.proportion" value="0.0" />
+    <property name="restartRequiresConfirmation" value="false" />
+    <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
+    <property name="settings.editor.selected.configurable" value="dart.settings" />
   </component>
   <component name="RecentsManager">
     <key name="MoveFile.RECENT_KEYS">
@@ -92,7 +204,25 @@
       <workItem from="1573063290434" duration="39702000" />
       <workItem from="1573783557094" duration="45000" />
       <workItem from="1574731992307" duration="19283000" />
-      <workItem from="1574905180335" duration="3974000" />
+      <workItem from="1574905180335" duration="4197000" />
+      <workItem from="1574959535804" duration="1700000" />
+      <workItem from="1575025753404" duration="555000" />
+      <workItem from="1575387202245" duration="139000" />
+      <workItem from="1575659724252" duration="156000" />
+      <workItem from="1576291609219" duration="537000" />
+      <workItem from="1576292442113" duration="193000" />
+      <workItem from="1576805538442" duration="7116000" />
+      <workItem from="1577029032178" duration="508000" />
+      <workItem from="1577063014504" duration="12308000" />
+      <workItem from="1577576781666" duration="10140000" />
+      <workItem from="1578442833131" duration="1432000" />
+      <workItem from="1578531279583" duration="686000" />
+      <workItem from="1578935960581" duration="26000" />
+      <workItem from="1578967229577" duration="835000" />
+      <workItem from="1579100383307" duration="492000" />
+      <workItem from="1579155824705" duration="277000" />
+      <workItem from="1579212349806" duration="1272000" />
+      <workItem from="1580774420108" duration="4425000" />
     </task>
     <task id="LOCAL-00001" summary="RC4 Algorithm, maintenance update, cleaner code">
       <created>1569777074344</created>
@@ -136,7 +266,14 @@
       <option name="project" value="LOCAL" />
       <updated>1574919056564</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="Quick Formatting changes...">
+      <created>1574919599555</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1574919599555</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -167,7 +304,8 @@
     <MESSAGE value="better example" />
     <MESSAGE value="2 new AES modes, ran dartfmt -w, improved README" />
     <MESSAGE value="Quick README update" />
-    <option name="LAST_COMMIT_MESSAGE" value="Quick README update" />
+    <MESSAGE value="Quick Formatting changes..." />
+    <option name="LAST_COMMIT_MESSAGE" value="Quick Formatting changes..." />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
   </component>

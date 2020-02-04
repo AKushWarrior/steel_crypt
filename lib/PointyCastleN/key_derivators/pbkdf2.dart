@@ -2,14 +2,16 @@
 // This library is dually licensed under LGPL 3 and MPL 2.0.
 // See file LICENSE for more information.
 
+// ignore_for_file: omit_local_variable_types, prefer_single_quotes, non_constant_identifier_names, directives_ordering, prefer_typing_uninitialized_variables
+
 library pointycastle.impl.key_derivator.pbkdf2;
 
 import "dart:typed_data";
 
 import '../api.dart';
-import 'api.dart';
-import '../src/registry/registry.dart';
 import '../src/impl/base_key_derivator.dart';
+import '../src/registry/registry.dart';
+import 'api.dart';
 
 class PBKDF2KeyDerivator extends BaseKeyDerivator {
   /// Intended for internal use.
@@ -22,15 +24,17 @@ class PBKDF2KeyDerivator extends BaseKeyDerivator {
           });
 
   Pbkdf2Parameters _params;
-  Mac _mac;
+  final Mac _mac;
   Uint8List _state;
 
   PBKDF2KeyDerivator(this._mac) {
     _state = Uint8List(_mac.macSize);
   }
 
+  @override
   String get algorithmName => "${_mac.algorithmName}/PBKDF2";
 
+  @override
   int get keySize => _params.desiredKeyLength;
 
   void reset() {
@@ -38,10 +42,12 @@ class PBKDF2KeyDerivator extends BaseKeyDerivator {
     _state.fillRange(0, _state.length, 0);
   }
 
+  @override
   void init(covariant Pbkdf2Parameters params) {
     _params = params;
   }
 
+  @override
   int deriveKey(Uint8List inp, int inpOff, Uint8List out, int outOff) {
     var dkLen = _params.desiredKeyLength;
     var hLen = _mac.macSize;
