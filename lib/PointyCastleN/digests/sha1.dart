@@ -1,32 +1,30 @@
-// Copyright (c) 2013-present, the authors of the Pointy Castle project
-// This library is dually licensed under LGPL 3 and MPL 2.0.
 // See file LICENSE for more information.
 
-// ignore_for_file: omit_local_variable_types, prefer_single_quotes
-// ignore_for_file: non_constant_identifier_names, directives_ordering
-// ignore_for_file: prefer_typing_uninitialized_variables, camel_case_types
-// ignore_for_file: annotate_overrides
 library pointycastle.impl.digest.sha1;
 
-import "dart:typed_data";
+import 'dart:typed_data';
 
-import '../api.dart';
-import '../src/impl/md4_family_digest.dart';
-import '../src/registry/registry.dart';
-import '../src/ufixnum.dart';
+import 'package:steel_crypt/PointyCastleN/api.dart';
+import 'package:steel_crypt/PointyCastleN/src/impl/md4_family_digest.dart';
+import 'package:steel_crypt/PointyCastleN/src/registry/registry.dart';
+import 'package:steel_crypt/PointyCastleN/src/ufixnum.dart';
 
 /// Implementation of SHA-1 digest
 class SHA1Digest extends MD4FamilyDigest implements Digest {
-  static final FactoryConfig FACTORY_CONFIG =
-      StaticFactoryConfig(Digest, "SHA-1", () => SHA1Digest());
+  // ignore: non_constant_identifier_names
+  static final FactoryConfig FACTORY_CONFIG = StaticFactoryConfig(
+      Digest, 'SHA-1', () => SHA1Digest());
 
   static const _DIGEST_LENGTH = 20;
 
   SHA1Digest() : super(Endian.big, 5, 80);
 
-  final algorithmName = "SHA-1";
+  @override
+  final algorithmName = 'SHA-1';
+  @override
   final digestSize = _DIGEST_LENGTH;
 
+  @override
   void resetState() {
     state[0] = 0x67452301;
     state[1] = 0xefcdab89;
@@ -35,6 +33,7 @@ class SHA1Digest extends MD4FamilyDigest implements Digest {
     state[4] = 0xc3d2e1f0;
   }
 
+  @override
   void processBlock() {
     // expand 16 word block into 80 word block.
     for (var i = 16; i < 80; i++) {

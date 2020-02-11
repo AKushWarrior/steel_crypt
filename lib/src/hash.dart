@@ -23,7 +23,6 @@ class HashCrypt {
   ///Hash with given input.
   String hash(String input) {
     var bytes = utf8.encode(input);
-    ;
     Digest digest;
     digest = Digest(_type);
     var value = digest.process(bytes as Uint8List);

@@ -106,6 +106,7 @@ dollars to help me continue development.
 
 #### Hashing (class HashCrypt)
 * Constructor: ```HashCrypt([String algorithm = "SHA-3/512"])```
+* **Note**: There was a critical security issue affecting hashing until v1.7.1. See the Changelog for more details.
 * SHA-3  ('SHA-3/___') :
     - /224
     - /256 _(Default/Recommended Hash)_

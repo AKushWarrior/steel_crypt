@@ -1,3 +1,12 @@
+## 1.7.1
+- Fixed critical Digest insecurity issue
+- Affects anyone using a number of algorithms:
+    - SHA-224, SHA-256, and SHA-1
+    - RIPEMD (all versions)
+    - MD4 and MD5
+    - PBKDF2 with any of the above
+- Affected people should update ASAP
+
 ## 1.6.1
 - Fixed critical keyspace issue
 - Fixed bug with RSA PEM parsing

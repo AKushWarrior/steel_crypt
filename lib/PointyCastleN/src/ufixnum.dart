@@ -2,10 +2,6 @@
 // This library is dually licensed under LGPL 3 and MPL 2.0.
 // See file LICENSE for more information.
 
-// ignore_for_file: omit_local_variable_types, prefer_single_quotes
-// ignore_for_file: non_constant_identifier_names, directives_ordering
-// ignore_for_file: prefer_typing_uninitialized_variables, camel_case_types
-// ignore_for_file: annotate_overrides
 library pointycastle.src.ufixnum;
 
 import 'dart:typed_data';
@@ -17,6 +13,7 @@ const _MASK_8 = 0xFF;
 const _MASK_16 = 0xFFFF;
 const _MASK_32 = 0xFFFFFFFF;
 
+// ignore: non_constant_identifier_names
 final _MASK32_HI_BITS = [
   0xFFFFFFFF,
   0x7FFFFFFF,
@@ -56,23 +53,6 @@ final _MASK32_HI_BITS = [
 ////////////////////////////////////////////////////////////////////////////////////////////////////
 // 8 bit operations
 //
-void pack8(int x, dynamic out, int offset, Endian endian) {
-  assert((x >= 0) && (x <= _MASK_8));
-  if (out is! ByteData) {
-    out = ByteData.view(
-        out.buffer as ByteBuffer, out.offsetInBytes as int, out.length as int);
-  }
-  (out as ByteData).setUint8(offset, x);
-}
-
-int unpack8(dynamic inp, int offset, Endian endian) {
-  if (inp is! ByteData) {
-    inp = ByteData.view(
-        inp.buffer as ByteBuffer, inp.offsetInBytes as int, inp.length as int);
-  }
-  return (inp as ByteData).getUint8(offset);
-}
-
 int clip8(int x) => (x & _MASK_8);
 
 int csum8(int x, int y) => sum8(clip8(x), clip8(y));
@@ -134,9 +114,8 @@ int rotr8(int x, int n) {
 //
 int clip16(int x) => (x & _MASK_16);
 
-///Packs a 16 bit integer into a byte buffer. The [out] parameter can be an [Uint8List] or a
-///[ByteData] if you will run it several times against the same buffer and want faster execution.
-
+/// Packs a 16 bit integer into a byte buffer. The [out] parameter can be an [Uint8List] or a
+/// [ByteData] if you will run it several times against the same buffer and want faster execution.
 void pack16(int x, dynamic out, int offset, Endian endian) {
   assert((x >= 0) && (x <= _MASK_16));
   if (out is! ByteData) {
@@ -146,6 +125,8 @@ void pack16(int x, dynamic out, int offset, Endian endian) {
   (out as ByteData).setUint16(offset, x, endian);
 }
 
+/// Unpacks a 16 bit integer from a byte buffer. The [inp] parameter can be an [Uint8List] or a
+/// [ByteData] if you will run it several times against the same buffer and want faster execution.
 int unpack16(dynamic inp, int offset, Endian endian) {
   if (inp is! ByteData) {
     inp = ByteData.view(
@@ -216,6 +197,8 @@ int rotr32(int x, int n) {
   return (x >> n) | shiftl32(x, (32 - n));
 }
 
+/// Packs a 32 bit integer into a byte buffer. The [out] parameter can be an [Uint8List] or a
+/// [ByteData] if you will run it several times against the same buffer and want faster execution.
 void pack32(int x, dynamic out, int offset, Endian endian) {
   assert((x >= 0) && (x <= _MASK_32));
   if (out is! ByteData) {
@@ -225,6 +208,8 @@ void pack32(int x, dynamic out, int offset, Endian endian) {
   (out as ByteData).setUint32(offset, x, endian);
 }
 
+/// Unpacks a 32 bit integer from a byte buffer. The [inp] parameter can be an [Uint8List] or a
+/// [ByteData] if you will run it several times against the same buffer and want faster execution.
 int unpack32(dynamic inp, int offset, Endian endian) {
   if (inp is! ByteData) {
     inp = ByteData.view(
@@ -233,9 +218,12 @@ int unpack32(dynamic inp, int offset, Endian endian) {
   return (inp as ByteData).getUint32(offset, endian);
 }
 
-/// 64 bit operations
-
+////////////////////////////////////////////////////////////////////////////////////////////////////
+// 64 bit operations
+//
 class Register64 {
+  static final Register64 _MAX_VALUE = Register64(0xFFFFFFFF, 0xFFFFFFFF);
+
   int _hi32;
   int _lo32;
 
@@ -244,15 +232,22 @@ class Register64 {
   }
 
   int get lo32 => _lo32;
+
   int get hi32 => _hi32;
 
+  @override
+  // ignore: hash_and_equals
   bool operator ==(Object y) =>
       y is Register64 ? (((_hi32 == y._hi32) && (_lo32 == y._lo32))) : false;
+
   bool operator <(Register64 y) =>
       ((_hi32 < y._hi32) || ((_hi32 == y._hi32) && (_lo32 < y._lo32)));
+
   bool operator <=(Register64 y) => ((this < y) || (this == y));
+
   bool operator >(Register64 y) =>
       ((_hi32 > y._hi32) || ((_hi32 == y._hi32) && (_lo32 > y._lo32)));
+
   bool operator >=(Register64 y) => ((this > y) || (this == y));
 
   void set(dynamic hiOrLo32OrY, [int lo32]) {
@@ -261,12 +256,12 @@ class Register64 {
         _hi32 = hiOrLo32OrY._hi32;
         _lo32 = hiOrLo32OrY._lo32;
       } else {
-        assert(hiOrLo32OrY as num <= _MASK_32);
+        assert(hiOrLo32OrY <= _MASK_32 as bool);
         _hi32 = 0;
         _lo32 = hiOrLo32OrY as int;
       }
     } else {
-      assert(hiOrLo32OrY as num <= _MASK_32);
+      assert(hiOrLo32OrY <= _MASK_32 as bool);
       assert(lo32 <= _MASK_32);
       _hi32 = hiOrLo32OrY as int;
       _lo32 = lo32;
@@ -276,24 +271,24 @@ class Register64 {
   void sum(dynamic y) {
     if (y is int) {
       y &= _MASK_32;
-      int slo32 = (_lo32 + (y as num)) as int;
+      var slo32 = (_lo32 + (y as num)) as int;
       _lo32 = (slo32 & _MASK_32);
       if (slo32 != _lo32) {
         _hi32++;
         _hi32 &= _MASK_32;
       }
     } else {
-      int slo32 = (_lo32 + (y._lo32 as num)) as int;
+      var slo32 = (_lo32 + (y._lo32 as int));
       _lo32 = (slo32 & _MASK_32);
-      int carry = ((slo32 != _lo32) ? 1 : 0);
+      var carry = ((slo32 != _lo32) ? 1 : 0);
       _hi32 = (((_hi32 + (y._hi32 as num) + carry) as int) & _MASK_32);
     }
   }
 
   void sumReg(Register64 y) {
-    int slo32 = (_lo32 + y._lo32);
+    var slo32 = (_lo32 + y._lo32);
     _lo32 = (slo32 & _MASK_32);
-    int carry = ((slo32 != _lo32) ? 1 : 0);
+    var carry = ((slo32 != _lo32) ? 1 : 0);
     _hi32 = ((_hi32 + y._hi32 + carry) & _MASK_32);
   }
 
@@ -310,13 +305,14 @@ class Register64 {
       _hi32 = clip32(hi32);
       _lo32 = clip32(lo32);
     } else {
-      final lo32 = _lo32 * (y._lo32 as num);
+      final lo32 = _lo32 * (y._lo32 as int);
       final carry = (lo32 ~/ 0x100000000);
       final hi32 = clip32(_hi32 * (y._lo32 as int)) +
-          clip32(_lo32 * (y._hi32 as int)) + carry;
+          clip32(_lo32 * (y._hi32 as int)) +
+          carry;
 
       _hi32 = clip32(hi32);
-      _lo32 = clip32(lo32 as int);
+      _lo32 = clip32(lo32);
     }
   }
 
@@ -421,6 +417,8 @@ class Register64 {
     }
   }
 
+  /// Packs a 64 bit integer into a byte buffer. The [out] parameter can be an [Uint8List] or a
+  /// [ByteData] if you will run it several times against the same buffer and want faster execution.
   void pack(dynamic out, int offset, Endian endian) {
     switch (endian) {
       case Endian.big:
@@ -434,10 +432,12 @@ class Register64 {
         break;
 
       default:
-        throw UnsupportedError("Invalid endianness: $endian");
+        throw UnsupportedError('Invalid endianness: ${endian}');
     }
   }
 
+  /// Unpacks a 64 bit integer from a byte buffer. The [inp] parameter can be an [Uint8List] or a
+  /// [ByteData] if you will run it several times against the same buffer and want faster execution.
   void unpack(dynamic inp, int offset, Endian endian) {
     switch (endian) {
       case Endian.big:
@@ -451,7 +451,7 @@ class Register64 {
         break;
 
       default:
-        throw UnsupportedError("Invalid endianness: ${endian}");
+        throw UnsupportedError('Invalid endianness: $endian');
     }
   }
 
@@ -465,7 +465,7 @@ class Register64 {
   void _padWrite(StringBuffer sb, int value) {
     var str = value.toRadixString(16);
     for (var i = (8 - str.length); i > 0; i--) {
-      sb.write("0");
+      sb.write('0');
     }
     sb.write(str);
   }
@@ -498,15 +498,16 @@ class Register64List {
     }
   }
 
+  @override
   String toString() {
-    var sb = StringBuffer("(");
+    var sb = StringBuffer('(');
     for (var i = 0; i < _list.length; i++) {
       if (i > 0) {
-        sb.write(", ");
+        sb.write(', ');
       }
       sb.write(_list[i].toString());
     }
-    sb.write(")");
+    sb.write(')');
     return sb.toString();
   }
 }

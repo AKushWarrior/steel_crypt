@@ -31,9 +31,9 @@ abstract class MD4FamilyDigest extends BaseDigest {
   MD4FamilyDigest(this._endian, int stateSize, int bufferSize,
       [int packedStateSize])
       : _packedStateSize =
-            (packedStateSize == null) ? stateSize : packedStateSize,
+  (packedStateSize == null) ? stateSize : packedStateSize,
         state = List<int>(stateSize),
-        buffer = Uint8List(bufferSize) {
+        buffer = List<int>(bufferSize) {
     reset();
   }
 
@@ -43,7 +43,6 @@ abstract class MD4FamilyDigest extends BaseDigest {
   /// Process a whole block of data in extender digest.
   void processBlock();
 
-  @override
   void reset() {
     _byteCount.set(0);
 
@@ -63,15 +62,15 @@ abstract class MD4FamilyDigest extends BaseDigest {
   }
 
   void update(Uint8List inp, int inpOff, int len) {
-    int nbytes;
+    var nbytes;
 
     nbytes = _processUntilNextWord(inp, inpOff, len);
-    inpOff += nbytes;
-    len -= nbytes;
+    inpOff += nbytes as int;
+    len -= nbytes as int;
 
     nbytes = _processWholeWords(inp, inpOff, len);
-    inpOff += nbytes;
-    len -= nbytes;
+    inpOff += nbytes as int;
+    len -= nbytes as int;
 
     _processBytes(inp, inpOff, len);
   }
@@ -189,7 +188,7 @@ abstract class MD4FamilyDigest extends BaseDigest {
 
   void _packState(Uint8List out, int outOff) {
     for (int i = 0; i < (_packedStateSize as num); i++) {
-      pack32(state[i], out, (outOff + i * 4), _endian);
+      pack32(state[i] as int, out, (outOff + i * 4), _endian);
     }
   }
 }
