@@ -14,7 +14,8 @@ class GCMBlockCipher extends BaseAEADBlockCipher {
   static final FactoryConfig FACTORY_CONFIG = DynamicFactoryConfig.suffix(
       BlockCipher,
       "/GCM",
-          (_, final Match match) => () {
+          (_, final Match match) =>
+          () {
         BlockCipher underlying = BlockCipher(match.group(1));
         return GCMBlockCipher(underlying);
       });

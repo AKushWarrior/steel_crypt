@@ -99,7 +99,8 @@ class OAEPEncoding extends BaseAsymmetricBlockCipher {
   }
 
   @override
-  int processBlock(Uint8List inp, int inpOff, int len, Uint8List out, int outOff) {
+  int processBlock(Uint8List inp, int inpOff, int len, Uint8List out,
+      int outOff) {
     if (_forEncryption) {
       return _encodeBlock(inp, inpOff, len, out, outOff);
     } else {

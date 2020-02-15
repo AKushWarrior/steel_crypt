@@ -13,8 +13,8 @@ import 'dart:typed_data';
 
 import '../api.dart';
 import '../src/impl/base_stream_cipher.dart';
-import '../src/ufixnum.dart';
 import '../src/registry/registry.dart';
+import '../src/ufixnum.dart';
 
 class SICStreamCipher extends BaseStreamCipher {
   /// Intended for internal use.
@@ -58,7 +58,8 @@ class SICStreamCipher extends BaseStreamCipher {
   }
 
   @override
-  void processBytes(Uint8List inp, int inpOff, int len, Uint8List out, int outOff) {
+  void processBytes(Uint8List inp, int inpOff, int len, Uint8List out,
+      int outOff) {
     for (var i = 0; i < len; i++) {
       out[outOff + i] = returnByte(inp[inpOff + i]);
     }

@@ -167,7 +167,8 @@ class Grain128Engine extends BaseStreamCipher {
   }
 
   @override
-  void processBytes(Uint8List inp, int inOff, int len, Uint8List out, int outOff) {
+  void processBytes(Uint8List inp, int inOff, int len, Uint8List out,
+      int outOff) {
     if (!initialised) {
       throw StateError('Grain-128 not initialised');
     }

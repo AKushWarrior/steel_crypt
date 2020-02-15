@@ -46,7 +46,8 @@ class RC4Engine extends BaseStreamCipher {
   }
 
   @override
-  int processBytes(List<int> inp, int inOff, int len, List<int> out, int outOff) {
+  int processBytes(List<int> inp, int inOff, int len, List<int> out,
+      int outOff) {
     if ((inOff + len) > inp.length) {
       throw ArgumentError('input buffer too short');
     }

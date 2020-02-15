@@ -188,7 +188,7 @@ abstract class MD4FamilyDigest extends BaseDigest {
 
   void _packState(Uint8List out, int outOff) {
     for (int i = 0; i < (_packedStateSize as num); i++) {
-      pack32(state[i] as int, out, (outOff + i * 4), _endian);
+      pack32(state[i], out, (outOff + i * 4), _endian);
     }
   }
 }

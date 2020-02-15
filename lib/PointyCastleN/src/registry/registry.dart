@@ -101,8 +101,7 @@ class _RegistryImpl implements FactoryRegistry {
   }
 
   RegistrableConstructor getConstructor(Type type, String registrableName) {
-    var constructor =
-    _constructorCache['$type.$registrableName'];
+    var constructor = _constructorCache['$type.$registrableName'];
 
     if (constructor == null) {
       constructor = _createConstructor(type, registrableName);
@@ -125,8 +124,7 @@ class _RegistryImpl implements FactoryRegistry {
 
     if (_dynamicFactories.containsKey(type)) {
       for (var factory in _dynamicFactories[type]) {
-        var constructor =
-            factory.tryFactory(registrableName);
+        var constructor = factory.tryFactory(registrableName);
         if (constructor != null) {
           return constructor;
         }

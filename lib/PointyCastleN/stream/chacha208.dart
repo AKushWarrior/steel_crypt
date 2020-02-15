@@ -46,7 +46,8 @@ class ChaCha8Engine extends BaseStreamCipher {
   }
 
   @override
-  void init(bool forEncryption, covariant ParametersWithIV<KeyParameter> params) {
+  void init(bool forEncryption,
+      covariant ParametersWithIV<KeyParameter> params) {
     var uparams = params.parameters;
     var iv = params.iv;
     if (iv == null || iv.length != 8) {
@@ -76,7 +77,8 @@ class ChaCha8Engine extends BaseStreamCipher {
   }
 
   @override
-  void processBytes(Uint8List inp, int inpOff, int len, Uint8List out, int outOff) {
+  void processBytes(Uint8List inp, int inpOff, int len, Uint8List out,
+      int outOff) {
     if (!_initialised) {
       throw StateError('ChaCha8 not initialized: please call init() first');
     }

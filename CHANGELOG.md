@@ -1,4 +1,4 @@
-## 1.7.1
+## 1.7.1 - 1.7.1+1
 - Fixed critical Digest insecurity issue
 - Affects anyone using a number of algorithms:
     - SHA-224, SHA-256, and SHA-1

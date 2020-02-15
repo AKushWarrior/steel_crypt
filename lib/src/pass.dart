@@ -26,8 +26,8 @@ class PassCrypt {
   String hashPass(String salt, String pass, [int length = 32]) {
     var passhash = _keyDerivator;
     if (_algorithm.contains('PBKDF2')) {
-      var params = Pbkdf2Parameters(
-          Uint8List.fromList(salt.codeUnits), 10000, length);
+      var params =
+      Pbkdf2Parameters(Uint8List.fromList(salt.codeUnits), 10000, length);
       passhash.init(params);
     } else {
       final params = ScryptParameters(
