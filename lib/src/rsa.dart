@@ -8,13 +8,14 @@ part of 'steel_crypt_base.dart';
 
 ///RSA asymmetric encryption machine.
 class RsaCrypt {
-  ///Pair of private keys.
-  AsymmetricKeyPair _pair;
+  ///Pair of asymmetric keys.
+  static AsymmetricKeyPair _pairInstance;
 
-  ///Construct with keys.
-  RsaCrypt() {
-    _pair = _getRsaKeyPair(_getSecureRandom());
-  }
+  ///Get existing keypair instance or generate a new one.
+  static AsymmetricKeyPair get _pair => _pairInstance ?? generateKeyPair();
+
+  ///Constant Constructor.
+  const RsaCrypt();
 
   ///Access private key.
   RSAPrivateKey get randPrivKey {
@@ -38,11 +39,10 @@ class RsaCrypt {
     return secureRandom;
   }
 
-  ///Create RSA keypair given SecureRandom.
-  AsymmetricKeyPair<PublicKey, PrivateKey> _getRsaKeyPair(
-      SecureRandom secureRandom) {
-    final rsapars = RSAKeyGeneratorParameters(BigInt.from(65537), 2048, 5);
-    final params = ParametersWithRandom(rsapars, secureRandom);
+  ///Create RSA keypair of specified length.
+  static AsymmetricKeyPair<PublicKey, PrivateKey> generateKeyPair([int length = 2048]) {
+    final rsapars = RSAKeyGeneratorParameters(BigInt.from(65537), length, 5);
+    final params = ParametersWithRandom(rsapars, _getSecureRandom());
     final keyGenerator = RSAKeyGenerator();
     keyGenerator.init(params);
     return keyGenerator.generateKeyPair();
