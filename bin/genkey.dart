@@ -4,9 +4,8 @@
 
 // © 2019 Aditya Kishore
 
-import 'package:steel_crypt/steel_crypt.dart';
-
 import 'package:args/args.dart';
+import 'package:steel_crypt/steel_crypt.dart';
 
 void main(List<String> args) {
   final argParser = ArgParser();
@@ -29,5 +28,5 @@ void main(List<String> args) {
     return print(argParser.usage);
   }
 
-  print(CryptKey().genFortuna(length));
+  print(CryptKey().genFortuna(length: length));
 }

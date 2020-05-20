@@ -208,6 +208,17 @@ void pack32(int x, dynamic out, int offset, Endian endian) {
   (out as ByteData).setUint32(offset, x, endian);
 }
 
+/// Packs a 64 bit integer into a byte buffer. The [out] parameter can be an [Uint8List] or a
+/// [ByteData] if you will run it several times against the same buffer and want faster execution.
+void pack64(int x, dynamic out, int offset, Endian endian) {
+  assert((x >= 0) && (x <= _MASK_32));
+  if (out is! ByteData) {
+    out = ByteData.view(
+        out.buffer as ByteBuffer, out.offsetInBytes as int, out.length as int);
+  }
+  (out as ByteData).setUint64(offset, x, endian);
+}
+
 /// Unpacks a 32 bit integer from a byte buffer. The [inp] parameter can be an [Uint8List] or a
 /// [ByteData] if you will run it several times against the same buffer and want faster execution.
 int unpack32(dynamic inp, int offset, Endian endian) {
@@ -216,6 +227,16 @@ int unpack32(dynamic inp, int offset, Endian endian) {
         inp.buffer as ByteBuffer, inp.offsetInBytes as int, inp.length as int);
   }
   return (inp as ByteData).getUint32(offset, endian);
+}
+
+/// Unpacks a 64 bit integer from a byte buffer. The [inp] parameter can be an [Uint8List] or a
+/// [ByteData] if you will run it several times against the same buffer and want faster execution.
+int unpack64(dynamic inp, int offset, Endian endian) {
+  if (inp is! ByteData) {
+    inp = ByteData.view(
+        inp.buffer as ByteBuffer, inp.offsetInBytes as int, inp.length as int);
+  }
+  return (inp as ByteData).getUint64(offset, endian);
 }
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -247,6 +268,31 @@ class Register64 {
       ((_hi32 > y._hi32) || ((_hi32 == y._hi32) && (_lo32 > y._lo32)));
 
   bool operator >=(Register64 y) => ((this > y) || (this == y));
+
+  Register64 operator *(dynamic other) {
+    mul(other);
+    return this;
+  }
+
+  Register64 operator &(Register64 other) {
+    and(other);
+    return this;
+  }
+
+  Register64 operator +(dynamic other) {
+    sum(other);
+    return this;
+  }
+
+  Register64 operator |(Register64 other) {
+    or(other);
+    return this;
+  }
+
+  Register64 operator ^(Register64 other) {
+    xor(other);
+    return this;
+  }
 
   void set(dynamic hiOrLo32OrY, [int lo32]) {
     if (lo32 == null) {
@@ -353,6 +399,20 @@ class Register64 {
     }
   }
 
+  void cshiftl(int n) {
+    n &= _MASK_6;
+    if (n == 0) {
+      // do nothing
+    } else if (n >= 32) {
+      _hi32 = cshiftl32(_lo32, (n - 32));
+      _lo32 = 0;
+    } else {
+      _hi32 = cshiftl32(_hi32, n);
+      _hi32 |= _lo32 >> (32 - n);
+      _lo32 = cshiftl32(_lo32, n);
+    }
+  }
+
   void shiftr(int n) {
     n &= _MASK_6;
     if (n == 0) {
@@ -363,6 +423,20 @@ class Register64 {
     } else {
       _lo32 = _lo32 >> n;
       _lo32 |= shiftl32(_hi32, 32 - n);
+      _hi32 = _hi32 >> n;
+    }
+  }
+
+  void cshiftr(int n) {
+    n &= _MASK_6;
+    if (n == 0) {
+      // do nothing
+    } else if (n >= 32) {
+      _lo32 = _hi32 >> (n - 32);
+      _hi32 = 0;
+    } else {
+      _lo32 = _lo32 >> n;
+      _lo32 |= cshiftl32(_hi32, 32 - n);
       _hi32 = _hi32 >> n;
     }
   }
@@ -430,7 +504,7 @@ class Register64 {
         break;
 
       default:
-        throw UnsupportedError('Invalid endianness: ${endian}');
+        throw UnsupportedError('Invalid endianness: $endian');
     }
   }
 
@@ -453,6 +527,7 @@ class Register64 {
     }
   }
 
+  @override
   String toString() {
     var sb = StringBuffer();
     _padWrite(sb, _hi32);

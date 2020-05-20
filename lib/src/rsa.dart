@@ -2,19 +2,26 @@
 //License, v. 2.0. If a copy of the MPL was not distributed with this
 //file, You can obtain one at https://mozilla.org/MPL/2.0/.
 
-// © 2019 Aditya Kishore
+// © 2020 Aditya Kishore
 
 part of 'steel_crypt_base.dart';
 
-///RSA asymmetric encryption machine.
-class RsaCrypt {
-  ///Pair of private keys.
-  AsymmetricKeyPair _pair;
+@deprecated
 
-  ///Construct with keys.
-  RsaCrypt() {
-    _pair = _getRsaKeyPair(_getSecureRandom());
+/// RSA asymmetric encryption machine. This is deprecated and not maintained, use
+/// https://pub.dev/packages/crypton instead.
+class RsaCrypt {
+  ///Pair of asymmetric keys.
+  static AsymmetricKeyPair _pairInstance;
+
+  ///Get existing keypair instance or generate a new one.
+  static AsymmetricKeyPair get _pair {
+    _pairInstance ??= _generateKeyPair();
+    return _pairInstance;
   }
+
+  ///Constant Constructor.
+  const RsaCrypt();
 
   ///Access private key.
   RSAPrivateKey get randPrivKey {
@@ -38,33 +45,51 @@ class RsaCrypt {
     return secureRandom;
   }
 
-  ///Create RSA keypair given SecureRandom.
-  AsymmetricKeyPair<PublicKey, PrivateKey> _getRsaKeyPair(
-      SecureRandom secureRandom) {
-    final rsapars = RSAKeyGeneratorParameters(BigInt.from(65537), 2048, 5);
-    final params = ParametersWithRandom(rsapars, secureRandom);
+  ///Create RSA keypair of specified length.
+  static AsymmetricKeyPair<PublicKey, PrivateKey> _generateKeyPair(
+      [int length = 2048]) {
+    final rsapars = RSAKeyGeneratorParameters(BigInt.from(65537), length, 5);
+    final params = ParametersWithRandom(rsapars, _getSecureRandom());
     final keyGenerator = RSAKeyGenerator();
     keyGenerator.init(params);
     return keyGenerator.generateKeyPair();
   }
 
+  ///Encrypt using RSA.
+  String encrypt(String text, RSAPublicKey pubKey) {
+    final cipher = OAEPEncoding(RSAEngine());
+    cipher.init(true, PublicKeyParameter<RSAPublicKey>(pubKey));
+    final output1 = cipher.process(utf8.encode(text) as Uint8List);
+    return base64Encode(output1);
+  }
+
+  ///Decrypt using RSA.
+  String decrypt(String encrypted, RSAPrivateKey privateKey) {
+    final cipher = OAEPEncoding(RSAEngine());
+    cipher.init(false, PrivateKeyParameter<RSAPrivateKey>(privateKey));
+    final output = cipher.process(base64Decode(encrypted));
+    return utf8.decode(output);
+  }
+}
+
+/// Class containing utils for translating RSA keys. This class uses the
+/// PEM format.
+class RsaUtils {
   ///Parse key from PEM file.
-  Future<T> parseKeyFromFile<T extends RSAAsymmetricKey>(
+  static Future<T> parseKeyFromFile<T extends RSAAsymmetricKey>(
       String filename) async {
     final file = File(filename);
     final key = await file.readAsString();
-    final parser = _RSAKeyParser();
-    return parser.parse(key) as T;
+    return _parse(key) as T;
   }
 
   ///Parse key from PEM string.
-  T parseKeyFromString<T extends RSAAsymmetricKey>(String pemString) {
-    final parser = _RSAKeyParser();
-    return parser.parse(pemString) as T;
+  static T parseKeyFromString<T extends RSAAsymmetricKey>(String pemString) {
+    return _parse(pemString) as T;
   }
 
   ///Encode RSA key to a PEM string.
-  String encodeKeyToString(RSAAsymmetricKey key) {
+  static String encodeKeyToString(RSAAsymmetricKey key) {
     if (key is RSAPublicKey) {
       final algorithmSeq = ASN1Sequence();
       final algorithmAsn1Obj = ASN1Object.fromBytes(Uint8List.fromList(
@@ -133,26 +158,7 @@ class RsaCrypt {
     }
   }
 
-  ///Encrypt using RSA.
-  String encrypt(String text, RSAPublicKey pubKey) {
-    final cipher = OAEPEncoding(RSAEngine());
-    cipher.init(true, PublicKeyParameter<RSAPublicKey>(pubKey));
-    final output1 = cipher.process(Uint8List.fromList(utf8.encode(text)));
-    return base64Encode(output1);
-  }
-
-  ///Decrypt using RSA.
-  String decrypt(String encrypted, RSAPrivateKey privateKey) {
-    final cipher = OAEPEncoding(RSAEngine());
-    cipher.init(false, PrivateKeyParameter<RSAPrivateKey>(privateKey));
-    final output = cipher.process(base64Decode(encrypted));
-    return utf8.decode(output);
-  }
-}
-
-/// RSA PEM parser. Not for public use, don't use!!!
-class _RSAKeyParser {
-  RSAAsymmetricKey parse(String key) {
+  static RSAAsymmetricKey _parse(String key) {
     final rows = key.split(RegExp(r'\r\n?|\n'));
     final header = rows.first;
 
@@ -175,14 +181,14 @@ class _RSAKeyParser {
     throw FormatException('Unable to parse key, invalid format.', header);
   }
 
-  RSAAsymmetricKey _parsePublic(ASN1Sequence sequence) {
+  static RSAAsymmetricKey _parsePublic(ASN1Sequence sequence) {
     final modulus = (sequence.elements[0] as ASN1Integer).valueAsBigInteger;
     final exponent = (sequence.elements[1] as ASN1Integer).valueAsBigInteger;
 
     return RSAPublicKey(modulus, exponent);
   }
 
-  RSAAsymmetricKey _parsePrivate(ASN1Sequence sequence) {
+  static RSAAsymmetricKey _parsePrivate(ASN1Sequence sequence) {
     final modulus = (sequence.elements[1] as ASN1Integer).valueAsBigInteger;
     final exponent = (sequence.elements[3] as ASN1Integer).valueAsBigInteger;
     final p = (sequence.elements[4] as ASN1Integer).valueAsBigInteger;
@@ -191,7 +197,7 @@ class _RSAKeyParser {
     return RSAPrivateKey(modulus, exponent, p, q);
   }
 
-  ASN1Sequence _parseSequence(List<String> rows) {
+  static ASN1Sequence _parseSequence(List<String> rows) {
     final keyText = rows
         .skipWhile((row) => row.startsWith('-----BEGIN'))
         .takeWhile((row) => !row.startsWith('-----END'))
@@ -204,7 +210,7 @@ class _RSAKeyParser {
     return asn1Parser.nextObject() as ASN1Sequence;
   }
 
-  ASN1Sequence _pkcs8PublicSequence(ASN1Sequence sequence) {
+  static ASN1Sequence _pkcs8PublicSequence(ASN1Sequence sequence) {
     var bitString = sequence.elements[1];
     final bytes = bitString.valueBytes().sublist(1);
     final parser = ASN1Parser(Uint8List.fromList(bytes));
@@ -212,7 +218,7 @@ class _RSAKeyParser {
     return parser.nextObject() as ASN1Sequence;
   }
 
-  ASN1Sequence _pkcs8PrivateSequence(ASN1Sequence sequence) {
+  static ASN1Sequence _pkcs8PrivateSequence(ASN1Sequence sequence) {
     var bitString = sequence.elements[2];
     final bytes = bitString.valueBytes();
     final parser = ASN1Parser(bytes);

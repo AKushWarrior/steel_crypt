@@ -1,6 +1,8 @@
 library pointycastle.src.registry.impl;
 // ignore_for_file: directives_ordering
 
+import 'package:steel_crypt/PointyCastleN/macs/poly1305.dart';
+
 import '../../asymmetric/oaep.dart';
 import '../../asymmetric/pkcs1.dart';
 import '../../asymmetric/rsa.dart';
@@ -15,6 +17,7 @@ import '../../block/modes/ofb.dart';
 import '../../block/modes/sic.dart';
 import '../../block/tea.dart';
 import '../../digests/blake2b.dart';
+import '../../digests/keccak.dart';
 import '../../digests/md2.dart';
 import '../../digests/md4.dart';
 import '../../digests/md5.dart';
@@ -49,10 +52,7 @@ import '../../stream/chacha20.dart';
 import '../../stream/chacha2012.dart';
 import '../../stream/chacha208.dart';
 import '../../stream/ctr.dart';
-import '../../stream/grain128.dart';
-import '../../stream/hc256.dart';
 import '../../stream/isaac.dart';
-import '../../stream/rc4.dart';
 import '../../stream/salsa20.dart';
 import '../../stream/salsa2012.dart';
 import '../../stream/salsa208.dart';
@@ -103,6 +103,7 @@ void _registerDigests(FactoryRegistry registry) {
   registry.register(RIPEMD256Digest.FACTORY_CONFIG);
   registry.register(RIPEMD320Digest.FACTORY_CONFIG);
   registry.register(SHA1Digest.FACTORY_CONFIG);
+  registry.register(KeccakDigest.FACTORY_CONFIG);
   registry.register(SHA3Digest.FACTORY_CONFIG);
   registry.register(SHA224Digest.FACTORY_CONFIG);
   registry.register(SHA256Digest.FACTORY_CONFIG);
@@ -125,6 +126,7 @@ void _registerKeyGenerators(FactoryRegistry registry) {
 void _registerMacs(FactoryRegistry registry) {
   registry.register(HMac.FACTORY_CONFIG);
   registry.register(CMac.FACTORY_CONFIG);
+  registry.register(Poly1305.FACTORY_CONFIG);
 }
 
 void _registerPaddedBlockCiphers(FactoryRegistry registry) {
@@ -154,8 +156,5 @@ void _registerStreamCiphers(FactoryRegistry registry) {
   registry.register(ChaCha8Engine.FACTORY_CONFIG);
   registry.register(ChaCha12Engine.FACTORY_CONFIG);
   registry.register(SICStreamCipher.FACTORY_CONFIG);
-  registry.register(HC256Engine.FACTORY_CONFIG);
-  registry.register(Grain128Engine.FACTORY_CONFIG);
   registry.register(ISAACEngine.FACTORY_CONFIG);
-  registry.register(RC4Engine.FACTORY_CONFIG);
 }

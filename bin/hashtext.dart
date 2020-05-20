@@ -4,20 +4,20 @@
 
 // © 2019 Aditya Kishore
 
-import 'package:steel_crypt/steel_crypt.dart';
-
 import 'package:args/args.dart';
+import 'package:steel_crypt/steel_crypt.dart';
 
 void main(List<String> args) {
   final argParser = ArgParser();
 
   argParser.addOption('plain',
       abbr: 'p',
-      defaultsTo: '',
       help: 'Input the plaintext to be hashed here...');
 
   argParser.addFlag('help',
-      abbr: 'h', defaultsTo: false, help: 'Show this help message');
+      abbr: 'h',
+      defaultsTo: false,
+      help: 'Use Blake2b hashing to hash your string. Use -p to specify what string you want.');
 
   final results = argParser.parse(args);
 
@@ -29,5 +29,5 @@ void main(List<String> args) {
     return print(argParser.usage);
   }
 
-  print(HashCrypt().hash(plain));
+  print(HashCrypt(ModeHash.Blake2b).hash(plain));
 }

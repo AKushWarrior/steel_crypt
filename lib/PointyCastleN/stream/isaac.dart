@@ -13,6 +13,7 @@ import 'dart:typed_data';
 import '../api.dart';
 import '../src/impl/base_stream_cipher.dart';
 import '../src/registry/registry.dart';
+import '../src/ufixnum.dart';
 
 class ISAACEngine extends BaseStreamCipher {
   static final FactoryConfig FACTORY_CONFIG =
@@ -20,22 +21,21 @@ class ISAACEngine extends BaseStreamCipher {
 
   // Constants
   static int sizeL = 8;
-  static int stateArraySize = sizeL << 5; // 256
+  static int stateArraySize = shiftl32(sizeL, 5); // 256
 
   @override
   String algorithmName = 'ISAAC';
 
   // Cipher's internal state
-  Uint8List engineState; // mm
-  Uint8List results; // randrsl
+  List<int> engineState; // mm
+  List<int> results; // randrsl
   int a = 0,
       b = 0,
       c = 0;
 
   // Engine state
   int index = 0;
-  Uint8List keyStream =
-  Uint8List(stateArraySize << 2); // results expanded into bytes
+  Uint8List keyStream = Uint8List(shiftl32(stateArraySize, 2));
   Uint8List workingKey;
   bool initialised = false;
 
@@ -49,40 +49,12 @@ class ISAACEngine extends BaseStreamCipher {
   int returnByte(int inp) {
     if (index == 0) {
       isaac();
-      keyStream = uintToBigEndian(results);
+      keyStream = _intToBigEndian(results);
     }
-    var out = (keyStream[index] ^ inp);
+    var out = toByte(keyStream[index] ^ inp);
     index = (index + 1) & 1023;
 
     return out;
-  }
-
-  static Uint8List uintToBigEndian(Uint8List n) {
-    var bs = Uint8List(4 * n.length);
-    uintToBigEndianimpl(n, bs, 0);
-    return bs;
-  }
-
-  static void uintToBigEndianimpl(Uint8List n, Uint8List bs, int off) {
-    for (var i = 0; i < n.length; ++i) {
-      intToBigEndian(n[i], bs, off);
-      off += 4;
-    }
-  }
-
-  static void intToBigEndian(int n, Uint8List bs, int off) {
-    bs[off] = (n >> 24);
-    bs[++off] = (n >> 16);
-    bs[++off] = (n >> 8);
-    bs[++off] = (n);
-  }
-
-  static int littleEndianToInt(Uint8List bs, int off) {
-    var n = bs[off] & 0xff;
-    n |= (bs[++off] & 0xff) << 8;
-    n |= (bs[++off] & 0xff) << 16;
-    n |= bs[++off] << 24;
-    return n;
   }
 
   @override
@@ -103,9 +75,9 @@ class ISAACEngine extends BaseStreamCipher {
     for (var i = 0; i < len; i++) {
       if (index == 0) {
         isaac();
-        keyStream = uintToBigEndian(results);
+        keyStream = _intToBigEndian(results);
       }
-      out[i + outOff] = (keyStream[index] ^ inp[i + inOff]);
+      out[i + outOff] = toByte(keyStream[index] ^ inp[i + inOff]);
       index = (index + 1) & 1023;
     }
 
@@ -129,7 +101,8 @@ class ISAACEngine extends BaseStreamCipher {
 
     // Reset state
     for (i = 0; i < stateArraySize; i++) {
-      engineState[i] = results[i] = 0;
+      engineState[i] = 0;
+      results[i] = 0;
     }
     a = b = c = 0;
 
@@ -144,11 +117,11 @@ class ISAACEngine extends BaseStreamCipher {
       counter++;
     }
     for (i = 0; i < t.length; i += 4) {
-      results[i >> 2] = littleEndianToInt(t, i);
+      results[cshiftr32(i, 2)] = littleEndianToInt(t, i);
     }
 
     // It has begun?
-    var abcdefgh = Uint8List(sizeL);
+    var abcdefgh = List<int>(sizeL);
 
     for (i = 0; i < sizeL; i++) {
       abcdefgh[i] = 0x9e3779b9; // Phi (golden ratio)
@@ -159,9 +132,10 @@ class ISAACEngine extends BaseStreamCipher {
     }
 
     for (i = 0; i < 2; i++) {
-      for (j = 0; j < stateArraySize; j += sizeL) {
+      for (j = 0; j < stateArraySize; j = j + sizeL) {
         for (k = 0; k < sizeL; k++) {
-          abcdefgh[k] += (i < 1) ? results[j + k] : engineState[j + k];
+          abcdefgh[k] = sum32(
+              abcdefgh[k], ((i < 1) ? results[j + k] : engineState[j + k]));
         }
 
         mix(abcdefgh);
@@ -180,53 +154,84 @@ class ISAACEngine extends BaseStreamCipher {
   void isaac() {
     int i, x, y;
 
-    b += ++c;
+    b = b + ++c;
     for (i = 0; i < stateArraySize; i++) {
       x = engineState[i];
       switch (i & 3) {
         case 0:
-          a ^= (a << 13);
+          a ^= shiftl32(a, 13);
           break;
         case 1:
-          a ^= (a >> 6);
+          a ^= cshiftr32(a, 6);
           break;
         case 2:
-          a ^= (a << 2);
+          a ^= shiftl32(a, 2);
           break;
         case 3:
-          a ^= (a >> 16);
+          a ^= cshiftr32(a, 16);
           break;
       }
-      a += engineState[(i + 128) & 0xFF];
-      engineState[i] = y = engineState[(x >> 2) & 0xFF] + a + b;
-      results[i] = b = engineState[(y >> 10) & 0xFF] + x;
+      a = sum32(a, engineState[(i + 128).toUnsigned(8)]);
+      engineState[i] = engineState[cshiftr32(x, 2).toUnsigned(8)] + a + b;
+      y = engineState[cshiftr32(x, 2).toUnsigned(8)] + a + b;
+      results[i] = engineState[cshiftr32(y, 10).toUnsigned(8)] + x;
+      b = engineState[cshiftr32(y, 10).toUnsigned(8)] + x;
     }
   }
 
-  void mix(Uint8List x) {
-    x[0] ^= x[1] << 11;
-    x[3] += x[0];
-    x[1] += x[2];
-    x[1] ^= x[2] >> 2;
-    x[4] += x[1];
-    x[2] += x[3];
-    x[2] ^= x[3] << 8;
-    x[5] += x[2];
-    x[3] += x[4];
-    x[3] ^= x[4] >> 16;
-    x[6] += x[3];
-    x[4] += x[5];
-    x[4] ^= x[5] << 10;
-    x[7] += x[4];
-    x[5] += x[6];
-    x[5] ^= x[6] >> 4;
-    x[0] += x[5];
-    x[6] += x[7];
-    x[6] ^= x[7] << 8;
-    x[1] += x[6];
-    x[7] += x[0];
-    x[7] ^= x[0] >> 9;
-    x[2] += x[7];
-    x[0] += x[1];
+  void mix(List<int> x) {
+    x[0] ^= shiftl32(x[1], 11);
+    x[3] = sum32(x[3], x[0]);
+    x[1] = sum32(x[1], x[2]);
+    x[1] ^= cshiftr32(x[2], 2);
+    x[4] = sum32(x[4], x[1]);
+    x[2] = sum32(x[2], x[3]);
+    x[2] ^= shiftl32(x[3], 8);
+    x[5] = sum32(x[5], x[2]);
+    x[3] = sum32(x[3], x[4]);
+    x[3] ^= cshiftr32(x[4], 16);
+    x[6] = sum32(x[6], x[3]);
+    x[4] = sum32(x[4], x[5]);
+    x[4] ^= shiftl32(x[5], 10);
+    x[7] = sum32(x[7], x[4]);
+    x[5] = sum32(x[5], x[6]);
+    x[5] ^= cshiftr32(x[6], 4);
+    x[0] = sum32(x[0], x[5]);
+    x[6] = sum32(x[6], x[7]);
+    x[6] ^= shiftl32(x[7], 8);
+    x[1] = sum32(x[1], x[6]);
+    x[7] = sum32(x[7], x[0]);
+    x[7] ^= cshiftr32(x[0], 9);
+    x[2] = sum32(x[2], x[7]);
+    x[0] = sum32(x[0], x[1]);
   }
+}
+
+Uint8List _intToBigEndian(List<int> ns) {
+  Uint8List bs = Uint8List(4 * ns.length);
+  var off = 0;
+  for (int i = 0; i < ns.length; ++i) {
+    intEndianUtil(ns[i], bs, off);
+    off = off + 4;
+  }
+  return bs;
+}
+
+void intEndianUtil(int n, Uint8List bs, int off) {
+  bs[off] = cshiftr32(n, 24).toUnsigned(8);
+  bs[++off] = cshiftr32(n, 16).toUnsigned(8);
+  bs[++off] = cshiftr32(n, 8).toUnsigned(8);
+  bs[++off] = n.toSigned(8);
+}
+
+int littleEndianToInt(Uint8List bs, int off) {
+  int n = bs[off].toUnsigned(8);
+  n |= shiftl32((bs[++off].toUnsigned(8)), 8);
+  n |= shiftl32((bs[++off].toUnsigned(8)), 16);
+  n |= shiftl32(bs[++off], 24);
+  return n;
+}
+
+int toByte(int param) {
+  return param.toSigned(8);
 }

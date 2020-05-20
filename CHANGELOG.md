@@ -1,3 +1,9 @@
+## 2.0.0
+- Breaking API changes
+- Deleted unused stream ciphers
+- Added ChaCha20-Poly1305
+- Added "raw" classes working with Uint8List
+
 ## 1.7.1 - 1.7.1+1
 - Fixed critical Digest insecurity issue
 - Affects anyone using a number of algorithms:

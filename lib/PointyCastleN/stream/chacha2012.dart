@@ -21,8 +21,42 @@ class ChaCha12Engine extends BaseStreamCipher {
 
   static const STATE_SIZE = 16;
 
-  static final _sigma = Uint8List.fromList('expand 32-byte k'.codeUnits);
-  static final _tau = Uint8List.fromList('expand 16-byte k'.codeUnits);
+  static final _sigma = Uint8List.fromList([
+    101,
+    120,
+    112,
+    97,
+    110,
+    100,
+    32,
+    51,
+    50,
+    45,
+    98,
+    121,
+    116,
+    101,
+    32,
+    107
+  ]);
+  static final _tau = Uint8List.fromList([
+    101,
+    120,
+    112,
+    97,
+    110,
+    100,
+    32,
+    49,
+    54,
+    45,
+    98,
+    121,
+    116,
+    101,
+    32,
+    107
+  ]);
 
   Uint8List _workingKey;
   Uint8List _workingIV;

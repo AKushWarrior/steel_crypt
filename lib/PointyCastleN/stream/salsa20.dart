@@ -22,8 +22,42 @@ class Salsa20Engine extends BaseStreamCipher {
 
   static const STATE_SIZE = 16;
 
-  static final _sigma = Uint8List.fromList('expand 32-byte k'.codeUnits);
-  static final _tau = Uint8List.fromList('expand 16-byte k'.codeUnits);
+  static const _sigma = [
+    101,
+    120,
+    112,
+    97,
+    110,
+    100,
+    32,
+    51,
+    50,
+    45,
+    98,
+    121,
+    116,
+    101,
+    32,
+    107
+  ];
+  static const _tau = [
+    101,
+    120,
+    112,
+    97,
+    110,
+    100,
+    32,
+    49,
+    54,
+    45,
+    98,
+    121,
+    116,
+    101,
+    32,
+    107
+  ];
 
   Uint8List _workingKey;
   Uint8List _workingIV;
@@ -123,10 +157,10 @@ class Salsa20Engine extends BaseStreamCipher {
     _state[4] = unpack32(_workingKey, 12, Endian.little);
 
     if (_workingKey.length == 32) {
-      constants = _sigma;
+      constants = _sigma as Uint8List;
       offset = 16;
     } else {
-      constants = _tau;
+      constants = _tau as Uint8List;
     }
 
     _state[11] = unpack32(_workingKey, offset, Endian.little);

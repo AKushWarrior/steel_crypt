@@ -10,31 +10,35 @@ void main() {
   var FortunaKey =
   CryptKey().genFortuna(); //generate 32 byte key using Fortuna
 
-  var aesEncrypter = AesCrypt(FortunaKey, 'cbc',
-      'iso10126-2'); //generate AES block encrypter with key and ISO7816-4 padding
+  var aesEncrypter = AesCrypt(
+      mode: ModeAES.cbc, padding: PaddingAES.iso78164, key: FortunaKey);
+  //generated AES encrypter with key
 
-  var aesEncrypter2 = AesCrypt(FortunaKey, 'ofb-64',
-      'pkcs7'); //generate AES OFB-64 block encrypter with key and PKCS7 padding
+  aesEncrypter.mode = ModeAES.gcm;
+  //changed mode of encrypter
 
-  var streamAES =
-      AesCrypt(FortunaKey, 'ctr'); //generate AES CTR stream encrypter with key
+  var streamAES = AesCrypt(
+      mode: ModeAES.ctr, padding: PaddingAES.none, key: FortunaKey);
+  //generated AES CTR stream encrypter with key
 
-  var encrypter2 = RsaCrypt(); //generate RSA encrypter
+  var encrypter2 = const RsaCrypt(); //generate RSA encrypter
 
-  var encrypter3 =
-  LightCrypt(FortunaKey, 'ChaCha20/12'); //generate ChaCha20/12 encrypter
+  var encrypter3 = LightCrypt(key: FortunaKey,
+      algorithm: StreamAlgorithm.chacha20_12); //generate ChaCha20/12 encrypter
 
-  var hasher = HashCrypt('SHA-3/512'); //generate SHA-3/512 hasher
+  var hasher = HashCrypt(ModeHash.Blake2b); //generate SHA-3/512 hasher
 
-  var hasher3 = MacCrypt(FortunaKey, 'CMAC', 'cfb-64'); //CMAC AES CFB-64 Hasher
+  var hasher3 = MacCrypt(key: FortunaKey,
+      type: MacType.CMAC,
+      algorithm: ModeAES.gcm.asCMAC()); //CMAC AES GCM Hasher
 
-  var passHash = PassCrypt('scrypt'); //generate scrypt password hasher
+  var passHash = PassCrypt.scrypt(); //generate scrypt password hasher
 
-  var ivsalt =
-  CryptKey().genDart(16); //generate iv for AES using Dart Random.secure()
+  var ivsalt = CryptKey().genDart(
+      length: 16); //generate iv for AES using Dart Random.secure()
 
-  var iv2 = CryptKey()
-      .genDart(8); //generate iv for ChaCha20 using Dart Random.secure()
+  var iv2 = CryptKey().genDart(
+      length: 8); //generate iv for ChaCha20 using Dart Random.secure()
 
   //Print key
   print('Key:');
@@ -75,7 +79,7 @@ void main() {
 
   print(hash3);
 
-  print(hasher3.check('words', hash3)); //perform check
+  print(hasher3.check('words', hashtext: hash3)); //perform check
 
   print('');
 
@@ -104,33 +108,22 @@ void main() {
   //AES CBC with ISO7816-4 padding; Symmetric block cipher
   print('AES Symmetric CBC:');
 
-  var crypted = aesEncrypter.encrypt('words', ivsalt); //encrypt
+  var crypted = aesEncrypter.encrypt('words', iv: ivsalt); //encrypt
 
   print(crypted);
 
-  print(aesEncrypter.decrypt(crypted, ivsalt)); //decrypt
-
-  print('');
-
-  //AES OFB-64 with PKCS7 padding; Symmetric block cipher
-  print('AES Symmetric OFB-64:');
-
-  var crypted2 = aesEncrypter2.encrypt('words', ivsalt); //encrypt
-
-  print(crypted2);
-
-  print(aesEncrypter2.decrypt(crypted2, ivsalt)); //decrypt
+  print(aesEncrypter.decrypt(crypted, iv: ivsalt)); //decrypt
 
   print('');
 
   //AES CTR; Symmetric stream cipher
   print('AES Symmetric CTR:');
 
-  var crypted5 = streamAES.encrypt('words', ivsalt); //Encrypt.
+  var crypted5 = streamAES.encrypt('words', iv: ivsalt); //Encrypt.
 
   print(crypted5);
 
-  print(streamAES.decrypt(crypted5, ivsalt)); //Decrypt.
+  print(streamAES.decrypt(crypted5, iv: ivsalt)); //Decrypt.
 
   print('');
 

@@ -51,6 +51,8 @@ class HMac extends BaseMac {
     'SHA-512': 128,
     'SHA-3/256': 64,
     'SHA-3/512': 128,
+    'Keccak/256': 64,
+    'Keccak/512': 128,
     'Blake2b': 64,
     'Tiger': 64,
     'Whirlpool': 64,

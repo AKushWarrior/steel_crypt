@@ -4,26 +4,22 @@
 
 // © 2019 Aditya Kishore
 
-import 'package:steel_crypt/steel_crypt.dart';
-
 import 'package:args/args.dart';
+import 'package:steel_crypt/steel_crypt.dart';
 
 void main(List<String> args) {
   final argParser = ArgParser();
 
   argParser.addOption('text',
       abbr: 't',
-      defaultsTo: '',
       help: 'Input the word to be encrypted here...');
 
   argParser.addOption('key',
       abbr: 'k',
-      defaultsTo: '',
       help: 'Input the key to encrypt the word here...');
 
   argParser.addOption('iv',
       abbr: 'i',
-      defaultsTo: '',
       help: 'Input the IV to encrypt the word here...');
 
   argParser.addFlag('help',
@@ -41,5 +37,7 @@ void main(List<String> args) {
     return print(argParser.usage);
   }
 
-  print(AesCrypt(key, 'cbc').encrypt(input, iv));
+  print(
+      AesCrypt(key: key, mode: ModeAES.gcm, padding: PaddingAES.pkcs7).encrypt(
+          input, iv: iv));
 }
