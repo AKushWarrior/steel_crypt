@@ -58,7 +58,7 @@ class PassCryptRaw {
       _keyDerivator = PBKDF2KeyDerivator(_hmac);
     }
     var passhash = _keyDerivator;
-    if (_algorithm.contains('PBKDF2')) {
+    if (_algorithm == 'P') {
       var params = Pbkdf2Parameters(salt, this.params['N'], length);
       passhash.init(params);
     } else {

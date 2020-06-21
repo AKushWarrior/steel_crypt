@@ -1,6 +1,10 @@
+## 2.0.1
+- Fixed glitch in PBKDF2
+
 ## 2.0.0
 - Breaking API changes
 - Deleted unused stream ciphers
+- Added Poly1305
 - Added ChaCha20-Poly1305
 - Added "raw" classes working with Uint8List
 

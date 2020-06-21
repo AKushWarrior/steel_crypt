@@ -58,14 +58,13 @@ class PassCrypt {
       _keyDerivator = PBKDF2KeyDerivator(_hmac);
     }
     var passhash = _keyDerivator;
-    if (_algorithm.contains('PBKDF2')) {
+    if (_algorithm == 'P') {
       var params =
-      Pbkdf2Parameters(base64Decode(salt), this.params['N'], length);
+          Pbkdf2Parameters(base64Decode(salt), this.params['N'], length);
       passhash.init(params);
     } else {
-      final params = ScryptParameters(
-          this.params['N'], this.params['r'], this.params['p'], length,
-          base64Decode(salt));
+      final params = ScryptParameters(this.params['N'], this.params['r'],
+          this.params['p'], length, base64Decode(salt));
       passhash.init(params);
     }
     var bytes = utf8.encode(pass) as Uint8List;
