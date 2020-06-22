@@ -20,14 +20,10 @@ jobs:
     - uses: actions/checkout@v2
     - name: Install dependencies
       run: pub get
+    - name: create temp for pub path 
+      run: export PATH="$PATH":"$HOME/.pub-cache/bin"
     - name: download pana
       run: pub global activate pana
-    - name: create temp for pub path 
-      run: $TEMP='export PATH="$PATH":"$HOME/.pub-cache/bin"'
-    - name: print temp
-      run: echo $TEMP
-    - name: add temp to path
-      run: echo $TEMP >> .bashrc
     - name: run pana
       run: pana --source path .
     - name: run example
