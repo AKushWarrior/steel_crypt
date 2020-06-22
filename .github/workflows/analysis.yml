@@ -21,7 +21,7 @@ jobs:
     - name: Install dependencies
       run: pub get
     - name: download pana
-      run: pub global activate pana && export PATH="$PATH":"$HOME/.pub-cache/bin"
+      run: pub global activate pana && export PATH=$PATH:$HOME/.pub-cache/bin
     - name: run pana
       run: pana --source path .
     - name: run example
