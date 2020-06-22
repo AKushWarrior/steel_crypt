@@ -23,7 +23,7 @@ jobs:
     - name: download pana
       run: pub global activate pana
     - name: create temp for pub path 
-      run: TEMP='export PATH="$PATH":"$HOME/.pub-cache/bin"'
+      run: $TEMP='export PATH="$PATH":"$HOME/.pub-cache/bin"'
     - name: print temp
       run: echo $TEMP
     - name: add temp to path
