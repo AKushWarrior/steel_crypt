@@ -25,9 +25,9 @@ jobs:
     - name: create temp for pub path 
       run: TEMP='export PATH="$PATH":"$HOME/.pub-cache/bin"'
     - name: print temp
-      run: echo TEMP
+      run: echo $TEMP
     - name: add temp to path
-      run: echo TEMP >> .bashrc
+      run: echo $TEMP >> .bashrc
     - name: run pana
       run: pana --source path .
     - name: run example
