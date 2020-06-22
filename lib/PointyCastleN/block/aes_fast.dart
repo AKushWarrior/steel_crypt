@@ -15,7 +15,7 @@ import '../src/ufixnum.dart';
 
 class AESFastEngine extends BaseBlockCipher {
   static final FactoryConfig FACTORY_CONFIG =
-  StaticFactoryConfig(BlockCipher, 'AES', () => AESFastEngine());
+      StaticFactoryConfig(BlockCipher, 'AES', () => AESFastEngine());
 
   static const _BLOCK_SIZE = 16;
 

@@ -19,7 +19,7 @@ import '../src/ufixnum.dart';
 class WhirlpoolDigest extends BaseDigest implements Digest {
   // ignore: non_constant_identifier_names
   static final FactoryConfig FACTORY_CONFIG =
-  StaticFactoryConfig(Digest, 'Whirlpool', () => WhirlpoolDigest());
+      StaticFactoryConfig(Digest, 'Whirlpool', () => WhirlpoolDigest());
 
   static const _DIGEST_LENGTH_BYTES = 512 ~/ 8;
   static const _BUFFER_SIZE = 64;

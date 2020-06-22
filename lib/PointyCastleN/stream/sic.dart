@@ -22,7 +22,7 @@ class SICStreamCipher extends BaseStreamCipher {
       StreamCipher,
       '/SIC',
       (_, final Match match) => () {
-        var digestName = match.group(1);
+            var digestName = match.group(1);
             return SICStreamCipher(BlockCipher(digestName));
           });
 
@@ -58,8 +58,8 @@ class SICStreamCipher extends BaseStreamCipher {
   }
 
   @override
-  void processBytes(Uint8List inp, int inpOff, int len, Uint8List out,
-      int outOff) {
+  void processBytes(
+      Uint8List inp, int inpOff, int len, Uint8List out, int outOff) {
     for (var i = 0; i < len; i++) {
       out[outOff + i] = returnByte(inp[inpOff + i]);
     }

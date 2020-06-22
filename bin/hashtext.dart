@@ -11,13 +11,13 @@ void main(List<String> args) {
   final argParser = ArgParser();
 
   argParser.addOption('plain',
-      abbr: 'p',
-      help: 'Input the plaintext to be hashed here...');
+      abbr: 'p', help: 'Input the plaintext to be hashed here...');
 
   argParser.addFlag('help',
       abbr: 'h',
       defaultsTo: false,
-      help: 'Use Blake2b hashing to hash your string. Use -p to specify what string you want.');
+      help:
+          'Use Blake2b hashing to hash your string. Use -p to specify what string you want.');
 
   final results = argParser.parse(args);
 

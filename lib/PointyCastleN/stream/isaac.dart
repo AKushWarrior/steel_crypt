@@ -17,7 +17,7 @@ import '../src/ufixnum.dart';
 
 class ISAACEngine extends BaseStreamCipher {
   static final FactoryConfig FACTORY_CONFIG =
-  StaticFactoryConfig(StreamCipher, 'ISAAC', () => ISAACEngine());
+      StaticFactoryConfig(StreamCipher, 'ISAAC', () => ISAACEngine());
 
   // Constants
   static int sizeL = 8;
@@ -29,9 +29,7 @@ class ISAACEngine extends BaseStreamCipher {
   // Cipher's internal state
   List<int> engineState; // mm
   List<int> results; // randrsl
-  int a = 0,
-      b = 0,
-      c = 0;
+  int a = 0, b = 0, c = 0;
 
   // Engine state
   int index = 0;
@@ -58,8 +56,8 @@ class ISAACEngine extends BaseStreamCipher {
   }
 
   @override
-  int processBytes(Uint8List inp, int inOff, int len, Uint8List out,
-      int outOff) {
+  int processBytes(
+      Uint8List inp, int inOff, int len, Uint8List out, int outOff) {
     if (!initialised) {
       throw StateError('ISAAC not initialised');
     }

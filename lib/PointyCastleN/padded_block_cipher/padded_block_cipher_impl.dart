@@ -22,8 +22,8 @@ class PaddedBlockCipherImpl implements PaddedBlockCipher {
       PaddedBlockCipher,
       r'^(.+)/([^/]+)$',
       (_, final Match match) => () {
-        var padding = Padding(match.group(2));
-        var underlyingCipher = BlockCipher(match.group(1));
+            var padding = Padding(match.group(2));
+            var underlyingCipher = BlockCipher(match.group(1));
             return PaddedBlockCipherImpl(padding, underlyingCipher);
           });
 

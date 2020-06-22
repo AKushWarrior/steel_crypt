@@ -18,7 +18,7 @@ import '../src/ufixnum.dart';
 class Blake2bDigest extends BaseDigest implements Digest {
   // ignore: non_constant_identifier_names
   static final FactoryConfig FACTORY_CONFIG =
-  StaticFactoryConfig(Digest, 'Blake2b', () => Blake2bDigest());
+      StaticFactoryConfig(Digest, 'Blake2b', () => Blake2bDigest());
 
   static const _rounds = 12;
   static const _blockSize = 128;
@@ -175,8 +175,8 @@ class Blake2bDigest extends BaseDigest implements Digest {
     int msgPos;
     var blockWiseLastPos = inpOff + len - _blockSize;
     for (msgPos = inpOff + remainingLength;
-    msgPos < blockWiseLastPos;
-    msgPos += _blockSize) {
+        msgPos < blockWiseLastPos;
+        msgPos += _blockSize) {
       _t0.sum(_blockSize);
       if (_t0.lo32 == 0 && _t0.hi32 == 0) {
         _t1.sum(1);

@@ -40,7 +40,6 @@ void main(List<String> args) {
     return print(argParser.usage);
   }
 
-  print(
-      AesCrypt(key: key, mode: ModeAES.gcm, padding: PaddingAES.pkcs7).decrypt(
-          input, iv: iv));
+  print(AesCrypt(key: key, mode: ModeAES.gcm, padding: PaddingAES.pkcs7)
+      .decrypt(input, iv: iv));
 }

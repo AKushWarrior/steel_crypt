@@ -18,7 +18,7 @@ import '../src/registry/registry.dart';
 class MD2Digest extends BaseDigest {
   // ignore: non_constant_identifier_names
   static final FactoryConfig FACTORY_CONFIG =
-  StaticFactoryConfig(Digest, 'MD2', () => MD2Digest());
+      StaticFactoryConfig(Digest, 'MD2', () => MD2Digest());
 
   static const _DIGEST_LENGTH = 16;
 

@@ -40,8 +40,8 @@ Uint8List toByteArray(String inp) {
   return bytes;
 }
 
-void arrayCopy(Uint8List sourceArr, int sourcePos, Uint8List outArr, int outPos,
-    int len) {
+void arrayCopy(
+    Uint8List sourceArr, int sourcePos, Uint8List outArr, int outPos, int len) {
   for (int i = 0; i < len; i++) {
     outArr[outPos + i] = sourceArr[sourcePos + i];
   }
@@ -57,7 +57,7 @@ bool constantTimeAreEqual(Uint8List expected, Uint8List supplied) {
   }
 
   int len =
-  (expected.length < supplied.length) ? expected.length : supplied.length;
+      (expected.length < supplied.length) ? expected.length : supplied.length;
 
   int nonEqual = expected.length ^ supplied.length;
 
@@ -71,8 +71,8 @@ bool constantTimeAreEqual(Uint8List expected, Uint8List supplied) {
   return nonEqual == 0;
 }
 
-bool constantTimeAreEqualOffset(int len, Uint8List a, int aOff, Uint8List b,
-    int bOff) {
+bool constantTimeAreEqualOffset(
+    int len, Uint8List a, int aOff, Uint8List b, int bOff) {
   if (null == a) {
     throw ArgumentError("'a' cannot be null");
   }

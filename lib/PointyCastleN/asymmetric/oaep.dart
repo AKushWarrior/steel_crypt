@@ -22,7 +22,7 @@ class OAEPEncoding extends BaseAsymmetricBlockCipher {
       AsymmetricBlockCipher,
       '/OAEP',
       (_, final Match match) => () {
-        var underlyingCipher = AsymmetricBlockCipher(match.group(1));
+            var underlyingCipher = AsymmetricBlockCipher(match.group(1));
             return OAEPEncoding(underlyingCipher);
           });
 
@@ -99,8 +99,8 @@ class OAEPEncoding extends BaseAsymmetricBlockCipher {
   }
 
   @override
-  int processBlock(Uint8List inp, int inpOff, int len, Uint8List out,
-      int outOff) {
+  int processBlock(
+      Uint8List inp, int inpOff, int len, Uint8List out, int outOff) {
     if (_forEncryption) {
       return _encodeBlock(inp, inpOff, len, out, outOff);
     } else {
@@ -251,8 +251,8 @@ class OAEPEncoding extends BaseAsymmetricBlockCipher {
     return sp;
   }
 
-  Uint8List _maskGeneratorFunction1(Uint8List Z, int zOff, int zLen,
-      int length) {
+  Uint8List _maskGeneratorFunction1(
+      Uint8List Z, int zOff, int zLen, int length) {
     var mask = Uint8List(length);
     var hashBuf = Uint8List(mgf1Hash.digestSize);
     var C = Uint8List(4);

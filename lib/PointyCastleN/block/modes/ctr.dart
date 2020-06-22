@@ -17,9 +17,9 @@ class CTRBlockCipher extends StreamCipherAsBlockCipher {
       BlockCipher,
       "/CTR",
       (_, final Match match) => () {
-        BlockCipher underlying = BlockCipher(match.group(1));
-        return CTRBlockCipher(
-            underlying.blockSize, CTRStreamCipher(underlying));
+            BlockCipher underlying = BlockCipher(match.group(1));
+            return CTRBlockCipher(
+                underlying.blockSize, CTRStreamCipher(underlying));
           });
 
   CTRBlockCipher(int blockSize, StreamCipher underlyingCipher)

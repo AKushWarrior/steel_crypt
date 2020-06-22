@@ -19,7 +19,7 @@ import 'pbkdf2.dart';
 class Scrypt extends BaseKeyDerivator {
   // ignore: non_constant_identifier_names
   static final FactoryConfig FACTORY_CONFIG =
-  StaticFactoryConfig(KeyDerivator, 'scrypt', () => Scrypt());
+      StaticFactoryConfig(KeyDerivator, 'scrypt', () => Scrypt());
 
   // ignore: non_constant_identifier_names
   static final int _MAX_VALUE = 0x7fffffff;

@@ -84,7 +84,7 @@ class _RegistryImpl implements FactoryRegistry {
   final Map<Type, Set<DynamicFactoryConfig>> _dynamicFactories;
 
   final Map<String, RegistrableConstructor> _constructorCache =
-  <String, RegistrableConstructor>{};
+      <String, RegistrableConstructor>{};
 
   bool _initialized = false;
 

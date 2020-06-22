@@ -20,7 +20,7 @@ class PKCS1Encoding extends BaseAsymmetricBlockCipher {
       AsymmetricBlockCipher,
       '/PKCS1',
       (_, final Match match) => () {
-        var underlyingCipher = AsymmetricBlockCipher(match.group(1));
+            var underlyingCipher = AsymmetricBlockCipher(match.group(1));
             return PKCS1Encoding(underlyingCipher);
           });
 
@@ -93,8 +93,8 @@ class PKCS1Encoding extends BaseAsymmetricBlockCipher {
   }
 
   @override
-  int processBlock(Uint8List inp, int inpOff, int len, Uint8List out,
-      int outOff) {
+  int processBlock(
+      Uint8List inp, int inpOff, int len, Uint8List out, int outOff) {
     if (_forEncryption) {
       return _encodeBlock(inp, inpOff, len, out, outOff);
     } else {

@@ -19,7 +19,7 @@ import 'auto_seed_block_ctr_random.dart';
 class FortunaRandom implements SecureRandom {
   // ignore: non_constant_identifier_names
   static final FactoryConfig FACTORY_CONFIG =
-  StaticFactoryConfig(SecureRandom, 'Fortuna', () => FortunaRandom());
+      StaticFactoryConfig(SecureRandom, 'Fortuna', () => FortunaRandom());
 
   AESFastEngine _aes;
   AutoSeedBlockCtrRandom _prng;

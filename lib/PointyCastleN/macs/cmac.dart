@@ -42,7 +42,7 @@ class CMac extends BaseMac {
       Mac,
       '/CMAC',
       (_, final Match match) => () {
-        var cipher = BlockCipher(match.group(1));
+            var cipher = BlockCipher(match.group(1));
             return CMac.fromCipher(cipher);
           });
 
@@ -110,9 +110,7 @@ class CMac extends BaseMac {
 
   @override
   String get algorithmName {
-    var blockCipherAlgorithmName = _cipher.algorithmName
-        .split('/')
-        .first;
+    var blockCipherAlgorithmName = _cipher.algorithmName.split('/').first;
     return '$blockCipherAlgorithmName/CMAC';
   }
 
@@ -198,7 +196,7 @@ class CMac extends BaseMac {
   @override
   void init(covariant KeyParameter keyParams) {
     final zeroIV =
-    Uint8List(keyParams.key.length).sublist(0, _cipher.blockSize);
+        Uint8List(keyParams.key.length).sublist(0, _cipher.blockSize);
     _params = ParametersWithIV(keyParams, zeroIV);
 
     // Initialize before computing L, Lu, Lu2

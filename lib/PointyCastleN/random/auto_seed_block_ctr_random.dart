@@ -20,8 +20,8 @@ class AutoSeedBlockCtrRandom implements SecureRandom {
       SecureRandom,
       r'^(.*)/CTR/AUTO-SEED-PRNG$',
       (_, final Match match) => () {
-        var blockCipherName = match.group(1);
-        var blockCipher = BlockCipher(blockCipherName);
+            var blockCipherName = match.group(1);
+            var blockCipher = BlockCipher(blockCipherName);
             return AutoSeedBlockCtrRandom(blockCipher);
           });
 
@@ -57,26 +57,26 @@ class AutoSeedBlockCtrRandom implements SecureRandom {
 
   @override
   int nextUint8() => _autoReseedIfNeededAfter(() {
-    return _delegate.nextUint8();
-  }) as int;
+        return _delegate.nextUint8();
+      }) as int;
 
   @override
   int nextUint16() => _autoReseedIfNeededAfter(() {
-    return _delegate.nextUint16();
-  }) as int;
+        return _delegate.nextUint16();
+      }) as int;
 
   @override
   int nextUint32() => _autoReseedIfNeededAfter(() {
-    return _delegate.nextUint32();
-  }) as int;
+        return _delegate.nextUint32();
+      }) as int;
 
   BigInt nextBigInteger(int bitLength) => _autoReseedIfNeededAfter(() {
         return _delegate.nextBigInteger(bitLength);
-  }) as BigInt;
+      }) as BigInt;
 
   Uint8List nextBytes(int count) => _autoReseedIfNeededAfter(() {
         return _delegate.nextBytes(count);
-  }) as Uint8List;
+      }) as Uint8List;
 
   dynamic _autoReseedIfNeededAfter(dynamic closure) {
     if (_inAutoReseed) {

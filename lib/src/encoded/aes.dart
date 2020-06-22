@@ -39,9 +39,10 @@ class AesCrypt {
   ///Creates 'Crypt', serves as encrypter/decrypter of text.
   ///
   /// [key] should be base-64 encoded.
-  AesCrypt({@required ModeAES mode,
-    @required PaddingAES padding,
-    @required String key}) {
+  AesCrypt(
+      {@required ModeAES mode,
+      @required PaddingAES padding,
+      @required String key}) {
     _mode = mode;
     _key32 = key;
     _padding = padding;
@@ -87,7 +88,7 @@ class AesCrypt {
       var aadLocal = aad != null ? base64Decode(aad) : null;
 
       var cipherparams =
-      AEADParameters(KeyParameter(key), 128, ivLocal, aadLocal);
+          AEADParameters(KeyParameter(key), 128, ivLocal, aadLocal);
       var params = PaddedBlockCipherParameters(cipherparams, null);
       var cipher = PaddedBlockCipherImpl(
           Padding(_parsePadding(padding)), GCMBlockCipher(AESFastEngine()));
@@ -99,7 +100,7 @@ class AesCrypt {
       var key = base64Decode(_key32);
 
       CipherParameters params =
-      PaddedBlockCipherParameters(KeyParameter(key), null);
+          PaddedBlockCipherParameters(KeyParameter(key), null);
       var cipher = PaddedBlockCipher(
           'AES/' + _parseAES(mode) + '/' + _parsePadding(padding));
       cipher..init(true, params);
@@ -124,7 +125,7 @@ class AesCrypt {
         var localInput = base64.decode(encrypted);
 
         var params =
-        ParametersWithIV<KeyParameter>(KeyParameter(localKey), localIV);
+            ParametersWithIV<KeyParameter>(KeyParameter(localKey), localIV);
         var cipher = SICStreamCipher(AESFastEngine());
         cipher..init(false, params);
 
@@ -150,7 +151,7 @@ class AesCrypt {
       var aadLocal = aad != null ? base64Decode(aad) : null;
 
       var cipherparams =
-      AEADParameters(KeyParameter(key), 128, ivLocal, aadLocal);
+          AEADParameters(KeyParameter(key), 128, ivLocal, aadLocal);
       var params = PaddedBlockCipherParameters(cipherparams, null);
       var cipher = PaddedBlockCipherImpl(
           Padding(_parsePadding(padding)), GCMBlockCipher(AESFastEngine()));
@@ -162,7 +163,7 @@ class AesCrypt {
       var key = base64Decode(_key32);
 
       CipherParameters params =
-      PaddedBlockCipherParameters(KeyParameter(key), null);
+          PaddedBlockCipherParameters(KeyParameter(key), null);
       var cipher = PaddedBlockCipher(
           'AES/' + _parseAES(mode) + '/' + _parsePadding(padding));
       cipher..init(false, params);

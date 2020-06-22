@@ -20,8 +20,8 @@ class CFBBlockCipher extends BaseBlockCipher {
       BlockCipher,
       r'^(.+)/CFB-([0-9]+)$',
       (_, final Match match) => () {
-        var underlying = BlockCipher(match.group(1));
-        var blockSizeInBits = int.parse(match.group(2));
+            var underlying = BlockCipher(match.group(1));
+            var blockSizeInBits = int.parse(match.group(2));
             if ((blockSizeInBits % 8) != 0) {
               throw RegistryFactoryException.invalid(
                   'Bad CFB block size: $blockSizeInBits (must be a multiple of 8)');

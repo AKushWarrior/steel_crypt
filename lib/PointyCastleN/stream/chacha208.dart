@@ -17,7 +17,7 @@ import '../src/ufixnum.dart';
 class ChaCha8Engine extends BaseStreamCipher {
   // ignore: non_constant_identifier_names
   static final FactoryConfig FACTORY_CONFIG =
-  StaticFactoryConfig(StreamCipher, 'ChaCha20/8', () => ChaCha8Engine());
+      StaticFactoryConfig(StreamCipher, 'ChaCha20/8', () => ChaCha8Engine());
 
   static const STATE_SIZE = 16;
 
@@ -80,8 +80,8 @@ class ChaCha8Engine extends BaseStreamCipher {
   }
 
   @override
-  void init(bool forEncryption,
-      covariant ParametersWithIV<KeyParameter> params) {
+  void init(
+      bool forEncryption, covariant ParametersWithIV<KeyParameter> params) {
     var uparams = params.parameters;
     var iv = params.iv;
     if (iv == null || iv.length != 8) {
@@ -111,8 +111,8 @@ class ChaCha8Engine extends BaseStreamCipher {
   }
 
   @override
-  void processBytes(Uint8List inp, int inpOff, int len, Uint8List out,
-      int outOff) {
+  void processBytes(
+      Uint8List inp, int inpOff, int len, Uint8List out, int outOff) {
     if (!_initialised) {
       throw StateError('ChaCha8 not initialized: please call init() first');
     }

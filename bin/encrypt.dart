@@ -11,16 +11,13 @@ void main(List<String> args) {
   final argParser = ArgParser();
 
   argParser.addOption('text',
-      abbr: 't',
-      help: 'Input the word to be encrypted here...');
+      abbr: 't', help: 'Input the word to be encrypted here...');
 
   argParser.addOption('key',
-      abbr: 'k',
-      help: 'Input the key to encrypt the word here...');
+      abbr: 'k', help: 'Input the key to encrypt the word here...');
 
   argParser.addOption('iv',
-      abbr: 'i',
-      help: 'Input the IV to encrypt the word here...');
+      abbr: 'i', help: 'Input the IV to encrypt the word here...');
 
   argParser.addFlag('help',
       abbr: 'h', defaultsTo: false, help: 'Show this help message');
@@ -37,7 +34,6 @@ void main(List<String> args) {
     return print(argParser.usage);
   }
 
-  print(
-      AesCrypt(key: key, mode: ModeAES.gcm, padding: PaddingAES.pkcs7).encrypt(
-          input, iv: iv));
+  print(AesCrypt(key: key, mode: ModeAES.gcm, padding: PaddingAES.pkcs7)
+      .encrypt(input, iv: iv));
 }

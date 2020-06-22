@@ -95,7 +95,7 @@ class RsaUtils {
       final algorithmAsn1Obj = ASN1Object.fromBytes(Uint8List.fromList(
           [0x6, 0x9, 0x2a, 0x86, 0x48, 0x86, 0xf7, 0xd, 0x1, 0x1, 0x1]));
       final paramsAsn1Obj =
-      ASN1Object.fromBytes(Uint8List.fromList([0x5, 0x0]));
+          ASN1Object.fromBytes(Uint8List.fromList([0x5, 0x0]));
       algorithmSeq.add(algorithmAsn1Obj);
       algorithmSeq.add(paramsAsn1Obj);
 
@@ -103,7 +103,7 @@ class RsaUtils {
       publicKeySeq.add(ASN1Integer(key.modulus));
       publicKeySeq.add(ASN1Integer(key.exponent));
       final publicKeySeqBitString =
-      ASN1BitString(Uint8List.fromList(publicKeySeq.encodedBytes));
+          ASN1BitString(Uint8List.fromList(publicKeySeq.encodedBytes));
 
       final topLevelSeq = ASN1Sequence();
       topLevelSeq.add(algorithmSeq);
@@ -119,7 +119,7 @@ class RsaUtils {
       final algorithmAsn1Obj = ASN1Object.fromBytes(Uint8List.fromList(
           [0x6, 0x9, 0x2a, 0x86, 0x48, 0x86, 0xf7, 0xd, 0x1, 0x1, 0x1]));
       final paramsAsn1Obj =
-      ASN1Object.fromBytes(Uint8List.fromList([0x5, 0x0]));
+          ASN1Object.fromBytes(Uint8List.fromList([0x5, 0x0]));
       algorithmSeq.add(algorithmAsn1Obj);
       algorithmSeq.add(paramsAsn1Obj);
 
@@ -146,7 +146,7 @@ class RsaUtils {
       privateKeySeq.add(exp2);
       privateKeySeq.add(co);
       final publicKeySeqOctetString =
-      ASN1OctetString(Uint8List.fromList(privateKeySeq.encodedBytes));
+          ASN1OctetString(Uint8List.fromList(privateKeySeq.encodedBytes));
 
       final topLevelSeq = ASN1Sequence();
       topLevelSeq.add(version);

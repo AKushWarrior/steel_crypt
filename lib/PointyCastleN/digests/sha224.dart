@@ -18,7 +18,7 @@ import '../src/ufixnum.dart';
 /// Implementation of SHA-224 digest.
 class SHA224Digest extends MD4FamilyDigest implements Digest {
   static final FactoryConfig FACTORY_CONFIG =
-  StaticFactoryConfig(Digest, "SHA-224", () => SHA224Digest());
+      StaticFactoryConfig(Digest, "SHA-224", () => SHA224Digest());
 
   static const _DIGEST_LENGTH = 28;
 

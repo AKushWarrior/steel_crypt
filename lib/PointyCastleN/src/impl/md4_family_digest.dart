@@ -31,7 +31,7 @@ abstract class MD4FamilyDigest extends BaseDigest {
   MD4FamilyDigest(this._endian, int stateSize, int bufferSize,
       [int packedStateSize])
       : _packedStateSize =
-  (packedStateSize == null) ? stateSize : packedStateSize,
+            (packedStateSize == null) ? stateSize : packedStateSize,
         state = List<int>(stateSize),
         buffer = List<int>(bufferSize) {
     reset();

@@ -21,7 +21,7 @@ class GCTRBlockCipher extends BaseBlockCipher {
       BlockCipher,
       '/GCTR',
       (_, final Match match) => () {
-        var underlying = BlockCipher(match.group(1));
+            var underlying = BlockCipher(match.group(1));
             return GCTRBlockCipher(underlying);
           });
 

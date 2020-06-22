@@ -26,7 +26,7 @@ class SHA3Digest extends BaseDigest implements Digest {
       Digest,
       _NAME_REGEX,
       (_, final Match match) => () {
-        var bitLength = int.parse(match.group(1));
+            var bitLength = int.parse(match.group(1));
             return SHA3Digest(bitLength);
           });
 

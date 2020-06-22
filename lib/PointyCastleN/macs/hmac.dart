@@ -23,7 +23,7 @@ import '../src/registry/registry.dart';
 class HMac extends BaseMac {
   // ignore: non_constant_identifier_names
   static final FactoryConfig FACTORY_CONFIG =
-  DynamicFactoryConfig.suffix(Mac, '/HMAC', (_, Match match) {
+      DynamicFactoryConfig.suffix(Mac, '/HMAC', (_, Match match) {
     final digestName = match.group(1);
     final blockLength = _DIGEST_BLOCK_LENGTH[digestName];
     if (blockLength == null) {

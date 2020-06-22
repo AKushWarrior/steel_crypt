@@ -14,11 +14,10 @@ class GCMBlockCipher extends BaseAEADBlockCipher {
   static final FactoryConfig FACTORY_CONFIG = DynamicFactoryConfig.suffix(
       BlockCipher,
       "/GCM",
-          (_, final Match match) =>
-          () {
-        BlockCipher underlying = BlockCipher(match.group(1));
-        return GCMBlockCipher(underlying);
-      });
+      (_, final Match match) => () {
+            BlockCipher underlying = BlockCipher(match.group(1));
+            return GCMBlockCipher(underlying);
+          });
 
   Uint8List _h;
   Uint8List _counter;
@@ -74,7 +73,7 @@ class GCMBlockCipher extends BaseAEADBlockCipher {
   @override
   int processBlock(Uint8List inp, int inpOff, Uint8List out, int outOff) {
     var length =
-    blockSize < inp.length - inpOff ? blockSize : inp.length - inpOff;
+        blockSize < inp.length - inpOff ? blockSize : inp.length - inpOff;
 
     var i = Uint8List(blockSize);
     i.setAll(0, inp.skip(inpOff).take(length));
@@ -172,8 +171,8 @@ class GCMBlockCipher extends BaseAEADBlockCipher {
         : 0;
 
     var len = Uint8List.view((Uint64List(2)
-      ..[1] = aad.length * 8
-      ..[0] = _processedBytes * 8)
+          ..[1] = aad.length * 8
+          ..[0] = _processedBytes * 8)
         .buffer);
     len = Uint8List.fromList(len.reversed.toList());
 

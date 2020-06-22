@@ -19,7 +19,7 @@ class CBCBlockCipher extends BaseBlockCipher {
       BlockCipher,
       '/CBC',
       (_, final Match match) => () {
-        var underlying = BlockCipher(match.group(1));
+            var underlying = BlockCipher(match.group(1));
             return CBCBlockCipher(underlying);
           });
 

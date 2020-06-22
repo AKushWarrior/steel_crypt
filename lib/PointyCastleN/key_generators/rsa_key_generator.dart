@@ -21,7 +21,7 @@ bool _testBit(BigInt i, int n) {
 class RSAKeyGenerator implements KeyGenerator {
   // ignore: non_constant_identifier_names
   static final FactoryConfig FACTORY_CONFIG =
-  StaticFactoryConfig(KeyGenerator, 'RSA', () => RSAKeyGenerator());
+      StaticFactoryConfig(KeyGenerator, 'RSA', () => RSAKeyGenerator());
 
   SecureRandom _random;
   RSAKeyGeneratorParameters _params;

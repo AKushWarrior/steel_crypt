@@ -7,8 +7,7 @@
 import 'package:steel_crypt/steel_crypt.dart';
 
 void main() {
-  var FortunaKey =
-  CryptKey().genFortuna(); //generate 32 byte key using Fortuna
+  var FortunaKey = CryptKey().genFortuna(); //generate 32 byte key using Fortuna
 
   var aesEncrypter = AesCrypt(
       mode: ModeAES.cbc, padding: PaddingAES.iso78164, key: FortunaKey);
@@ -17,28 +16,30 @@ void main() {
   aesEncrypter.mode = ModeAES.gcm;
   //changed mode of encrypter
 
-  var streamAES = AesCrypt(
-      mode: ModeAES.ctr, padding: PaddingAES.none, key: FortunaKey);
+  var streamAES =
+      AesCrypt(mode: ModeAES.ctr, padding: PaddingAES.none, key: FortunaKey);
   //generated AES CTR stream encrypter with key
 
   var encrypter2 = const RsaCrypt(); //generate RSA encrypter
 
-  var encrypter3 = LightCrypt(key: FortunaKey,
+  var encrypter3 = LightCrypt(
+      key: FortunaKey,
       algorithm: StreamAlgorithm.chacha20_12); //generate ChaCha20/12 encrypter
 
   var hasher = HashCrypt(ModeHash.Blake2b); //generate SHA-3/512 hasher
 
-  var hasher3 = MacCrypt(key: FortunaKey,
+  var hasher3 = MacCrypt(
+      key: FortunaKey,
       type: MacType.CMAC,
       algorithm: ModeAES.gcm.asCMAC()); //CMAC AES GCM Hasher
 
   var passHash = PassCrypt.scrypt(); //generate scrypt password hasher
 
-  var ivsalt = CryptKey().genDart(
-      length: 16); //generate iv for AES using Dart Random.secure()
+  var ivsalt = CryptKey()
+      .genDart(length: 16); //generate iv for AES using Dart Random.secure()
 
-  var iv2 = CryptKey().genDart(
-      length: 8); //generate iv for ChaCha20 using Dart Random.secure()
+  var iv2 = CryptKey()
+      .genDart(length: 8); //generate iv for ChaCha20 using Dart Random.secure()
 
   //Print key
   print('Key:');
