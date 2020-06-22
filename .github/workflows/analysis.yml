@@ -22,7 +22,5 @@ jobs:
       run: pub get
     - name: run analysis
       run: dartanalyzer lib
-    - name: run pana
-      run: pana --source path .
     - name: run example
       run: dart example/example.dart
