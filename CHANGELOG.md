@@ -1,3 +1,7 @@
+## 2.0.2
+- Syntax updates
+- Documentation website nearing release
+
 ## 2.0.1
 - Fixed glitch in PBKDF2
 

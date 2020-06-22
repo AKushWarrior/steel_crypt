@@ -56,8 +56,9 @@ class MacCryptRaw {
   ///Check if plaintext matches previously hashed text
   bool check(Uint8List plaintext,
       {@required Uint8List hashtext, Uint8List iv}) {
-    if (_type == MacType.Poly1305)
+    if (_type == MacType.Poly1305) {
       return _mac.check(plaintext, hashtext, iv: iv) as bool;
+    }
     return _mac.check(plaintext, hashtext) as bool;
   }
 }

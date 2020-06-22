@@ -55,17 +55,19 @@ class MacCrypt {
 
   ///Process and hash string.
   String process(String input, {String iv}) {
-    if (_type == MacType.Poly1305)
+    if (_type == MacType.Poly1305) {
       return base64.encode(
           _mac.process(utf8.encode(input), iv: base64.decode(iv)) as List<int>);
+    }
     return base64.encode(_mac.process(utf8.encode(input)) as List<int>);
   }
 
   ///Check if plaintext matches previously hashed text
   bool check(String plaintext, {@required String hashtext, String iv}) {
-    if (_type == MacType.Poly1305)
+    if (_type == MacType.Poly1305) {
       return _mac.check(base64.decode(plaintext), base64.decode(hashtext),
           iv: iv) as bool;
+    }
     return _mac.check(base64.decode(plaintext), base64.decode(hashtext))
         as bool;
   }

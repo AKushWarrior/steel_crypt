@@ -88,4 +88,5 @@ String _stringifyType(StreamAlgorithm algo) {
     case StreamAlgorithm.salsa20_12:
       return 'Salsa20/12';
   }
+  throw ArgumentError('');
 }

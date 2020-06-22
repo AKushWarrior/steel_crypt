@@ -6,42 +6,18 @@
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
 
     <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css"
-          integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/css/bootstrap.min.css"
+          integrity="sha384-9aIt2nRpC12Uk9gS9baDl411NQApFmC26EwAOH8WgZl5MYYxFfc+NcPb1dKGj7Sk" crossorigin="anonymous">
 
     <title>Steel Crypt</title>
 </head>
 <body class="bg-dark">
-<nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="#">
-        <img src="assets/logo.png" width=45 height="45" alt="">
-    </a>
-    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav"
-            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
-        <span class="navbar-toggler-icon"></span>
-    </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-        <ul class="navbar-nav">
-            <li class="nav-item active">
-                <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Features</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Docs</a>
-            </li>
-            <li class="nav-item">
-                <a class="nav-link" href="#">Migration</a>
-            </li>
-        </ul>
-    </div>
-</nav>
+<steel-header active="0"></steel-header>
 
 <div class="jumbotron bg-dark" style="padding-bottom: 0">
     <h1 class="display-4 text-light">Steel Crypt</h1>
     <p class="lead text-light">Making cryptography in Dart simple and hands-off. <br> Use AES, ChaCha20-Poly1305, RSA,
-        and more.</p>
+        and more with no hassle.</p>
     <hr class="my-4">
     <a class="text-light" href="https://pub.dev/packages/steel_crypt">https://pub.dev/packages/steel_crypt</a>
     <hr class="my-4">
@@ -51,11 +27,12 @@
     <div class="card-group">
         <div class="card bg-dark">
             <div class="card-body">
-                <h3 class="card-title text-light">Features</h3>
-                <p class="card-text text-light">Steel Crypt is the most comprehensive cryptographic package on pub.
+                <h3 class="card-title text-light">Getting Started</h3>
+                <p class="card-text text-light">Steel Crypt is the most comprehensive high-level cryptographic package
+                    on pub.
                     It also allows for varying levels of cryptographic competency with its tiered classes.
                 </p>
-                <button class="btn btn-outline-light">Review Features</button>
+                <button class="btn btn-outline-light">Let's Go!</button>
             </div>
         </div>
         <div class="card bg-dark">
@@ -70,32 +47,26 @@
             <div class="card-body">
                 <h3 class="card-title text-light">Migration</h3>
                 <p class="card-text text-light">Steel Crypt v2.0. is substantially different from v1.0. Migration
-                    guides for all your code are available to help you catch up with the latest.</p>
-                <button class="btn btn-outline-light">Begin Migration</button>
+                    guides for all your code will be available soon to help you catch up with the latest.</p>
+                <button class="btn btn-outline-light" disabled>Begin Migration</button>
             </div>
         </div>
     </div>
 
-    <hr class="my-4">
-
-    <div class="container-fluid text-sm-left text-muted">
-        <p> ©2020 Aditya Kishore</p>
-        <p>Licensed under the Mozilla Public License 2.0</p>
-        <p>Steel Crypt is built on a Dart implementation of BouncyCastle.</p>
-        <p>Docs built on Bootstrap and served by GitHub.</p>
-    </div>
+    <steel-footer></steel-footer>
 </div>
 
 <!-- Optional JavaScript -->
 <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-<script src="https://code.jquery.com/jquery-3.4.1.slim.min.js"
-        integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n"
+<script src="globals.js"></script>
+<script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"
+        integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj"
         crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js"
         integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo"
         crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"
-        integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6"
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.0/js/bootstrap.min.js"
+        integrity="sha384-OgVRvuATP1z7JjHLkuOU7Xw704+h835Lr+6QL9UvYjZE3Ipu6Tp75j7Bh/kR0JKI"
         crossorigin="anonymous"></script>
 </body>
 </html>
