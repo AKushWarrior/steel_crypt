@@ -9,7 +9,8 @@ part of '../steel_crypt_base.dart';
 /// This class is for encrypting and decrypting using various stream ciphers.
 ///
 /// This version of LightCrypt is encoded, meaning that it expects keys and IVs to be
-/// base64, and returns base64 encoded Strings. For more flexibility, LightCryptRaw is recommended.
+/// base64, and returns base64 encoded Strings. Plaintext should be UTF-8.
+/// For more flexibility, LightCryptRaw is recommended.
 class LightCrypt {
   StreamAlgorithm _type;
   String _stringType;

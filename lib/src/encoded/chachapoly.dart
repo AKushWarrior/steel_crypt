@@ -12,8 +12,8 @@ part of '../steel_crypt_base.dart';
 /// paddings are available.
 ///
 /// This version of ChaChaPolyCrypt is encoded. It expects keys and IVs to be
-/// base-64 encoded, and returns base64 encoded Strings. For more flexibility,
-/// ChaChaPolyCryptRaw is recommended.
+/// base-64 encoded, and returns base64 encoded Strings. Plaintext should be UTF-8.
+/// For more flexibility, ChaChaPolyCryptRaw is recommended.
 class ChaChaPolyCrypt {
   String _key32;
 

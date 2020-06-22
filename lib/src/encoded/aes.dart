@@ -12,7 +12,8 @@ part of '../steel_crypt_base.dart';
 /// available.
 ///
 /// This version of AesCrypt is encoded. It expects keys and IVs to be base-64 encoded,
-/// and returns base64 encoded Strings. For more flexibility, AesCryptRaw is recommended.
+/// and returns base64 encoded Strings. Plaintext should be UTF-8.
+/// For more flexibility, AesCryptRaw is recommended.
 class AesCrypt {
   ModeAES _mode;
   String _key32;

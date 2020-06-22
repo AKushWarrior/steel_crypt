@@ -1,6 +1,8 @@
-## 2.0.2
-- Syntax updates
+## 2.0.2 - 2.0.3
+- Syntax & formatting updates
 - Documentation website nearing release
+- Bugfix for MACs
+- Dartdocs refined
 
 ## 2.0.1
 - Fixed glitch in PBKDF2

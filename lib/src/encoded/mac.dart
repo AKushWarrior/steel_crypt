@@ -10,9 +10,9 @@ part of '../steel_crypt_base.dart';
 
 ///Class containing hashing for Message Authentication Codes.
 ///
-/// This version of MacCrypt is encoded, meaning that it expects all inputs to be
-/// base64, and returns base64 encoded Strings. Of course, this limits you to
-/// the base64 character set; for more flexibility, MacCryptRaw is recommended.
+/// This version of MacCrypt is encoded, meaning that it expects keys and IVs to be
+/// base64, and returns base64 encoded Strings. Plaintext should be UTF-8 valid.
+/// For more flexibility, MacCryptRaw is recommended.
 class MacCrypt {
   MacType _type;
   Union2<ModeAES, HmacHash> algorithm;
@@ -65,11 +65,11 @@ class MacCrypt {
   ///Check if plaintext matches previously hashed text
   bool check(String plaintext, {@required String hashtext, String iv}) {
     if (_type == MacType.Poly1305) {
-      return _mac.check(base64.decode(plaintext), base64.decode(hashtext),
+      return _mac.check(utf8.encode(plaintext), base64.decode(hashtext),
           iv: iv) as bool;
     }
-    return _mac.check(base64.decode(plaintext), base64.decode(hashtext))
-        as bool;
+    return _mac.check(utf8.encode(plaintext), base64.decode(hashtext))
+    as bool;
   }
 }
 

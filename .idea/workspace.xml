@@ -2,20 +2,15 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="e546f96d-56df-4bc2-a633-1533d678c8ee" name="Default Changelist" comment="">
-      <change afterPath="$PROJECT_DIR$/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/.idea/jsLibraryMappings.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/.idea/inspectionProfiles/Project_Default.xml" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/getstarted.html" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/globals.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/highlight/atom-one-dark.css" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/docs/highlight/highlight.pack.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/SteelCrypt.iml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/SteelCrypt.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_SDK.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_SDK.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/.idea/docs.iml" beforeDir="false" afterPath="$PROJECT_DIR$/docs/.idea/docs.iml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/.idea/jsLibraryMappings.xml" beforeDir="false" afterPath="$PROJECT_DIR$/docs/.idea/jsLibraryMappings.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/docs/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/docs/index.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/CHANGELOG.md" beforeDir="false" afterPath="$PROJECT_DIR$/CHANGELOG.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/encoded/aes.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/encoded/aes.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/encoded/chachapoly.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/encoded/chachapoly.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/encoded/hash.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/encoded/hash.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/encoded/light.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/encoded/light.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/encoded/mac.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/encoded/mac.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/encoded/pass.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/encoded/pass.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/key.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/key.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.yaml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />

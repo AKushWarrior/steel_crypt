@@ -8,9 +8,8 @@ part of '../steel_crypt_base.dart';
 
 /// Class for password hashing in scrypt and PBKDF2.
 ///
-/// This version of PassCrypt is encoded, meaning that it expects all inputs to be
-/// base64, and returns base64 encoded Strings. Of course, this limits you to
-/// the base64 character set; for more flexibility, PassCryptRaw is recommended.
+/// This version of PassCrypt is encoded, meaning that it expects all keys and IVs to be
+/// base64, and returns base64 encoded Strings. Plaintext should be UTF-8. For more flexibility, PassCryptRaw is recommended.
 class PassCrypt {
   String _algorithm;
   Map<String, int> params;

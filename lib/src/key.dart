@@ -22,7 +22,7 @@ class CryptKey {
   }
 
   /// Generate cryptographically-secure random string using Fortuna algorithm.
-  /// The string is encoded using base64. Thus, this is for use with non-raw
+  /// The string is encoded using base64. Thus, this is for use with encoded
   /// classes.
   ///
   /// This should be used for all cases where randomness is of high importance.
@@ -37,7 +37,7 @@ class CryptKey {
   }
 
   /// Generate cryptographically-secure random string using Dart math.random.
-  /// The string is encoded using base64. Thus, this is for use with non-raw
+  /// The string is encoded using base64. Thus, this is for use with encoded
   /// classes.
   ///
   /// This is less secure than Fortuna, but faster. It can be used for IVs and salts,

@@ -8,9 +8,8 @@ part of '../steel_crypt_base.dart';
 
 /// Class to perform one-way hashing using common algorithms.
 ///
-/// This version of HashCrypt is encoded, meaning that it expects all inputs to be
-/// base64, and returns base64 encoded Strings. Of course, this limits you to
-/// the base64 character set; for more flexibility, HashCryptRaw is recommended.
+/// This version of HashCrypt is encoded, meaning that it expects plaintext to be UTF-8,
+/// and returns base64 encoded Strings. For more flexibility, HashCryptRaw is recommended.
 class HashCrypt {
   final ModeHash _type;
 
