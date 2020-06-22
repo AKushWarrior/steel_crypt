@@ -17,7 +17,7 @@ jobs:
     - name: Install dependencies
       run: pub get
     - name: Format
-      run: dartfmt --fix -w .
+      run: dartfmt -w --fix .
     - name: Commit changes
       uses: EndBug/add-and-commit@v4.2.0
       with:
