@@ -14,7 +14,6 @@ import 'dart:typed_data';
 import 'package:asn1lib/asn1lib.dart';
 import 'package:meta/meta.dart';
 import 'package:steel_crypt/src/satellites/satellite.dart';
-import 'package:union/union.dart';
 
 import 'package:pc_steelcrypt/api.dart';
 import 'package:pc_steelcrypt/export.dart';

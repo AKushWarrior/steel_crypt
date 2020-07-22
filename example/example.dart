@@ -25,9 +25,9 @@ void main() {
   // generated AES encrypter with key + padding
   var aes = AesCrypt(key: key32, padding: PaddingAES.pkcs7);
   // generate ChaCha20/12 encrypter
-  var stream = LightCrypt(key: key32, algo: Stream.chacha20_12);
+  var stream = LightCrypt(key: key32, algo: StreamAlgo.chacha20_12);
   // generate Blake2b hasher
-  var hasher = HashCrypt(algo: ModeHash.Blake2b);
+  var hasher = HashCrypt(algo: HashAlgo.Blake2b);
   // CMAC AES CBC Hasher
   var mac = MacCrypt(key: key16, type: MacType.CMAC);
   // generate scrypt password hasher
@@ -63,7 +63,8 @@ void main() {
   print('Password hash (scrypt):');
   var hash3 = passHash.hash(salt: iv16, inp: 'words'); //perform hash
   print(hash3);
-  print(passHash.check(salt: iv16, plain: 'words', hashed: hash3)); //perform check
+  print(passHash.check(
+      salt: iv16, plain: 'words', hashed: hash3)); //perform check
   print('');
 
   //12-Round ChaCha20; Symmetric stream cipher

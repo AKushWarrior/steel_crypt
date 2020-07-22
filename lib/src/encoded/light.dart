@@ -12,12 +12,12 @@ part of '../steel_crypt_base.dart';
 /// base64, and returns base64 encoded Strings. Plaintext should be UTF-8.
 /// For more flexibility, LightCryptRaw is recommended.
 class LightCrypt {
-  Stream _type;
+  StreamAlgo _type;
   String _stringType;
   String _key;
 
   ///Get name of this LightCrypt's algorithm.
-  Stream get algorithm {
+  StreamAlgo get algorithm {
     return _type;
   }
 
@@ -27,10 +27,10 @@ class LightCrypt {
   }
 
   ///Construct encryption machine using key and algorithm.
-  LightCrypt({@required Stream algo, @required String key}) {
-    _type = algorithm;
+  LightCrypt({@required StreamAlgo algo, @required String key}) {
+    _type = algo;
     _key = key;
-    _stringType = stringifyType(algorithm);
+    _stringType = stringifyStream(algo);
   }
 
   /// Encrypt (with iv) and return in base 64.

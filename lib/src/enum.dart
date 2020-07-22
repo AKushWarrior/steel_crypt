@@ -40,7 +40,7 @@ String parseAES(ModeAES mode) {
 
 // Hashing stuff
 
-enum ModeHash {
+enum HashAlgo {
   Sha_256,
   Sha_512,
   Sha_384,
@@ -113,7 +113,7 @@ HMac parsePBKDF2(HmacHash mode) {
 
 // Stream stuff
 
-enum Stream {
+enum StreamAlgo {
   salsa20,
   salsa20_12,
   salsa20_8,
@@ -122,20 +122,12 @@ enum Stream {
   chacha20_8,
 }
 
-String stringifyType(Stream algo) {
-  switch (algo) {
-    case Stream.chacha20:
-      return 'ChaCha20';
-    case Stream.chacha20_8:
-      return 'ChaCha20/8';
-    case Stream.chacha20_12:
-      return 'ChaCha20/12';
-    case Stream.salsa20:
-      return 'Salsa20';
-    case Stream.salsa20_8:
-      return 'Salsa20/8';
-    case Stream.salsa20_12:
-      return 'Salsa20/12';
+String stringifyStream(StreamAlgo algorithm) {
+  var str = algorithm.toString().substring(11).replaceAll('_', '/');
+  if (str.startsWith('chacha')) {
+    str = str.replaceRange(0, 6, 'ChaCha');
+  } else if (str.startsWith('salsa')) {
+    str = str.replaceRange(0, 5, 'Salsa');
   }
-  throw ArgumentError('');
+  return str;
 }

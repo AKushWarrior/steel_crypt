@@ -12,10 +12,10 @@ part of '../steel_crypt_base.dart';
 /// Uint8List, and returns Uint8Lists. For a higher-level solution, [HashCrypt]
 /// is recommended.
 class HashCryptRaw {
-  final ModeHash _type;
+  final HashAlgo _type;
 
   ///Get this HashCrypt's hashing algorithm.
-  ModeHash get type {
+  HashAlgo get type {
     return _type;
   }
 

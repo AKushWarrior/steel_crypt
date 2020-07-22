@@ -11,12 +11,12 @@ part of '../steel_crypt_base.dart';
 /// This version of LightCrypt is raw, meaning that it expects keys and IVs to be
 /// Uint8List, and returns Uint8List. For more high-level solutions, LightCrypt is recommended.
 class LightCryptRaw {
-  Stream _type;
+  StreamAlgo _type;
   String _stringType;
   Uint8List _key;
 
   ///Get name of this LightCrypt's algorithm.
-  Stream get algorithm {
+  StreamAlgo get algorithm {
     return _type;
   }
 
@@ -26,10 +26,10 @@ class LightCryptRaw {
   }
 
   ///Construct encryption machine using key and algorithm.
-  LightCryptRaw({@required Stream algorithm, @required Uint8List key}) {
-    _type = algorithm;
+  LightCryptRaw({@required StreamAlgo algorithm, @required Uint8List key}) {
     _key = key;
-    _stringType = stringifyType(algorithm);
+    _stringType = stringifyStream(algorithm);
+    _type = algorithm;
   }
 
   /// Encrypt (with iv) and return encrypted Uint8Lists.

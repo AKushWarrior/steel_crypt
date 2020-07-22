@@ -1,3 +1,9 @@
+## 2.2.0 BREAKING
+- Code cleanup
+- Minor documentation updates
+- Fix naming conflict with Stream
+- Fixed a MAC bug
+
 ## 2.1.0 BREAKING
 - Revamped AES to have new, cleaner syntax
 - Cleaned up example to make sense

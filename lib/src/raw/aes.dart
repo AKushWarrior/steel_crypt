@@ -14,7 +14,6 @@ part of '../steel_crypt_base.dart';
 /// This version of AesCrypt is raw. It expects keys and IVs to be Uint8List,
 /// and returns Uint8Lists. For more flexibility, [AesCrypt] is recommended.
 class AesCryptRaw {
-  ModeAES _mode;
   Uint8List _key32;
   PaddingAES _padding;
 
@@ -28,9 +27,7 @@ class AesCryptRaw {
   }
 
   ///Creates 'Crypt', serves as encrypter/decrypter of text.
-  AesCryptRaw(
-      {@required PaddingAES padding,
-      @required Uint8List key}) {
+  AesCryptRaw({@required PaddingAES padding, @required Uint8List key}) {
     _key32 = key;
     _padding = padding;
   }

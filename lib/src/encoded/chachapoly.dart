@@ -29,7 +29,11 @@ class ChaChaPolyCrypt {
   /// IV should be base-64 encoded. Input should be a valid UTF-8 string.
   ///
   /// [aad] is optional, ChaCha20-Poly1305 is secure without it.
-  String encrypt({@required String inp, @required String iv, String aad, int tagLength = 128}) {
+  String encrypt(
+      {@required String inp,
+      @required String iv,
+      String aad,
+      int tagLength = 128}) {
     var key = base64Decode(_key32);
     var ivLocal = base64Decode(iv);
     var localInput = utf8.encode(inp);
@@ -51,7 +55,11 @@ class ChaChaPolyCrypt {
   /// this for you.
   ///
   /// [aad] is optional, ChaCha20-Poly1305 is secure without it.
-  String decrypt({@required String enc, @required String iv, String aad, int tagLength = 128}) {
+  String decrypt(
+      {@required String enc,
+      @required String iv,
+      String aad,
+      int tagLength = 128}) {
     var key = base64Decode(_key32);
     var ivLocal = base64Decode(iv);
     var localInput = base64Decode(enc);

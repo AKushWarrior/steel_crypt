@@ -29,5 +29,5 @@ void main(List<String> args) {
     return print(argParser.usage);
   }
 
-  print(HashCrypt(algo: ModeHash.Blake2b).hash(inp: plain));
+  print(HashCrypt(algo: HashAlgo.Blake2b).hash(inp: plain));
 }

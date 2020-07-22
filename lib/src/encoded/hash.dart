@@ -11,10 +11,10 @@ part of '../steel_crypt_base.dart';
 /// This version of HashCrypt is encoded, meaning that it expects plaintext to be UTF-8,
 /// and returns base64 encoded Strings. For more flexibility, HashCryptRaw is recommended.
 class HashCrypt {
-  ModeHash _type;
+  HashAlgo _type;
 
   ///Get this HashCrypt's hashing algorithm.
-  ModeHash get type {
+  HashAlgo get type {
     return _type;
   }
 

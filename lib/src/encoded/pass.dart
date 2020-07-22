@@ -58,8 +58,7 @@ class PassCrypt {
     }
     var passhash = _keyDerivator;
     if (_algorithm == 'P') {
-      var params =
-          Pbkdf2Parameters(base64Decode(salt), this.params['N'], len);
+      var params = Pbkdf2Parameters(base64Decode(salt), this.params['N'], len);
       passhash.init(params);
     } else {
       final params = ScryptParameters(this.params['N'], this.params['r'],
@@ -72,8 +71,11 @@ class PassCrypt {
   }
 
   ///Checks hashed password given salt, plaintext, length, and hashedtext.
-  bool check({@required String plain, @required String hashed, @required String salt,
-    int len = 32}) {
+  bool check(
+      {@required String plain,
+      @required String hashed,
+      @required String salt,
+      int len = 32}) {
     var hashplain = hash(salt: salt, inp: plain, len: len);
     return hashplain == hashed;
   }

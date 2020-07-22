@@ -63,9 +63,9 @@ class MacCrypt {
   ///Check if plaintext matches previously hashed text
   bool check({@required String plain, @required String hashed, String iv}) {
     if (_type == MacType.Poly1305) {
-      return _mac.check(utf8.encode(plain), base64.decode(plain), iv: iv)
+      return _mac.check(utf8.encode(plain), base64.decode(hashed), iv: iv)
           as bool;
     }
-    return _mac.check(utf8.encode(plain), base64.decode(plain)) as bool;
+    return _mac.check(utf8.encode(plain), base64.decode(hashed)) as bool;
   }
 }

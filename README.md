@@ -4,6 +4,8 @@ A comprehensive library of high-level, cryptographic API's, either manually defi
 This library currently supports hashing, symmetric two-way encryption, and key/IV generation. It also has 
 a CLI, for conducting basic cryptography operations.
 
+This library is a high-level wrapper over https://github.com/bcgit/pc-dart.
+
 ---
 
 It takes time, effort, and mental power to keep this package updated, useful, and
@@ -16,14 +18,14 @@ dollars to help me continue development.
 
 ## Note: Beta
 
-Please note that this package is in a beta release for 2.0. It may not be production stable in its
-current form. If you want production stability, wait two weeks for the full launch of 2.0 or use 1.7.1+1.
+Please note that this package is in a beta release for 2.X. It may not be production stable in its
+current form. If you want production stability, wait for the full launch of 2.X or use 1.7.1+1.
 
 ---
 
 ## Note: Documentation
 
-These docs have not been fully written yet! Steel Crypt 2.0 comes with major changes, and will have a static
+These docs have not been fully written yet! Steel Crypt 2.X comes with major changes, and will have a static
 website on GitHub Pages for documentation. For now, you can take a look at the API reference for more
 information on the beta's classes.
 
@@ -48,6 +50,5 @@ package would have ever had.
 [![License](https://img.shields.io/github/license/AKushWarrior/steel_crypt?color=blue&style=for-the-badge&labelColor=black)](https://www.mozilla.org/en-US/MPL/2.0/)
 [![Commits](https://img.shields.io/github/commit-activity/m/AKushWarrior/steel_crypt?color=blue&style=for-the-badge&labelColor=black)](https://github.com/AKushWarrior/steel_crypt)
 
-###### ©2019 Aditya Kishore
+###### ©2020 Aditya Kishore
 ###### Licensed under the Mozilla Public License 2.0
-###### This project is built on a custom implementation of Steven Roose's PointyCastle.
