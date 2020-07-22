@@ -25,7 +25,11 @@ class ChaChaPolyCryptRaw {
   /// Encrypts (with iv).
   ///
   /// [aad] is optional, ChaCha20-Poly1305 is secure without it.
-  Uint8List encrypt({@required Uint8List inp, @required Uint8List iv, Uint8List aad, int tagLength = 128}) {
+  Uint8List encrypt(
+      {@required Uint8List inp,
+      @required Uint8List iv,
+      Uint8List aad,
+      int tagLength = 128}) {
     var cipherparams = AEADParameters(KeyParameter(_key32), tagLength, iv, aad);
     var cipher = ChaCha20Poly1305(ChaCha7539Engine(), Poly1305());
     cipher..init(true, cipherparams);
@@ -37,10 +41,12 @@ class ChaChaPolyCryptRaw {
   /// Decrypts (with iv).
   ///
   /// [aad] is optional, ChaCha20-Poly1305 is secure without it.
-  Uint8List decrypt({@required Uint8List enc,
-      @required Uint8List iv, Uint8List aad, int tagLength = 128}) {
-    var cipherparams =
-        AEADParameters(KeyParameter(_key32), tagLength, iv, aad);
+  Uint8List decrypt(
+      {@required Uint8List enc,
+      @required Uint8List iv,
+      Uint8List aad,
+      int tagLength = 128}) {
+    var cipherparams = AEADParameters(KeyParameter(_key32), tagLength, iv, aad);
     var cipher = ChaCha20Poly1305(ChaCha7539Engine(), Poly1305());
     cipher..init(false, cipherparams);
 

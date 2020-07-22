@@ -51,7 +51,8 @@ class PassCryptRaw {
   }
 
   ///Hashes password given salt, text, and length.
-  Uint8List hash({@required Uint8List salt, @required Uint8List plain, int len = 32}) {
+  Uint8List hash(
+      {@required Uint8List salt, @required Uint8List plain, int len = 32}) {
     if (_algorithm == 'S') {
       _keyDerivator = Scrypt();
     } else {
@@ -70,8 +71,11 @@ class PassCryptRaw {
   }
 
   ///Checks hashed password given salt, plaintext, length, and hashedtext.
-  bool check({@required Uint8List plain, @required Uint8List hashed, @required Uint8List salt,
-    int len = 32}) {
+  bool check(
+      {@required Uint8List plain,
+      @required Uint8List hashed,
+      @required Uint8List salt,
+      int len = 32}) {
     var hashplain = hash(salt: salt, plain: plain, len: len);
     return hashplain == hashed;
   }

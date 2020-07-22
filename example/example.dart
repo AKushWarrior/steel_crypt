@@ -63,7 +63,8 @@ void main() {
   print('Password hash (scrypt):');
   var hash3 = passHash.hash(salt: iv16, inp: 'words'); //perform hash
   print(hash3);
-  print(passHash.check(salt: iv16, plain: 'words', hashed: hash3)); //perform check
+  print(passHash.check(
+      salt: iv16, plain: 'words', hashed: hash3)); //perform check
   print('');
 
   //12-Round ChaCha20; Symmetric stream cipher

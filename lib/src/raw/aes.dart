@@ -28,9 +28,7 @@ class AesCryptRaw {
   }
 
   ///Creates 'Crypt', serves as encrypter/decrypter of text.
-  AesCryptRaw(
-      {@required PaddingAES padding,
-      @required Uint8List key}) {
+  AesCryptRaw({@required PaddingAES padding, @required Uint8List key}) {
     _key32 = key;
     _padding = padding;
   }
