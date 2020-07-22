@@ -7,135 +7,83 @@
 import 'package:steel_crypt/steel_crypt.dart';
 
 void main() {
-  var FortunaKey = CryptKey().genFortuna(); //generate 32 byte key using Fortuna
+  // Generate keys/ivs/nonces
+  // --------
+  // Key generator
+  var keyGen = CryptKey();
+  //generate 32 byte key using Fortuna
+  var key32 = keyGen.genFortuna(len: 32);
+  //generate 16 byte key using Fortuna
+  var key16 = keyGen.genFortuna(len: 16);
+  //generate iv for AES
+  var iv16 = keyGen.genDart(len: 16);
+  //generate iv for ChaCha20
+  var iv8 = keyGen.genDart(len: 8);
 
-  var aesEncrypter = AesCrypt(
-      mode: ModeAES.cbc, padding: PaddingAES.iso78164, key: FortunaKey);
-  //generated AES encrypter with key
+  // Generate cryptography machines
+  // --------
+  // generated AES encrypter with key + padding
+  var aes = AesCrypt(key: key32, padding: PaddingAES.pkcs7);
+  // generate ChaCha20/12 encrypter
+  var stream = LightCrypt(key: key32, algo: Stream.chacha20_12);
+  // generate Blake2b hasher
+  var hasher = HashCrypt(algo: ModeHash.Blake2b);
+  // CMAC AES CBC Hasher
+  var mac = MacCrypt(key: key16, type: MacType.CMAC);
+  // generate scrypt password hasher
+  var passHash = PassCrypt.scrypt();
 
-  aesEncrypter.mode = ModeAES.gcm;
-  //changed mode of encrypter
-
-  var streamAES =
-      AesCrypt(mode: ModeAES.ctr, padding: PaddingAES.none, key: FortunaKey);
-  //generated AES CTR stream encrypter with key
-
-  var encrypter2 = const RsaCrypt(); //generate RSA encrypter
-
-  var encrypter3 = LightCrypt(
-      key: FortunaKey,
-      algorithm: StreamAlgorithm.chacha20_12); //generate ChaCha20/12 encrypter
-
-  var hasher = HashCrypt(ModeHash.Blake2b); //generate SHA-3/512 hasher
-
-  var hasher3 = MacCrypt(
-      key: FortunaKey,
-      type: MacType.CMAC,
-      algorithm: ModeAES.gcm.asCMAC()); //CMAC AES GCM Hasher
-
-  var passHash = PassCrypt.scrypt(); //generate scrypt password hasher
-
-  var ivsalt = CryptKey()
-      .genDart(length: 16); //generate iv for AES using Dart Random.secure()
-
-  var iv2 = CryptKey()
-      .genDart(length: 8); //generate iv for ChaCha20 using Dart Random.secure()
-
+  // Examples + Debugging
+  // --------
   //Print key
-  print('Key:');
-
-  print(FortunaKey);
-
+  print('Keys:');
+  print('key32: $key32 \nkey16: $key16');
   print('');
 
   //Print IV
-  print('IV (for AES/Scrypt):');
-
-  print(ivsalt);
-
-  print('');
-
-  //Print IV
-  print('IV (for ChaCha20):');
-
-  print(iv2);
-
+  print('IVs:');
+  print('For AES/SCrypt: $iv16 \nFor ChaCha20: $iv8');
   print('');
 
   //SHA-3 512 Hash
   print('SHA-3 512 Hash:');
-
-  var hash = hasher.hash('example'); //perform hash
-
+  var hash = hasher.hash(inp: 'example'); //perform hash
   print(hash);
-
-  print(hasher.checkhash('example', hash)); //perform check
-
+  print(hasher.check(plain: 'example', hashed: hash)); //perform check
   print('');
 
-  //CMAC AES CFB-64 Hash
-  print('CMAC AES CFB-64 Hash:');
-
-  var hash3 = hasher3.process('words'); //perform hash
-
-  print(hash3);
-
-  print(hasher3.check('words', hashtext: hash3)); //perform check
-
+  //CMAC AES CBC Hash
+  print('CMAC AES CBC Hash:');
+  var hash2 = mac.process(inp: 'words'); //perform hash
+  print(hash2);
+  print(mac.check(plain: 'words', hashed: hash2)); //perform check
   print('');
 
   //Password (scrypt)
   print('Password hash (scrypt):');
-
-  var hash4 = passHash.hashPass(ivsalt, 'words'); //perform hash
-
-  print(hash4);
-
-  print(passHash.checkPassKey(ivsalt, 'words', hash4)); //perform check
-
+  var hash3 = passHash.hash(salt: iv16, inp: 'words'); //perform hash
+  print(hash3);
+  print(passHash.check(salt: iv16, plain: 'words', hashed: hash3)); //perform check
   print('');
 
   //12-Round ChaCha20; Symmetric stream cipher
   print('ChaCha20 Symmetric:');
-
-  var crypted3 = encrypter3.encrypt('broken', iv2); //encrypt
-
+  var crypted3 = stream.encrypt(inp: 'broken', iv: iv8); //encrypt
   print(crypted3);
-
-  print(encrypter3.decrypt(crypted3, iv2)); //decrypt
-
+  print(stream.decrypt(enc: crypted3, iv: iv8)); //decrypt
   print('');
 
-  //AES CBC with ISO7816-4 padding; Symmetric block cipher
-  print('AES Symmetric CBC:');
-
-  var crypted = aesEncrypter.encrypt('words', iv: ivsalt); //encrypt
-
+  //AES GCM encryption/decryption
+  print('AES Symmetric GCM:');
+  var crypted = aes.gcm.encrypt(inp: 'words', iv: iv16); //encrypt
   print(crypted);
-
-  print(aesEncrypter.decrypt(crypted, iv: ivsalt)); //decrypt
-
+  print(aes.gcm.decrypt(enc: crypted, iv: iv16)); //decrypt
   print('');
 
   //AES CTR; Symmetric stream cipher
   print('AES Symmetric CTR:');
-
-  var crypted5 = streamAES.encrypt('words', iv: ivsalt); //Encrypt.
-
-  print(crypted5);
-
-  print(streamAES.decrypt(crypted5, iv: ivsalt)); //Decrypt.
-
-  print('');
-
-  //RSA with OAEP padding; Asymmetric
-  print('RSA Asymmetric:');
-
-  var crypted4 = encrypter2.encrypt('word', encrypter2.randPubKey); //encrypt
-
-  print(crypted4);
-
-  print(encrypter2.decrypt(crypted4, encrypter2.randPrivKey)); //decrypt
-
+  var crypted2 = aes.ctr.encrypt(inp: 'words', iv: iv16); //Encrypt.
+  print(crypted2);
+  print(aes.ctr.decrypt(enc: crypted2, iv: iv16)); //Decrypt.
   print('');
 }

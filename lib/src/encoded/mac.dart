@@ -15,77 +15,57 @@ part of '../steel_crypt_base.dart';
 /// For more flexibility, MacCryptRaw is recommended.
 class MacCrypt {
   MacType _type;
-  Union2<ModeAES, HmacHash> algorithm;
+  HmacHash algorithm;
   dynamic _mac;
 
-  MacCrypt(
-      {@required String key,
-      @required MacType type,
-      @required Union2<ModeAES, HmacHash> algorithm}) {
+  MacCrypt({@required String key, @required MacType type, this.algorithm}) {
     _type = type;
 
     var ukey = base64Decode(key);
 
     if (_type == MacType.HMAC) {
-      _mac = HMAC(ukey, algorithm.value as HmacHash);
+      assert(algorithm != null);
+      _mac = HMAC(ukey, algorithm);
     } else if (_type == MacType.Poly1305) {
-      _mac = poly.Poly1305(ukey, algorithm.value as ModeAES);
+      _mac = poly.Poly1305(ukey);
     } else {
-      _mac = CMAC(ukey, algorithm.value as ModeAES);
+      _mac = CMAC(ukey);
     }
   }
 
-  MacCrypt.CMAC({@required String key, @required ModeAES algorithm}) {
+  MacCrypt.CMAC({@required String key}) {
     var ukey = base64Decode(key);
     _type = MacType.CMAC;
-    _mac = CMAC(ukey, algorithm);
+    _mac = CMAC(ukey);
   }
 
-  MacCrypt.HMAC({@required String key, @required HmacHash algorithm}) {
+  MacCrypt.HMAC({@required String key, @required HmacHash algo}) {
     var ukey = base64Decode(key);
     _type = MacType.CMAC;
     _mac = HMAC(ukey, algorithm);
   }
 
-  MacCrypt.Poly1305({@required String key, @required ModeAES algorithm}) {
+  MacCrypt.Poly1305({@required String key}) {
     var ukey = base64Decode(key);
     _type = MacType.Poly1305;
-    _mac = poly.Poly1305(ukey, algorithm);
+    _mac = poly.Poly1305(ukey);
   }
 
   ///Process and hash string.
-  String process(String input, {String iv}) {
+  String process({@required String inp, String iv}) {
     if (_type == MacType.Poly1305) {
       return base64.encode(
-          _mac.process(utf8.encode(input), iv: base64.decode(iv)) as List<int>);
+          _mac.process(utf8.encode(inp), iv: base64.decode(iv)) as List<int>);
     }
-    return base64.encode(_mac.process(utf8.encode(input)) as List<int>);
+    return base64.encode(_mac.process(utf8.encode(inp)) as List<int>);
   }
 
   ///Check if plaintext matches previously hashed text
-  bool check(String plaintext, {@required String hashtext, String iv}) {
+  bool check({@required String plain, @required String hashed, String iv}) {
     if (_type == MacType.Poly1305) {
-      return _mac.check(utf8.encode(plaintext), base64.decode(hashtext), iv: iv)
+      return _mac.check(utf8.encode(plain), base64.decode(plain), iv: iv)
           as bool;
     }
-    return _mac.check(utf8.encode(plaintext), base64.decode(hashtext)) as bool;
-  }
-}
-
-enum MacType { CMAC, HMAC, Poly1305 }
-
-extension Mac on ModeAES {
-  Union2<ModeAES, HmacHash> asCMAC() {
-    return asFirst();
-  }
-
-  Union2<ModeAES, HmacHash> asPoly1305() {
-    return asFirst();
-  }
-}
-
-extension Mac2 on HmacHash {
-  Union2<ModeAES, HmacHash> asHMAC() {
-    return asSecond();
+    return _mac.check(utf8.encode(plain), base64.decode(plain)) as bool;
   }
 }

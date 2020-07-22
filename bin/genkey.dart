@@ -28,5 +28,5 @@ void main(List<String> args) {
     return print(argParser.usage);
   }
 
-  print(CryptKey().genFortuna(length: length));
+  print(CryptKey().genFortuna(len: length));
 }

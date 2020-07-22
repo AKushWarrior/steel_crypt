@@ -75,14 +75,6 @@ class RsaCrypt {
 /// Class containing utils for translating RSA keys. This class uses the
 /// PEM format.
 class RsaUtils {
-  ///Parse key from PEM file.
-  static Future<T> parseKeyFromFile<T extends RSAAsymmetricKey>(
-      String filename) async {
-    final file = File(filename);
-    final key = await file.readAsString();
-    return _parse(key) as T;
-  }
-
   ///Parse key from PEM string.
   static T parseKeyFromString<T extends RSAAsymmetricKey>(String pemString) {
     return _parse(pemString) as T;

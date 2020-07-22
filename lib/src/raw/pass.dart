@@ -51,7 +51,7 @@ class PassCryptRaw {
   }
 
   ///Hashes password given salt, text, and length.
-  Uint8List hashPass(Uint8List salt, Uint8List pass, {int length = 32}) {
+  Uint8List hash({@required Uint8List salt, @required Uint8List plain, int len = 32}) {
     if (_algorithm == 'S') {
       _keyDerivator = Scrypt();
     } else {
@@ -59,20 +59,20 @@ class PassCryptRaw {
     }
     var passhash = _keyDerivator;
     if (_algorithm == 'P') {
-      var params = Pbkdf2Parameters(salt, this.params['N'], length);
+      var params = Pbkdf2Parameters(salt, this.params['N'], len);
       passhash.init(params);
     } else {
       final params = ScryptParameters(
-          this.params['N'], this.params['r'], this.params['p'], length, salt);
+          this.params['N'], this.params['r'], this.params['p'], len, salt);
       passhash.init(params);
     }
-    return _keyDerivator.process(pass);
+    return _keyDerivator.process(plain);
   }
 
   ///Checks hashed password given salt, plaintext, length, and hashedtext.
-  bool checkPassKey(Uint8List salt, Uint8List plain, Uint8List hashed,
-      {int length = 32}) {
-    var hashplain = hashPass(salt, plain, length: length);
+  bool check({@required Uint8List plain, @required Uint8List hashed, @required Uint8List salt,
+    int len = 32}) {
+    var hashplain = hash(salt: salt, plain: plain, len: len);
     return hashplain == hashed;
   }
 }

@@ -8,22 +8,25 @@
 import 'dart:convert';
 import 'dart:core';
 import 'dart:core' as core;
-import 'dart:io';
 import 'dart:math';
 import 'dart:typed_data';
 
 import 'package:asn1lib/asn1lib.dart';
 import 'package:meta/meta.dart';
+import 'package:steel_crypt/src/satellites/satellite.dart';
 import 'package:union/union.dart';
 
-import '../PointyCastleN/api.dart';
-import '../PointyCastleN/export.dart';
-import '../PointyCastleN/macs/poly1305.dart';
-import '../PointyCastleN/stream/chacha20_poly1305.dart';
-import '../PointyCastleN/stream/chacha7539.dart';
-import 'encoded/MACs/Poly1305.dart' as poly;
-import 'encoded/MACs/cmac.dart';
-import 'encoded/MACs/hmac.dart';
+import 'package:pc_steelcrypt/api.dart';
+import 'package:pc_steelcrypt/export.dart';
+import 'package:pc_steelcrypt/macs/poly1305.dart';
+import 'package:pc_steelcrypt/stream/chacha20poly1305.dart';
+import 'package:pc_steelcrypt/stream/chacha7539.dart';
+import 'MACs/Poly1305.dart' as poly;
+import 'MACs/cmac.dart';
+import 'MACs/hmac.dart';
+import 'enum.dart';
+
+export 'enum.dart';
 
 part 'encoded/aes.dart'; //for AesCrypt
 part 'encoded/chachapoly.dart';

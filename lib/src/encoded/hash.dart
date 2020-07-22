@@ -11,7 +11,7 @@ part of '../steel_crypt_base.dart';
 /// This version of HashCrypt is encoded, meaning that it expects plaintext to be UTF-8,
 /// and returns base64 encoded Strings. For more flexibility, HashCryptRaw is recommended.
 class HashCrypt {
-  final ModeHash _type;
+  ModeHash _type;
 
   ///Get this HashCrypt's hashing algorithm.
   ModeHash get type {
@@ -19,11 +19,13 @@ class HashCrypt {
   }
 
   ///Construct with type of algorithm
-  HashCrypt(this._type);
+  HashCrypt({@required algo}) {
+    _type = algo;
+  }
 
   ///Hash with given input.
-  String hash(String input) {
-    var bytes = utf8.encode(input);
+  String hash({@required String inp}) {
+    var bytes = utf8.encode(inp);
     Digest digest;
     digest = Digest(parseHash(type.toString()));
     var value = digest.process(bytes as Uint8List);
@@ -31,54 +33,8 @@ class HashCrypt {
   }
 
   ///Check hashed against plain
-  bool checkhash(core.String plain, core.String hashed) {
-    var newhash = hash(plain);
+  bool check({@required String plain, @required String hashed}) {
+    var newhash = hash(inp: plain);
     return newhash == hashed;
   }
-}
-
-enum ModeHash {
-  Sha_256,
-  Sha_512,
-  Sha_384,
-  Sha_224,
-  Sha3_224,
-  Sha3_256,
-  Sha3_384,
-  Sha3_512,
-  Keccak_224,
-  Keccak_256,
-  Keccak_384,
-  Keccak_512,
-  Sha1,
-  RipeMD_128,
-  RipeMD_160,
-  RipeMD_256,
-  RipeMD_320,
-  Blake2b,
-  MD2,
-  MD4,
-  MD5,
-  Tiger,
-  Whirlpool
-}
-
-String parseHash(String mode) {
-  var partial = mode.split('.')[1];
-  if (partial.startsWith('Sha_')) {
-    var split = partial.split('_');
-    partial = 'SHA-' + split[1];
-  } else if (partial.startsWith('Sha3')) {
-    var split = partial.split('_');
-    partial = 'SHA-3/' + split[1];
-  } else if (partial.startsWith('K')) {
-    var split = partial.split('_');
-    partial = 'Keccak/' + split[1];
-  } else if (partial.startsWith('R')) {
-    var split = partial.split('_');
-    partial = 'RIPEMD-' + split[1];
-  } else if (partial.startsWith('Sha1')) {
-    partial = 'SHA-1';
-  }
-  return partial;
 }

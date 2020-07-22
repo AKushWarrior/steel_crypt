@@ -43,14 +43,14 @@ class PassCrypt {
   ///
   /// Iterations is the number of hashes that will be performed. This is a typical
   /// time v. security tradeoff.
-  PassCrypt.pbkdf2({int iterations = 10000, HmacHash hmac}) {
+  PassCrypt.pbkdf2({int iterations = 10000, @required HmacHash algo}) {
     params = {'N': iterations};
     _algorithm = 'P';
-    _hmac = parsePBKDF2(hmac);
+    _hmac = parsePBKDF2(algo);
   }
 
   ///Hashes password given salt, text, and length.
-  String hashPass(String salt, String pass, [int length = 32]) {
+  String hash({@required String salt, @required String inp, int len = 32}) {
     if (_algorithm == 'S') {
       _keyDerivator = Scrypt();
     } else {
@@ -59,41 +59,22 @@ class PassCrypt {
     var passhash = _keyDerivator;
     if (_algorithm == 'P') {
       var params =
-          Pbkdf2Parameters(base64Decode(salt), this.params['N'], length);
+          Pbkdf2Parameters(base64Decode(salt), this.params['N'], len);
       passhash.init(params);
     } else {
       final params = ScryptParameters(this.params['N'], this.params['r'],
-          this.params['p'], length, base64Decode(salt));
+          this.params['p'], len, base64Decode(salt));
       passhash.init(params);
     }
-    var bytes = utf8.encode(pass) as Uint8List;
+    var bytes = utf8.encode(inp) as Uint8List;
     var key = _keyDerivator.process(bytes);
     return base64.encode(key);
   }
 
   ///Checks hashed password given salt, plaintext, length, and hashedtext.
-  bool checkPassKey(String salt, String plain, String hashed,
-      [int length = 32]) {
-    var hashplain = hashPass(salt, plain, length);
+  bool check({@required String plain, @required String hashed, @required String salt,
+    int len = 32}) {
+    var hashplain = hash(salt: salt, inp: plain, len: len);
     return hashplain == hashed;
   }
-}
-
-enum HmacHash {
-  Sha_256,
-  Sha_384,
-  Sha_512,
-  Sha3_256,
-  Sha3_512,
-  Keccak_256,
-  Keccak_512,
-  RipeMD_128,
-  RipeMD_160,
-  Blake2b,
-  Tiger,
-  Whirlpool
-}
-
-HMac parsePBKDF2(HmacHash mode) {
-  return HMac(Digest(parseHash(mode.toString())), 128);
 }

@@ -23,17 +23,16 @@ class HashCryptRaw {
   HashCryptRaw(this._type);
 
   ///Hash with given input.
-  Uint8List hash(Uint8List input) {
-    var bytes = input;
+  Uint8List hash({@required Uint8List inp}) {
     Digest digest;
     digest = Digest(parseHash(type.toString()));
-    var value = digest.process(bytes);
+    var value = digest.process(inp);
     return value;
   }
 
   ///Check hashed against plain
-  bool checkhash(Uint8List plain, Uint8List hashed) {
-    var newhash = hash(plain);
+  bool checkhash({@required Uint8List plain, @required Uint8List hashed}) {
+    var newhash = hash(inp: plain);
     return newhash == hashed;
   }
 }

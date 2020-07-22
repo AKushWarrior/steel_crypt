@@ -25,37 +25,26 @@ class ChaChaPolyCryptRaw {
   /// Encrypts (with iv).
   ///
   /// [aad] is optional, ChaCha20-Poly1305 is secure without it.
-  Uint8List encrypt(Uint8List input, {@required Uint8List iv, Uint8List aad}) {
-    var key = _key32;
-    var ivLocal = iv;
-    var localInput = input;
-    var aadLocal = aad;
-
-    var cipherparams =
-        AEADParameters(KeyParameter(key), 128, ivLocal, aadLocal);
+  Uint8List encrypt({@required Uint8List inp, @required Uint8List iv, Uint8List aad, int tagLength = 128}) {
+    var cipherparams = AEADParameters(KeyParameter(_key32), tagLength, iv, aad);
     var cipher = ChaCha20Poly1305(ChaCha7539Engine(), Poly1305());
     cipher..init(true, cipherparams);
 
-    var inter = cipher.process(localInput);
+    var inter = cipher.process(inp);
     return inter;
   }
 
   /// Decrypts (with iv).
   ///
   /// [aad] is optional, ChaCha20-Poly1305 is secure without it.
-  Uint8List decrypt(Uint8List encrypted,
-      {@required Uint8List iv, Uint8List aad}) {
-    var key = _key32;
-    var ivLocal = iv;
-    var localInput = encrypted;
-    var aadLocal = aad;
-
+  Uint8List decrypt({@required Uint8List enc,
+      @required Uint8List iv, Uint8List aad, int tagLength = 128}) {
     var cipherparams =
-        AEADParameters(KeyParameter(key), 128, ivLocal, aadLocal);
+        AEADParameters(KeyParameter(_key32), tagLength, iv, aad);
     var cipher = ChaCha20Poly1305(ChaCha7539Engine(), Poly1305());
     cipher..init(false, cipherparams);
 
-    var inter = cipher.process(localInput);
+    var inter = cipher.process(enc);
     return inter;
   }
 }

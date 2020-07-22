@@ -29,14 +29,14 @@ class ChaChaPolyCrypt {
   /// IV should be base-64 encoded. Input should be a valid UTF-8 string.
   ///
   /// [aad] is optional, ChaCha20-Poly1305 is secure without it.
-  String encrypt(String input, {@required String iv, String aad}) {
+  String encrypt({@required String inp, @required String iv, String aad, int tagLength = 128}) {
     var key = base64Decode(_key32);
     var ivLocal = base64Decode(iv);
-    var localInput = utf8.encode(input);
+    var localInput = utf8.encode(inp);
     var aadLocal = aad != null ? base64Decode(aad) : null;
 
     var cipherparams =
-        AEADParameters(KeyParameter(key), 128, ivLocal, aadLocal);
+        AEADParameters(KeyParameter(key), tagLength, ivLocal, aadLocal);
     var cipher = ChaCha20Poly1305(ChaCha7539Engine(), Poly1305());
     cipher..init(true, cipherparams);
 
@@ -51,14 +51,14 @@ class ChaChaPolyCrypt {
   /// this for you.
   ///
   /// [aad] is optional, ChaCha20-Poly1305 is secure without it.
-  String decrypt(String encrypted, {@required String iv, String aad}) {
+  String decrypt({@required String enc, @required String iv, String aad, int tagLength = 128}) {
     var key = base64Decode(_key32);
     var ivLocal = base64Decode(iv);
-    var localInput = base64Decode(encrypted);
+    var localInput = base64Decode(enc);
     var aadLocal = aad != null ? base64Decode(aad) : null;
 
     var cipherparams =
-        AEADParameters(KeyParameter(key), 128, ivLocal, aadLocal);
+        AEADParameters(KeyParameter(key), tagLength, ivLocal, aadLocal);
     var cipher = ChaCha20Poly1305(ChaCha7539Engine(), Poly1305());
     cipher..init(false, cipherparams);
 

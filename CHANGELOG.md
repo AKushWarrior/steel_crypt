@@ -1,3 +1,11 @@
+## 2.1.0 BREAKING
+- Revamped AES to have new, cleaner syntax
+- Cleaned up example to make sense
+- Refactored code in various ways
+- Fixed CMAC
+- Refactored parameters to follow consistent style
+- Use named parameters everywhere
+
 ## 2.0.2 - 2.0.3
 - Syntax & formatting updates
 - Documentation website nearing release
@@ -7,7 +15,7 @@
 ## 2.0.1
 - Fixed glitch in PBKDF2
 
-## 2.0.0
+## 2.0.0 BREAKING
 - Breaking API changes
 - Deleted unused stream ciphers
 - Added Poly1305

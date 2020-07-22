@@ -34,6 +34,7 @@ void main(List<String> args) {
     return print(argParser.usage);
   }
 
-  print(AesCrypt(key: key, mode: ModeAES.gcm, padding: PaddingAES.pkcs7)
-      .encrypt(input, iv: iv));
+  print(AesCrypt(key: key, padding: PaddingAES.pkcs7)
+      .gcm
+      .encrypt(inp: input, iv: iv));
 }

@@ -11,12 +11,12 @@ part of '../steel_crypt_base.dart';
 /// This version of LightCrypt is raw, meaning that it expects keys and IVs to be
 /// Uint8List, and returns Uint8List. For more high-level solutions, LightCrypt is recommended.
 class LightCryptRaw {
-  StreamAlgorithm _type;
+  Stream _type;
   String _stringType;
   Uint8List _key;
 
   ///Get name of this LightCrypt's algorithm.
-  StreamAlgorithm get algorithm {
+  Stream get algorithm {
     return _type;
   }
 
@@ -26,26 +26,25 @@ class LightCryptRaw {
   }
 
   ///Construct encryption machine using key and algorithm.
-  LightCryptRaw(
-      {@required StreamAlgorithm algorithm, @required Uint8List key}) {
+  LightCryptRaw({@required Stream algorithm, @required Uint8List key}) {
     _type = algorithm;
     _key = key;
-    _stringType = _stringifyType(algorithm);
+    _stringType = stringifyType(algorithm);
   }
 
   /// Encrypt (with iv) and return encrypted Uint8Lists.
-  Uint8List encrypt(Uint8List input, Uint8List iv) {
+  Uint8List encrypt({@required Uint8List inp, @required Uint8List iv}) {
     var machine = StreamCipher(_stringType);
     var params = ParametersWithIV<KeyParameter>(KeyParameter(key), iv);
     machine..init(true, params);
-    return machine.process(input);
+    return machine.process(inp);
   }
 
   /// Decrypt (with iv) and return original Uint8List.
-  Uint8List decrypt(Uint8List encrypted, Uint8List iv) {
+  Uint8List decrypt({@required Uint8List enc, Uint8List iv}) {
     var machine = StreamCipher(_stringType);
     var params = ParametersWithIV<KeyParameter>(KeyParameter(key), iv);
     machine..init(false, params);
-    return machine.process(encrypted);
+    return machine.process(enc);
   }
 }

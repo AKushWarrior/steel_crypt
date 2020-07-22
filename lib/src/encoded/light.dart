@@ -12,12 +12,12 @@ part of '../steel_crypt_base.dart';
 /// base64, and returns base64 encoded Strings. Plaintext should be UTF-8.
 /// For more flexibility, LightCryptRaw is recommended.
 class LightCrypt {
-  StreamAlgorithm _type;
+  Stream _type;
   String _stringType;
   String _key;
 
   ///Get name of this LightCrypt's algorithm.
-  StreamAlgorithm get algorithm {
+  Stream get algorithm {
     return _type;
   }
 
@@ -27,10 +27,10 @@ class LightCrypt {
   }
 
   ///Construct encryption machine using key and algorithm.
-  LightCrypt({@required StreamAlgorithm algorithm, @required String key}) {
+  LightCrypt({@required Stream algo, @required String key}) {
     _type = algorithm;
     _key = key;
-    _stringType = _stringifyType(algorithm);
+    _stringType = stringifyType(algorithm);
   }
 
   /// Encrypt (with iv) and return in base 64.
@@ -38,11 +38,13 @@ class LightCrypt {
   /// If you are using ISAAC, pass a blank String as [iv].
   ///
   /// Input should be encoded using UTF-8. IV should be encoded using base64.
-  String encrypt(String input, String iv) {
+  String encrypt({@required String inp, @required String iv}) {
     var machine = StreamCipher(_stringType);
-    var localKey = Uint8List.fromList(key.codeUnits);
-    var localInput = utf8.encode(input);
-    var params = KeyParameter(Uint8List.fromList(localKey.sublist(0, 32)));
+    var localKey = base64Decode(key);
+    var localInput = utf8.encode(inp);
+    var ivList = base64Decode(iv);
+    var params = ParametersWithIV(
+        KeyParameter(Uint8List.fromList(localKey.sublist(0, 32))), ivList);
     machine..init(false, params);
     var inter = machine.process(Uint8List.fromList(localInput));
     return base64.encode(inter);
@@ -54,40 +56,15 @@ class LightCrypt {
   ///
   /// [encrypted] and [iv] should be encoded using base64. Encrypted should have
   /// been generated using the parameters specified in [encrypt].
-  String decrypt(String encrypted, String iv) {
+  String decrypt({@required String enc, @required String iv}) {
     var machine = StreamCipher(_stringType);
-    var localKey = Uint8List.fromList(key.codeUnits);
-    var localInput = base64.decode(encrypted);
-    var params = KeyParameter(Uint8List.fromList(localKey.sublist(0, 32)));
+    var localKey = base64Decode(key);
+    var localInput = base64.decode(enc);
+    var ivList = base64Decode(iv);
+    var params = ParametersWithIV(
+        KeyParameter(Uint8List.fromList(localKey.sublist(0, 32))), ivList);
     machine..init(false, params);
     var inter = machine.process(localInput);
     return utf8.decode(inter);
   }
-}
-
-enum StreamAlgorithm {
-  salsa20,
-  salsa20_12,
-  salsa20_8,
-  chacha20,
-  chacha20_12,
-  chacha20_8,
-}
-
-String _stringifyType(StreamAlgorithm algo) {
-  switch (algo) {
-    case StreamAlgorithm.chacha20:
-      return 'ChaCha20';
-    case StreamAlgorithm.chacha20_8:
-      return 'ChaCha20/8';
-    case StreamAlgorithm.chacha20_12:
-      return 'ChaCha20/12';
-    case StreamAlgorithm.salsa20:
-      return 'Salsa20';
-    case StreamAlgorithm.salsa20_8:
-      return 'Salsa20/8';
-    case StreamAlgorithm.salsa20_12:
-      return 'Salsa20/12';
-  }
-  throw ArgumentError('');
 }
