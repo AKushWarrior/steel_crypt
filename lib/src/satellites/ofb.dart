@@ -15,7 +15,7 @@ class OfbSatellite {
             ParametersWithIV(KeyParameter(key), ivBytes), null);
     var cipher = (padding == PaddingAES.none)
         ? OFBBlockCipher(AESFastEngine(), 64)
-        : PaddedBlockCipher('AES/OFB/' + parsePadding(padding));
+        : PaddedBlockCipher('AES/OFB-64/' + parsePadding(padding));
     cipher..init(true, params);
     var inter = cipher.process(utf8.encode(inp) as Uint8List);
     return base64.encode(inter);
@@ -31,7 +31,7 @@ class OfbSatellite {
             ParametersWithIV(KeyParameter(key), ivBytes), null);
     var cipher = (padding == PaddingAES.none)
         ? OFBBlockCipher(AESFastEngine(), 64)
-        : PaddedBlockCipher('AES/OFB/' + parsePadding(padding));
+        : PaddedBlockCipher('AES/OFB-64/' + parsePadding(padding));
     cipher..init(false, params);
     var inter = cipher.process(encryptedBytes);
     return utf8.decode(inter);
@@ -51,7 +51,7 @@ class OfbSatelliteRaw {
             ParametersWithIV(KeyParameter(key), iv), null);
     var cipher = (padding == PaddingAES.none)
         ? OFBBlockCipher(AESFastEngine(), 64)
-        : PaddedBlockCipher('AES/OFB/' + parsePadding(padding));
+        : PaddedBlockCipher('AES/OFB-64/' + parsePadding(padding));
     cipher.init(true, params);
     return cipher.process(inp);
   }
@@ -63,7 +63,7 @@ class OfbSatelliteRaw {
             ParametersWithIV(KeyParameter(key), iv), null);
     var cipher = (padding == PaddingAES.none)
         ? OFBBlockCipher(AESFastEngine(), 64)
-        : PaddedBlockCipher('AES/OFB/' + parsePadding(padding));
+        : PaddedBlockCipher('AES/OFB-64/' + parsePadding(padding));
     cipher.init(false, params);
     return cipher.process(enc);
   }

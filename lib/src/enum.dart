@@ -3,8 +3,6 @@
 import 'package:pc_steelcrypt/api.dart';
 import 'package:pc_steelcrypt/macs/hmac.dart';
 
-enum ModeAES { cbc, ctr, cfb64, ofb64, gctr, ecb, gcm }
-
 enum PaddingAES { pkcs7, iso78164, none }
 
 String parsePadding(PaddingAES padding) {
@@ -16,26 +14,6 @@ String parsePadding(PaddingAES padding) {
     default:
       return 'None';
   }
-}
-
-String parseAES(ModeAES mode) {
-  switch (mode) {
-    case ModeAES.cfb64:
-      return 'CFB-64';
-    case ModeAES.ofb64:
-      return 'OFB-64';
-    case ModeAES.ecb:
-      return 'ECB';
-    case ModeAES.ctr:
-      return 'CTR';
-    case ModeAES.cbc:
-      return 'CBC';
-    case ModeAES.gcm:
-      return 'GCM';
-    case ModeAES.gctr:
-      return 'GCTR';
-  }
-  throw ArgumentError('invalid mode (internal, file an issue!)');
 }
 
 // Hashing stuff

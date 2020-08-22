@@ -47,8 +47,9 @@ class MacCryptRaw {
 
   ///Process and hash string.
   Uint8List process({@required Uint8List inp, @required Uint8List iv}) {
-    if (_type == MacType.Poly1305)
+    if (_type == MacType.Poly1305) {
       return _mac.process(inp, iv: iv) as Uint8List;
+    }
     return _mac.process(inp) as Uint8List;
   }
 

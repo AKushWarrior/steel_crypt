@@ -20,15 +20,11 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e546f96d-56df-4bc2-a633-1533d678c8ee" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CHANGELOG.md" beforeDir="false" afterPath="$PROJECT_DIR$/CHANGELOG.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/analysis_options.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/analysis_options.yaml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/src/encoded/light.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/encoded/light.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/src/enum.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/enum.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/src/raw/aes.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/raw/aes.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/src/raw/light.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/raw/light.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/src/steel_crypt_base.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/steel_crypt_base.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/raw/mac.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/raw/mac.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/satellites/gcm.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/satellites/gcm.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.yaml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -197,7 +193,9 @@
       <workItem from="1594914092622" duration="6661000" />
       <workItem from="1595348527884" duration="6286000" />
       <workItem from="1595376041853" duration="4793000" />
-      <workItem from="1595389125312" duration="1805000" />
+      <workItem from="1595389125312" duration="3260000" />
+      <workItem from="1595460606664" duration="2102000" />
+      <workItem from="1596233295620" duration="2000" />
     </task>
     <task id="LOCAL-00001" summary="RC4 Algorithm, maintenance update, cleaner code">
       <created>1569777074344</created>
@@ -324,10 +322,10 @@
       <screen x="0" y="0" width="1920" height="1023" />
     </state>
     <state x="735" y="299" width="424" height="484" key="FileChooserDialogImpl/0.0.1920.1023@0.0.1920.1023" timestamp="1595349413006" />
-    <state x="650" y="228" width="605" height="626" key="find.popup" timestamp="1595390929802">
+    <state x="650" y="228" width="605" height="626" key="find.popup" timestamp="1595392047708">
       <screen x="0" y="0" width="1920" height="1023" />
     </state>
-    <state x="650" y="228" width="605" height="626" key="find.popup/0.0.1920.1023@0.0.1920.1023" timestamp="1595390929802" />
+    <state x="650" y="228" width="605" height="626" key="find.popup/0.0.1920.1023@0.0.1920.1023" timestamp="1595392047708" />
     <state x="617" y="233" key="run.anything.popup" timestamp="1594839274797">
       <screen x="0" y="0" width="1920" height="1023" />
     </state>

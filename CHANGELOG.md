@@ -1,4 +1,10 @@
-## 2.2.0 BREAKING
+## 2.2.2
+- Bugfix for AES-CFB and AES-OFB
+
+## 2.2.1
+- Temporarily remove tagLength while waiting for upstream fix
+
+## 2.2.0-2.2.0+1 BREAKING
 - Code cleanup
 - Minor documentation updates
 - Fix naming conflict with Stream
