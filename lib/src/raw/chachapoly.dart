@@ -32,7 +32,7 @@ class ChaChaPolyCryptRaw {
       int tagLength = 128}) {
     var cipherparams = AEADParameters(KeyParameter(_key32), tagLength, iv, aad);
     var cipher = ChaCha20Poly1305(ChaCha7539Engine(), Poly1305());
-    cipher..init(true, cipherparams);
+    cipher.init(true, cipherparams);
 
     var inter = cipher.process(inp);
     return inter;
@@ -48,7 +48,7 @@ class ChaChaPolyCryptRaw {
       int tagLength = 128}) {
     var cipherparams = AEADParameters(KeyParameter(_key32), tagLength, iv, aad);
     var cipher = ChaCha20Poly1305(ChaCha7539Engine(), Poly1305());
-    cipher..init(false, cipherparams);
+    cipher.init(false, cipherparams);
 
     var inter = cipher.process(enc);
     return inter;

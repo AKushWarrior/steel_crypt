@@ -42,7 +42,7 @@ class ChaChaPolyCrypt {
     var cipherparams =
         AEADParameters(KeyParameter(key), tagLength, ivLocal, aadLocal);
     var cipher = ChaCha20Poly1305(ChaCha7539Engine(), Poly1305());
-    cipher..init(true, cipherparams);
+    cipher.init(true, cipherparams);
 
     var inter = cipher.process(localInput as Uint8List);
     return base64.encode(inter);
@@ -68,7 +68,7 @@ class ChaChaPolyCrypt {
     var cipherparams =
         AEADParameters(KeyParameter(key), tagLength, ivLocal, aadLocal);
     var cipher = ChaCha20Poly1305(ChaCha7539Engine(), Poly1305());
-    cipher..init(false, cipherparams);
+    cipher.init(false, cipherparams);
 
     var inter = cipher.process(localInput);
     return utf8.decode(inter);

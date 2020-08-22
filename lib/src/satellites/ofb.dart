@@ -16,7 +16,7 @@ class OfbSatellite {
     var cipher = (padding == PaddingAES.none)
         ? OFBBlockCipher(AESFastEngine(), 64)
         : PaddedBlockCipher('AES/OFB-64/' + parsePadding(padding));
-    cipher..init(true, params);
+    cipher.init(true, params);
     var inter = cipher.process(utf8.encode(inp) as Uint8List);
     return base64.encode(inter);
   }
@@ -32,7 +32,7 @@ class OfbSatellite {
     var cipher = (padding == PaddingAES.none)
         ? OFBBlockCipher(AESFastEngine(), 64)
         : PaddedBlockCipher('AES/OFB-64/' + parsePadding(padding));
-    cipher..init(false, params);
+    cipher.init(false, params);
     var inter = cipher.process(encryptedBytes);
     return utf8.decode(inter);
   }

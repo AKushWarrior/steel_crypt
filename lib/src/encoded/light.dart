@@ -45,7 +45,7 @@ class LightCrypt {
     var ivList = base64Decode(iv);
     var params = ParametersWithIV(
         KeyParameter(Uint8List.fromList(localKey.sublist(0, 32))), ivList);
-    machine..init(false, params);
+    machine.init(false, params);
     var inter = machine.process(Uint8List.fromList(localInput));
     return base64.encode(inter);
   }
@@ -63,7 +63,7 @@ class LightCrypt {
     var ivList = base64Decode(iv);
     var params = ParametersWithIV(
         KeyParameter(Uint8List.fromList(localKey.sublist(0, 32))), ivList);
-    machine..init(false, params);
+    machine.init(false, params);
     var inter = machine.process(localInput);
     return utf8.decode(inter);
   }

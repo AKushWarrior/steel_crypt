@@ -16,7 +16,7 @@ class CfbSatellite {
     var cipher = (padding == PaddingAES.none)
         ? CFBBlockCipher(AESFastEngine(), 64)
         : PaddedBlockCipher('AES/CFB-64/' + parsePadding(padding));
-    cipher..init(true, params);
+    cipher.init(true, params);
     var inter = cipher.process(utf8.encode(inp) as Uint8List);
     return base64.encode(inter);
   }
@@ -32,7 +32,7 @@ class CfbSatellite {
     var cipher = (padding == PaddingAES.none)
         ? CFBBlockCipher(AESFastEngine(), 64)
         : PaddedBlockCipher('AES/CFB-64/' + parsePadding(padding));
-    cipher..init(false, params);
+    cipher.init(false, params);
     var inter = cipher.process(encryptedBytes);
     return utf8.decode(inter);
   }

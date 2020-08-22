@@ -15,7 +15,7 @@ class EcbSatellite {
     var cipher = (padding == PaddingAES.none)
         ? ECBBlockCipher(AESFastEngine())
         : PaddedBlockCipher('AES/ECB/' + parsePadding(padding));
-    cipher..init(true, params);
+    cipher.init(true, params);
 
     var inter = cipher.process(utf8.encode(inp) as Uint8List);
     return base64.encode(inter);
@@ -30,7 +30,7 @@ class EcbSatellite {
     var cipher = (padding == PaddingAES.none)
         ? ECBBlockCipher(AESFastEngine())
         : PaddedBlockCipher('AES/ECB/' + parsePadding(padding));
-    cipher..init(false, params);
+    cipher.init(false, params);
 
     var inter = cipher.process(encryptedBytes);
     return utf8.decode(inter);
@@ -50,7 +50,7 @@ class EcbSatelliteRaw {
     var cipher = (padding == PaddingAES.none)
         ? ECBBlockCipher(AESFastEngine())
         : PaddedBlockCipher('AES/ECB/' + parsePadding(padding));
-    cipher..init(true, params);
+    cipher.init(true, params);
 
     return cipher.process(inp);
   }
@@ -62,7 +62,7 @@ class EcbSatelliteRaw {
     var cipher = (padding == PaddingAES.none)
         ? ECBBlockCipher(AESFastEngine())
         : PaddedBlockCipher('AES/ECB/' + parsePadding(padding));
-    cipher..init(false, params);
+    cipher.init(false, params);
 
     return cipher.process(enc);
   }

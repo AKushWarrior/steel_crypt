@@ -36,7 +36,7 @@ class LightCryptRaw {
   Uint8List encrypt({@required Uint8List inp, @required Uint8List iv}) {
     var machine = StreamCipher(_stringType);
     var params = ParametersWithIV<KeyParameter>(KeyParameter(key), iv);
-    machine..init(true, params);
+    machine.init(true, params);
     return machine.process(inp);
   }
 
@@ -44,7 +44,7 @@ class LightCryptRaw {
   Uint8List decrypt({@required Uint8List enc, Uint8List iv}) {
     var machine = StreamCipher(_stringType);
     var params = ParametersWithIV<KeyParameter>(KeyParameter(key), iv);
-    machine..init(false, params);
+    machine.init(false, params);
     return machine.process(enc);
   }
 }
