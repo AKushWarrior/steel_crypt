@@ -51,6 +51,15 @@ class PassCrypt {
 
   ///Hashes password given salt, text, and length.
   String hash({@required String salt, @required String inp, int len = 32}) {
+    return base64.encode(hashBytes(
+        salt: base64Decode(salt),
+        input: utf8.encode(inp) as Uint8List,
+        len: len));
+  }
+
+  ///Hashes password given salt, text, and length.
+  Uint8List hashBytes(
+      {@required Uint8List salt, @required Uint8List input, int len = 32}) {
     if (_algorithm == 'S') {
       _keyDerivator = Scrypt();
     } else {
@@ -58,16 +67,15 @@ class PassCrypt {
     }
     var passhash = _keyDerivator;
     if (_algorithm == 'P') {
-      var params = Pbkdf2Parameters(base64Decode(salt), this.params['N'], len);
+      var params = Pbkdf2Parameters(salt, this.params['N'], len);
       passhash.init(params);
     } else {
-      final params = ScryptParameters(this.params['N'], this.params['r'],
-          this.params['p'], len, base64Decode(salt));
+      final params = ScryptParameters(
+          this.params['N'], this.params['r'], this.params['p'], len, salt);
       passhash.init(params);
     }
-    var bytes = utf8.encode(inp) as Uint8List;
-    var key = _keyDerivator.process(bytes);
-    return base64.encode(key);
+    var key = _keyDerivator.process(input);
+    return key;
   }
 
   ///Checks hashed password given salt, plaintext, length, and hashedtext.
