@@ -20,28 +20,8 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e546f96d-56df-4bc2-a633-1533d678c8ee" name="Default Changelist" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CHANGELOG.md" beforeDir="false" afterPath="$PROJECT_DIR$/CHANGELOG.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/example/example.dart" beforeDir="false" afterPath="$PROJECT_DIR$/example/example.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/src/MACs/Poly1305.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/MACs/Poly1305.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/src/MACs/cmac.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/MACs/cmac.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/src/MACs/hmac.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/MACs/hmac.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/src/encoded/chachapoly.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/encoded/chachapoly.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/src/encoded/light.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/encoded/light.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/src/enum.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/enum.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/src/raw/chachapoly.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/raw/chachapoly.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/src/raw/light.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/raw/light.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/src/satellites/cbc.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/satellites/cbc.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/src/satellites/cfb.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/satellites/cfb.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/src/satellites/ctr.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/satellites/ctr.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/src/satellites/ecb.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/satellites/ecb.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/src/satellites/gcm.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/satellites/gcm.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/src/satellites/gctr.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/satellites/gctr.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/src/satellites/ofb.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/satellites/ofb.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/src/satellites/satellite.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/satellites/satellite.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/src/steel_crypt_base.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/steel_crypt_base.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/encoded/pass.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/encoded/pass.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -89,6 +69,7 @@
     <property name="dart.analysis.tool.window.force.activate" value="false" />
     <property name="dart.analysis.tool.window.visible" value="false" />
     <property name="last_opened_file_path" value="$PROJECT_DIR$/lib/src" />
+    <property name="nodejs_package_manager_path" value="npm" />
     <property name="project.structure.last.edited" value="Project" />
     <property name="project.structure.proportion" value="0.0" />
     <property name="project.structure.side.proportion" value="0.0" />
@@ -218,7 +199,7 @@
       <workItem from="1595460606664" duration="2102000" />
       <workItem from="1596233295620" duration="2000" />
       <workItem from="1598074236998" duration="376000" />
-      <workItem from="1610244713510" duration="317000" />
+      <workItem from="1610244713510" duration="1090000" />
     </task>
     <task id="LOCAL-00001" summary="RC4 Algorithm, maintenance update, cleaner code">
       <created>1569777074344</created>
@@ -335,27 +316,5 @@
     <option name="LAST_COMMIT_MESSAGE" value="Bug with PBKDF2..." />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
-  </component>
-  <component name="WindowStateProjectService">
-    <state x="418" y="171" key="#com.intellij.execution.impl.EditConfigurationsDialog" timestamp="1592779460462">
-      <screen x="0" y="0" width="1920" height="1026" />
-    </state>
-    <state x="418" y="171" key="#com.intellij.execution.impl.EditConfigurationsDialog/0.0.1920.1026@0.0.1920.1026" timestamp="1592779460462" />
-    <state x="735" y="299" width="424" height="484" key="FileChooserDialogImpl" timestamp="1595349413006">
-      <screen x="0" y="0" width="1920" height="1023" />
-    </state>
-    <state x="735" y="299" width="424" height="484" key="FileChooserDialogImpl/0.0.1920.1023@0.0.1920.1023" timestamp="1595349413006" />
-    <state x="650" y="228" width="605" height="626" key="find.popup" timestamp="1595392047708">
-      <screen x="0" y="0" width="1920" height="1023" />
-    </state>
-    <state x="650" y="228" width="605" height="626" key="find.popup/0.0.1920.1023@0.0.1920.1023" timestamp="1595392047708" />
-    <state x="617" y="233" key="run.anything.popup" timestamp="1594839274797">
-      <screen x="0" y="0" width="1920" height="1023" />
-    </state>
-    <state x="617" y="233" key="run.anything.popup/0.0.1920.1023@0.0.1920.1023" timestamp="1594839274797" />
-    <state x="616" y="224" width="672" height="678" key="search.everywhere.popup" timestamp="1594839047278">
-      <screen x="0" y="0" width="1920" height="1023" />
-    </state>
-    <state x="616" y="224" width="672" height="678" key="search.everywhere.popup/0.0.1920.1023@0.0.1920.1023" timestamp="1594839047278" />
   </component>
 </project>

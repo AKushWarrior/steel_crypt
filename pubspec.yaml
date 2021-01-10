@@ -16,10 +16,10 @@ environment:
   sdk: '>=2.6.0 <3.0.0'
 
 dependencies:
-  args: ^1.5.2
-  asn1lib: ^0.6.0
+  args: ^1.6.0
+  asn1lib: ^0.8.0
   pointycastle: ^2.0.0
-  meta: ^1.1.8
 
 dev_dependencies:
   pedantic: any
+  meta: ^1.2.4

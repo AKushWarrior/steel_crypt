@@ -118,12 +118,13 @@ class RsaUtils {
       final privateKeySeq = ASN1Sequence();
       final modulus = ASN1Integer(key.n);
       final publicExponent = ASN1Integer(BigInt.parse('65537'));
-      final privateExponent = ASN1Integer(privateKey.d);
+      final d = privateKey.privateExponent;
+      final privASN1 = ASN1Integer(privateKey.privateExponent);
       final p = ASN1Integer(privateKey.p);
       final q = ASN1Integer(privateKey.q);
-      final dP = privateKey.d % (privateKey.p - BigInt.from(1));
+      final dP = d % (privateKey.p - BigInt.from(1));
       final exp1 = ASN1Integer(dP);
-      final dQ = privateKey.d % (privateKey.q - BigInt.from(1));
+      final dQ = d % (privateKey.q - BigInt.from(1));
       final exp2 = ASN1Integer(dQ);
       final iQ = privateKey.q.modInverse(privateKey.p);
       final co = ASN1Integer(iQ);
@@ -131,7 +132,7 @@ class RsaUtils {
       privateKeySeq.add(version);
       privateKeySeq.add(modulus);
       privateKeySeq.add(publicExponent);
-      privateKeySeq.add(privateExponent);
+      privateKeySeq.add(privASN1);
       privateKeySeq.add(p);
       privateKeySeq.add(q);
       privateKeySeq.add(exp1);

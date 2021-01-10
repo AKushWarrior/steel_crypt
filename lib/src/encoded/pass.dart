@@ -71,11 +71,10 @@ class PassCrypt {
   }
 
   ///Checks hashed password given salt, plaintext, length, and hashedtext.
-  bool check(
-      {@required String plain,
-      @required String hashed,
-      @required String salt,
-      int len = 32}) {
+  bool check({@required String plain,
+    @required String hashed,
+    @required String salt,
+    int len = 32}) {
     var hashplain = hash(salt: salt, inp: plain, len: len);
     return hashplain == hashed;
   }
