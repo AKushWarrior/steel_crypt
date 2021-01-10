@@ -1,5 +1,7 @@
-## 2.3.0
+## 2.3.0 - 2.3.1
 - Change upstream dependency to PointyCastle (instead of "pc_steelcrypt")
+- Fix deprecation issues in RSACrypt
+- Allow latest dependencies
 
 ## 2.2.2 - 2.2.2.+1
 - Bugfix for AES-CFB and AES-OFB

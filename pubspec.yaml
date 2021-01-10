@@ -1,7 +1,7 @@
 name: steel_crypt
 description: A comprehensive library of high-level, cryptographic APIs. This library supports hashing, password hashing,
   two-way encryption, MAC authentication, and key/IV generation.
-version: 2.3.0
+version: 2.3.1
 homepage: https://github.com/AKushWarrior/steel_crypt
 repository: https://github.com/AKushWarrior/steel_crypt
 issue_tracker: https://github.com/AKushWarrior/steel_crypt/issues
