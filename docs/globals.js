@@ -57,7 +57,7 @@ customElements.define('steel-footer', class extends HTMLElement {
         this.innerHTML = "<hr class=\"my-4\">\n" +
             "\n" +
             "    <div class=\"container-fluid text-sm-left text-muted\">\n" +
-            "        <p>©2020 Aditya Kishore</p>\n" +
+            "        <p>©2021 Aditya Kishore</p>\n" +
             "        <p>Licensed under the Mozilla Public License 2.0</p>\n" +
             "        <p>Steel Crypt is a high-level wrapper over PointyCastle.</p>\n" +
             "        <p>Docs built on Bootstrap and served by GitHub.</p>\n" +

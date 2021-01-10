@@ -2,8 +2,8 @@ import 'dart:typed_data';
 
 import 'package:meta/meta.dart';
 
-import 'package:pc_steelcrypt/api.dart';
-import 'package:pc_steelcrypt/export.dart' as exp;
+import 'package:pointycastle/api.dart';
+import 'package:pointycastle/export.dart' as exp;
 
 class Poly1305 {
   KeyParameter _listkey;

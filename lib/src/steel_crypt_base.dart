@@ -2,7 +2,7 @@
 //License, v. 2.0. If a copy of the MPL was not distributed with this
 //file, You can obtain one at https://mozilla.org/MPL/2.0/.
 
-// © 2019 Aditya Kishore
+// © 2021 Aditya Kishore
 
 //Import needed dart packages
 import 'dart:convert';
@@ -15,11 +15,11 @@ import 'package:asn1lib/asn1lib.dart';
 import 'package:meta/meta.dart';
 import 'package:steel_crypt/src/satellites/satellite.dart';
 
-import 'package:pc_steelcrypt/api.dart';
-import 'package:pc_steelcrypt/export.dart';
-import 'package:pc_steelcrypt/macs/poly1305.dart';
-import 'package:pc_steelcrypt/stream/chacha20poly1305.dart';
-import 'package:pc_steelcrypt/stream/chacha7539.dart';
+import 'package:pointycastle/api.dart';
+import 'package:pointycastle/export.dart';
+import 'package:pointycastle/macs/poly1305.dart';
+import 'package:pointycastle/stream/chacha20poly1305.dart';
+import 'package:pointycastle/stream/chacha7539.dart';
 import 'MACs/Poly1305.dart' as poly;
 import 'MACs/cmac.dart';
 import 'MACs/hmac.dart';

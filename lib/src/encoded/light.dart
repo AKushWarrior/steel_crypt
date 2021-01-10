@@ -2,7 +2,7 @@
 //License, v. 2.0. If a copy of the MPL was not distributed with this
 //file, You can obtain one at https://mozilla.org/MPL/2.0/.
 
-// © 2020 Aditya Kishore
+// © 2021 Aditya Kishore
 
 part of '../steel_crypt_base.dart';
 
@@ -45,7 +45,7 @@ class LightCrypt {
     var ivList = base64Decode(iv);
     var params = ParametersWithIV(
         KeyParameter(Uint8List.fromList(localKey.sublist(0, 32))), ivList);
-    machine..init(false, params);
+    machine.init(false, params);
     var inter = machine.process(Uint8List.fromList(localInput));
     return base64.encode(inter);
   }
@@ -63,7 +63,7 @@ class LightCrypt {
     var ivList = base64Decode(iv);
     var params = ParametersWithIV(
         KeyParameter(Uint8List.fromList(localKey.sublist(0, 32))), ivList);
-    machine..init(false, params);
+    machine.init(false, params);
     var inter = machine.process(localInput);
     return utf8.decode(inter);
   }

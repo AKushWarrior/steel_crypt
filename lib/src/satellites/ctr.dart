@@ -11,7 +11,7 @@ class CtrSatellite {
 
     var params = ParametersWithIV(KeyParameter(key), ivBytes);
     var cipher = CTRStreamCipher(AESFastEngine());
-    cipher..init(true, params);
+    cipher.init(true, params);
 
     var inter = cipher.process(utf8.encode(inp) as Uint8List);
     return base64.encode(inter);
@@ -24,7 +24,7 @@ class CtrSatellite {
 
     var params = ParametersWithIV(KeyParameter(key), ivBytes);
     var cipher = CTRStreamCipher(AESFastEngine());
-    cipher..init(false, params);
+    cipher.init(false, params);
 
     var inter = cipher.process(encryptedBytes);
     return utf8.decode(inter);

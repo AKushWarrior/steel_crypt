@@ -20,11 +20,27 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e546f96d-56df-4bc2-a633-1533d678c8ee" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/CHANGELOG.md" beforeDir="false" afterPath="$PROJECT_DIR$/CHANGELOG.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/example/example.dart" beforeDir="false" afterPath="$PROJECT_DIR$/example/example.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/MACs/Poly1305.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/MACs/Poly1305.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/MACs/cmac.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/MACs/cmac.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/MACs/hmac.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/MACs/hmac.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/encoded/chachapoly.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/encoded/chachapoly.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/encoded/light.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/encoded/light.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/src/enum.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/enum.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/src/raw/mac.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/raw/mac.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/raw/chachapoly.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/raw/chachapoly.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/raw/light.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/raw/light.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/satellites/cbc.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/satellites/cbc.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/satellites/cfb.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/satellites/cfb.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/satellites/ctr.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/satellites/ctr.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/satellites/ecb.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/satellites/ecb.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/lib/src/satellites/gcm.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/satellites/gcm.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/satellites/gctr.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/satellites/gctr.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/satellites/ofb.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/satellites/ofb.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/satellites/satellite.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/satellites/satellite.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/steel_crypt_base.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/steel_crypt_base.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.yaml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -51,6 +67,9 @@
     <option name="SET_USER_NAME_GLOBALLY" value="false" />
     <option name="SIGN_OFF_COMMIT" value="true" />
   </component>
+  <component name="MacroExpansionManager">
+    <option name="directoryName" value="pzju8c76" />
+  </component>
   <component name="ProjectId" id="1RWCoAZFWxkURPs3ZWpc1fb4ugg" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true">
     <ConfirmationsSetting value="2" id="Add" />
@@ -76,6 +95,7 @@
     <property name="restartRequiresConfirmation" value="false" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
     <property name="settings.editor.selected.configurable" value="dart.settings" />
+    <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
@@ -124,6 +144,7 @@
       <item itemvalue="Dart Test.Unnamed" />
     </list>
   </component>
+  <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
       <changelist id="e546f96d-56df-4bc2-a633-1533d678c8ee" name="Default Changelist" comment="" />
@@ -196,6 +217,8 @@
       <workItem from="1595389125312" duration="3260000" />
       <workItem from="1595460606664" duration="2102000" />
       <workItem from="1596233295620" duration="2000" />
+      <workItem from="1598074236998" duration="376000" />
+      <workItem from="1610244713510" duration="317000" />
     </task>
     <task id="LOCAL-00001" summary="RC4 Algorithm, maintenance update, cleaner code">
       <created>1569777074344</created>
@@ -278,7 +301,7 @@
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
-    <option name="version" value="2" />
+    <option name="version" value="3" />
   </component>
   <component name="UnknownFeatures">
     <option featureType="com.intellij.fileTypeFactory" implementationName="*.h" />

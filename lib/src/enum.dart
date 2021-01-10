@@ -1,7 +1,7 @@
 // AES Stuff
 
-import 'package:pc_steelcrypt/api.dart';
-import 'package:pc_steelcrypt/macs/hmac.dart';
+import 'package:pointycastle/api.dart';
+import 'package:pointycastle/macs/hmac.dart';
 
 enum PaddingAES { pkcs7, iso78164, none }
 

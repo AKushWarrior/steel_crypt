@@ -4,7 +4,9 @@ A comprehensive library of high-level, cryptographic API's, either manually defi
 This library currently supports hashing, symmetric two-way encryption, and key/IV generation. It also has 
 a CLI, for conducting basic cryptography operations.
 
-This library is a high-level wrapper over https://github.com/bcgit/pc-dart.
+This library is a high-level wrapper over https://github.com/bcgit/pc-dart. It used to contain a fork of PointyCastle
+within it, but since the package came under the ownership of the BouncyCastle organization, the additions to the fork 
+have been added upstream. 
 
 ---
 
@@ -50,5 +52,5 @@ package would have ever had.
 [![License](https://img.shields.io/github/license/AKushWarrior/steel_crypt?color=blue&style=for-the-badge&labelColor=black)](https://www.mozilla.org/en-US/MPL/2.0/)
 [![Commits](https://img.shields.io/github/commit-activity/m/AKushWarrior/steel_crypt?color=blue&style=for-the-badge&labelColor=black)](https://github.com/AKushWarrior/steel_crypt)
 
-###### ©2020 Aditya Kishore
+###### ©2021 Aditya Kishore
 ###### Licensed under the Mozilla Public License 2.0

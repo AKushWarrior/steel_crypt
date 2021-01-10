@@ -1,7 +1,7 @@
 import 'dart:typed_data';
 
-import 'package:pc_steelcrypt/api.dart';
-import 'package:pc_steelcrypt/export.dart';
+import 'package:pointycastle/api.dart';
+import 'package:pointycastle/export.dart';
 
 class CMAC {
   Uint8List _key;
