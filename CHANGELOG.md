@@ -1,4 +1,4 @@
-## 2.3.0 - 2.3.1
+## 2.3.0 - 2.3.1+1
 - Change upstream dependency to PointyCastle (instead of "pc_steelcrypt")
 - Fix deprecation issues in RSACrypt
 - Allow latest dependencies
