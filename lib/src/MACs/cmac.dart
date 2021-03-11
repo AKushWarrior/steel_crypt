@@ -4,14 +4,13 @@ import 'package:pointycastle/api.dart';
 import 'package:pointycastle/export.dart';
 
 class CMAC {
-  Uint8List _key;
+  final Uint8List _key;
 
-  CMAC(Uint8List key) {
+  CMAC(Uint8List key) : _key = key {
     if (key.length != 16) {
       throw ArgumentError(
           'Incorrect key length. Expected: length = 16. Got: length = ${key.length}.');
     }
-    _key = key;
   }
 
   Uint8List process(Uint8List input) {

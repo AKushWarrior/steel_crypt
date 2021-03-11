@@ -4,8 +4,6 @@
 
 // © 2021 Aditya Kishore
 
-// ignore_for_file: unnecessary_getters_setters
-
 part of '../steel_crypt_base.dart';
 
 /// This is an ChaCha20-Poly1305 symmetric encryption machine. Various modes and
@@ -15,14 +13,12 @@ part of '../steel_crypt_base.dart';
 /// base-64 encoded, and returns base64 encoded Strings. Plaintext should be UTF-8.
 /// For more flexibility, ChaChaPolyCryptRaw is recommended.
 class ChaChaPolyCrypt {
-  String _key32;
+  final String _key32;
 
   ///Creates 'Crypt', serves as encrypter/decrypter of text.
   ///
   /// [key] should be base-64 encoded.
-  ChaChaPolyCrypt({@required String key}) {
-    _key32 = key;
-  }
+  ChaChaPolyCrypt({required String key}) : _key32 = key;
 
   ///Encrypts (with iv) and return in base 64.
   ///
@@ -30,14 +26,14 @@ class ChaChaPolyCrypt {
   ///
   /// [aad] is optional, ChaCha20-Poly1305 is secure without it.
   String encrypt(
-      {@required String inp,
-      @required String iv,
-      String aad,
+      {required String inp,
+      required String iv,
+      String? aad,
       int tagLength = 128}) {
     var key = base64Decode(_key32);
     var ivLocal = base64Decode(iv);
     var localInput = utf8.encode(inp);
-    var aadLocal = aad != null ? base64Decode(aad) : null;
+    var aadLocal = aad != null ? base64Decode(aad) : Uint8List(0);
 
     var cipherparams =
         AEADParameters(KeyParameter(key), tagLength, ivLocal, aadLocal);
@@ -56,14 +52,14 @@ class ChaChaPolyCrypt {
   ///
   /// [aad] is optional, ChaCha20-Poly1305 is secure without it.
   String decrypt(
-      {@required String enc,
-      @required String iv,
-      String aad,
+      {required String enc,
+      required String iv,
+      String? aad,
       int tagLength = 128}) {
     var key = base64Decode(_key32);
     var ivLocal = base64Decode(iv);
     var localInput = base64Decode(enc);
-    var aadLocal = aad != null ? base64Decode(aad) : null;
+    var aadLocal = aad != null ? base64Decode(aad) : Uint8List(0);
 
     var cipherparams =
         AEADParameters(KeyParameter(key), tagLength, ivLocal, aadLocal);

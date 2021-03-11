@@ -12,9 +12,9 @@ part of '../steel_crypt_base.dart';
 /// base64, and returns base64 encoded Strings. Plaintext should be UTF-8.
 /// For more flexibility, LightCryptRaw is recommended.
 class LightCrypt {
-  StreamAlgo _type;
-  String _stringType;
-  String _key;
+  final StreamAlgo _type;
+  final String _stringType;
+  final String _key;
 
   ///Get name of this LightCrypt's algorithm.
   StreamAlgo get algorithm {
@@ -27,18 +27,14 @@ class LightCrypt {
   }
 
   ///Construct encryption machine using key and algorithm.
-  LightCrypt({@required StreamAlgo algo, @required String key}) {
-    _type = algo;
-    _key = key;
-    _stringType = stringifyStream(algo);
-  }
+  LightCrypt({required StreamAlgo algo, required String key}) : _type = algo, _key = key, _stringType = stringifyStream(algo);
 
   /// Encrypt (with iv) and return in base 64.
   ///
   /// If you are using ISAAC, pass a blank String as [iv].
   ///
   /// Input should be encoded using UTF-8. IV should be encoded using base64.
-  String encrypt({@required String inp, @required String iv}) {
+  String encrypt({required String inp, required String iv}) {
     var machine = StreamCipher(_stringType);
     var localKey = base64Decode(key);
     var localInput = utf8.encode(inp);
@@ -56,7 +52,7 @@ class LightCrypt {
   ///
   /// [encrypted] and [iv] should be encoded using base64. Encrypted should have
   /// been generated using the parameters specified in [encrypt].
-  String decrypt({@required String enc, @required String iv}) {
+  String decrypt({required String enc, required String iv}) {
     var machine = StreamCipher(_stringType);
     var localKey = base64Decode(key);
     var localInput = base64.decode(enc);

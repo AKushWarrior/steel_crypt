@@ -8,8 +8,8 @@ part of 'steel_crypt_base.dart';
 
 ///Class for creating cryptographically secure strings.
 class CryptKey {
-  SecureRandom rand;
-  Random dart;
+  SecureRandom? rand;
+  Random? dart;
 
   static SecureRandom _getFortunaRandom() {
     var secureRandom = FortunaRandom();
@@ -31,7 +31,7 @@ class CryptKey {
   /// Defaults to length 32 bytes.
   String genFortuna({int len = 32}) {
     rand ??= _getFortunaRandom();
-    var values = rand.nextBytes(len);
+    var values = rand!.nextBytes(len);
     var stringer = base64.encode(values);
     return stringer;
   }
@@ -46,7 +46,7 @@ class CryptKey {
   /// Defaults to length 16.
   String genDart({int len = 16}) {
     dart ??= Random.secure();
-    var bytes = List<int>.generate(len, (i) => dart.nextInt(256));
+    var bytes = List<int>.generate(len, (i) => dart!.nextInt(256));
     return base64.encode(bytes);
   }
 
@@ -60,7 +60,7 @@ class CryptKey {
   /// Defaults to length 32 bytes.
   Uint8List genFortunaRaw({int len = 32}) {
     rand ??= _getFortunaRandom();
-    return rand.nextBytes(len);
+    return rand!.nextBytes(len);
   }
 
   /// Generate cryptographically-secure random string using Dart math.random.
@@ -73,6 +73,6 @@ class CryptKey {
   /// Defaults to length 16 bytes.
   Uint8List genDartRaw({int len = 16}) {
     dart ??= Random.secure();
-    return Uint8List.fromList(List.generate(len, (i) => dart.nextInt(256)));
+    return Uint8List.fromList(List.generate(len, (i) => dart!.nextInt(256)));
   }
 }

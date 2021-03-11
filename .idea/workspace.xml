@@ -20,8 +20,17 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="e546f96d-56df-4bc2-a633-1533d678c8ee" name="Default Changelist" comment="">
+      <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/CHANGELOG.md" beforeDir="false" afterPath="$PROJECT_DIR$/CHANGELOG.md" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/MACs/Poly1305.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/MACs/Poly1305.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/MACs/cmac.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/MACs/cmac.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/MACs/hmac.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/MACs/hmac.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/encoded/aes.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/encoded/aes.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/encoded/chachapoly.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/encoded/chachapoly.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/encoded/hash.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/encoded/hash.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/encoded/light.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/encoded/light.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/encoded/mac.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/encoded/mac.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/encoded/pass.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/encoded/pass.dart" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.yaml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -76,7 +85,8 @@
     <property name="project.structure.side.proportion" value="0.0" />
     <property name="restartRequiresConfirmation" value="false" />
     <property name="run.code.analysis.last.selected.profile" value="pProject Default" />
-    <property name="settings.editor.selected.configurable" value="dart.settings" />
+    <property name="settings.editor.selected.configurable" value="preferences.lookFeel" />
+    <property name="show.migrate.to.gradle.popup" value="false" />
     <property name="vue.rearranger.settings.migration" value="true" />
   </component>
   <component name="RecentsManager">
@@ -201,7 +211,9 @@
       <workItem from="1596233295620" duration="2000" />
       <workItem from="1598074236998" duration="376000" />
       <workItem from="1610244713510" duration="2576000" />
-      <workItem from="1612812606418" duration="1394000" />
+      <workItem from="1612812606418" duration="2047000" />
+      <workItem from="1614316058162" duration="30000" />
+      <workItem from="1615494940422" duration="1986000" />
     </task>
     <task id="LOCAL-00001" summary="RC4 Algorithm, maintenance update, cleaner code">
       <created>1569777074344</created>
@@ -318,5 +330,9 @@
     <option name="LAST_COMMIT_MESSAGE" value="Bug with PBKDF2..." />
     <option name="OPTIMIZE_IMPORTS_BEFORE_PROJECT_COMMIT" value="true" />
     <option name="REFORMAT_BEFORE_PROJECT_COMMIT" value="true" />
+  </component>
+  <component name="XSLT-Support.FileAssociations.UIState">
+    <expand />
+    <select />
   </component>
 </project>

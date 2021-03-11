@@ -11,7 +11,7 @@ part of '../steel_crypt_base.dart';
 /// This version of HashCrypt is encoded, meaning that it expects plaintext to be UTF-8,
 /// and returns base64 encoded Strings. For more flexibility, HashCryptRaw is recommended.
 class HashCrypt {
-  HashAlgo _type;
+  final HashAlgo _type;
 
   ///Get this HashCrypt's hashing algorithm.
   HashAlgo get type {
@@ -19,12 +19,10 @@ class HashCrypt {
   }
 
   ///Construct with type of algorithm
-  HashCrypt({@required algo}) {
-    _type = algo;
-  }
+  HashCrypt({required HashAlgo algo}) : _type = algo;
 
   ///Hash with given input.
-  String hash({@required String inp}) {
+  String hash({required String inp}) {
     var bytes = utf8.encode(inp);
     Digest digest;
     digest = Digest(parseHash(type.toString()));
@@ -33,7 +31,7 @@ class HashCrypt {
   }
 
   ///Check hashed against plain
-  bool check({@required String plain, @required String hashed}) {
+  bool check({required String plain, required String hashed}) {
     var newhash = hash(inp: plain);
     return newhash == hashed;
   }

@@ -11,14 +11,10 @@ part of '../steel_crypt_base.dart';
 /// This version of PassCrypt is encoded, meaning that it expects all keys and IVs to be
 /// base64, and returns base64 encoded Strings. Plaintext should be UTF-8. For more flexibility, PassCryptRaw is recommended.
 class PassCrypt {
-  String _algorithm;
+  final int _algorithm;
   Map<String, int> params;
-  KeyDerivator _keyDerivator;
-  HMac _hmac;
-
-  PassCrypt() {
-    throw UnimplementedError('Use PassCrypt.scrypt() or PassCrypt.pbkdf2()');
-  }
+  final KeyDerivator _keyDerivator;
+  HMac? _hmac;
 
   ///Initialize a Scrypt-based PassCrypt().
   ///
@@ -34,47 +30,44 @@ class PassCrypt {
   /// par is the parallel difficulty. Higher values for p compute more hashes
   /// in the same time, but should only be used if you're cpu-restricted and
   /// can't up the cpu difficulty any further.
-  PassCrypt.scrypt({int cpu = 16384, int mem = 16, int par = 1}) {
-    params = {'N': cpu, 'r': mem, 'p': par};
-    _algorithm = 'S';
-  }
+  PassCrypt.scrypt({int cpu = 16384, int mem = 16, int par = 1})
+      : params = {'N': cpu, 'r': mem, 'p': par},
+        _algorithm = 0,
+        _keyDerivator = Scrypt();
 
   /// Initialize a PBKDF2-based PassCrypt.
   ///
   /// Iterations is the number of hashes that will be performed. This is a typical
   /// time v. security tradeoff.
-  PassCrypt.pbkdf2({int iterations = 10000, @required HmacHash algo}) {
-    params = {'N': iterations};
-    _algorithm = 'P';
-    _hmac = parsePBKDF2(algo);
-  }
+  PassCrypt.pbkdf2({int iterations = 10000, required HmacHash algo})
+      : params = {'N': iterations},
+        _algorithm = 1,
+        _hmac = parsePBKDF2(algo),
+        _keyDerivator = PBKDF2KeyDerivator(parsePBKDF2(algo));
 
-  ///Hashes password given salt, text, and length.
-  String hash({@required String salt, @required String inp, int len = 32}) {
-    if (_algorithm == 'S') {
-      _keyDerivator = Scrypt();
+  /// Hashes password given salt, text, and length.
+  ///
+  /// [salt] should be base64-encoded. This method returns a base-64 encoded
+  /// key.
+  String hash({required String salt, required String inp, int len = 32}) {
+    CipherParameters params;
+    if (_algorithm == 1) {
+      params = Pbkdf2Parameters(base64Decode(salt), this.params['N']!, len);
     } else {
-      _keyDerivator = PBKDF2KeyDerivator(_hmac);
+      params = ScryptParameters(this.params['N']!, this.params['r']!,
+          this.params['p']!, len, base64Decode(salt));
     }
-    var passhash = _keyDerivator;
-    if (_algorithm == 'P') {
-      var params = Pbkdf2Parameters(base64Decode(salt), this.params['N'], len);
-      passhash.init(params);
-    } else {
-      final params = ScryptParameters(this.params['N'], this.params['r'],
-          this.params['p'], len, base64Decode(salt));
-      passhash.init(params);
-    }
+    _keyDerivator.init(params);
     var bytes = utf8.encode(inp) as Uint8List;
     var key = _keyDerivator.process(bytes);
     return base64.encode(key);
   }
 
-  ///Checks hashed password given salt, plaintext, length, and hashedtext.
+  /// Checks hashed password given salt, plaintext, length, and hashedtext.
   bool check(
-      {@required String plain,
-      @required String hashed,
-      @required String salt,
+      {required String plain,
+      required String hashed,
+      required String salt,
       int len = 32}) {
     var hashplain = hash(salt: salt, inp: plain, len: len);
     return hashplain == hashed;

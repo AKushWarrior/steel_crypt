@@ -11,8 +11,6 @@ import 'dart:core' as core;
 import 'dart:math';
 import 'dart:typed_data';
 
-import 'package:asn1lib/asn1lib.dart';
-import 'package:meta/meta.dart';
 import 'package:steel_crypt/src/satellites/satellite.dart';
 
 import 'package:pointycastle/api.dart';
@@ -42,4 +40,3 @@ part 'raw/hash.dart'; //for HashCrypt
 part 'raw/light.dart'; //for LightCrypt
 part 'raw/mac.dart'; //for MacCrypt
 part 'raw/pass.dart'; //for PassCrypt
-part 'rsa.dart'; //for RsaCrypt

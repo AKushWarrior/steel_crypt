@@ -15,17 +15,14 @@ part of '../steel_crypt_base.dart';
 /// For more flexibility, MacCryptRaw is recommended.
 class MacCrypt {
   MacType _type;
-  HmacHash algorithm;
+  HmacHash? algorithm;
   dynamic _mac;
 
-  MacCrypt({@required String key, @required MacType type, this.algorithm}) {
-    _type = type;
-
+  MacCrypt({required String key, required MacType type, this.algorithm}) : _type = type {
     var ukey = base64Decode(key);
 
     if (_type == MacType.HMAC) {
-      assert(algorithm != null);
-      _mac = HMAC(ukey, algorithm);
+      _mac = HMAC(ukey, algorithm!);
     } else if (_type == MacType.Poly1305) {
       _mac = poly.Poly1305(ukey);
     } else {
@@ -33,35 +30,32 @@ class MacCrypt {
     }
   }
 
-  MacCrypt.CMAC({@required String key}) {
+  MacCrypt.CMAC({required String key}) : _type = MacType.CMAC {
     var ukey = base64Decode(key);
-    _type = MacType.CMAC;
     _mac = CMAC(ukey);
   }
 
-  MacCrypt.HMAC({@required String key, @required HmacHash algo}) {
+  MacCrypt.HMAC({required String key, required HmacHash algo}) : _type = MacType.HMAC {
     var ukey = base64Decode(key);
-    _type = MacType.CMAC;
-    _mac = HMAC(ukey, algorithm);
+    _mac = HMAC(ukey, algorithm!);
   }
 
-  MacCrypt.Poly1305({@required String key}) {
+  MacCrypt.Poly1305({required String key}) : _type = MacType.Poly1305 {
     var ukey = base64Decode(key);
-    _type = MacType.Poly1305;
     _mac = poly.Poly1305(ukey);
   }
 
   ///Process and hash string.
-  String process({@required String inp, String iv}) {
+  String process({required String inp, String? iv}) {
     if (_type == MacType.Poly1305) {
       return base64.encode(
-          _mac.process(utf8.encode(inp), iv: base64.decode(iv)) as List<int>);
+          _mac.process(utf8.encode(inp), iv: base64.decode(iv!)) as List<int>);
     }
     return base64.encode(_mac.process(utf8.encode(inp)) as List<int>);
   }
 
   ///Check if plaintext matches previously hashed text
-  bool check({@required String plain, @required String hashed, String iv}) {
+  bool check({required String plain, required String hashed, String? iv}) {
     if (_type == MacType.Poly1305) {
       return _mac.check(utf8.encode(plain), base64.decode(hashed), iv: iv)
           as bool;
