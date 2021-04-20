@@ -6,7 +6,7 @@ class OfbSatellite {
 
   OfbSatellite(this.key, this.padding);
 
-  String encrypt({@required String inp, @required String iv}) {
+  String encrypt({required String inp, required String iv}) {
     var key = base64Decode(this.key);
     var ivBytes = base64Decode(iv);
     dynamic params = (padding == PaddingAES.none)
@@ -21,7 +21,7 @@ class OfbSatellite {
     return base64.encode(inter);
   }
 
-  String decrypt({@required String enc, @required String iv}) {
+  String decrypt({required String enc, required String iv}) {
     var key = base64Decode(this.key);
     var encryptedBytes = base64Decode(enc);
     var ivBytes = base64Decode(iv);
@@ -44,7 +44,7 @@ class OfbSatelliteRaw {
 
   OfbSatelliteRaw(this.key, this.padding);
 
-  Uint8List encrypt({@required Uint8List inp, @required Uint8List iv}) {
+  Uint8List encrypt({required Uint8List inp, required Uint8List iv}) {
     dynamic params = (padding == PaddingAES.none)
         ? ParametersWithIV(KeyParameter(key), iv)
         : PaddedBlockCipherParameters(
@@ -56,7 +56,7 @@ class OfbSatelliteRaw {
     return cipher.process(inp);
   }
 
-  Uint8List decrypt({@required Uint8List enc, @required Uint8List iv}) {
+  Uint8List decrypt({required Uint8List enc, required Uint8List iv}) {
     dynamic params = (padding == PaddingAES.none)
         ? ParametersWithIV(KeyParameter(key), iv)
         : PaddedBlockCipherParameters(

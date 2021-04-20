@@ -6,15 +6,18 @@ class GcmSatellite {
 
   GcmSatellite(this.key, this.padding);
 
-  String encrypt({@required String inp, @required String iv, String aad}) {
+  String encrypt({required String inp, required String iv, String? aad}) {
     var key = base64Decode(this.key);
     var ivBytes = base64Decode(iv);
     var aadBytes = aad == null ? null : base64Decode(aad);
 
     dynamic params = (padding == PaddingAES.none)
-        ? AEADParameters(KeyParameter(key), 128, ivBytes, aadBytes)
+        ? AEADParameters(
+            KeyParameter(key), 128, ivBytes, aadBytes ?? Uint8List(0))
         : PaddedBlockCipherParameters(
-            AEADParameters(KeyParameter(key), 128, ivBytes, aadBytes), null);
+            AEADParameters(
+                KeyParameter(key), 128, ivBytes, aadBytes ?? Uint8List(0)),
+            null);
     var cipher = (padding == PaddingAES.none)
         ? GCMBlockCipher(AESFastEngine())
         : PaddedBlockCipher('AES/GCM/' + parsePadding(padding));
@@ -24,16 +27,19 @@ class GcmSatellite {
     return base64.encode(inter);
   }
 
-  String decrypt({@required String enc, @required String iv, String aad}) {
+  String decrypt({required String enc, required String iv, String? aad}) {
     var key = base64Decode(this.key);
     var encryptedBytes = base64Decode(enc);
     var ivBytes = base64Decode(iv);
     var aadBytes = aad == null ? null : base64Decode(aad);
 
     dynamic params = (padding == PaddingAES.none)
-        ? AEADParameters(KeyParameter(key), 128, ivBytes, aadBytes)
+        ? AEADParameters(
+            KeyParameter(key), 128, ivBytes, aadBytes ?? Uint8List(0))
         : PaddedBlockCipherParameters(
-            AEADParameters(KeyParameter(key), 128, ivBytes, aadBytes), null);
+            AEADParameters(
+                KeyParameter(key), 128, ivBytes, aadBytes ?? Uint8List(0)),
+            null);
     var cipher = (padding == PaddingAES.none)
         ? GCMBlockCipher(AESFastEngine())
         : PaddedBlockCipher('AES/GCM/' + parsePadding(padding));
@@ -51,11 +57,12 @@ class GcmSatelliteRaw {
   GcmSatelliteRaw(this.key, this.padding);
 
   Uint8List encrypt(
-      {@required Uint8List inp, @required Uint8List iv, Uint8List aad}) {
+      {required Uint8List inp, required Uint8List iv, Uint8List? aad}) {
     dynamic params = (padding == PaddingAES.none)
-        ? AEADParameters(KeyParameter(key), 128, iv, aad)
+        ? AEADParameters(KeyParameter(key), 128, iv, aad ?? Uint8List(0))
         : PaddedBlockCipherParameters(
-            AEADParameters(KeyParameter(key), 128, iv, aad), null);
+            AEADParameters(KeyParameter(key), 128, iv, aad ?? Uint8List(0)),
+            null);
     var cipher = (padding == PaddingAES.none)
         ? GCMBlockCipher(AESFastEngine())
         : PaddedBlockCipher('AES/GCM/' + parsePadding(padding));
@@ -65,11 +72,12 @@ class GcmSatelliteRaw {
   }
 
   Uint8List decrypt(
-      {@required Uint8List enc, @required Uint8List iv, Uint8List aad}) {
+      {required Uint8List enc, required Uint8List iv, Uint8List? aad}) {
     dynamic params = (padding == PaddingAES.none)
-        ? AEADParameters(KeyParameter(key), 128, iv, aad)
+        ? AEADParameters(KeyParameter(key), 128, iv, aad ?? Uint8List(0))
         : PaddedBlockCipherParameters(
-            AEADParameters(KeyParameter(key), 128, iv, aad), null);
+            AEADParameters(KeyParameter(key), 128, iv, aad ?? Uint8List(0)),
+            null);
     var cipher = (padding == PaddingAES.none)
         ? GCMBlockCipher(AESFastEngine())
         : BlockCipher('AES/GCM/' + parsePadding(padding));

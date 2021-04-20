@@ -22,16 +22,19 @@
     <list default="true" id="e546f96d-56df-4bc2-a633-1533d678c8ee" name="Default Changelist" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/libraries/Dart_Packages.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/src/MACs/Poly1305.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/MACs/Poly1305.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/src/MACs/cmac.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/MACs/cmac.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/src/MACs/hmac.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/MACs/hmac.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/src/encoded/aes.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/encoded/aes.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/src/encoded/chachapoly.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/encoded/chachapoly.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/src/encoded/hash.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/encoded/hash.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/src/encoded/light.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/encoded/light.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/src/encoded/mac.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/encoded/mac.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/lib/src/encoded/pass.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/encoded/pass.dart" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pubspec.yaml" beforeDir="false" afterPath="$PROJECT_DIR$/pubspec.yaml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/raw/aes.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/raw/aes.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/raw/chachapoly.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/raw/chachapoly.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/raw/hash.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/raw/hash.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/raw/light.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/raw/light.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/raw/mac.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/raw/mac.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/raw/pass.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/raw/pass.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/satellites/cbc.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/satellites/cbc.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/satellites/cfb.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/satellites/cfb.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/satellites/ctr.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/satellites/ctr.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/satellites/ecb.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/satellites/ecb.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/satellites/gcm.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/satellites/gcm.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/satellites/gctr.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/satellites/gctr.dart" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/lib/src/satellites/ofb.dart" beforeDir="false" afterPath="$PROJECT_DIR$/lib/src/satellites/ofb.dart" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -213,7 +216,8 @@
       <workItem from="1610244713510" duration="2576000" />
       <workItem from="1612812606418" duration="2047000" />
       <workItem from="1614316058162" duration="30000" />
-      <workItem from="1615494940422" duration="1986000" />
+      <workItem from="1615494940422" duration="2752000" />
+      <workItem from="1618962210450" duration="313000" />
     </task>
     <task id="LOCAL-00001" summary="RC4 Algorithm, maintenance update, cleaner code">
       <created>1569777074344</created>

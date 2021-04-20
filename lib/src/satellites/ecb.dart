@@ -6,7 +6,7 @@ class EcbSatellite {
 
   EcbSatellite(this.key, this.padding);
 
-  String encrypt({@required String inp}) {
+  String encrypt({required String inp}) {
     var key = base64Decode(this.key);
 
     dynamic params = (padding == PaddingAES.none)
@@ -21,7 +21,7 @@ class EcbSatellite {
     return base64.encode(inter);
   }
 
-  String decrypt({@required String enc}) {
+  String decrypt({required String enc}) {
     var key = base64Decode(this.key);
     var encryptedBytes = base64Decode(enc);
 
@@ -43,7 +43,7 @@ class EcbSatelliteRaw {
 
   EcbSatelliteRaw(this.key, this.padding);
 
-  Uint8List encrypt({@required Uint8List inp}) {
+  Uint8List encrypt({required Uint8List inp}) {
     dynamic params = (padding == PaddingAES.none)
         ? KeyParameter(key)
         : PaddedBlockCipherParameters(KeyParameter(key), null);
@@ -55,7 +55,7 @@ class EcbSatelliteRaw {
     return cipher.process(inp);
   }
 
-  Uint8List decrypt({@required Uint8List enc}) {
+  Uint8List decrypt({required Uint8List enc}) {
     dynamic params = (padding == PaddingAES.none)
         ? KeyParameter(key)
         : PaddedBlockCipherParameters(KeyParameter(key), null);

@@ -14,23 +14,11 @@ part of '../steel_crypt_base.dart';
 /// This version of AesCrypt is raw. It expects keys and IVs to be Uint8List,
 /// and returns Uint8Lists. For more flexibility, [AesCrypt] is recommended.
 class AesCryptRaw {
-  Uint8List _key32;
-  PaddingAES _padding;
-
-  ///Get this AesCrypt's type of padding.
-  PaddingAES get padding {
-    return _padding;
-  }
-
-  set padding(PaddingAES set) {
-    _padding = set;
-  }
+  final Uint8List _key32;
+  PaddingAES padding;
 
   ///Creates 'Crypt', serves as encrypter/decrypter of text.
-  AesCryptRaw({@required PaddingAES padding, @required Uint8List key}) {
-    _key32 = key;
-    _padding = padding;
-  }
+  AesCryptRaw({required this.padding, required Uint8List key}) : _key32 = key;
 
   GcmSatelliteRaw get gcm => GcmSatelliteRaw(_key32, padding);
   CtrSatelliteRaw get ctr => CtrSatelliteRaw(_key32);

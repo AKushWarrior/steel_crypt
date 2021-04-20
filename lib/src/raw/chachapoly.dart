@@ -15,22 +15,19 @@ part of '../steel_crypt_base.dart';
 /// Uint8List, and returns Uint8List. For a higher-level solution, see
 /// [ChaChaPolyCrypt] (not raw).
 class ChaChaPolyCryptRaw {
-  Uint8List _key32;
+  final Uint8List _key32;
 
   ///Creates 'Crypt', serves as encrypter/decrypter of text.
-  ChaChaPolyCryptRaw({@required Uint8List key}) {
-    _key32 = key;
-  }
+  ChaChaPolyCryptRaw({required Uint8List key}) : _key32 = key;
 
   /// Encrypts (with iv).
   ///
   /// [aad] is optional, ChaCha20-Poly1305 is secure without it.
   Uint8List encrypt(
-      {@required Uint8List inp,
-      @required Uint8List iv,
-      Uint8List aad,
+      {required Uint8List inp, required Uint8List iv,
+      Uint8List? aad,
       int tagLength = 128}) {
-    var cipherparams = AEADParameters(KeyParameter(_key32), tagLength, iv, aad);
+    var cipherparams = AEADParameters(KeyParameter(_key32), tagLength, iv, aad ?? Uint8List(0));
     var cipher = ChaCha20Poly1305(ChaCha7539Engine(), Poly1305());
     cipher.init(true, cipherparams);
 
@@ -42,11 +39,11 @@ class ChaChaPolyCryptRaw {
   ///
   /// [aad] is optional, ChaCha20-Poly1305 is secure without it.
   Uint8List decrypt(
-      {@required Uint8List enc,
-      @required Uint8List iv,
-      Uint8List aad,
+      {required Uint8List enc,
+      required Uint8List iv,
+      Uint8List? aad,
       int tagLength = 128}) {
-    var cipherparams = AEADParameters(KeyParameter(_key32), tagLength, iv, aad);
+    var cipherparams = AEADParameters(KeyParameter(_key32), tagLength, iv, aad ?? Uint8List(0));
     var cipher = ChaCha20Poly1305(ChaCha7539Engine(), Poly1305());
     cipher.init(false, cipherparams);
 

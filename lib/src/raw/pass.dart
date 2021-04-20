@@ -12,14 +12,9 @@ part of '../steel_crypt_base.dart';
 /// Uint8List, and returns Uint8Lists. For a higher-level solution, PassCrypt
 /// is recommended.
 class PassCryptRaw {
-  String _algorithm;
-  Map<String, int> params;
-  KeyDerivator _keyDerivator;
-  HMac _hmac;
-
-  PassCryptRaw() {
-    throw UnimplementedError('Use PassCrypt.scrypt() or PassCrypt.pbkdf2()');
-  }
+  int _algorithm;
+  Map<String, int> _params;
+  HMac? _hmac;
 
   ///Initialize a Scrypt-based PassCrypt().
   ///
@@ -35,46 +30,40 @@ class PassCryptRaw {
   /// par is the parallel difficulty. Higher values for p compute more hashes
   /// in the same time, but should only be used if you're cpu-restricted and
   /// can't up the cpu difficulty any further.
-  PassCryptRaw.scrypt({int cpu = 16384, int mem = 16, int par = 1}) {
-    params = {'N': cpu, 'r': mem, 'p': par};
-    _algorithm = 'S';
-  }
+  PassCryptRaw.scrypt({int cpu = 16384, int mem = 16, int par = 1})
+      : _algorithm = 0,
+        _params = {'N': cpu, 'r': mem, 'p': par};
 
   /// Initialize a PBKDF2-based PassCrypt.
   ///
   /// Iterations is the number of hashes that will be performed. This is a typical
   /// time v. security tradeoff.
-  PassCryptRaw.pbkdf2({int iterations = 10000, HmacHash hmac}) {
-    params = {'N': iterations};
-    _algorithm = 'P';
+  PassCryptRaw.pbkdf2({int iterations = 10000, required HmacHash hmac})
+      : _algorithm = 1,
+        _params = {'N': iterations} {
     _hmac = parsePBKDF2(hmac);
   }
 
   ///Hashes password given salt, text, and length.
   Uint8List hash(
-      {@required Uint8List salt, @required Uint8List plain, int len = 32}) {
-    if (_algorithm == 'S') {
-      _keyDerivator = Scrypt();
-    } else {
-      _keyDerivator = PBKDF2KeyDerivator(_hmac);
-    }
-    var passhash = _keyDerivator;
-    if (_algorithm == 'P') {
-      var params = Pbkdf2Parameters(salt, this.params['N'], len);
+      {required Uint8List salt, required Uint8List plain, int len = 32}) {
+    var passhash = _algorithm == 0 ? Scrypt() : PBKDF2KeyDerivator(_hmac!);
+    if (_algorithm == 1) {
+      var params = Pbkdf2Parameters(salt, _params['N']!, len);
       passhash.init(params);
     } else {
       final params = ScryptParameters(
-          this.params['N'], this.params['r'], this.params['p'], len, salt);
+          _params['N']!, _params['r']!, _params['p']!, len, salt);
       passhash.init(params);
     }
-    return _keyDerivator.process(plain);
+    return passhash.process(plain);
   }
 
   ///Checks hashed password given salt, plaintext, length, and hashedtext.
   bool check(
-      {@required Uint8List plain,
-      @required Uint8List hashed,
-      @required Uint8List salt,
+      {required Uint8List plain,
+      required Uint8List hashed,
+      required Uint8List salt,
       int len = 32}) {
     var hashplain = hash(salt: salt, plain: plain, len: len);
     return hashplain == hashed;

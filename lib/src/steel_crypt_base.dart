@@ -22,6 +22,7 @@ import 'MACs/Poly1305.dart' as poly;
 import 'MACs/cmac.dart';
 import 'MACs/hmac.dart';
 import 'enum.dart';
+import 'enum_utils.dart';
 
 export 'enum.dart';
 

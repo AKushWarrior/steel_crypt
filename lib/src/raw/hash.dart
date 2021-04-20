@@ -12,18 +12,13 @@ part of '../steel_crypt_base.dart';
 /// Uint8List, and returns Uint8Lists. For a higher-level solution, [HashCrypt]
 /// is recommended.
 class HashCryptRaw {
-  final HashAlgo _type;
-
-  ///Get this HashCrypt's hashing algorithm.
-  HashAlgo get type {
-    return _type;
-  }
+  final HashAlgo type;
 
   ///Construct with type of algorithm
-  HashCryptRaw(this._type);
+  HashCryptRaw(this.type);
 
   ///Hash with given input.
-  Uint8List hash({@required Uint8List inp}) {
+  Uint8List hash({required Uint8List inp}) {
     Digest digest;
     digest = Digest(parseHash(type.toString()));
     var value = digest.process(inp);
@@ -31,7 +26,7 @@ class HashCryptRaw {
   }
 
   ///Check hashed against plain
-  bool checkhash({@required Uint8List plain, @required Uint8List hashed}) {
+  bool checkhash({required Uint8List plain, required Uint8List hashed}) {
     var newhash = hash(inp: plain);
     return newhash == hashed;
   }
