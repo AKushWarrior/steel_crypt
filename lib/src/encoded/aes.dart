@@ -30,7 +30,9 @@ class AesCrypt {
   ///Creates 'Crypt', serves as encrypter/decrypter of text.
   ///
   /// [key] should be base-64 encoded.
-  AesCrypt({required PaddingAES padding, required String key}) : _key32 = key, _padding = padding;
+  AesCrypt({required PaddingAES padding, required String key})
+      : _key32 = key,
+        _padding = padding;
 
   GcmSatellite get gcm => GcmSatellite(_key32, padding);
   CtrSatellite get ctr => CtrSatellite(_key32);

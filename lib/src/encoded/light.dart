@@ -27,7 +27,10 @@ class LightCrypt {
   }
 
   ///Construct encryption machine using key and algorithm.
-  LightCrypt({required StreamAlgo algo, required String key}) : _type = algo, _key = key, _stringType = stringifyStream(algo);
+  LightCrypt({required StreamAlgo algo, required String key})
+      : _type = algo,
+        _key = key,
+        _stringType = stringifyStream(algo);
 
   /// Encrypt (with iv) and return in base 64.
   ///
