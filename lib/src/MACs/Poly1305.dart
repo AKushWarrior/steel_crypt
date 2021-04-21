@@ -1,7 +1,5 @@
 import 'dart:typed_data';
 
-import 'package:meta/meta.dart';
-
 import 'package:pointycastle/api.dart';
 import 'package:pointycastle/export.dart' as exp;
 

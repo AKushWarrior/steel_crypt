@@ -1,3 +1,6 @@
+# 3.0.0 - 3.0.0+1
+* Port to null-safety
+
 # 2.3.0-2.3.1+6
 * Change upstream dependency to PointyCastle (instead of "pc_steelcrypt")
 * Fix deprecation issues in RSACrypt

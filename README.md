@@ -1,4 +1,4 @@
-# Steel Crypt 2.0. (BETA)
+# Steel Crypt 3.0 (BETA)
 
 A comprehensive library of high-level, cryptographic API's, either manually defined or pulled from PointyCastle.
 This library currently supports hashing, symmetric two-way encryption, and key/IV generation. It also has 
@@ -18,18 +18,19 @@ dollars to help me continue development.
 
 ---
 
-## Note: Beta
+## Null Safety
 
-Please note that this package is in a beta release for 2.X. It may not be production stable in its
-current form. If you want production stability, wait for the full launch of 2.X or use 1.7.1+1.
+This library has been fully ported to null safety. The version 3.0.0 is identical functionally to 2.3.1+6, except for 
+this porting process. There may be some slight variance in the interface, due to parameters becoming required where
+they were formerly "optional" named parameters. 
 
 ---
 
 ## Note: Documentation
 
-These docs have not been fully written yet! Steel Crypt 2.X comes with major changes, and will have a static
+These docs have not been fully written yet! Steel Crypt 3.X comes with major changes, and will have a static
 website on GitHub Pages for documentation. For now, you can take a look at the API reference for more
-information on the beta's classes.
+information on the beta's classes. Each class has fairly extensive documentation.
 
 ---
 
