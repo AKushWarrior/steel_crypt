@@ -18,7 +18,8 @@ class MacCrypt {
   HmacHash? algorithm;
   dynamic _mac;
 
-  MacCrypt({required String key, required MacType type, this.algorithm}) : _type = type {
+  MacCrypt({required String key, required MacType type, this.algorithm})
+      : _type = type {
     var ukey = base64Decode(key);
 
     if (_type == MacType.HMAC) {
@@ -35,7 +36,8 @@ class MacCrypt {
     _mac = CMAC(ukey);
   }
 
-  MacCrypt.HMAC({required String key, required HmacHash algo}) : _type = MacType.HMAC {
+  MacCrypt.HMAC({required String key, required HmacHash algo})
+      : _type = MacType.HMAC {
     var ukey = base64Decode(key);
     _mac = HMAC(ukey, algorithm!);
   }

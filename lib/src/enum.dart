@@ -30,8 +30,6 @@ enum HashAlgo {
   Whirlpool
 }
 
-
-
 // MAC stuff
 
 enum MacType { CMAC, HMAC, Poly1305 }
@@ -61,4 +59,3 @@ enum StreamAlgo {
   chacha20_12,
   chacha20_8,
 }
-
